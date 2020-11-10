@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-10T15:42:51" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-10T17:40:03" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -66,6 +66,12 @@
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
+				<VAR Id="RDK:788" Name="CRM_TradPath" Type="string" Expanded="True">
+					<SET Id="RDK:787" VarRef="Me">
+						<EXP><![CDATA[$C$C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\FUSIONTEST\WEB-INF\classes\project_translations.inc]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
 			</GROUP>
 			<VAR Id="RDK:33" Name="MetaTradTable" Type="MetaTradType[]" Expanded="True" />
 			<VAR Id="RDK:396" Name="MetaTrad" Type="MetaTradType" />
@@ -109,6 +115,7 @@
 				<VAR Id="RDK:441" Name="condFRA" Type="string" />
 				<VAR Id="RDK:447" Name="condDEU" Type="string" />
 			</GROUP>
+			<VAR Id="RDK:789" Name="xml_crm" Type="string" Expanded="True" />
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True" />
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
@@ -463,11 +470,11 @@
 						<PAR Name="SqlStatement">
 							<EXP><![CDATA[$C$CREATE TABLE TRADS (
     IDX INT  PRIMARY KEY ,
-    ITA varchar(512),
-    ENG varchar(512),
-    ESP varchar(512),
-    FRA varchar(512),
-    DEU varchar(512),
+    ITA varchar(1024),
+    ENG varchar(1024),
+    ESP varchar(1024),
+    FRA varchar(1024),
+    DEU varchar(1024),
     UPDATED BIT
 )
 ]]></EXP>
@@ -489,7 +496,7 @@
     IDX int,
     ORIGIN_DB varchar(512),
     ORIGIN_TABLE varchar(512),
-    ORIGIN_ID_0 varchar(512) ,
+    ORIGIN_ID_0 varchar(1024) ,
     ORIGIN_ID_1 varchar(512),
     PRIMARY KEY(IDX, ORIGIN_ID_0, ORIGIN_ID_1, ORIGIN_TABLE, ORIGIN_DB)
 )
@@ -518,7 +525,7 @@
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic" Expanded="True">
+				<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic">
 					<SET_STRUCT Id="RDK:130" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
 						<PAR Name="DB">
 							<EXP><![CDATA[$C$FUSION]]></EXP>
@@ -1099,7 +1106,7 @@
 				</ACTION_CALL>
 			</GROUP>
 			<GROUP Id="RDK:704" Name="GRAPHICAL STUDIO" SubType="Generic" LogDisable="$C$True">
-				<GROUP Id="RDK:747" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<GROUP Id="RDK:747" Name="Locals" SubType="VarSet" IncludeDate="0">
 					<VAR Id="RDK:737" Name="JSONtext" Type="string" />
 					<VAR Id="RDK:738" Name="kvTable" Type="kvType[]" />
 					<VAR Id="RDK:743" Name="kvRow" Type="kvType" />
@@ -1195,7 +1202,7 @@
 								<PAR Name="ExitCondExp">
 									<EXP><![CDATA[$V$]]></EXP>
 								</PAR>
-								<SET_STRUCT Id="RDK:776" VarRef="TradTable[i-1]" ClearAll="True" Options="(REPLACEIDX=(baseIDX+i-1))">
+								<SET_STRUCT Id="RDK:776" VarRef="TradTable[i-1]" ClearAll="True" Options="(REPLACEIDX=(i-1))">
 									<PAR Name="IDX">
 										<EXP><![CDATA[$=$baseIDX+i]]></EXP>
 									</PAR>
@@ -1242,6 +1249,272 @@
 					<EXP><![CDATA[$=$i+baseIDX]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
+				<SET Id="RDK:828" VarRef="TradTable">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:833" VarRef="MetaTradTable">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:838" VarRef="SupportTableTags">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</GROUP>
+			<GROUP Id="RDK:780" Name="CRM" SubType="Generic" Expanded="True" LogDisable="$C$True">
+				<GROUP Id="RDK:793" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
+					<VAR Id="RDK:796" Name="array_xml" Type="string[]" Expanded="True" />
+					<VAR Id="RDK:804" Name="tag" Type="string" Expanded="True" />
+					<VAR Id="RDK:855" Name="value" Type="string" />
+					<VAR Id="RDK:805" Name="j" Type="integer" Expanded="True">
+						<SET Id="RDK:806" VarRef="Me">
+							<EXP><![CDATA[$C$0]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</VAR>
+				</GROUP>
+				<SET Id="RDK:784" VarRef="xml_crm">
+					<EXP><![CDATA[$=$ReadTextFile(CRM_TradPath)]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:795" VarRef="array_xml">
+					<EXP><![CDATA[$=$XmlChildren(xml_crm, "TRANSLATED_STRINGS")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<FOREACHLOOP Id="RDK:803" Expanded="True" ItemVarRef="tag">
+					<PAR Name="ArrayValueExp">
+						<EXP><![CDATA[$V$array_xml]]></EXP>
+					</PAR>
+					<PAR Name="ExitCondExp">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
+						<VAR_COND Id="RDK:349092" Name="Orig_str">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
+						</VAR_COND>
+						<VAR_COND Id="RDK:349093" Name="ITA">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
+						</VAR_COND>
+						<VAR_COND Id="RDK:349094" Name="ENG">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
+						</VAR_COND>
+						<VAR_COND Id="RDK:349095" Name="ESP">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
+						</VAR_COND>
+						<VAR_COND Id="RDK:349096" Name="FRA">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
+						</VAR_COND>
+						<VAR_COND Id="RDK:349097" Name="DEU">
+							<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
+						</VAR_COND>
+						<CHOICE Id="RDK:821" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Orig_str]]></EXP>
+							</VALUECONDITION>
+							<SET Id="RDK:849" VarRef="Trad">
+								<EXP><![CDATA[$C$NOTHING]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<SET Id="RDK:802" VarRef="value">
+								<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<SET Id="RDK:863" VarRef="j">
+								<EXP><![CDATA[$=$j+1]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<SET_STRUCT Id="RDK:876" VarRef="MetaTrad" ClearAll="True" ListRef="MetaTradTable">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$j]]></EXP>
+								</PAR>
+								<PAR Name="ORIGIN_DB">
+									<EXP><![CDATA[$C$CRM]]></EXP>
+								</PAR>
+								<PAR Name="ORIGIN_TABLE">
+									<EXP><![CDATA[$C$XML]]></EXP>
+								</PAR>
+								<PAR Name="ORIGIN_ID_0">
+									<EXP><![CDATA[$=$value]]></EXP>
+								</PAR>
+								<PAR Name="ORIGIN_ID_1" />
+							</SET_STRUCT>
+							<SET_STRUCT Id="RDK:887" VarRef="Trad" ClearAll="True" ListRef="TradTable">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$baseIDX+j]]></EXP>
+								</PAR>
+								<PAR Name="ITA" />
+								<PAR Name="ENG" />
+								<PAR Name="ESP" />
+								<PAR Name="FRA" />
+								<PAR Name="DEU" />
+							</SET_STRUCT>
+						</CHOICE>
+						<CHOICE Id="RDK:918" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$ITA]]></EXP>
+							</VALUECONDITION>
+							<SET_STRUCT Id="RDK:989" VarRef="TradTable[j-1]" ClearAll="True" Options="(REPLACEIDX=(j-1))">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$TradTable[j-1].IDX]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$=$TradTable[j-1].ENG]]></EXP>
+								</PAR>
+								<PAR Name="ESP">
+									<EXP><![CDATA[$=$TradTable[j-1].ESP]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$=$TradTable[j-1].FRA]]></EXP>
+								</PAR>
+								<PAR Name="DEU">
+									<EXP><![CDATA[$=$TradTable[j-1].DEU]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+						</CHOICE>
+						<CHOICE Id="RDK:1086" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$ENG]]></EXP>
+							</VALUECONDITION>
+							<SET_STRUCT Id="RDK:1085" VarRef="TradTable[j-1]" ClearAll="True" Options="(REPLACEIDX=(j-1))">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$TradTable[j-1].IDX]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$=$TradTable[j-1].ITA]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								</PAR>
+								<PAR Name="ESP">
+									<EXP><![CDATA[$=$TradTable[j-1].ESP]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$=$TradTable[j-1].FRA]]></EXP>
+								</PAR>
+								<PAR Name="DEU">
+									<EXP><![CDATA[$=$TradTable[j-1].DEU]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+						</CHOICE>
+						<CHOICE Id="RDK:1117" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$ESP]]></EXP>
+							</VALUECONDITION>
+							<SET_STRUCT Id="RDK:1116" VarRef="TradTable[j-1]" ClearAll="True" Options="(REPLACEIDX=(j-1))">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$TradTable[j-1].IDX]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$=$TradTable[j-1].ITA]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$=$TradTable[j-1].ENG]]></EXP>
+								</PAR>
+								<PAR Name="ESP">
+									<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$=$TradTable[j-1].FRA]]></EXP>
+								</PAR>
+								<PAR Name="DEU">
+									<EXP><![CDATA[$=$TradTable[j-1].DEU]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+						</CHOICE>
+						<CHOICE Id="RDK:1148" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$FRA]]></EXP>
+							</VALUECONDITION>
+							<SET_STRUCT Id="RDK:1147" VarRef="TradTable[j-1]" ClearAll="True" Options="(REPLACEIDX=(j-1))">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$TradTable[j-1].IDX]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$=$TradTable[j-1].ITA]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$=$TradTable[j-1].ENG]]></EXP>
+								</PAR>
+								<PAR Name="ESP">
+									<EXP><![CDATA[$=$TradTable[j-1].ESP]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								</PAR>
+								<PAR Name="DEU">
+									<EXP><![CDATA[$=$TradTable[j-1].DEU]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+						</CHOICE>
+						<CHOICE Id="RDK:1179" Name="Choice" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$DEU]]></EXP>
+							</VALUECONDITION>
+							<SET_STRUCT Id="RDK:1178" VarRef="TradTable[j-1]" ClearAll="True" Options="(REPLACEIDX=(j-1))">
+								<PAR Name="IDX">
+									<EXP><![CDATA[$=$TradTable[j-1].IDX]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$=$TradTable[j-1].ITA]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$=$TradTable[j-1].ENG]]></EXP>
+								</PAR>
+								<PAR Name="ESP">
+									<EXP><![CDATA[$=$TradTable[j-1].ESP]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$=$TradTable[j-1].FRA]]></EXP>
+								</PAR>
+								<PAR Name="DEU">
+									<EXP><![CDATA[$=$XmlText(tag)]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+						</CHOICE>
+					</NODE>
+				</FOREACHLOOP>
+				<ACTION_CALL Id="RDK:873" Name="RDEngineering_DBInsert">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$LocalDB]]></EXP>
+					</PAR>
+					<PAR Name="InsertTable">
+						<EXP><![CDATA[$C$METATRADS]]></EXP>
+					</PAR>
+					<PAR Name="InsertQueryType">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SingleRow" />
+					<PAR Name="ListOfRows">
+						<EXP><![CDATA[$=$MetaTradTable]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+				<ACTION_CALL Id="RDK:1403" Name="RDEngineering_DBInsert">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$LocalDB]]></EXP>
+					</PAR>
+					<PAR Name="InsertTable">
+						<EXP><![CDATA[$C$TRADS]]></EXP>
+					</PAR>
+					<PAR Name="InsertQueryType">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SingleRow" />
+					<PAR Name="ListOfRows">
+						<EXP><![CDATA[$=$TradTable]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
 			</GROUP>
 			<ACTION_CALL Id="RDK:270" Name="RDEngineering_DBClose">
 				<PAR Name="RDLibraryName">
