@@ -85,9 +85,12 @@ Public Class RDCompiledProcess
 		ConnStr_FUSION = "Provider=sqloledb;Initial Catalog=FusionTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;"
 		ConnStr_LOCAL = "Provider=sqloledb;Initial Catalog=MBKOffline;Data Source=LAPT-IT07\RULEDESIGNER;User Id=sa;Password=MBOffline$;"
 		ConnStr_PDM = "Provider=sqloledb;Initial Catalog=PDMTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;"
+		GS_TradPath = "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\Editor2D\ModulBlokLibrary\shapes"
+		CRM_TradPath = "\\192.168.0.27\FonteDatiPDMtest\Updates\3_Livello_TEST\mb_project_translations.inc"
 		Languages = EvalConstant(Languages.GetType, "LIST { ""ITA"",""ENG"",""ESP"",""FRA"",""DEU"" }")
 		_language = " "
 		afterSelect = " "
+		j = 0
 
 
         'CALL TO MAIN PROCESS
@@ -104,7 +107,7 @@ Public Class RDCompiledProcess
 		Call FOREACHLOOP_K_317()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'If Param.Input[1] ="dm_folder_001" is True
+		'If Param.Input.TableName="dm_folder_001" is True
 		Call IFTHENELSE_K_554()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
@@ -137,12 +140,12 @@ Public Class RDCompiledProcess
 		'Insert DB Structured
 		_CurrentNode = "RDK:341"		'ACTION RDEngineering_DBInsert
 		Dim ActionArgs_K_341 as New Generic.list(of object)
-		ActionArgs_K_341.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_341.Add(EvalExpression("ConnectionName_K_341")) 'ConnectionName IN
 		ActionArgs_K_341.Add("TRADS") 'InsertTable IN
 		ActionArgs_K_341.Add(1) 'InsertQueryType IN
 		ActionArgs_K_341.Add(Nothing) 'SingleRow IN
 		ActionArgs_K_341.Add(EvalExpression("ListOfRows_K_341")) 'ListOfRows IN
-		ActionArgs_K_341.Add(Nothing) 'Options IN
+		ActionArgs_K_341.Add("(NOERRORS)") 'Options IN
 		Dim _ActionArgs_K_341 As object() = ActionArgs_K_341.ToArray
 		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_341,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
@@ -181,7 +184,7 @@ exit_function:
 	next_foreach:
 		_language = Values_RDK_317(Index_RDK_317)
 		
-		'Set afterSelect = afterSelect + Param.Input[4]+_language + " AS "+_language 
+		'Set afterSelect = afterSelect + Param.Input.Fields+_language + " AS "+_language 
 		_CurrentNode = "RDK:321"
 		afterSelect = EvalExpression("Set_afterSelect_K_321")
 		
@@ -220,7 +223,7 @@ exec_group:
 		
 	End Sub
 
-	'If Param.Input[1] ="dm_folder_001" is True
+	'If Param.Input.TableName="dm_folder_001" is True
 	Private Sub IFTHENELSE_K_554()
 		_CurrentNode = "RDK:554"
 		'Group Conditions
@@ -229,29 +232,29 @@ exec_group:
 '----------------------------------------------------
 		if _GroupExecute then
 		    'Call THEN group
-			'If Param.Input[1] ="dm_folder_001" is True
+			'If Param.Input.TableName="dm_folder_001" is True
 			Call THENGROUP_K_553()
 
 		else
-			'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input[1]  + " WHERE DMTYPE='C' "
+			'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName+ " WHERE DMTYPE='C' AND DMDESCRI_ITA<>'PR... (157 chars)
 			Call ELSEGROUP_K_557()
 
 		End if
 	End Sub
 
-	'If Param.Input[1] ="dm_folder_001" is True
+	'If Param.Input.TableName="dm_folder_001" is True
 	Private Sub THENGROUP_K_553()
 		_CurrentNode = "RDK:553"
-		'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input[1]  + " WHERE DMTYPE='C' "
+		'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName+ " WHERE DMTYPE='C' AND DMDESCRI_ITA<>'PR... (157 chars)
 		_CurrentNode = "RDK:552"
 		queryTrads = EvalExpression("Set_queryTrads_K_552")
 		
 	End Sub
 
-	'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input[1]  + " WHERE DMTYPE='C' "
+	'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName+ " WHERE DMTYPE='C' AND DMDESCRI_ITA<>'PR... (157 chars)
 	Private Sub ELSEGROUP_K_557()
 		_CurrentNode = "RDK:557"
-		'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input[1]  
+		'Set queryTrads = "SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName
 		_CurrentNode = "RDK:76"
 		queryTrads = EvalExpression("Set_queryTrads_K_76")
 		
@@ -291,11 +294,11 @@ exec_group:
 	next_foreach:
 		Trad = Values_RDK_359(Index_RDK_359)
 		
-		'Set queryFindTags = "SELECT DISTINCT "+Param.Input[2] + " AS ORIGIN_ID_0"
+		'Set queryFindTags = "SELECT DISTINCT "+Param.Input.ID+ " AS ORIGIN_ID_0"
 		_CurrentNode = "RDK:361"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_361")
 		
-		'If StrLength(Param.Input[3])=0 is False
+		'If StrLength(Param.Input.ID2)=0 is False
 		Call IFTHENELSE_K_362()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
@@ -325,7 +328,7 @@ exec_group:
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
 
-		'Set queryFindTags = queryFindTags + " FROM "+Param.Input[1] + " WHERE "+condITA+" AND "+condENG+" AND "+condESP+" AND "+... (143 chars)
+		'Set queryFindTags = queryFindTags + " FROM "+Param.Input.TableName + " WHERE "+condITA+" AND "+condENG+" AND "+condESP+"... (150 chars)
 		_CurrentNode = "RDK:372"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_372")
 		
@@ -365,7 +368,7 @@ exec_group:
 		goto next_foreach
 	End Sub
 
-	'If StrLength(Param.Input[3])=0 is False
+	'If StrLength(Param.Input.ID2)=0 is False
 	Private Sub IFTHENELSE_K_362()
 		_CurrentNode = "RDK:362"
 		'Group Conditions
@@ -374,16 +377,16 @@ exec_group:
 '----------------------------------------------------
 		if _GroupExecute then
 		    'Call THEN group
-			'If StrLength(Param.Input[3])=0 is False
+			'If StrLength(Param.Input.ID2)=0 is False
 			Call THENGROUP_K_363()
 
 		End if
 	End Sub
 
-	'If StrLength(Param.Input[3])=0 is False
+	'If StrLength(Param.Input.ID2)=0 is False
 	Private Sub THENGROUP_K_363()
 		_CurrentNode = "RDK:363"
-		'Set queryFindTags = queryFindTags + ", "+Param.Input[3] + " AS ORIGIN_ID_1"
+		'Set queryFindTags = queryFindTags + ", "+Param.Input.ID2+ " AS ORIGIN_ID_1"
 		_CurrentNode = "RDK:370"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_370")
 		
@@ -402,7 +405,7 @@ exec_group:
 			Call THENGROUP_K_427()
 
 		else
-			'Set condITA = Param.Input[4] +"ITA IS NULL"
+			'Set condITA = Param.Input.Fields+"ITA IS NULL"
 			Call ELSEGROUP_K_428()
 
 		End if
@@ -411,16 +414,16 @@ exec_group:
 	'If StrLength(Trad.ITA)=0 is True
 	Private Sub THENGROUP_K_427()
 		_CurrentNode = "RDK:427"
-		'Set condITA = Param.Input[4] +"ITA IS NULL"
+		'Set condITA = Param.Input.Fields+"ITA IS NULL"
 		_CurrentNode = "RDK:435"
 		condITA = EvalExpression("Set_condITA_K_435")
 		
 	End Sub
 
-	'Set condITA = Param.Input[4] +"ITA IS NULL"
+	'Set condITA = Param.Input.Fields+"ITA IS NULL"
 	Private Sub ELSEGROUP_K_428()
 		_CurrentNode = "RDK:428"
-		'Set condITA = Param.Input[4]+"ITA='"+StrSqlWC(Trad.ITA)+"'"
+		'Set condITA = Param.Input.Fields+"ITA='"+StrSqlWC(Trad.ITA)+"'"
 		_CurrentNode = "RDK:437"
 		condITA = EvalExpression("Set_condITA_K_437")
 		
@@ -439,7 +442,7 @@ exec_group:
 			Call THENGROUP_K_464()
 
 		else
-			'Set condENG = Param.Input[4] +"ENG IS NULL"
+			'Set condENG = Param.Input.Fields +"ENG IS NULL"
 			Call ELSEGROUP_K_466()
 
 		End if
@@ -448,16 +451,16 @@ exec_group:
 	'If StrLength(Trad.ENG)=0 is True
 	Private Sub THENGROUP_K_464()
 		_CurrentNode = "RDK:464"
-		'Set condENG = Param.Input[4] +"ENG IS NULL"
+		'Set condENG = Param.Input.Fields +"ENG IS NULL"
 		_CurrentNode = "RDK:463"
 		condENG = EvalExpression("Set_condENG_K_463")
 		
 	End Sub
 
-	'Set condENG = Param.Input[4] +"ENG IS NULL"
+	'Set condENG = Param.Input.Fields +"ENG IS NULL"
 	Private Sub ELSEGROUP_K_466()
 		_CurrentNode = "RDK:466"
-		'Set condENg = Param.Input[4]+"ENG='"+StrSqlWC(Trad.ENG)+"'"
+		'Set condENg = Param.Input.Fields+"ENG='"+StrSqlWC(Trad.ENG)+"'"
 		_CurrentNode = "RDK:465"
 		condENg = EvalExpression("Set_condENg_K_465")
 		
@@ -476,7 +479,7 @@ exec_group:
 			Call THENGROUP_K_486()
 
 		else
-			'Set condESP = Param.Input[4] +"ESP IS NULL"
+			'Set condESP = Param.Input.Fields +"ESP IS NULL"
 			Call ELSEGROUP_K_488()
 
 		End if
@@ -485,16 +488,16 @@ exec_group:
 	'If StrLength(Trad.ESP)=0 is True
 	Private Sub THENGROUP_K_486()
 		_CurrentNode = "RDK:486"
-		'Set condESP = Param.Input[4] +"ESP IS NULL"
+		'Set condESP = Param.Input.Fields +"ESP IS NULL"
 		_CurrentNode = "RDK:485"
 		condESP = EvalExpression("Set_condESP_K_485")
 		
 	End Sub
 
-	'Set condESP = Param.Input[4] +"ESP IS NULL"
+	'Set condESP = Param.Input.Fields +"ESP IS NULL"
 	Private Sub ELSEGROUP_K_488()
 		_CurrentNode = "RDK:488"
-		'Set condESP = Param.Input[4]+"ESP='"+StrSqlWC(Trad.ESP)+"'"
+		'Set condESP = Param.Input.Fields+"ESP='"+StrSqlWC(Trad.ESP)+"'"
 		_CurrentNode = "RDK:487"
 		condESP = EvalExpression("Set_condESP_K_487")
 		
@@ -513,7 +516,7 @@ exec_group:
 			Call THENGROUP_K_502()
 
 		else
-			'Set condFRA = Param.Input[4] +"FRA IS NULL"
+			'Set condFRA = Param.Input.Fields+"FRA IS NULL"
 			Call ELSEGROUP_K_504()
 
 		End if
@@ -522,16 +525,16 @@ exec_group:
 	'If StrLength(Trad.FRA)=0 is True
 	Private Sub THENGROUP_K_502()
 		_CurrentNode = "RDK:502"
-		'Set condFRA = Param.Input[4] +"FRA IS NULL"
+		'Set condFRA = Param.Input.Fields+"FRA IS NULL"
 		_CurrentNode = "RDK:501"
 		condFRA = EvalExpression("Set_condFRA_K_501")
 		
 	End Sub
 
-	'Set condFRA = Param.Input[4] +"FRA IS NULL"
+	'Set condFRA = Param.Input.Fields+"FRA IS NULL"
 	Private Sub ELSEGROUP_K_504()
 		_CurrentNode = "RDK:504"
-		'Set condFRA = Param.Input[4]+"FRA='"+StrSqlWC(Trad.FRA)+"'"
+		'Set condFRA = Param.Input.Fields+"FRA='"+StrSqlWC(Trad.FRA)+"'"
 		_CurrentNode = "RDK:503"
 		condFRA = EvalExpression("Set_condFRA_K_503")
 		
@@ -550,7 +553,7 @@ exec_group:
 			Call THENGROUP_K_520()
 
 		else
-			'Set condDEU = Param.Input[4] +"DEU IS NULL"
+			'Set condDEU = Param.Input.Fields +"DEU IS NULL"
 			Call ELSEGROUP_K_522()
 
 		End if
@@ -559,16 +562,16 @@ exec_group:
 	'If StrLength(Trad.DEU)=0 is True
 	Private Sub THENGROUP_K_520()
 		_CurrentNode = "RDK:520"
-		'Set condDEU = Param.Input[4] +"DEU IS NULL"
+		'Set condDEU = Param.Input.Fields +"DEU IS NULL"
 		_CurrentNode = "RDK:519"
 		condDEU = EvalExpression("Set_condDEU_K_519")
 		
 	End Sub
 
-	'Set condDEU = Param.Input[4] +"DEU IS NULL"
+	'Set condDEU = Param.Input.Fields +"DEU IS NULL"
 	Private Sub ELSEGROUP_K_522()
 		_CurrentNode = "RDK:522"
-		'Set condDEU = Param.Input[4]+"DEU='"+StrSqlWC(Trad.DEU)+"'"
+		'Set condDEU = Param.Input.Fields+"DEU='"+StrSqlWC(Trad.DEU)+"'"
 		_CurrentNode = "RDK:521"
 		condDEU = EvalExpression("Set_condDEU_K_521")
 		
@@ -609,15 +612,6 @@ exec_group:
 		Call INIT_K_28()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-		'Close DB Connection
-		_CurrentNode = "RDK:270"		'ACTION RDEngineering_DBClose
-		Dim ActionArgs_K_270 as New Generic.list(of object)
-		ActionArgs_K_270.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_270.Add(0) 'Transaction IN
-		Dim _ActionArgs_K_270 As object() = ActionArgs_K_270.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBClose",_ActionArgs_K_270)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 	End Sub
 
 	'INIT (Reimpimento tabella traduzioni)
@@ -627,18 +621,23 @@ exec_group:
 		Call LocalDB_K_248()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-		'FUSION *LOG_DISABLED
-		Call FUSION_K_30()
+		'GRAPHICAL STUDIO *LOG_DISABLED
+		Call GRAPHICAL_STUDIO_K_704()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-		'CONFIGURATOR *LOG_DISABLED
-		Call CONFIGURATOR_K_569()
+		'CRM *LOG_DISABLED
+		Call CRM_K_780()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-		'PDM *LOG_DISABLED
-		Call PDM_K_613()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
-
+		'Close DB Connection
+		_CurrentNode = "RDK:270"		'ACTION RDEngineering_DBClose
+		Dim ActionArgs_K_270 as New Generic.list(of object)
+		ActionArgs_K_270.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_270.Add(0) 'Transaction IN
+		Dim _ActionArgs_K_270 As object() = ActionArgs_K_270.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBClose",_ActionArgs_K_270)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	End Sub
 
 	'LocalDB
@@ -668,7 +667,7 @@ exec_group:
 		_CurrentNode = "RDK:266"		'ACTION RDEngineering_DBExecuteStatement
 		Dim ActionArgs_K_266 as New Generic.list(of object)
 		ActionArgs_K_266.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_266.Add(EvalConstant(GetType(string),"CREATE TABLE TRADS (ç§    IDX INT  PRIMARY KEY ,ç§    ITA varchar(512),ç§    ENG varchar(512),ç§    ESP varchar(512),ç§    FRA varchar(512),ç§    DEU varchar(512)ç§)ç§")) 'SqlStatement IN
+		ActionArgs_K_266.Add(EvalConstant(GetType(string),"IF NOT EXISTS (SELECT * ç§           FROM INFORMATION_SCHEMA.TABLES ç§           WHERE TABLE_TYPE='BASE TABLE' ç§           AND TABLE_NAME='TRADS') ç§   CREATE TABLE TRADS (ç§    IDX INT  PRIMARY KEY ,ç§    ITA varchar(1024),ç§    ENG varchar(1024),ç§    ESP varchar(1024),ç§    FRA varchar(1024),ç§    DEU varchar(1024),ç§    UPDATED BITç§)")) 'SqlStatement IN
 		ActionArgs_K_266.Add(Nothing) 'StatementResult OUT
 		ActionArgs_K_266.Add(Nothing) 'Options IN
 		Dim _ActionArgs_K_266 As object() = ActionArgs_K_266.ToArray
@@ -679,7 +678,7 @@ exec_group:
 		_CurrentNode = "RDK:269"		'ACTION RDEngineering_DBExecuteStatement
 		Dim ActionArgs_K_269 as New Generic.list(of object)
 		ActionArgs_K_269.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_269.Add(EvalConstant(GetType(string),"CREATE TABLE METATRADS (ç§    IDX int,ç§    ORIGIN_DB varchar(512),ç§    ORIGIN_TABLE varchar(512),ç§    ORIGIN_ID_0 varchar(512) ,ç§    ORIGIN_ID_1 varchar(512),ç§    PRIMARY KEY(IDX, ORIGIN_ID_0, ORIGIN_ID_1, ORIGIN_TABLE, ORIGIN_DB)ç§)ç§")) 'SqlStatement IN
+		ActionArgs_K_269.Add(EvalConstant(GetType(string),"IF NOT EXISTS (SELECT * ç§           FROM INFORMATION_SCHEMA.TABLES ç§           WHERE TABLE_TYPE='BASE TABLE' ç§           AND TABLE_NAME='METATRADS') ç§CREATE TABLE METATRADS (ç§    IDX int,ç§    ORIGIN_DB varchar(512),ç§    ORIGIN_TABLE varchar(512),ç§    ORIGIN_ID_0 varchar(1024) ,ç§    ORIGIN_ID_1 varchar(512),ç§    PRIMARY KEY(IDX, ORIGIN_ID_0, ORIGIN_ID_1, ORIGIN_TABLE, ORIGIN_DB)ç§)ç§")) 'SqlStatement IN
 		ActionArgs_K_269.Add(Nothing) 'StatementResult OUT
 		ActionArgs_K_269.Add(Nothing) 'Options IN
 		Dim _ActionArgs_K_269 As object() = ActionArgs_K_269.ToArray
@@ -688,582 +687,387 @@ exec_group:
 		
 	End Sub
 
-	'FUSION *LOG_DISABLED
-	Private Sub FUSION_K_30()
-		_CurrentNode = "RDK:30"
-		'Open DB Connection
-		_CurrentNode = "RDK:36"		'ACTION RDEngineering_DBOpen
-		Dim ActionArgs_K_36 as New Generic.list(of object)
-		ActionArgs_K_36.Add("DB_FUSION") 'ConnectionName IN
-		ActionArgs_K_36.Add(EvalExpression("ConnectionString_K_36")) 'ConnectionString IN
-		ActionArgs_K_36.Add(1) 'Transaction IN
-		ActionArgs_K_36.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_36 As object() = ActionArgs_K_36.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBOpen",_ActionArgs_K_36)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'PrepareInfoTables
-		Call PrepareInfoTables_K_94()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
-
-		'FOREACH FusionTableKeys IN FusionInfoTables BYREF
-		Call FOREACHLOOP_K_108()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
-
-	End Sub
-
-	'PrepareInfoTables
-	Private Sub PrepareInfoTables_K_94()
-		_CurrentNode = "RDK:94"
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|ba_activitytype|ATTYPEID||ATDESCRI_
-		_CurrentNode = "RDK:130"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "ba_activitytype"
-			.ID = "ATTYPEID"
-			.Fields = "ATDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|ba_properties|PRCODEID||PRDESCRI_
-		_CurrentNode = "RDK:97"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "ba_properties"
-			.ID = "PRCODEID"
-			.Fields = "PRDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|ba_prop_value|PVPROPID|CPROWNUM|PVDESCRI_
-		_CurrentNode = "RDK:100"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "ba_prop_value"
-			.ID = "PVPROPID"
-			.ID2 = "CPROWNUM"
-			.Fields = "PVDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|ba_activity_category|ACCATID||ACDESCRI_
-		_CurrentNode = "RDK:133"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "ba_activity_category"
-			.ID = "ACCATID"
-			.Fields = "ACDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|wo_state|STCODEID||STDESCRI_
-		_CurrentNode = "RDK:142"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "wo_state"
-			.ID = "STCODEID"
-			.Fields = "STDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|wo_state|STCODEID||STNAME_
-		_CurrentNode = "RDK:561"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "wo_state"
-			.ID = "STCODEID"
-			.Fields = "STNAME_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|pr_item|ITITEMID||ITDESCRI_
-		_CurrentNode = "RDK:144"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "pr_item"
-			.ID = "ITITEMID"
-			.Fields = "ITDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|pr_type|PTTYPEID||PTDESCRI_
-		_CurrentNode = "RDK:146"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "pr_type"
-			.ID = "PTTYPEID"
-			.Fields = "PTDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|dm_class|CDCLASSID||CDDESCRI_
-		_CurrentNode = "RDK:148"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "dm_class"
-			.ID = "CDCLASSID"
-			.Fields = "CDDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|dm_folder_001|DMCODEID||DMDESCRI_
-		_CurrentNode = "RDK:150"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "dm_folder_001"
-			.ID = "DMCODEID"
-			.Fields = "DMDESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|ba_source|SOID||SODESCRI_
-		_CurrentNode = "RDK:151"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "ba_source"
-			.ID = "SOID"
-			.Fields = "SODESCRI_"
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-	End Sub
-
-	'FOREACH FusionTableKeys IN FusionInfoTables BYREF
-	Private Sub FOREACHLOOP_K_108()
-		_CurrentNode = "RDK:108"
-		Dim Values_RDK_108 as object = FusionInfoTables
-		Dim Index_RDK_108 as integer
-		Dim MaxCount_RDK_108 as integer = CompilerUtil.Count(Values_RDK_108)
-		If MaxCount_RDK_108 <= 0 then return
-		Index_RDK_108 = 0
-	next_foreach:
-		FusionTableKeys = Values_RDK_108(Index_RDK_108)
-		
-		'Call ExtractFromDB (FusionTableKeys)
-		_CurrentNode = "RDK:75"
-		Dim InputParam_K_75 = EvalExpression("InputParam_K_75")
-		Dim ResultParam_K_75 = Nothing
-		Dim OptionParam_K_75 = ""
-		CompilerUtil.PushFunctionParams(InputParam_K_75,ResultParam_K_75,OptionParam_K_75)
-		Call ExtractFromDB()		'FUNCTION CALL
-	next_iteration:
-		Index_RDK_108 += 1
-		If Index_RDK_108 >= MaxCount_RDK_108 then return
-		goto next_foreach
-	End Sub
-
-	'CONFIGURATOR *LOG_DISABLED
-	Private Sub CONFIGURATOR_K_569()
-		_CurrentNode = "RDK:569"
-		'SetStruct FusionInfoTables <-- FusionTableKeys = FUSION|LANGUAGE|TAG||""
-		_CurrentNode = "RDK:581"
-		FusionTableKeys = new FusionTableKeysType
-		With FusionTableKeys
-			.DB = "FUSION"
-			.TableName = "LANGUAGE"
-			.ID = "TAG"
-			.Fields = EvalExpression("Fields_K_581")
-		End With
-		FusionInfoTables.Add(FusionTableKeys)
-		
-		'Call ExtractFromDB (FusionTableKeys)
-		_CurrentNode = "RDK:589"
-		Dim InputParam_K_589 = EvalExpression("InputParam_K_589")
-		Dim ResultParam_K_589 = Nothing
-		Dim OptionParam_K_589 = ""
-		CompilerUtil.PushFunctionParams(InputParam_K_589,ResultParam_K_589,OptionParam_K_589)
-		Call ExtractFromDB()		'FUNCTION CALL
-		'Close DB Connection
-		_CurrentNode = "RDK:592"		'ACTION RDEngineering_DBClose
-		Dim ActionArgs_K_592 as New Generic.list(of object)
-		ActionArgs_K_592.Add("DB_FUSION") 'ConnectionName IN
-		ActionArgs_K_592.Add(2) 'Transaction IN
-		Dim _ActionArgs_K_592 As object() = ActionArgs_K_592.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBClose",_ActionArgs_K_592)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-	End Sub
-
-	'PDM *LOG_DISABLED
-	Private Sub PDM_K_613()
-		_CurrentNode = "RDK:613"
-		'Open DB Connection
-		_CurrentNode = "RDK:625"		'ACTION RDEngineering_DBOpen
-		Dim ActionArgs_K_625 as New Generic.list(of object)
-		ActionArgs_K_625.Add("DB_PDM") 'ConnectionName IN
-		ActionArgs_K_625.Add(EvalExpression("ConnectionString_K_625")) 'ConnectionString IN
-		ActionArgs_K_625.Add(1) 'Transaction IN
-		ActionArgs_K_625.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_625 As object() = ActionArgs_K_625.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBOpen",_ActionArgs_K_625)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'CASE cpID in ('328', '329')
-		Call CASE_cpID_in___328____329___K_656()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
-
-		'CASE cpID in ('497', '489', '459', '370', '222', '223', '220', '91' )
-		Call CASE_cpID_in___497____489____459____370____222____223____220____91____K_691()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
-
-		'Close DB Connection
-		_CurrentNode = "RDK:627"		'ACTION RDEngineering_DBClose
-		Dim ActionArgs_K_627 as New Generic.list(of object)
-		ActionArgs_K_627.Add("DB_PDM") 'ConnectionName IN
-		ActionArgs_K_627.Add(2) 'Transaction IN
-		Dim _ActionArgs_K_627 As object() = ActionArgs_K_627.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBClose",_ActionArgs_K_627)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-	End Sub
-
-	'CASE cpID in ('328', '329')
-	Private Sub CASE_cpID_in___328____329___K_656()
-		_CurrentNode = "RDK:656"
-		'Select DB Structured
-		_CurrentNode = "RDK:628"		'ACTION RDEngineering_DBSelectStructured
-		Dim ActionArgs_K_628 as New Generic.list(of object)
-		ActionArgs_K_628.Add("DB_PDM") 'ConnectionName IN
-		ActionArgs_K_628.Add(1) 'SelectQueryMode IN
-		ActionArgs_K_628.Add(Nothing) 'SelectTable IN
-		ActionArgs_K_628.Add(Nothing) 'SelectFieldName IN
-		ActionArgs_K_628.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_628.Add("SELECT cvalValore as ITA, cvalTrans1 as ENG, cvalTrans4 as ESP, cvalTrans2 as FRA, cvalTrans3 as DEU FROM CODVAL WHERE cpID in ('328', '329' )") 'SelectQuery IN
-		ActionArgs_K_628.Add(2) 'SelectQueryType IN
-		ActionArgs_K_628.Add(Nothing) 'FirstRow OUT
-		ActionArgs_K_628.Add(TradTable) 'AllRows OUT
-		ActionArgs_K_628.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_628 As object() = ActionArgs_K_628.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_628,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		TradTable = _ActionArgs_K_628(8)		'OUT
-		
-		'FOREACH Trad IN TradTable BYREF
-		Call FOREACHLOOP_K_632()
+	'GRAPHICAL STUDIO *LOG_DISABLED
+	Private Sub GRAPHICAL_STUDIO_K_704()
+		_CurrentNode = "RDK:704"
+		'FOREACH _language IN Languages BYREF
+		Call FOREACHLOOP_K_722()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
 		'Insert DB Structured
-		_CurrentNode = "RDK:634"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_634 as New Generic.list(of object)
-		ActionArgs_K_634.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_634.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_634.Add(1) 'InsertQueryType IN
-		ActionArgs_K_634.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_634.Add(EvalExpression("ListOfRows_K_634")) 'ListOfRows IN
-		ActionArgs_K_634.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_634 As object() = ActionArgs_K_634.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_634,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
+		_CurrentNode = "RDK:767"		'ACTION RDEngineering_DBInsert
+		Dim ActionArgs_K_767 as New Generic.list(of object)
+		ActionArgs_K_767.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_767.Add("TRADS") 'InsertTable IN
+		ActionArgs_K_767.Add(1) 'InsertQueryType IN
+		ActionArgs_K_767.Add(Nothing) 'SingleRow IN
+		ActionArgs_K_767.Add(EvalExpression("ListOfRows_K_767")) 'ListOfRows IN
+		ActionArgs_K_767.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_767 As object() = ActionArgs_K_767.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_767,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
-		'Set baseIDX = i+baseIDX
-		_CurrentNode = "RDK:636"
-		baseIDX = EvalExpression("Set_baseIDX_K_636")
+		'Set baseIDX = baseIDX+i
+		_CurrentNode = "RDK:778"
+		baseIDX = EvalExpression("Set_baseIDX_K_778")
 		
-		'FOREACH Trad IN TradTable BYREF
-		Call FOREACHLOOP_K_638()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
-
 		'Set TradTable = NOTHING
-		_CurrentNode = "RDK:654"
+		_CurrentNode = "RDK:828"
 		TradTable = CompilerUtil.CreateInstanceByType(TradTable.GetType)
+		
+		'Set MetaTradTable = NOTHING
+		_CurrentNode = "RDK:833"
+		MetaTradTable = CompilerUtil.CreateInstanceByType(MetaTradTable.GetType)
+		
+		'Set SupportTableTags = NOTHING
+		_CurrentNode = "RDK:838"
+		SupportTableTags = CompilerUtil.CreateInstanceByType(SupportTableTags.GetType)
 		
 	End Sub
 
-	'FOREACH Trad IN TradTable BYREF
-	Private Sub FOREACHLOOP_K_632()
-		_CurrentNode = "RDK:632"
-		Dim Values_RDK_632 as object = TradTable
-		Dim Index_RDK_632 as integer
-		Dim MaxCount_RDK_632 as integer = CompilerUtil.Count(Values_RDK_632)
-		If MaxCount_RDK_632 <= 0 then return
-		Index_RDK_632 = 0
+	'FOREACH _language IN Languages BYREF
+	Private Sub FOREACHLOOP_K_722()
+		_CurrentNode = "RDK:722"
+		Dim Values_RDK_722 as object = EvalExpression("ForEachValues_K_722")
+		Dim Index_RDK_722 as integer
+		Dim MaxCount_RDK_722 as integer = CompilerUtil.Count(Values_RDK_722)
+		If MaxCount_RDK_722 <= 0 then return
+		Index_RDK_722 = 0
+	next_foreach:
+		_language = Values_RDK_722(Index_RDK_722)
+		
+		'Set JSONtext = ReadTextFile(GS_TradPath+"\language_"+_language+".txt")
+		_CurrentNode = "RDK:752"
+		JSONtext = EvalExpression("Set_JSONtext_K_752")
+		
+		'Set kvTable = FromJSON(JSONtext, "(HASH)(KEYVALUE)")
+		_CurrentNode = "RDK:753"
+		kvTable = EvalExpression("Set_kvTable_K_753")
+		
+		'If _language="ITA" is True
+		Call IFTHENELSE_K_756()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
+
+	next_iteration:
+		Index_RDK_722 += 1
+		If Index_RDK_722 >= MaxCount_RDK_722 then return
+		goto next_foreach
+	End Sub
+
+	'If _language="ITA" is True
+	Private Sub IFTHENELSE_K_756()
+		_CurrentNode = "RDK:756"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_756")
+exec_group:
+'----------------------------------------------------
+		if _GroupExecute then
+		    'Call THEN group
+			'If _language="ITA" is True
+			Call THENGROUP_K_757()
+
+		else
+			'Insert DB Structured
+			Call ELSEGROUP_K_774()
+
+		End if
+	End Sub
+
+	'If _language="ITA" is True
+	Private Sub THENGROUP_K_757()
+		_CurrentNode = "RDK:757"
+		'FOREACH kvRow IN kvTable
+		Call FOREACHLOOP_K_764()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
+
+		'Insert DB Structured
+		_CurrentNode = "RDK:765"		'ACTION RDEngineering_DBInsert
+		Dim ActionArgs_K_765 as New Generic.list(of object)
+		ActionArgs_K_765.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_765.Add("METATRADS") 'InsertTable IN
+		ActionArgs_K_765.Add(1) 'InsertQueryType IN
+		ActionArgs_K_765.Add(Nothing) 'SingleRow IN
+		ActionArgs_K_765.Add(EvalExpression("ListOfRows_K_765")) 'ListOfRows IN
+		ActionArgs_K_765.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_765 As object() = ActionArgs_K_765.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_765,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
+	End Sub
+
+	'FOREACH kvRow IN kvTable
+	Private Sub FOREACHLOOP_K_764()
+		_CurrentNode = "RDK:764"
+		Dim Values_RDK_764 as object = kvTable
+		Dim Index_RDK_764 as integer
+		Dim MaxCount_RDK_764 as integer = CompilerUtil.Count(Values_RDK_764)
+		If MaxCount_RDK_764 <= 0 then return
+		Index_RDK_764 = 0
 		i = 1
 	next_foreach:
-		Trad = Values_RDK_632(Index_RDK_632)
+		kvRow = CompilerUtil.Clone(Values_RDK_764(Index_RDK_764))
 		
-		'Set TradTable[i-1].IDX = i+baseIDX
-		_CurrentNode = "RDK:631"
-		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_631")
+		'SetStruct MetaTradTable <-- MetaTrad = baseIDX+i|GRAPHICAL STUDIO|JSON FILES|kvRow.key
+		_CurrentNode = "RDK:763"
+		MetaTrad = new MetaTradType
+		With MetaTrad
+			.IDX = EvalExpression("IDX_K_763")
+			.ORIGIN_DB = "GRAPHICAL STUDIO"
+			.ORIGIN_TABLE = "JSON FILES"
+			.ORIGIN_ID_0 = EvalExpression("ORIGIN_ID_0_K_763")
+		End With
+		MetaTradTable.Add(MetaTrad)
+		
+		'SetStruct TradTable <-- Trad = baseIDX+i|iif(_language="ITA",kvRow.value,Trad.ITA)
+		_CurrentNode = "RDK:755"
+		Trad = new TradType
+		With Trad
+			.IDX = EvalExpression("IDX_K_755")
+			.ITA = EvalExpression("ITA_K_755")
+		End With
+		TradTable.Add(Trad)
 		
 	next_iteration:
-		Index_RDK_632 += 1
-		If Index_RDK_632 >= MaxCount_RDK_632 then return
+		Index_RDK_764 += 1
+		If Index_RDK_764 >= MaxCount_RDK_764 then return
 		i += 1
 		goto next_foreach
 	End Sub
 
-	'FOREACH Trad IN TradTable BYREF
-	Private Sub FOREACHLOOP_K_638()
-		_CurrentNode = "RDK:638"
-		Dim Values_RDK_638 as object = TradTable
-		Dim Index_RDK_638 as integer
-		Dim MaxCount_RDK_638 as integer = CompilerUtil.Count(Values_RDK_638)
-		If MaxCount_RDK_638 <= 0 then return
-		Index_RDK_638 = 0
-	next_foreach:
-		Trad = Values_RDK_638(Index_RDK_638)
-		
-		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('328', '329' ) AND cvalVa... (310 chars)
-		_CurrentNode = "RDK:640"
-		queryFindTags = EvalExpression("Set_queryFindTags_K_640")
-		
-		'Select DB Structured
-		_CurrentNode = "RDK:642"		'ACTION RDEngineering_DBSelectStructured
-		Dim ActionArgs_K_642 as New Generic.list(of object)
-		ActionArgs_K_642.Add(EvalExpression("ConnectionName_K_642")) 'ConnectionName IN
-		ActionArgs_K_642.Add(1) 'SelectQueryMode IN
-		ActionArgs_K_642.Add(Nothing) 'SelectTable IN
-		ActionArgs_K_642.Add(Nothing) 'SelectFieldName IN
-		ActionArgs_K_642.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_642.Add(EvalExpression("SelectQuery_K_642")) 'SelectQuery IN
-		ActionArgs_K_642.Add(2) 'SelectQueryType IN
-		ActionArgs_K_642.Add(Nothing) 'FirstRow OUT
-		ActionArgs_K_642.Add(SupportTableTags) 'AllRows OUT
-		ActionArgs_K_642.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_642 As object() = ActionArgs_K_642.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_642,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		SupportTableTags = _ActionArgs_K_642(8)		'OUT
-		
-		'FOREACH SupportRowTags IN SupportTableTags BYREF
-		Call FOREACHLOOP_K_646()
+	'Insert DB Structured
+	Private Sub ELSEGROUP_K_774()
+		_CurrentNode = "RDK:774"
+		'FOREACH kvRow IN kvTable
+		Call FOREACHLOOP_K_754()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:648"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_648 as New Generic.list(of object)
-		ActionArgs_K_648.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_648.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_648.Add(1) 'InsertQueryType IN
-		ActionArgs_K_648.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_648.Add(EvalExpression("ListOfRows_K_648")) 'ListOfRows IN
-		ActionArgs_K_648.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_648 As object() = ActionArgs_K_648.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_648,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'Set SupportTableTags = NOTHING
-		_CurrentNode = "RDK:650"
-		SupportTableTags = CompilerUtil.CreateInstanceByType(SupportTableTags.GetType)
-		
-		'Set MetaTradTable = NOTHING
-		_CurrentNode = "RDK:652"
-		MetaTradTable = CompilerUtil.CreateInstanceByType(MetaTradTable.GetType)
-		
-	next_iteration:
-		Index_RDK_638 += 1
-		If Index_RDK_638 >= MaxCount_RDK_638 then return
-		goto next_foreach
 	End Sub
 
-	'FOREACH SupportRowTags IN SupportTableTags BYREF
-	Private Sub FOREACHLOOP_K_646()
-		_CurrentNode = "RDK:646"
-		Dim Values_RDK_646 as object = SupportTableTags
-		Dim Index_RDK_646 as integer
-		Dim MaxCount_RDK_646 as integer = CompilerUtil.Count(Values_RDK_646)
-		If MaxCount_RDK_646 <= 0 then return
-		Index_RDK_646 = 0
-	next_foreach:
-		SupportRowTags = Values_RDK_646(Index_RDK_646)
-		
-		'SetStruct MetaTradTable <-- MetaTrad = Trad.IDX|PDM|CODVAL|SupportRowTags.ORIGIN_ID_0
-		_CurrentNode = "RDK:645"
-		MetaTrad = new MetaTradType
-		With MetaTrad
-			.IDX = EvalExpression("IDX_K_645")
-			.ORIGIN_DB = "PDM"
-			.ORIGIN_TABLE = "CODVAL"
-			.ORIGIN_ID_0 = EvalExpression("ORIGIN_ID_0_K_645")
-		End With
-		MetaTradTable.Add(MetaTrad)
-		
-	next_iteration:
-		Index_RDK_646 += 1
-		If Index_RDK_646 >= MaxCount_RDK_646 then return
-		goto next_foreach
-	End Sub
-
-	'CASE cpID in ('497', '489', '459', '370', '222', '223', '220', '91' )
-	Private Sub CASE_cpID_in___497____489____459____370____222____223____220____91____K_691()
-		_CurrentNode = "RDK:691"
-		'Select DB Structured
-		_CurrentNode = "RDK:677"		'ACTION RDEngineering_DBSelectStructured
-		Dim ActionArgs_K_677 as New Generic.list(of object)
-		ActionArgs_K_677.Add("DB_PDM") 'ConnectionName IN
-		ActionArgs_K_677.Add(1) 'SelectQueryMode IN
-		ActionArgs_K_677.Add(Nothing) 'SelectTable IN
-		ActionArgs_K_677.Add(Nothing) 'SelectFieldName IN
-		ActionArgs_K_677.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_677.Add("SELECT  cvalTrans2 as ITA, cvalTrans3 as ENG, '' as ESP, cvalTrans4 as FRA,  cvalTrans5 as DEU FROM CODVAL WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91' )") 'SelectQuery IN
-		ActionArgs_K_677.Add(2) 'SelectQueryType IN
-		ActionArgs_K_677.Add(Nothing) 'FirstRow OUT
-		ActionArgs_K_677.Add(TradTable) 'AllRows OUT
-		ActionArgs_K_677.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_677 As object() = ActionArgs_K_677.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_677,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		TradTable = _ActionArgs_K_677(8)		'OUT
-		
-		'FOREACH Trad IN TradTable BYREF
-		Call FOREACHLOOP_K_679()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
-
-		'Insert DB Structured
-		_CurrentNode = "RDK:680"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_680 as New Generic.list(of object)
-		ActionArgs_K_680.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_680.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_680.Add(1) 'InsertQueryType IN
-		ActionArgs_K_680.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_680.Add(EvalExpression("ListOfRows_K_680")) 'ListOfRows IN
-		ActionArgs_K_680.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_680 As object() = ActionArgs_K_680.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_680,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'Set baseIDX = i+baseIDX
-		_CurrentNode = "RDK:681"
-		baseIDX = EvalExpression("Set_baseIDX_K_681")
-		
-		'FOREACH Trad IN TradTable BYREF
-		Call FOREACHLOOP_K_690()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
-
-		'Set TradTable = NOTHING
-		_CurrentNode = "RDK:689"
-		TradTable = CompilerUtil.CreateInstanceByType(TradTable.GetType)
-		
-	End Sub
-
-	'FOREACH Trad IN TradTable BYREF
-	Private Sub FOREACHLOOP_K_679()
-		_CurrentNode = "RDK:679"
-		Dim Values_RDK_679 as object = TradTable
-		Dim Index_RDK_679 as integer
-		Dim MaxCount_RDK_679 as integer = CompilerUtil.Count(Values_RDK_679)
-		If MaxCount_RDK_679 <= 0 then return
-		Index_RDK_679 = 0
+	'FOREACH kvRow IN kvTable
+	Private Sub FOREACHLOOP_K_754()
+		_CurrentNode = "RDK:754"
+		Dim Values_RDK_754 as object = kvTable
+		Dim Index_RDK_754 as integer
+		Dim MaxCount_RDK_754 as integer = CompilerUtil.Count(Values_RDK_754)
+		If MaxCount_RDK_754 <= 0 then return
+		Index_RDK_754 = 0
 		i = 1
 	next_foreach:
-		Trad = Values_RDK_679(Index_RDK_679)
+		kvRow = CompilerUtil.Clone(Values_RDK_754(Index_RDK_754))
 		
-		'Set TradTable[i-1].IDX = i+baseIDX
-		_CurrentNode = "RDK:678"
-		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_678")
-		
-		'Set TradTable[i-1].ESP = N/D
-		_CurrentNode = "RDK:695"
-		TradTable(i-1).ESP = EvalConstant(CompilerUtil.GetFieldType(TradTable(i-1),"ESP"), "N/D")
+		'SetStruct TradTable[i-1] = TradTable[i-1].IDX|TradTable[i-1].ITA|iif(_language="ENG",kvRow.value,TradTable[i-1].ENG)|iif... (272 chars)
+		_CurrentNode = "RDK:776"
+		TradTable(i-1) = new Generic.List(Of TradType)
+		With TradTable(i-1)
+		End With
 		
 	next_iteration:
-		Index_RDK_679 += 1
-		If Index_RDK_679 >= MaxCount_RDK_679 then return
+		Index_RDK_754 += 1
+		If Index_RDK_754 >= MaxCount_RDK_754 then return
 		i += 1
 		goto next_foreach
 	End Sub
 
-	'FOREACH Trad IN TradTable BYREF
-	Private Sub FOREACHLOOP_K_690()
-		_CurrentNode = "RDK:690"
-		Dim Values_RDK_690 as object = TradTable
-		Dim Index_RDK_690 as integer
-		Dim MaxCount_RDK_690 as integer = CompilerUtil.Count(Values_RDK_690)
-		If MaxCount_RDK_690 <= 0 then return
-		Index_RDK_690 = 0
-	next_foreach:
-		Trad = Values_RDK_690(Index_RDK_690)
+	'CRM *LOG_DISABLED
+	Private Sub CRM_K_780()
+		_CurrentNode = "RDK:780"
+		'Set xml_crm = StrReplace(ReadTextFile(CRM_TradPath), "-->", "--><TRANSLATED_STRINGS>")+"</TRANSLATED_STRINGS>"
+		_CurrentNode = "RDK:784"
+		xml_crm = EvalExpression("Set_xml_crm_K_784")
 		
-		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('497', '489', '459', '370... (310 chars)
-		_CurrentNode = "RDK:682"
-		queryFindTags = EvalExpression("Set_queryFindTags_K_682")
+		'Set array_xml = XmlChildren(xml_crm, "TRANSLATED_STRINGS")
+		_CurrentNode = "RDK:795"
+		array_xml = EvalExpression("Set_array_xml_K_795")
 		
-		'Select DB Structured
-		_CurrentNode = "RDK:683"		'ACTION RDEngineering_DBSelectStructured
-		Dim ActionArgs_K_683 as New Generic.list(of object)
-		ActionArgs_K_683.Add(EvalExpression("ConnectionName_K_683")) 'ConnectionName IN
-		ActionArgs_K_683.Add(1) 'SelectQueryMode IN
-		ActionArgs_K_683.Add(Nothing) 'SelectTable IN
-		ActionArgs_K_683.Add(Nothing) 'SelectFieldName IN
-		ActionArgs_K_683.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_683.Add(EvalExpression("SelectQuery_K_683")) 'SelectQuery IN
-		ActionArgs_K_683.Add(2) 'SelectQueryType IN
-		ActionArgs_K_683.Add(Nothing) 'FirstRow OUT
-		ActionArgs_K_683.Add(SupportTableTags) 'AllRows OUT
-		ActionArgs_K_683.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_683 As object() = ActionArgs_K_683.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_683,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		SupportTableTags = _ActionArgs_K_683(8)		'OUT
-		
-		'FOREACH SupportRowTags IN SupportTableTags BYREF
-		Call FOREACHLOOP_K_685()
+		'FOREACH tag IN array_xml
+		Call FOREACHLOOP_K_803()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
 		'Insert DB Structured
-		_CurrentNode = "RDK:686"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_686 as New Generic.list(of object)
-		ActionArgs_K_686.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_686.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_686.Add(1) 'InsertQueryType IN
-		ActionArgs_K_686.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_686.Add(EvalExpression("ListOfRows_K_686")) 'ListOfRows IN
-		ActionArgs_K_686.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_686 As object() = ActionArgs_K_686.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_686,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
+		_CurrentNode = "RDK:873"		'ACTION RDEngineering_DBInsert
+		Dim ActionArgs_K_873 as New Generic.list(of object)
+		ActionArgs_K_873.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_873.Add("METATRADS") 'InsertTable IN
+		ActionArgs_K_873.Add(1) 'InsertQueryType IN
+		ActionArgs_K_873.Add(Nothing) 'SingleRow IN
+		ActionArgs_K_873.Add(EvalExpression("ListOfRows_K_873")) 'ListOfRows IN
+		ActionArgs_K_873.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_873 As object() = ActionArgs_K_873.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_873,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
-		'Set SupportTableTags = NOTHING
-		_CurrentNode = "RDK:687"
-		SupportTableTags = CompilerUtil.CreateInstanceByType(SupportTableTags.GetType)
+		'Insert DB Structured
+		_CurrentNode = "RDK:1403"		'ACTION RDEngineering_DBInsert
+		Dim ActionArgs_K_1403 as New Generic.list(of object)
+		ActionArgs_K_1403.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_1403.Add("TRADS") 'InsertTable IN
+		ActionArgs_K_1403.Add(1) 'InsertQueryType IN
+		ActionArgs_K_1403.Add(Nothing) 'SingleRow IN
+		ActionArgs_K_1403.Add(EvalExpression("ListOfRows_K_1403")) 'ListOfRows IN
+		ActionArgs_K_1403.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_1403 As object() = ActionArgs_K_1403.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_1403,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
-		'Set MetaTradTable = NOTHING
-		_CurrentNode = "RDK:688"
-		MetaTradTable = CompilerUtil.CreateInstanceByType(MetaTradTable.GetType)
+	End Sub
+
+	'FOREACH tag IN array_xml
+	Private Sub FOREACHLOOP_K_803()
+		_CurrentNode = "RDK:803"
+		Dim Values_RDK_803 as object = array_xml
+		Dim Index_RDK_803 as integer
+		Dim MaxCount_RDK_803 as integer = CompilerUtil.Count(Values_RDK_803)
+		If MaxCount_RDK_803 <= 0 then return
+		Index_RDK_803 = 0
+	next_foreach:
+		tag = CompilerUtil.Clone(Values_RDK_803(Index_RDK_803))
 		
+		'TAG TYPE
+		Call CONDITIONALNODE_K_807()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
+		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
+
 	next_iteration:
-		Index_RDK_690 += 1
-		If Index_RDK_690 >= MaxCount_RDK_690 then return
+		Index_RDK_803 += 1
+		If Index_RDK_803 >= MaxCount_RDK_803 then return
 		goto next_foreach
 	End Sub
 
-	'FOREACH SupportRowTags IN SupportTableTags BYREF
-	Private Sub FOREACHLOOP_K_685()
-		_CurrentNode = "RDK:685"
-		Dim Values_RDK_685 as object = SupportTableTags
-		Dim Index_RDK_685 as integer
-		Dim MaxCount_RDK_685 as integer = CompilerUtil.Count(Values_RDK_685)
-		If MaxCount_RDK_685 <= 0 then return
-		Index_RDK_685 = 0
-	next_foreach:
-		SupportRowTags = Values_RDK_685(Index_RDK_685)
+	'TAG TYPE
+	Private Sub CONDITIONALNODE_K_807()
+		_CurrentNode = "RDK:807"
+		Dim _ChoiceTaken as boolean = false
 		
-		'SetStruct MetaTradTable <-- MetaTrad = Trad.IDX|PDM|CODVAL|SupportRowTags.ORIGIN_ID_0
-		_CurrentNode = "RDK:684"
+		'---------- START NODE CONDITIONS 
+		Orig_str = EvalExpression("NODE_Orig_str_K_807")
+		ITA = EvalExpression("NODE_ITA_K_807")
+		ENG = EvalExpression("NODE_ENG_K_807")
+		ESP = EvalExpression("NODE_ESP_K_807")
+		FRA = EvalExpression("NODE_FRA_K_807")
+		DEU = EvalExpression("NODE_DEU_K_807")
+		'---------- END CONDITIONAL NODE
+		'Choice: Orig_str is True
+		Call CHOICE_K_821(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'Choice: ITA is True
+		Call CHOICE_K_918(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'Choice: ENG is True
+		Call CHOICE_K_1086(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'Choice: ESP is True
+		Call CHOICE_K_1117(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'Choice: FRA is True
+		Call CHOICE_K_1148(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'Choice: DEU is True
+		Call CHOICE_K_1179(_ChoiceTaken)
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'Choice: Orig_str is True
+	Private Sub CHOICE_K_821(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:821"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_821")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
+		'Set Trad = NOTHING
+		_CurrentNode = "RDK:849"
+		Trad = CompilerUtil.CreateInstanceByType(Trad.GetType)
+		
+		'Set value = XmlText(tag)
+		_CurrentNode = "RDK:802"
+		value = EvalExpression("Set_value_K_802")
+		
+		'Set j = j+1
+		_CurrentNode = "RDK:863"
+		j = EvalExpression("Set_j_K_863")
+		
+		'SetStruct MetaTradTable <-- MetaTrad = j+baseIDX|CRM|XML|value
+		_CurrentNode = "RDK:876"
 		MetaTrad = new MetaTradType
 		With MetaTrad
-			.IDX = EvalExpression("IDX_K_684")
-			.ORIGIN_DB = "PDM"
-			.ORIGIN_TABLE = "CODVAL"
-			.ORIGIN_ID_0 = EvalExpression("ORIGIN_ID_0_K_684")
+			.IDX = EvalExpression("IDX_K_876")
+			.ORIGIN_DB = "CRM"
+			.ORIGIN_TABLE = "XML"
+			.ORIGIN_ID_0 = EvalExpression("ORIGIN_ID_0_K_876")
 		End With
 		MetaTradTable.Add(MetaTrad)
 		
-	next_iteration:
-		Index_RDK_685 += 1
-		If Index_RDK_685 >= MaxCount_RDK_685 then return
-		goto next_foreach
+		'SetStruct TradTable <-- Trad = baseIDX+j
+		_CurrentNode = "RDK:887"
+		Trad = new TradType
+		With Trad
+			.IDX = EvalExpression("IDX_K_887")
+		End With
+		TradTable.Add(Trad)
+		
+	End Sub
+
+	'Choice: ITA is True
+	Private Sub CHOICE_K_918(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:918"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_918")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
+	End Sub
+
+	'Choice: ENG is True
+	Private Sub CHOICE_K_1086(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:1086"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_1086")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
+	End Sub
+
+	'Choice: ESP is True
+	Private Sub CHOICE_K_1117(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:1117"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_1117")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
+	End Sub
+
+	'Choice: FRA is True
+	Private Sub CHOICE_K_1148(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:1148"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_1148")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
+	End Sub
+
+	'Choice: DEU is True
+	Private Sub CHOICE_K_1179(ByRef _ChoiceTaken As Boolean)
+		_CurrentNode = "RDK:1179"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_1179")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		_ChoiceTaken = True
 	End Sub
 
 

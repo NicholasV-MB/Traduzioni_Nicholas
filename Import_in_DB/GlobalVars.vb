@@ -44,6 +44,11 @@ Public Class SupportRowTagsType
 		Public [ORIGIN_ID_1] As string
 End Class
 
+Public Class kvType
+		Public [key] As string
+		Public [value] As string
+End Class
+
 
 
 #End Region
@@ -53,6 +58,8 @@ End Class
 	Public [ConnStr_FUSION] As string
 	Public [ConnStr_LOCAL] As string
 	Public [ConnStr_PDM] As string
+	Public [GS_TradPath] As string
+	Public [CRM_TradPath] As string
 	Public [MetaTradTable] As New Generic.List(Of MetaTradType)
 	Public [MetaTrad] As New MetaTradType
 	Public [TradTable] As New Generic.List(Of TradType)
@@ -74,6 +81,20 @@ End Class
 	Public [condESP] As string
 	Public [condFRA] As string
 	Public [condDEU] As string
+	Public [xml_crm] As string
+	Public [JSONtext] As string
+	Public [kvTable] As New Generic.List(Of kvType)
+	Public [kvRow] As New kvType
+	Public [array_xml] As New Generic.List(Of string)
+	Public [tag] As string
+	Public [value] As string
+	Public [j] As integer
+	Public [Orig_str] As boolean
+	Public [ITA] As boolean
+	Public [ENG] As boolean
+	Public [ESP] As boolean
+	Public [FRA] As boolean
+	Public [DEU] As boolean
 
 
 #End Region

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PROCESS Id="RDK:0001" Name="merge_update_xml" Expanded="True">
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T14:24:53" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-11T15:25:53" LanguageVersion="2011.1.1.0" />
+	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
+		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True" />
+		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
+		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
+			<GROUP Id="RDK:24" Name="file locations" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<VAR Id="RDK:12" Name="origin_file" Type="string" Expanded="True">
+					<SET Id="RDK:18" VarRef="Me">
+						<EXP><![CDATA[$C$C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\FUSIONTEST\WEB-INF\classes\project_translations_origin.inc]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+				<VAR Id="RDK:14" Name="final_file" Type="string" Expanded="True">
+					<SET Id="RDK:20" VarRef="Me">
+						<EXP><![CDATA[$C$C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\FUSIONTEST\WEB-INF\classes\project_translations.inc]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+				<VAR Id="RDK:16" Name="custom_file" Type="string" Expanded="True">
+					<SET Id="RDK:22" VarRef="Me">
+						<EXP><![CDATA[$C$\\192.168.0.27\FonteDatiPDMtest\Updates\3_Livello_TEST\mb_project_translations.inc]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+			</GROUP>
+			<GROUP Id="RDK:38" Name="file str" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<VAR Id="RDK:33" Name="origin" Type="string" Expanded="True" />
+				<VAR Id="RDK:35" Name="final" Type="string" Expanded="True" />
+				<VAR Id="RDK:37" Name="custom" Type="string" Expanded="True" />
+			</GROUP>
+		</GROUP>
+		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True" />
+		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True" />
+	</GROUP>
+	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True">
+		<IFTHENELSE Id="RDK:41" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$FileExist(origin_file)]]></EXP>
+			</VALUECONDITION>
+			<GROUP Id="RDK:42" SubType="Then" Expanded="True">
+				<ACTION_CALL Id="RDK:48" Name="RDEngineering_CopyFile" DesignTimeRemark="{Source File} --&gt; {Destination File}">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_MISC]]></EXP>
+					</PAR>
+					<PAR Name="FileName">
+						<EXP><![CDATA[$=$final_file]]></EXP>
+					</PAR>
+					<PAR Name="NewFileName">
+						<EXP><![CDATA[$=$origin_file]]></EXP>
+					</PAR>
+					<PAR Name="AcceptWildcards" />
+					<PAR Name="Overwrite" />
+					<PAR Name="Options" />
+				</ACTION_CALL>
+			</GROUP>
+		</IFTHENELSE>
+		<SET Id="RDK:47" VarRef="origin">
+			<EXP><![CDATA[$=$ReadTextFile(origin_file)]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
+		<SET Id="RDK:52" VarRef="custom">
+			<EXP><![CDATA[$=$StrAfter(ReadTextFile(custom_file), "-->")]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
+		<SET Id="RDK:54" VarRef="final">
+			<EXP><![CDATA[$=$XmlAppend(origin, "TRANSLATED_STRINGS", custom)]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
+		<ACTION_CALL Id="RDK:60" Name="RDEngineering_WriteToTextFile">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_FILE_TEXT]]></EXP>
+			</PAR>
+			<PAR Name="FileName">
+				<EXP><![CDATA[$=$final_file]]></EXP>
+			</PAR>
+			<PAR Name="DataType">
+				<EXP><![CDATA[$C$0]]></EXP>
+			</PAR>
+			<PAR Name="StringText">
+				<EXP><![CDATA[$=$final]]></EXP>
+			</PAR>
+			<PAR Name="StringVector" />
+			<PAR Name="StringTable" />
+			<PAR Name="NumberVector" />
+			<PAR Name="NumberTable" />
+			<PAR Name="FileFormat">
+				<EXP><![CDATA[$C$0]]></EXP>
+			</PAR>
+			<PAR Name="IniSection" />
+			<PAR Name="IniProperty" />
+			<PAR Name="Options" />
+		</ACTION_CALL>
+	</GROUP>
+	<EXTERNAL_DATA>
+		<PROFILES_DATA />
+		<BOM_DATA />
+	</EXTERNAL_DATA>
+</PROCESS>
