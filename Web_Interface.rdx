@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-13T16:07:52" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-13T17:35:08" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -25,7 +25,7 @@
 				<FIELD Id="RDK:1046" Name="ORIGIN_ID_0" Type="string" />
 				<FIELD Id="RDK:1047" Name="ORIGIN_ID_1" Type="string" />
 				<FIELD Id="RDK:840581" Name="LAST_UPDATE">
-					<TYPE Id="RDK:840581" Name="date" Expanded="True" SubType="base" BaseType="date">
+					<TYPE Id="RDK:840581" IsInternal="True" Expanded="True" SubType="base" BaseType="date">
 						<UI_INPUT_TYPE Visible="False" TypeForm="Date" Locked="True" />
 						<UI_INPUT_VALIDATION ValidationType="none" />
 						<UI_INPUT_SUPPORT />
@@ -308,13 +308,13 @@ ORDER BY T.ITA]]></EXP>
 				<PAR Name="Options" />
 			</ACTION_CALL>
 			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
-				<VAR_COND Id="RDK:846368" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:846396" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:846369" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:846397" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="EDIT"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:846370" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:846398" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
