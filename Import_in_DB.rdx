@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-11T14:14:31" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-13T11:45:41" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -11,6 +11,16 @@
 				<FIELD Id="RDK:19" Name="ESP" Type="string" />
 				<FIELD Id="RDK:21" Name="FRA" Type="string" />
 				<FIELD Id="RDK:23" Name="DEU" Type="string" />
+			</TYPE>
+			<TYPE Id="RDK:597292" Name="dmfolderType" Expanded="True" SubType="structure" HasArrayType="True">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:597286" Name="TAG" Type="string" />
+				<FIELD Id="RDK:597287" Name="ITA" Type="string" />
+				<FIELD Id="RDK:597288" Name="ENG" Type="string" />
+				<FIELD Id="RDK:597289" Name="ESP" Type="string" />
+				<FIELD Id="RDK:597290" Name="FRA" Type="string" />
+				<FIELD Id="RDK:597291" Name="DEU" Type="string" />
+				<FIELD Id="RDK:597311" Name="LAST_UPDATE" Type="date" />
 			</TYPE>
 			<TYPE Id="RDK:59" Name="FusionTableKeysType" Expanded="True" SubType="structure" HasArrayType="True">
 				<TYPE_VALUES />
@@ -27,11 +37,13 @@
 				<FIELD Id="RDK:382" Name="ORIGIN_TABLE" Type="string" />
 				<FIELD Id="RDK:384" Name="ORIGIN_ID_0" Type="string" />
 				<FIELD Id="RDK:386" Name="ORIGIN_ID_1" Type="string" />
+				<FIELD Id="RDK:596462" Name="LAST_UPDATE" Type="date" />
 			</TYPE>
 			<TYPE Id="RDK:416" Name="SupportRowTagsType" Expanded="True" SubType="structure" HasArrayType="True">
 				<TYPE_VALUES />
 				<FIELD Id="RDK:421" Name="ORIGIN_ID_0" Type="string" />
 				<FIELD Id="RDK:423" Name="ORIGIN_ID_1" Type="string" />
+				<FIELD Id="RDK:597001" Name="LAST_UPDATE" Type="date" />
 			</TYPE>
 			<TYPE Id="RDK:748" Name="kvType" Expanded="True" SubType="structure" HasArrayType="True">
 				<TYPE_VALUES />
@@ -41,44 +53,48 @@
 		</GROUP>
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
 		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
-			<GROUP Id="RDK:252" Name="ConnStrings" SubType="VarSet" IncludeDate="0" Expanded="True">
-				<VAR Id="RDK:25" Name="ConnStr_FUSION" Type="string" Expanded="True">
+			<GROUP Id="RDK:252" Name="ConnStrings" SubType="VarSet" IncludeDate="0">
+				<VAR Id="RDK:25" Name="ConnStr_FUSION" Type="string">
 					<SET Id="RDK:26" VarRef="Me">
 						<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=FusionTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:254" Name="ConnStr_LOCAL" Type="string" Expanded="True">
+				<VAR Id="RDK:254" Name="ConnStr_LOCAL" Type="string">
 					<SET Id="RDK:256" VarRef="Me">
 						<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=MBKOffline;Data Source=LAPT-IT07\RULEDESIGNER;User Id=sa;Password=MBOffline$;]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:622" Name="ConnStr_PDM" Type="string" Expanded="True">
+				<VAR Id="RDK:622" Name="ConnStr_PDM" Type="string">
 					<SET Id="RDK:621" VarRef="Me">
 						<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=PDMTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:709" Name="GS_TradPath" Type="string" Expanded="True">
+				<VAR Id="RDK:709" Name="GS_TradPath" Type="string">
 					<SET Id="RDK:711" VarRef="Me">
 						<EXP><![CDATA[$C$C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\Editor2D\ModulBlokLibrary\shapes]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:788" Name="CRM_TradPath" Type="string" Expanded="True">
+				<VAR Id="RDK:788" Name="CRM_TradPath" Type="string">
 					<SET Id="RDK:787" VarRef="Me">
 						<EXP><![CDATA[$C$\\192.168.0.27\FonteDatiPDMtest\Updates\3_Livello_TEST\mb_project_translations.inc]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
 			</GROUP>
-			<VAR Id="RDK:33" Name="MetaTradTable" Type="MetaTradType[]" Expanded="True" />
-			<VAR Id="RDK:396" Name="MetaTrad" Type="MetaTradType" />
-			<VAR Id="RDK:394" Name="TradTable" Type="TradType[]" />
-			<VAR Id="RDK:34" Name="Trad" Type="TradType" Expanded="True" />
-			<VAR Id="RDK:61" Name="SupportTableTags" Type="SupportRowTagsType[]" Expanded="True" />
-			<VAR Id="RDK:63" Name="SupportRowTags" Type="SupportRowTagsType" Expanded="True" />
+			<GROUP Id="RDK:596286" Name="StructureTypes" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<VAR Id="RDK:33" Name="MetaTradTable" Type="MetaTradType[]" Expanded="True" />
+				<VAR Id="RDK:396" Name="MetaTrad" Type="MetaTradType" />
+				<VAR Id="RDK:394" Name="TradTable" Type="TradType[]" />
+				<VAR Id="RDK:34" Name="Trad" Type="TradType" Expanded="True" />
+				<VAR Id="RDK:61" Name="SupportTableTags" Type="SupportRowTagsType[]" Expanded="True" />
+				<VAR Id="RDK:63" Name="SupportRowTags" Type="SupportRowTagsType" Expanded="True" />
+				<VAR Id="RDK:597134" Name="dmfolder_table" Type="dmfolderType[]" Expanded="True" />
+				<VAR Id="RDK:597161" Name="dmfolder_row" Type="dmfolderType" />
+			</GROUP>
 			<GROUP Id="RDK:360" Name="Query" SubType="VarSet" IncludeDate="0" Expanded="True">
 				<VAR Id="RDK:77" Name="queryTrads" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
 				<VAR Id="RDK:198" Name="queryFindTags" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
@@ -116,11 +132,13 @@
 				<VAR Id="RDK:447" Name="condDEU" Type="string" />
 			</GROUP>
 			<VAR Id="RDK:789" Name="xml_crm" Type="string" Expanded="True" />
+			<VAR Id="RDK:596859" Name="j" Type="integer" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:602867" Name="idx_to_find" Type="string[]" Expanded="True" Suppressed="True" DesignTimeRemark="Generated by RD" />
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True" />
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
 			<FUNCTION Id="RDK:74" Name="ExtractFromDB" Expanded="True" InputTypeName="FusionTableKeysType">
-				<FOREACHLOOP Id="RDK:317" Expanded="True" ItemVarRef="_language" ByRefMode="True">
+				<FOREACHLOOP Id="RDK:317" ItemVarRef="_language" ByRefMode="True">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$=$Languages]]></EXP>
 					</PAR>
@@ -131,11 +149,11 @@
 						<EXP><![CDATA[$=$afterSelect + Param.Input.Fields+_language + " AS "+_language ]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<IFTHENELSE Id="RDK:327" Expanded="True">
+					<IFTHENELSE Id="RDK:327">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$_language<>"DEU"]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:328" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:328" SubType="Then">
 							<SET Id="RDK:332" VarRef="afterSelect">
 								<EXP><![CDATA[$=$afterSelect +", "]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -143,26 +161,45 @@
 						</GROUP>
 					</IFTHENELSE>
 				</FOREACHLOOP>
-				<IFTHENELSE Id="RDK:554" Expanded="True">
+				<IFTHENELSE Id="RDK:554" Suppressed="True">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$Param.Input.TableName="dm_folder_001"]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:553" SubType="Then" Expanded="True">
+					<GROUP Id="RDK:553" SubType="Then">
 						<SET Id="RDK:552" VarRef="queryTrads">
 							<EXP><![CDATA[$=$"SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName+ " WHERE DMTYPE='C' AND DMDESCRI_ITA<>'PROJECT' AND DMDESCRI_ITA<>'COMPANY' "
 ]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
 					</GROUP>
-					<GROUP Id="RDK:557" SubType="Else" Expanded="True">
+					<GROUP Id="RDK:557" SubType="Else">
 						<SET Id="RDK:76" VarRef="queryTrads">
 							<EXP><![CDATA[$=$"SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
 					</GROUP>
 				</IFTHENELSE>
+				<SET Id="RDK:597357" VarRef="queryTrads">
+					<EXP><![CDATA[$=$"SELECT DISTINCT "+afterSelect+" FROM "+Param.Input.TableName]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
 				<SET Id="RDK:355" VarRef="afterSelect">
 					<EXP><![CDATA[$=$""]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<IFTHENELSE Id="RDK:603123" Expanded="True" Suppressed="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Param.Input.TableName="ba_prop_value"]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:603122" SubType="Then" Expanded="True">
+						<SET Id="RDK:603121" VarRef="queryTrads">
+							<EXP><![CDATA[$=$queryTrads+ " WHERE NOT (PVDESCRI_ITA IS NULL AND PVDESCRI_ENG IS NULL AND PVDESCRI_ESP IS NULL AND PVDESCRI_FRA IS NULL AND PVDESCRI_DEU IS NULL) AND PVDESCRI_ENG<>'_ENG'"]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+				</IFTHENELSE>
+				<SET Id="RDK:662637" VarRef="queryTrads">
+					<EXP><![CDATA[$=$queryTrads+ " WHERE NOT ("+Param.Input.Fields+"ITA IS NULL AND "+Param.Input.Fields+"ENG IS NULL AND "+Param.Input.Fields+"ESP IS NULL AND "+Param.Input.Fields+"FRA IS NULL AND "+Param.Input.Fields+"DEU IS NULL) AND "+Param.Input.Fields+"ENG<>'_ENG'"]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<ACTION_CALL Id="RDK:300" Name="RDEngineering_DBSelectStructured">
@@ -192,7 +229,7 @@
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<FOREACHLOOP Id="RDK:350" Expanded="True" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
+				<FOREACHLOOP Id="RDK:350" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$V$TradTable]]></EXP>
 					</PAR>
@@ -229,7 +266,7 @@
 					<EXP><![CDATA[$=$i+baseIDX]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<FOREACHLOOP Id="RDK:359" Expanded="True" ItemVarRef="Trad" ByRefMode="True">
+				<FOREACHLOOP Id="RDK:359" ItemVarRef="Trad" ByRefMode="True">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$V$TradTable]]></EXP>
 					</PAR>
@@ -241,106 +278,121 @@
 ]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<IFTHENELSE Id="RDK:362" Expanded="True">
+					<IFTHENELSE Id="RDK:362">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$StrLength(Param.Input.ID2)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:363" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:363" SubType="Then">
 							<SET Id="RDK:370" VarRef="queryFindTags">
 								<EXP><![CDATA[$=$queryFindTags + ", "+Param.Input.ID2+ " AS ORIGIN_ID_1"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:426" Expanded="True">
+					<SET Id="RDK:596512" VarRef="queryFindTags">
+						<EXP><![CDATA[$=$queryFindTags + ", MAX(cpupdtms) AS LAST_UPDATE"]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<IFTHENELSE Id="RDK:426">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.ITA)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:427" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:427" SubType="Then">
 							<SET Id="RDK:435" VarRef="condITA">
 								<EXP><![CDATA[$=$Param.Input.Fields+"ITA IS NULL"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:428" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:428" SubType="Else">
 							<SET Id="RDK:437" VarRef="condITA">
-								<EXP><![CDATA[$=$Param.Input.Fields+"ITA='"+StrSqlWC(Trad.ITA)+"'"]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.Fields+"ITA='"+StrSql(Trad.ITA)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:467" Expanded="True">
+					<IFTHENELSE Id="RDK:467">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.ENG)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:464" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:464" SubType="Then">
 							<SET Id="RDK:463" VarRef="condENG">
 								<EXP><![CDATA[$=$Param.Input.Fields +"ENG IS NULL"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:466" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:466" SubType="Else">
 							<SET Id="RDK:465" VarRef="condENg">
-								<EXP><![CDATA[$=$Param.Input.Fields+"ENG='"+StrSqlWC(Trad.ENG)+"'"]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.Fields+"ENG='"+StrSql(Trad.ENG)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:489" Expanded="True">
+					<IFTHENELSE Id="RDK:489">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.ESP)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:486" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:486" SubType="Then">
 							<SET Id="RDK:485" VarRef="condESP">
 								<EXP><![CDATA[$=$Param.Input.Fields +"ESP IS NULL"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:488" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:488" SubType="Else">
 							<SET Id="RDK:487" VarRef="condESP">
-								<EXP><![CDATA[$=$Param.Input.Fields+"ESP='"+StrSqlWC(Trad.ESP)+"'"]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.Fields+"ESP='"+StrSql(Trad.ESP)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:505" Expanded="True">
+					<IFTHENELSE Id="RDK:505">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.FRA)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:502" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:502" SubType="Then">
 							<SET Id="RDK:501" VarRef="condFRA">
 								<EXP><![CDATA[$=$Param.Input.Fields+"FRA IS NULL"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:504" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:504" SubType="Else">
 							<SET Id="RDK:503" VarRef="condFRA">
-								<EXP><![CDATA[$=$Param.Input.Fields+"FRA='"+StrSqlWC(Trad.FRA)+"'"]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.Fields+"FRA='"+StrSql(Trad.FRA)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:523" Expanded="True">
+					<IFTHENELSE Id="RDK:523">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.DEU)=0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:520" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:520" SubType="Then">
 							<SET Id="RDK:519" VarRef="condDEU">
 								<EXP><![CDATA[$=$Param.Input.Fields +"DEU IS NULL"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:522" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:522" SubType="Else">
 							<SET Id="RDK:521" VarRef="condDEU">
-								<EXP><![CDATA[$=$Param.Input.Fields+"DEU='"+StrSqlWC(Trad.DEU)+"'"]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.Fields+"DEU='"+StrSql(Trad.DEU)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
 					<SET Id="RDK:372" VarRef="queryFindTags">
-						<EXP><![CDATA[$=$queryFindTags + " FROM "+Param.Input.TableName + " WHERE "+condITA+" AND "+condENG+" AND "+condESP+" AND "+condFRA+" AND "+condDEU]]></EXP>
+						<EXP><![CDATA[$=$queryFindTags + " FROM "+Param.Input.TableName + " WHERE "+condITA+" AND "+condENG+" AND "+condESP+" AND "+condFRA+" AND "+condDEU+" GROUP BY "+Param.Input.ID]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
+					<IFTHENELSE Id="RDK:596588">
+						<VALUECONDITION Value="false">
+							<EXP><![CDATA[$=$StrLength(Param.Input.ID2)=0]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:596587" SubType="Then">
+							<SET Id="RDK:596586" VarRef="queryFindTags">
+								<EXP><![CDATA[$=$queryFindTags + ", "+Param.Input.ID2]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+						</GROUP>
+					</IFTHENELSE>
 					<ACTION_CALL Id="RDK:374" Name="RDEngineering_DBSelectStructured">
 						<PAR Name="RDLibraryName">
 							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -368,7 +420,31 @@
 						</PAR>
 						<PAR Name="Options" />
 					</ACTION_CALL>
-					<FOREACHLOOP Id="RDK:375" Expanded="True" ItemVarRef="SupportRowTags" ByRefMode="True">
+					<GROUP Id="RDK:602886" Name="Group" SubType="Generic">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$Count(SupportTableTags)=0]]></EXP>
+						</VALUECONDITION>
+						<ACTION_CALL Id="RDK:602916" Name="RDEngineering_MsgBox" DesignTimeRemark="{Text}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="MsgText">
+								<EXP><![CDATA[$=$queryFindTags]]></EXP>
+							</PAR>
+							<PAR Name="MsgStyle">
+								<EXP><![CDATA[$C$-1]]></EXP>
+							</PAR>
+							<PAR Name="BtnLayout">
+								<EXP><![CDATA[$C$-1]]></EXP>
+							</PAR>
+							<PAR Name="MsgCaption" />
+							<PAR Name="BaloonType" />
+							<PAR Name="BtnPressed">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+						</ACTION_CALL>
+					</GROUP>
+					<FOREACHLOOP Id="RDK:375" ItemVarRef="SupportRowTags" ByRefMode="True">
 						<PAR Name="ArrayValueExp">
 							<EXP><![CDATA[$V$SupportTableTags]]></EXP>
 						</PAR>
@@ -380,16 +456,19 @@
 								<EXP><![CDATA[$=$Trad.IDX]]></EXP>
 							</PAR>
 							<PAR Name="ORIGIN_DB">
-								<EXP><![CDATA[$=$Param.Input[0]]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.DB]]></EXP>
 							</PAR>
 							<PAR Name="ORIGIN_TABLE">
-								<EXP><![CDATA[$=$Param.Input[1]]]></EXP>
+								<EXP><![CDATA[$=$Param.Input.TableName]]></EXP>
 							</PAR>
 							<PAR Name="ORIGIN_ID_0">
 								<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_0]]></EXP>
 							</PAR>
 							<PAR Name="ORIGIN_ID_1">
 								<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_1]]></EXP>
+							</PAR>
+							<PAR Name="LAST_UPDATE">
+								<EXP><![CDATA[$=$SupportRowTags.LAST_UPDATE]]></EXP>
 							</PAR>
 						</SET_STRUCT>
 						<ACTION_CALL Id="RDK:700" Name="RDEngineering_DBExecuteStatement">
@@ -400,7 +479,7 @@
 								<EXP><![CDATA[$C$LocalDB]]></EXP>
 							</PAR>
 							<PAR Name="SqlStatement">
-								<EXP><![CDATA[$=$"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1) VALUES ("+Trad.IDX+", '"+Param.Input.DB+"', '"+Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+SupportRowTags.ORIGIN_ID_1+"')"]]></EXP>
+								<EXP><![CDATA[$=$"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ("+Trad.IDX+", '"+Param.Input.DB+"', '"+Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+SupportRowTags.ORIGIN_ID_1+"', '"+ToString(SupportRowTags.LAST_UPDATE)+"')"]]></EXP>
 							</PAR>
 							<PAR Name="StatementResult">
 								<EXP><![CDATA[$V$]]></EXP>
@@ -445,7 +524,7 @@
 	</GROUP>
 	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" LogDisable="$=$iif(ISDEBUGMODE(),False,True)">
 		<GROUP Id="RDK:28" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Reimpimento tabella traduzioni">
-			<GROUP Id="RDK:248" Name="LocalDB" SubType="Generic" Expanded="True">
+			<GROUP Id="RDK:248" Name="LocalDB" SubType="Generic">
 				<ACTION_CALL Id="RDK:251" Name="RDEngineering_DBOpen">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -461,7 +540,45 @@
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<GROUP Id="RDK:257" Name="Create Tables" SubType="Generic" Expanded="True" ErrorProtected="True">
+				<GROUP Id="RDK:602828" Name="DEBUG" SubType="Generic" Suppressed="True">
+					<ACTION_CALL Id="RDK:602803" Name="RDEngineering_DBSelect">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$LocalDB]]></EXP>
+						</PAR>
+						<PAR Name="SelectQuery">
+							<EXP><![CDATA[$C$SELECT A.IDX FROM TRADS as A left join METATRADS as B on A.IDX=B.IDX where B.IDX is null]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$3]]></EXP>
+						</PAR>
+						<PAR Name="FirstValue">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="FirstColumn">
+							<EXP><![CDATA[$V$idx_to_find]]></EXP>
+						</PAR>
+						<PAR Name="NumRows">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="ColumnHeader">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="ColumnHeaders">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:257" Name="Create Tables" SubType="Generic" ErrorProtected="True">
 					<ACTION_CALL Id="RDK:266" Name="RDEngineering_DBExecuteStatement">
 						<PAR Name="RDLibraryName">
 							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -481,8 +598,11 @@
     ESP varchar(1024),
     FRA varchar(1024),
     DEU varchar(1024),
-    UPDATED BIT
-)]]></EXP>
+    UPDATED BIT,
+    NEW BIT
+)
+ELSE
+TRUNCATE TABLE TRADS]]></EXP>
 						</PAR>
 						<PAR Name="StatementResult">
 							<EXP><![CDATA[$V$]]></EXP>
@@ -507,8 +627,11 @@ CREATE TABLE METATRADS (
     ORIGIN_TABLE varchar(512),
     ORIGIN_ID_0 varchar(1024) ,
     ORIGIN_ID_1 varchar(512),
+    LAST_UPDATE DATETIME,
     PRIMARY KEY(IDX, ORIGIN_ID_0, ORIGIN_ID_1, ORIGIN_TABLE, ORIGIN_DB)
 )
+ELSE
+TRUNCATE TABLE METATRADS
 ]]></EXP>
 						</PAR>
 						<PAR Name="StatementResult">
@@ -534,7 +657,7 @@ CREATE TABLE METATRADS (
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic" Expanded="True">
+				<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic">
 					<SET_STRUCT Id="RDK:130" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
 						<PAR Name="DB">
 							<EXP><![CDATA[$C$FUSION]]></EXP>
@@ -672,7 +795,7 @@ CREATE TABLE METATRADS (
 							<EXP><![CDATA[$C$CDDESCRI_]]></EXP>
 						</PAR>
 					</SET_STRUCT>
-					<SET_STRUCT Id="RDK:150" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
+					<SET_STRUCT Id="RDK:150" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables" Suppressed="True">
 						<PAR Name="DB">
 							<EXP><![CDATA[$C$FUSION]]></EXP>
 						</PAR>
@@ -681,6 +804,21 @@ CREATE TABLE METATRADS (
 						</PAR>
 						<PAR Name="ID">
 							<EXP><![CDATA[$C$DMCODEID]]></EXP>
+						</PAR>
+						<PAR Name="ID2" />
+						<PAR Name="Fields">
+							<EXP><![CDATA[$C$DMDESCRI_]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:596470" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables" Suppressed="True">
+						<PAR Name="DB">
+							<EXP><![CDATA[$C$FUSION]]></EXP>
+						</PAR>
+						<PAR Name="TableName">
+							<EXP><![CDATA[$C$dm_folder_001]]></EXP>
+						</PAR>
+						<PAR Name="ID">
+							<EXP><![CDATA[$C$DMDESCRI]]></EXP>
 						</PAR>
 						<PAR Name="ID2" />
 						<PAR Name="Fields">
@@ -703,7 +841,7 @@ CREATE TABLE METATRADS (
 						</PAR>
 					</SET_STRUCT>
 				</GROUP>
-				<FOREACHLOOP Id="RDK:108" Expanded="True" ItemVarRef="FusionTableKeys" ByRefMode="True">
+				<FOREACHLOOP Id="RDK:108" ItemVarRef="FusionTableKeys" ByRefMode="True">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$V$FusionInfoTables]]></EXP>
 					</PAR>
@@ -723,6 +861,134 @@ CREATE TABLE METATRADS (
 						<PAR Name="Options" />
 					</CALLFUNCTION>
 				</FOREACHLOOP>
+				<ACTION_CALL Id="RDK:597113" Name="RDEngineering_DBSelectStructured">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$DB_FUSION]]></EXP>
+					</PAR>
+					<PAR Name="SelectQueryMode">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SelectTable" />
+					<PAR Name="SelectFieldName" />
+					<PAR Name="SelectFieldValue" />
+					<PAR Name="SelectQuery">
+						<EXP><![CDATA[$C$SELECT max(TAG) AS TAG, max(ITA) AS ITA, max(ENG) AS ENG, max(ESP) AS ESP, max(FRA) AS FRA, max(DEU) AS DEU, max(DATAUP) AS LAST_UPDATE
+from(
+select DISTINCT A.DMDESCRI as TAG, A.DMDESCRI_ITA AS ITA, A.DMDESCRI_ENG AS ENG, A.DMDESCRI_ESP AS ESP, A.DMDESCRI_FRA AS FRA, A.DMDESCRI_DEU AS DEU, max(A.cpupdtms) as DATAUP from dm_folder_001 A left outer join dm_folder_prop_001 B on A.DMCODEID=B.PPNODEID and A.DMVERID=B.PPVERID
+left outer join pr_project_001 C on B.PPVALUE=C.PJPRJID
+where C.PJTEMPLATE='S' and A.DMTYPE='C' and  B.PPNAMEID='PROJECT' Group by A.DMDESCRI, A.DMDESCRI_ITA, A.DMDESCRI_ENG, A.DMDESCRI_ESP, A.DMDESCRI_FRA, A.DMDESCRI_DEU
+) as x group by TAG]]></EXP>
+					</PAR>
+					<PAR Name="SelectQueryType">
+						<EXP><![CDATA[$C$2]]></EXP>
+					</PAR>
+					<PAR Name="FirstRow">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="AllRows">
+						<EXP><![CDATA[$V$dmfolder_table]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+				<FOREACHLOOP Id="RDK:597147" ItemVarRef="dmfolder_row" CountVarRef="i">
+					<PAR Name="ArrayValueExp">
+						<EXP><![CDATA[$V$dmfolder_table]]></EXP>
+					</PAR>
+					<PAR Name="ExitCondExp">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<SET_STRUCT Id="RDK:597180" VarRef="MetaTrad" ClearAll="True" ListRef="MetaTradTable">
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$baseIDX+i]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_DB">
+							<EXP><![CDATA[$C$FUSION]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_TABLE">
+							<EXP><![CDATA[$C$dm_folder_001]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_0">
+							<EXP><![CDATA[$=$dmfolder_row.TAG]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_1" />
+						<PAR Name="LAST_UPDATE">
+							<EXP><![CDATA[$=$dmfolder_row.LAST_UPDATE]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:597206" VarRef="Trad" ClearAll="True" ListRef="TradTable">
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$baseIDX+i]]></EXP>
+						</PAR>
+						<PAR Name="ITA">
+							<EXP><![CDATA[$=$dmfolder_row.ITA]]></EXP>
+						</PAR>
+						<PAR Name="ENG">
+							<EXP><![CDATA[$=$dmfolder_row.ENG]]></EXP>
+						</PAR>
+						<PAR Name="ESP">
+							<EXP><![CDATA[$=$dmfolder_row.ESP]]></EXP>
+						</PAR>
+						<PAR Name="FRA">
+							<EXP><![CDATA[$=$dmfolder_row.FRA]]></EXP>
+						</PAR>
+						<PAR Name="DEU">
+							<EXP><![CDATA[$=$dmfolder_row.DEU]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+				</FOREACHLOOP>
+				<SET Id="RDK:597220" VarRef="baseIDX">
+					<EXP><![CDATA[$=$i+baseIDX]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<ACTION_CALL Id="RDK:597234" Name="RDEngineering_DBInsert">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$LocalDB]]></EXP>
+					</PAR>
+					<PAR Name="InsertTable">
+						<EXP><![CDATA[$C$TRADS]]></EXP>
+					</PAR>
+					<PAR Name="InsertQueryType">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SingleRow" />
+					<PAR Name="ListOfRows">
+						<EXP><![CDATA[$=$TradTable]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+				<ACTION_CALL Id="RDK:597242" Name="RDEngineering_DBInsert">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$LocalDB]]></EXP>
+					</PAR>
+					<PAR Name="InsertTable">
+						<EXP><![CDATA[$C$METATRADS]]></EXP>
+					</PAR>
+					<PAR Name="InsertQueryType">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SingleRow" />
+					<PAR Name="ListOfRows">
+						<EXP><![CDATA[$=$MetaTradTable]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+				<SET Id="RDK:597258" VarRef="MetaTradTable">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:597266" VarRef="TradTable">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
 			</GROUP>
 			<GROUP Id="RDK:569" Name="CONFIGURATOR" SubType="Generic" LogDisable="$C$True">
 				<SET_STRUCT Id="RDK:581" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
@@ -764,7 +1030,7 @@ CREATE TABLE METATRADS (
 					</PAR>
 				</ACTION_CALL>
 			</GROUP>
-			<GROUP Id="RDK:613" Name="PDM" SubType="Generic" LogDisable="$C$True">
+			<GROUP Id="RDK:613" Name="PDM" SubType="Generic" Expanded="True" LogDisable="$C$True">
 				<ACTION_CALL Id="RDK:625" Name="RDEngineering_DBOpen">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -780,7 +1046,7 @@ CREATE TABLE METATRADS (
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<GROUP Id="RDK:656" Name="CASE cpID in ('328', '329')" SubType="Generic">
+				<GROUP Id="RDK:656" Name="CASE cpID in ('328', '329')" SubType="Generic" Expanded="True">
 					<ACTION_CALL Id="RDK:628" Name="RDEngineering_DBSelectStructured">
 						<PAR Name="RDLibraryName">
 							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -795,7 +1061,8 @@ CREATE TABLE METATRADS (
 						<PAR Name="SelectFieldName" />
 						<PAR Name="SelectFieldValue" />
 						<PAR Name="SelectQuery">
-							<EXP><![CDATA[$C$SELECT cvalValore as ITA, cvalTrans1 as ENG, cvalTrans4 as ESP, cvalTrans2 as FRA, cvalTrans3 as DEU FROM CODVAL WHERE cpID in ('328', '329' )]]></EXP>
+							<EXP><![CDATA[$C$SELECT cvalValore as ITA, cvalTrans1 as ENG, cvalTrans4 as ESP, cvalTrans2 as FRA, cvalTrans3 as DEU FROM CODVAL WHERE cpID in ('328', '329' ) AND
+NOT (cvalValore='' AND cvalTrans1='' AND cvalTrans4='' AND cvalTrans2='' AND cvalTrans3='')]]></EXP>
 						</PAR>
 						<PAR Name="SelectQueryType">
 							<EXP><![CDATA[$C$2]]></EXP>
@@ -808,7 +1075,7 @@ CREATE TABLE METATRADS (
 						</PAR>
 						<PAR Name="Options" />
 					</ACTION_CALL>
-					<FOREACHLOOP Id="RDK:632" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
+					<FOREACHLOOP Id="RDK:632" Expanded="True" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
 						<PAR Name="ArrayValueExp">
 							<EXP><![CDATA[$V$TradTable]]></EXP>
 						</PAR>
@@ -843,7 +1110,7 @@ CREATE TABLE METATRADS (
 						<EXP><![CDATA[$=$i+baseIDX]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<FOREACHLOOP Id="RDK:638" ItemVarRef="Trad" ByRefMode="True">
+					<FOREACHLOOP Id="RDK:638" Expanded="True" ItemVarRef="Trad" ByRefMode="True">
 						<PAR Name="ArrayValueExp">
 							<EXP><![CDATA[$V$TradTable]]></EXP>
 						</PAR>
@@ -851,7 +1118,13 @@ CREATE TABLE METATRADS (
 							<EXP><![CDATA[$V$]]></EXP>
 						</PAR>
 						<SET Id="RDK:640" VarRef="queryFindTags">
-							<EXP><![CDATA[$=$"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('328', '329' ) AND cvalValore='"+StrSqlWC(Trad.ITA)+"' AND cvalTrans1='"+StrSqlWC(Trad.ENG)+"' AND cvalTrans2='"+StrSqlWC(Trad.FRA)+"' AND cvalTrans3='"+StrSqlWC(Trad.DEU)+"' AND cvalTrans4='"+StrSqlWC(Trad.ESP)+"'"]]></EXP>
+							<EXP><![CDATA[$=$"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL 
+WHERE cpID in ('328', '329') 
+AND cvalValore"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +" 
+AND cvalTrans1"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +" 
+AND cvalTrans2"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +" 
+AND cvalTrans3"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") +" 
+AND cvalTrans4"+IIF(not IsEmpty(Trad.ESP), "='"+StrSql(Trad.ESP)+"'", " IS NULL")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
 						<ACTION_CALL Id="RDK:642" Name="RDEngineering_DBSelectStructured">
@@ -881,7 +1154,7 @@ CREATE TABLE METATRADS (
 							</PAR>
 							<PAR Name="Options" />
 						</ACTION_CALL>
-						<FOREACHLOOP Id="RDK:646" ItemVarRef="SupportRowTags" ByRefMode="True">
+						<FOREACHLOOP Id="RDK:646" Expanded="True" ItemVarRef="SupportRowTags" ByRefMode="True">
 							<PAR Name="ArrayValueExp">
 								<EXP><![CDATA[$V$SupportTableTags]]></EXP>
 							</PAR>
@@ -902,7 +1175,10 @@ CREATE TABLE METATRADS (
 									<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_0]]></EXP>
 								</PAR>
 								<PAR Name="ORIGIN_ID_1">
-									<EXP><![CDATA[$=$]]></EXP>
+									<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_1]]></EXP>
+								</PAR>
+								<PAR Name="LAST_UPDATE">
+									<EXP><![CDATA[$=$Now()]]></EXP>
 								</PAR>
 							</SET_STRUCT>
 						</FOREACHLOOP>
@@ -1006,7 +1282,7 @@ CREATE TABLE METATRADS (
 						<EXP><![CDATA[$=$i+baseIDX]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<FOREACHLOOP Id="RDK:690" ItemVarRef="Trad" ByRefMode="True">
+					<FOREACHLOOP Id="RDK:690" Expanded="True" ItemVarRef="Trad" ByRefMode="True">
 						<PAR Name="ArrayValueExp">
 							<EXP><![CDATA[$V$TradTable]]></EXP>
 						</PAR>
@@ -1014,7 +1290,12 @@ CREATE TABLE METATRADS (
 							<EXP><![CDATA[$V$]]></EXP>
 						</PAR>
 						<SET Id="RDK:682" VarRef="queryFindTags">
-							<EXP><![CDATA[$=$"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91') AND cvalTrans2='"+StrSqlWC(Trad.ITA)+"' AND cvalTrans3='"+StrSqlWC(Trad.ENG)+"' AND cvalTrans4='"+StrSqlWC(Trad.FRA)+"' AND cvalTrans5='"+StrSqlWC(Trad.DEU)+"'"]]></EXP>
+							<EXP><![CDATA[$=$"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL 
+WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91') 
+AND cvalTrans2"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +" 
+AND cvalTrans3"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +" 
+AND cvalTrans4"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +" 
+AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") ]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
 						<ACTION_CALL Id="RDK:683" Name="RDEngineering_DBSelectStructured">
@@ -1044,7 +1325,7 @@ CREATE TABLE METATRADS (
 							</PAR>
 							<PAR Name="Options" />
 						</ACTION_CALL>
-						<FOREACHLOOP Id="RDK:685" ItemVarRef="SupportRowTags" ByRefMode="True">
+						<FOREACHLOOP Id="RDK:685" Expanded="True" ItemVarRef="SupportRowTags" ByRefMode="True">
 							<PAR Name="ArrayValueExp">
 								<EXP><![CDATA[$V$SupportTableTags]]></EXP>
 							</PAR>
@@ -1065,7 +1346,10 @@ CREATE TABLE METATRADS (
 									<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_0]]></EXP>
 								</PAR>
 								<PAR Name="ORIGIN_ID_1">
-									<EXP><![CDATA[$=$]]></EXP>
+									<EXP><![CDATA[$=$SupportRowTags.ORIGIN_ID_1]]></EXP>
+								</PAR>
+								<PAR Name="LAST_UPDATE">
+									<EXP><![CDATA[$=$Now()]]></EXP>
 								</PAR>
 							</SET_STRUCT>
 						</FOREACHLOOP>
@@ -1115,10 +1399,17 @@ CREATE TABLE METATRADS (
 				</ACTION_CALL>
 			</GROUP>
 			<GROUP Id="RDK:704" Name="GRAPHICAL STUDIO" SubType="Generic" Expanded="True" LogDisable="$C$True">
-				<GROUP Id="RDK:747" Name="Locals" SubType="VarSet" IncludeDate="0">
+				<GROUP Id="RDK:747" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
 					<VAR Id="RDK:737" Name="JSONtext" Type="string" />
+					<VAR Id="RDK:596662" Name="JSONFile" Type="string" />
 					<VAR Id="RDK:738" Name="kvTable" Type="kvType[]" />
 					<VAR Id="RDK:743" Name="kvRow" Type="kvType" />
+					<VAR Id="RDK:596647" Name="LastUpdate" Type="date" Expanded="True">
+						<SET Id="RDK:596654" VarRef="Me">
+							<EXP><![CDATA[$=$NewDateTime(1800, 1, 1, 10, 0, 0)]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</VAR>
 				</GROUP>
 				<FOREACHLOOP Id="RDK:722" Expanded="True" ItemVarRef="_language" ByRefMode="True">
 					<PAR Name="ArrayValueExp">
@@ -1127,14 +1418,29 @@ CREATE TABLE METATRADS (
 					<PAR Name="ExitCondExp">
 						<EXP><![CDATA[$V$]]></EXP>
 					</PAR>
+					<SET Id="RDK:596676" VarRef="JSONFile">
+						<EXP><![CDATA[$=$GS_TradPath+"\language_"+_language+".txt"]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
 					<SET Id="RDK:752" VarRef="JSONtext">
-						<EXP><![CDATA[$=$ReadTextFile(GS_TradPath+"\language_"+_language+".txt")]]></EXP>
+						<EXP><![CDATA[$=$ReadTextFile(JSONFile)]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 					<SET Id="RDK:753" VarRef="kvTable">
 						<EXP><![CDATA[$=$FromJSON(JSONtext, "(HASH)(KEYVALUE)")]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
+					<IFTHENELSE Id="RDK:596713" Expanded="True">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$FileLastWriteDate(JSONFile)>LastUpdate]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:596714" SubType="Then" Expanded="True">
+							<SET Id="RDK:596753" VarRef="LastUpdate">
+								<EXP><![CDATA[$=$FileLastWriteDate(JSONFile)]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+						</GROUP>
+					</IFTHENELSE>
 					<IFTHENELSE Id="RDK:756" Expanded="True">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$_language="ITA"]]></EXP>
@@ -1161,6 +1467,7 @@ CREATE TABLE METATRADS (
 										<EXP><![CDATA[$=$kvRow.key]]></EXP>
 									</PAR>
 									<PAR Name="ORIGIN_ID_1" />
+									<PAR Name="LAST_UPDATE" />
 								</SET_STRUCT>
 								<SET_STRUCT Id="RDK:755" VarRef="Trad" ClearAll="True" ListRef="TradTable">
 									<PAR Name="IDX">
@@ -1183,7 +1490,7 @@ CREATE TABLE METATRADS (
 									</PAR>
 								</SET_STRUCT>
 							</FOREACHLOOP>
-							<ACTION_CALL Id="RDK:765" Name="RDEngineering_DBInsert">
+							<ACTION_CALL Id="RDK:765" Name="RDEngineering_DBInsert" Suppressed="True">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
 								</PAR>
@@ -1211,7 +1518,7 @@ CREATE TABLE METATRADS (
 								<PAR Name="ExitCondExp">
 									<EXP><![CDATA[$V$]]></EXP>
 								</PAR>
-								<SET_STRUCT Id="RDK:776" VarRef="TradTable[i-1]" ClearAll="True">
+								<SET_STRUCT Id="RDK:596640" VarRef="TradTable[i-1]" ClearAll="True">
 									<PAR Name="IDX">
 										<EXP><![CDATA[$=$TradTable[i-1].IDX]]></EXP>
 									</PAR>
@@ -1254,6 +1561,51 @@ CREATE TABLE METATRADS (
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
+				<FOREACHLOOP Id="RDK:596820" Expanded="True" ItemVarRef="MetaTrad" CountVarRef="j">
+					<PAR Name="ArrayValueExp">
+						<EXP><![CDATA[$V$MetaTradTable]]></EXP>
+					</PAR>
+					<PAR Name="ExitCondExp">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<SET_STRUCT Id="RDK:596846" VarRef="MetaTradTable[j-1]" ClearAll="True">
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$MetaTradTable[j-1].IDX]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_DB">
+							<EXP><![CDATA[$=$MetaTradTable[j-1].ORIGIN_DB]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_TABLE">
+							<EXP><![CDATA[$=$MetaTradTable[j-1].ORIGIN_TABLE]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_0">
+							<EXP><![CDATA[$=$MetaTradTable[j-1].ORIGIN_ID_0]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_1" />
+						<PAR Name="LAST_UPDATE">
+							<EXP><![CDATA[$=$LastUpdate]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+				</FOREACHLOOP>
+				<ACTION_CALL Id="RDK:596807" Name="RDEngineering_DBInsert">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$C$LocalDB]]></EXP>
+					</PAR>
+					<PAR Name="InsertTable">
+						<EXP><![CDATA[$C$METATRADS]]></EXP>
+					</PAR>
+					<PAR Name="InsertQueryType">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SingleRow" />
+					<PAR Name="ListOfRows">
+						<EXP><![CDATA[$=$METATradTable]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
 				<SET Id="RDK:778" VarRef="baseIDX">
 					<EXP><![CDATA[$=$baseIDX+i]]></EXP>
 					<PAR Name="AdvancedOptions" />
@@ -1271,14 +1623,20 @@ CREATE TABLE METATRADS (
 					<PAR Name="AdvancedOptions" />
 				</SET>
 			</GROUP>
-			<GROUP Id="RDK:780" Name="CRM" SubType="Generic" Expanded="True" LogDisable="$C$True">
-				<GROUP Id="RDK:793" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
+			<GROUP Id="RDK:780" Name="CRM" SubType="Generic" LogDisable="$C$True">
+				<GROUP Id="RDK:793" Name="Locals" SubType="VarSet" IncludeDate="0">
 					<VAR Id="RDK:796" Name="array_xml" Type="string[]" Expanded="True" />
 					<VAR Id="RDK:804" Name="tag" Type="string" Expanded="True" />
 					<VAR Id="RDK:855" Name="value" Type="string" />
-					<VAR Id="RDK:805" Name="j" Type="integer" Expanded="True">
+					<VAR Id="RDK:805" Name="j" Type="integer">
 						<SET Id="RDK:806" VarRef="Me">
 							<EXP><![CDATA[$C$0]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</VAR>
+					<VAR Id="RDK:596902" Name="LastUpdate" Type="date">
+						<SET Id="RDK:596928" VarRef="Me">
+							<EXP><![CDATA[$=$FileLastWriteDate(CRM_TradPath)]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
 					</VAR>
@@ -1292,33 +1650,33 @@ CREATE TABLE METATRADS (
 					<EXP><![CDATA[$=$XmlChildren(xml_crm, "TRANSLATED_STRINGS")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<FOREACHLOOP Id="RDK:803" Expanded="True" ItemVarRef="tag">
+				<FOREACHLOOP Id="RDK:803" ItemVarRef="tag">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$V$array_xml]]></EXP>
 					</PAR>
 					<PAR Name="ExitCondExp">
 						<EXP><![CDATA[$V$]]></EXP>
 					</PAR>
-					<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
-						<VAR_COND Id="RDK:596255" Name="Orig_str">
+					<NODE Id="RDK:807" Name="TAG TYPE">
+						<VAR_COND Id="RDK:662682" Name="Orig_str">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:596256" Name="ITA">
+						<VAR_COND Id="RDK:662683" Name="ITA">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:596257" Name="ENG">
+						<VAR_COND Id="RDK:662684" Name="ENG">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:596258" Name="ESP">
+						<VAR_COND Id="RDK:662685" Name="ESP">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:596259" Name="FRA">
+						<VAR_COND Id="RDK:662686" Name="FRA">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:596260" Name="DEU">
+						<VAR_COND Id="RDK:662687" Name="DEU">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
 						</VAR_COND>
-						<CHOICE Id="RDK:821" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:821" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Orig_str]]></EXP>
 							</VALUECONDITION>
@@ -1348,6 +1706,9 @@ CREATE TABLE METATRADS (
 									<EXP><![CDATA[$=$value]]></EXP>
 								</PAR>
 								<PAR Name="ORIGIN_ID_1" />
+								<PAR Name="LAST_UPDATE">
+									<EXP><![CDATA[$=$LastUpdate]]></EXP>
+								</PAR>
 							</SET_STRUCT>
 							<SET_STRUCT Id="RDK:887" VarRef="Trad" ClearAll="True" ListRef="TradTable">
 								<PAR Name="IDX">
@@ -1360,7 +1721,7 @@ CREATE TABLE METATRADS (
 								<PAR Name="DEU" />
 							</SET_STRUCT>
 						</CHOICE>
-						<CHOICE Id="RDK:918" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:918" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$ITA]]></EXP>
 							</VALUECONDITION>
@@ -1385,7 +1746,7 @@ CREATE TABLE METATRADS (
 								</PAR>
 							</SET_STRUCT>
 						</CHOICE>
-						<CHOICE Id="RDK:1086" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:1086" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$ENG]]></EXP>
 							</VALUECONDITION>
@@ -1410,7 +1771,7 @@ CREATE TABLE METATRADS (
 								</PAR>
 							</SET_STRUCT>
 						</CHOICE>
-						<CHOICE Id="RDK:1117" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:1117" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$ESP]]></EXP>
 							</VALUECONDITION>
@@ -1435,7 +1796,7 @@ CREATE TABLE METATRADS (
 								</PAR>
 							</SET_STRUCT>
 						</CHOICE>
-						<CHOICE Id="RDK:1148" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:1148" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$FRA]]></EXP>
 							</VALUECONDITION>
@@ -1460,7 +1821,7 @@ CREATE TABLE METATRADS (
 								</PAR>
 							</SET_STRUCT>
 						</CHOICE>
-						<CHOICE Id="RDK:1179" Name="Choice" Expanded="True">
+						<CHOICE Id="RDK:1179" Name="Choice">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$DEU]]></EXP>
 							</VALUECONDITION>
