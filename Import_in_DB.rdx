@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T09:17:29" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T11:44:05" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -53,7 +53,7 @@
 		</GROUP>
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
 		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
-			<GROUP Id="RDK:252" Name="ConnStrings" SubType="VarSet" IncludeDate="0">
+			<GROUP Id="RDK:252" Name="ConnStrings" SubType="VarSet" IncludeDate="0" Expanded="True">
 				<VAR Id="RDK:25" Name="ConnStr_FUSION" Type="string">
 					<SET Id="RDK:26" VarRef="Me">
 						<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=FusionTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;]]></EXP>
@@ -78,7 +78,7 @@
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:788" Name="CRM_TradPath" Type="string">
+				<VAR Id="RDK:788" Name="CRM_TradPath" Type="string" Expanded="True">
 					<SET Id="RDK:787" VarRef="Me">
 						<EXP><![CDATA[$C$\\192.168.0.27\FonteDatiPDMtest\Updates\3_Livello_TEST\mb_project_translations.inc]]></EXP>
 						<PAR Name="AdvancedOptions" />
@@ -587,7 +587,7 @@ TRUNCATE TABLE METATRADS
 					</ACTION_CALL>
 				</GROUP>
 			</GROUP>
-			<GROUP Id="RDK:30" Name="FUSION" SubType="Generic" Expanded="True" Options="(LOGDISABLED)">
+			<GROUP Id="RDK:30" Name="FUSION" SubType="Generic" Options="(LOGDISABLED)">
 				<ACTION_CALL Id="RDK:36" Name="RDEngineering_DBOpen">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -925,7 +925,7 @@ where C.PJTEMPLATE='S' and A.DMTYPE='C' and  B.PPNAMEID='PROJECT' Group by A.DMD
 					<PAR Name="AdvancedOptions" />
 				</SET>
 			</GROUP>
-			<GROUP Id="RDK:569" Name="CONFIGURATOR" SubType="Generic" Expanded="True" LogDisable="$C$True">
+			<GROUP Id="RDK:569" Name="CONFIGURATOR" SubType="Generic" LogDisable="$C$True">
 				<SET_STRUCT Id="RDK:581" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
 					<PAR Name="DB">
 						<EXP><![CDATA[$C$FUSION]]></EXP>
@@ -965,7 +965,7 @@ where C.PJTEMPLATE='S' and A.DMTYPE='C' and  B.PPNAMEID='PROJECT' Group by A.DMD
 					</PAR>
 				</ACTION_CALL>
 			</GROUP>
-			<GROUP Id="RDK:613" Name="PDM" SubType="Generic" Expanded="True" LogDisable="$C$True">
+			<GROUP Id="RDK:613" Name="PDM" SubType="Generic" LogDisable="$C$True">
 				<ACTION_CALL Id="RDK:625" Name="RDEngineering_DBOpen">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -1178,7 +1178,7 @@ AND cvalTrans4"+IIF(not IsEmpty(Trad.ESP), "='"+StrSql(Trad.ESP)+"'", " IS NULL"
 						</PAR>
 						<PAR Name="Options" />
 					</ACTION_CALL>
-					<FOREACHLOOP Id="RDK:679" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
+					<FOREACHLOOP Id="RDK:679" Expanded="True" ItemVarRef="Trad" CountVarRef="i" ByRefMode="True">
 						<PAR Name="ArrayValueExp">
 							<EXP><![CDATA[$V$TradTable]]></EXP>
 						</PAR>
@@ -1333,7 +1333,7 @@ AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL"
 					</PAR>
 				</ACTION_CALL>
 			</GROUP>
-			<GROUP Id="RDK:704" Name="GRAPHICAL STUDIO" SubType="Generic" Expanded="True" LogDisable="$C$True">
+			<GROUP Id="RDK:704" Name="GRAPHICAL STUDIO" SubType="Generic" LogDisable="$C$True">
 				<GROUP Id="RDK:747" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
 					<VAR Id="RDK:737" Name="JSONtext" Type="string" />
 					<VAR Id="RDK:596662" Name="JSONFile" Type="string" />
@@ -1558,8 +1558,8 @@ AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL"
 					<PAR Name="AdvancedOptions" />
 				</SET>
 			</GROUP>
-			<GROUP Id="RDK:780" Name="CRM" SubType="Generic" LogDisable="$C$True">
-				<GROUP Id="RDK:793" Name="Locals" SubType="VarSet" IncludeDate="0">
+			<GROUP Id="RDK:780" Name="CRM" SubType="Generic" Expanded="True" LogDisable="$C$True">
+				<GROUP Id="RDK:793" Name="Locals" SubType="VarSet" IncludeDate="0" Expanded="True">
 					<VAR Id="RDK:796" Name="array_xml" Type="string[]" Expanded="True" />
 					<VAR Id="RDK:804" Name="tag" Type="string" Expanded="True" />
 					<VAR Id="RDK:855" Name="value" Type="string" />
@@ -1585,33 +1585,33 @@ AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL"
 					<EXP><![CDATA[$=$XmlChildren(xml_crm, "TRANSLATED_STRINGS")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<FOREACHLOOP Id="RDK:803" ItemVarRef="tag">
+				<FOREACHLOOP Id="RDK:803" Expanded="True" ItemVarRef="tag">
 					<PAR Name="ArrayValueExp">
 						<EXP><![CDATA[$V$array_xml]]></EXP>
 					</PAR>
 					<PAR Name="ExitCondExp">
 						<EXP><![CDATA[$V$]]></EXP>
 					</PAR>
-					<NODE Id="RDK:807" Name="TAG TYPE">
-						<VAR_COND Id="RDK:662865" Name="Orig_str">
+					<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
+						<VAR_COND Id="RDK:663039" Name="Orig_str">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:662866" Name="ITA">
+						<VAR_COND Id="RDK:663040" Name="ITA">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:662867" Name="ENG">
+						<VAR_COND Id="RDK:663041" Name="ENG">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:662868" Name="ESP">
+						<VAR_COND Id="RDK:663042" Name="ESP">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:662869" Name="FRA">
+						<VAR_COND Id="RDK:663043" Name="FRA">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
 						</VAR_COND>
-						<VAR_COND Id="RDK:662870" Name="DEU">
+						<VAR_COND Id="RDK:663044" Name="DEU">
 							<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
 						</VAR_COND>
-						<CHOICE Id="RDK:821" Name="Choice">
+						<CHOICE Id="RDK:821" Name="Choice" Expanded="True">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Orig_str]]></EXP>
 							</VALUECONDITION>
