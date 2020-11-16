@@ -23,6 +23,16 @@ Public Class TradType
 		Public [DEU] As string
 End Class
 
+Public Class dmfolderType
+		Public [TAG] As string
+		Public [ITA] As string
+		Public [ENG] As string
+		Public [ESP] As string
+		Public [FRA] As string
+		Public [DEU] As string
+		Public [LAST_UPDATE] As date
+End Class
+
 Public Class FusionTableKeysType
 		Public [DB] As string
 		Public [TableName] As string
@@ -37,11 +47,13 @@ Public Class MetaTradType
 		Public [ORIGIN_TABLE] As string
 		Public [ORIGIN_ID_0] As string
 		Public [ORIGIN_ID_1] As string
+		Public [LAST_UPDATE] As date
 End Class
 
 Public Class SupportRowTagsType
 		Public [ORIGIN_ID_0] As string
 		Public [ORIGIN_ID_1] As string
+		Public [LAST_UPDATE] As date
 End Class
 
 Public Class kvType
@@ -66,6 +78,8 @@ End Class
 	Public [Trad] As New TradType
 	Public [SupportTableTags] As New Generic.List(Of SupportRowTagsType)
 	Public [SupportRowTags] As New SupportRowTagsType
+	Public [dmfolder_table] As New Generic.List(Of dmfolderType)
+	Public [dmfolder_row] As New dmfolderType
 	Public [queryTrads] As string
 	Public [queryFindTags] As string
 	Public [queryMetaTrads] As string
@@ -82,13 +96,15 @@ End Class
 	Public [condFRA] As string
 	Public [condDEU] As string
 	Public [xml_crm] As string
+	Public [j] As integer
 	Public [JSONtext] As string
+	Public [JSONFile] As string
 	Public [kvTable] As New Generic.List(Of kvType)
 	Public [kvRow] As New kvType
+	Public [LastUpdate] As date
 	Public [array_xml] As New Generic.List(Of string)
 	Public [tag] As string
 	Public [value] As string
-	Public [j] As integer
 	Public [Orig_str] As boolean
 	Public [ITA] As boolean
 	Public [ENG] As boolean

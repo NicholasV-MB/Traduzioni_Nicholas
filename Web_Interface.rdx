@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T09:23:50" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T12:36:58" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -148,7 +148,7 @@ EDIT ON
     }
 </style>
 
-<center><h3>Attendi circa 2 minuti per il caricamento</h3></center>
+<center><h3>Attendi circa 1 minuto per il caricamento</h3></center>
 <div class="trainglebottomleft"></div>
 <div class="stage">
     <div class="trapezoid bounce-7"></div>
@@ -306,13 +306,13 @@ ORDER BY T.ITA]]></EXP>
 				<PAR Name="Options" />
 			</ACTION_CALL>
 			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
-				<VAR_COND Id="RDK:862931" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:862941" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:862932" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:862942" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="EDIT"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:862933" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:862943" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
