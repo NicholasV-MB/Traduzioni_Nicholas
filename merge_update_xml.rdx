@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="merge_update_xml" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T14:24:53" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-11T15:25:53" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T14:24:53" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T08:59:20" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True" />
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
@@ -60,6 +60,33 @@
 			<EXP><![CDATA[$=$ReadTextFile(origin_file)]]></EXP>
 			<PAR Name="AdvancedOptions" />
 		</SET>
+		<IFTHENELSE Id="RDK:64" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$StrStartWith(origin, "<?xml version="+AddQuote("1.0")+" encoding="+AddQuote("ISO-8859-1")+"?>")
+And IsTagInString(origin, "</TRANSLATED_STRINGS>")]]></EXP>
+			</VALUECONDITION>
+			<GROUP Id="RDK:65" SubType="Then" Expanded="True">
+				<ACTION_CALL Id="RDK:73" Name="RDEngineering_MsgBox" DesignTimeRemark="{Text}">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+					</PAR>
+					<PAR Name="MsgText">
+						<EXP><![CDATA[$C$File Origin non corretto]]></EXP>
+					</PAR>
+					<PAR Name="MsgStyle">
+						<EXP><![CDATA[$C$-1]]></EXP>
+					</PAR>
+					<PAR Name="BtnLayout">
+						<EXP><![CDATA[$C$-1]]></EXP>
+					</PAR>
+					<PAR Name="MsgCaption" />
+					<PAR Name="BaloonType" />
+					<PAR Name="BtnPressed">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+				</ACTION_CALL>
+			</GROUP>
+		</IFTHENELSE>
 		<SET Id="RDK:52" VarRef="custom">
 			<EXP><![CDATA[$=$StrAfter(ReadTextFile(custom_file), "-->")]]></EXP>
 			<PAR Name="AdvancedOptions" />

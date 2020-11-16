@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-13T17:35:08" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-16T09:23:50" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -265,11 +265,9 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$TradTable]]></EXP>
 				</PAR>
 				<PAR Name="Editable">
-					<EXP><![CDATA[$C$True]]></EXP>
+					<EXP><![CDATA[$C$Null]]></EXP>
 				</PAR>
-				<PAR Name="ProfileName">
-					<EXP><![CDATA[$=$]]></EXP>
-				</PAR>
+				<PAR Name="ProfileName" />
 				<PAR Name="Idx">
 					<EXP><![CDATA[$V$idx]]></EXP>
 				</PAR>
@@ -308,13 +306,13 @@ ORDER BY T.ITA]]></EXP>
 				<PAR Name="Options" />
 			</ACTION_CALL>
 			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
-				<VAR_COND Id="RDK:846396" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:862931" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:846397" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:862932" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="EDIT"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:846398" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:862933" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
@@ -543,25 +541,6 @@ Scegliere un TAG diverso"]]></EXP>
 							</PAR>
 							<PAR Name="POS_TO_ADD" />
 						</LIST_ADD>
-						<ACTION_CALL Id="RDK:71" Name="RDEngineering_DBInsert" Suppressed="True">
-							<PAR Name="RDLibraryName">
-								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-							</PAR>
-							<PAR Name="ConnectionName">
-								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-							</PAR>
-							<PAR Name="InsertTable">
-								<EXP><![CDATA[$C$TRADS]]></EXP>
-							</PAR>
-							<PAR Name="InsertQueryType">
-								<EXP><![CDATA[$C$0]]></EXP>
-							</PAR>
-							<PAR Name="SingleRow">
-								<EXP><![CDATA[$=$Trad]]></EXP>
-							</PAR>
-							<PAR Name="ListOfRows" />
-							<PAR Name="Options" />
-						</ACTION_CALL>
 						<ACTION_CALL Id="RDK:1279" Name="RDEngineering_DBInsert">
 							<PAR Name="RDLibraryName">
 								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -769,25 +748,6 @@ ORDER BY T.ITA]]></EXP>
 							<PAR Name="Options" />
 						</ACTION_CALL>
 					</GROUP>
-					<ACTION_CALL Id="RDK:84" Name="RDEngineering_DBUpdate" Suppressed="True">
-						<PAR Name="RDLibraryName">
-							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-						</PAR>
-						<PAR Name="ConnectionName">
-							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-						</PAR>
-						<PAR Name="UpdateTable">
-							<EXP><![CDATA[$C$TRADS]]></EXP>
-						</PAR>
-						<PAR Name="UpdateQueryType">
-							<EXP><![CDATA[$C$0]]></EXP>
-						</PAR>
-						<PAR Name="SingleRow">
-							<EXP><![CDATA[$=$TradTable[idx]]]></EXP>
-						</PAR>
-						<PAR Name="ListOfRows" />
-						<PAR Name="Options" />
-					</ACTION_CALL>
 				</CHOICE>
 				<CHOICE Id="RDK:96" Name="Choice" Expanded="True">
 					<VALUECONDITION Value="true">
@@ -848,6 +808,9 @@ ORDER BY T.ITA]]></EXP>
 				<EXP><![CDATA[$C$0]]></EXP>
 			</PAR>
 		</ACTION_CALL>
+		<PROCESS_CALL Id="RDK:862915" Expanded="True" Suppressed="True">
+			<EXP><![CDATA[$C$Export_From_DB.rdx]]></EXP>
+		</PROCESS_CALL>
 	</GROUP>
 	<EXTERNAL_DATA>
 		<PROFILES_DATA>
@@ -1021,21 +984,6 @@ ORDER BY T.ITA]]></EXP>
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
 				<UI_INPUT_TYPE Visible="False" TypeForm="Yes_No" Locked="True" />
-				<UI_INPUT_VALIDATION ValidationType="none" />
-				<UI_INPUT_SUPPORT />
-			</RELPROFILE>
-			<RELPROFILE Id="RDK:680164" TypeName="TradType" Expanded="True" Suppressed="True">
-				<PNODE NodeType="profile" ProfileName="TradProfile" />
-				<PNODE NodeType="field_variant" FieldName="LAST_UPDATE" VariantName="Variant" />
-				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE>
-					<EXP><![CDATA[$=$Now()]]></EXP>
-				</RP_SETFIELD_VALUE>
-				<RP_SETFIELD_FORCED>
-					<EXP><![CDATA[$C$True]]></EXP>
-				</RP_SETFIELD_FORCED>
-				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Date" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
