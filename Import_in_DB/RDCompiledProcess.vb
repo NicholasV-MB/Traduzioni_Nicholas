@@ -82,17 +82,11 @@ Public Class RDCompiledProcess
 #Region " --- PROCESS DECLARATIONS "
 
     Private Sub ProcessMain()
-		ConnStr_FUSION = "Provider=sqloledb;Initial Catalog=FusionTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;"
-		ConnStr_LOCAL = "Provider=sqloledb;Initial Catalog=MBKOffline;Data Source=LAPT-IT07\RULEDESIGNER;User Id=sa;Password=MBOffline$;"
-		ConnStr_PDM = "Provider=sqloledb;Initial Catalog=PDMTest;Data Source=192.168.0.27;User Id=sa;Password=Ruled2014;"
-		GS_TradPath = "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\Editor2D\ModulBlokLibrary\shapes"
-		CRM_TradPath = "\\192.168.0.27\FonteDatiPDMtest\Updates\3_Livello_TEST\mb_project_translations.inc"
-		Languages = EvalConstant(Languages.GetType, "LIST { ""ITA"",""ENG"",""ESP"",""FRA"",""DEU"" }")
+		IniFilePath = EvalExpression("Set_IniFilePath_K_686349")
 		_language = " "
 		afterSelect = " "
 		LastUpdate = EvalExpression("Set_LastUpdate_K_596654")
-		j = 0
-		LastUpdate = EvalExpression("Set_LastUpdate_K_596928")
+		k = 0
 
 
         'CALL TO MAIN PROCESS
@@ -143,19 +137,6 @@ Public Class RDCompiledProcess
 		Call FOREACHLOOP_K_350()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:341"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_341 as New Generic.list(of object)
-		ActionArgs_K_341.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_341.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_341.Add(1) 'InsertQueryType IN
-		ActionArgs_K_341.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_341.Add(EvalExpression("ListOfRows_K_341")) 'ListOfRows IN
-		ActionArgs_K_341.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_341 As object() = ActionArgs_K_341.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_341,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set baseIDX = i+baseIDX
 		_CurrentNode = "RDK:358"
 		baseIDX = EvalExpression("Set_baseIDX_K_358")
@@ -245,6 +226,17 @@ exec_group:
 		_CurrentNode = "RDK:351"
 		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_351")
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:663596"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_663596 as New Generic.list(of object)
+		ActionArgs_K_663596.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_663596.Add(EvalExpression("SqlStatement_K_663596")) 'SqlStatement IN
+		ActionArgs_K_663596.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_663596.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_663596 As object() = ActionArgs_K_663596.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_663596)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_350 += 1
 		If Index_RDK_350 >= MaxCount_RDK_350 then return
@@ -267,7 +259,7 @@ exec_group:
 		_CurrentNode = "RDK:361"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_361")
 		
-		'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+		'If Param.Input.ID2<>"" is True AND ...
 		Call IFTHENELSE_K_362()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
@@ -305,7 +297,7 @@ exec_group:
 		_CurrentNode = "RDK:372"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_372")
 		
-		'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+		'If Param.Input.ID2<>"" is True AND ...
 		Call IFTHENELSE_K_596588()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
@@ -346,22 +338,27 @@ exec_group:
 		goto next_foreach
 	End Sub
 
-	'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+	'If Param.Input.ID2<>"" is True AND ...
 	Private Sub IFTHENELSE_K_362()
 		_CurrentNode = "RDK:362"
 		'Group Conditions
-		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_362")
+		Dim _GroupExecute As Boolean = True
+		if NOT (EvalExpression("CondExp1_K_362") = True) then goto skip_group		'Param.Input.ID2<>""
+		if NOT (EvalExpression("CondExp2_K_362") = True) then goto skip_group		'Param.Input.TableName<>"wo_state"
+		GoTo exec_group
+skip_group:
+		_GroupExecute = False
 exec_group:
 '----------------------------------------------------
 		if _GroupExecute then
 		    'Call THEN group
-			'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+			'If Param.Input.ID2<>"" is True AND ...
 			Call THENGROUP_K_363()
 
 		End if
 	End Sub
 
-	'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+	'If Param.Input.ID2<>"" is True AND ...
 	Private Sub THENGROUP_K_363()
 		_CurrentNode = "RDK:363"
 		'Set queryFindTags = queryFindTags + ", "+Param.Input.ID2+ " AS ORIGIN_ID_1"
@@ -555,22 +552,27 @@ exec_group:
 		
 	End Sub
 
-	'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+	'If Param.Input.ID2<>"" is True AND ...
 	Private Sub IFTHENELSE_K_596588()
 		_CurrentNode = "RDK:596588"
 		'Group Conditions
-		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_596588")
+		Dim _GroupExecute As Boolean = True
+		if NOT (EvalExpression("CondExp1_K_596588") = True) then goto skip_group		'Param.Input.ID2<>""
+		if NOT (EvalExpression("CondExp2_K_596588") = True) then goto skip_group		'Param.Input.TableName<>"wo_state"
+		GoTo exec_group
+skip_group:
+		_GroupExecute = False
 exec_group:
 '----------------------------------------------------
 		if _GroupExecute then
 		    'Call THEN group
-			'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+			'If Param.Input.ID2<>"" is True AND ...
 			Call THENGROUP_K_596587()
 
 		End if
 	End Sub
 
-	'If StrLength(Param.Input.ID2)>0 AND Param.Input.TableName<>"wo_state" is True
+	'If Param.Input.ID2<>"" is True AND ...
 	Private Sub THENGROUP_K_596587()
 		_CurrentNode = "RDK:596587"
 		'Set queryFindTags = queryFindTags + ", "+Param.Input.ID2
@@ -610,15 +612,10 @@ exec_group:
 	'Main Group *LOG_CONTROLLED
 	Private Sub Main_Group_K_0008()
 		_CurrentNode = "RDK:0008"
-		'INIT (Reimpimento tabella traduzioni)
+		'INIT (Set Connection Strings)
 		Call INIT_K_28()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-	End Sub
-
-	'INIT (Reimpimento tabella traduzioni)
-	Private Sub INIT_K_28()
-		_CurrentNode = "RDK:28"
 		'LocalDB
 		Call LocalDB_K_248()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
@@ -651,6 +648,35 @@ exec_group:
 		Dim _ActionArgs_K_270 As object() = ActionArgs_K_270.ToArray
 		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBClose",_ActionArgs_K_270)
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
+	End Sub
+
+	'INIT (Set Connection Strings)
+	Private Sub INIT_K_28()
+		_CurrentNode = "RDK:28"
+		'Set ConnStr_FUSION = ReadIni(IniFilePath, "FUSION", "ConnectionString")
+		_CurrentNode = "RDK:686229"
+		ConnStr_FUSION = EvalExpression("Set_ConnStr_FUSION_K_686229")
+		
+		'Set ConnStr_LOCAL = ReadIni(IniFilePath, "LOCAL", "ConnectionString")
+		_CurrentNode = "RDK:686243"
+		ConnStr_LOCAL = EvalExpression("Set_ConnStr_LOCAL_K_686243")
+		
+		'Set ConnStr_PDM = ReadIni(IniFilePath, "PDM", "ConnectionString")
+		_CurrentNode = "RDK:686251"
+		ConnStr_PDM = EvalExpression("Set_ConnStr_PDM_K_686251")
+		
+		'Set GS_TradPath = ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+		_CurrentNode = "RDK:686259"
+		GS_TradPath = EvalExpression("Set_GS_TradPath_K_686259")
+		
+		'Set CRM_TradPath = ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+		_CurrentNode = "RDK:686267"
+		CRM_TradPath = EvalExpression("Set_CRM_TradPath_K_686267")
+		
+		'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+		_CurrentNode = "RDK:686311"
+		Languages = EvalExpression("Set_Languages_K_686311")
 		
 	End Sub
 
@@ -748,32 +774,6 @@ exec_group:
 		'Set baseIDX = i+baseIDX
 		_CurrentNode = "RDK:597220"
 		baseIDX = EvalExpression("Set_baseIDX_K_597220")
-		
-		'Insert DB Structured
-		_CurrentNode = "RDK:597234"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_597234 as New Generic.list(of object)
-		ActionArgs_K_597234.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_597234.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_597234.Add(1) 'InsertQueryType IN
-		ActionArgs_K_597234.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_597234.Add(EvalExpression("ListOfRows_K_597234")) 'ListOfRows IN
-		ActionArgs_K_597234.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_597234 As object() = ActionArgs_K_597234.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_597234,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'Insert DB Structured
-		_CurrentNode = "RDK:597242"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_597242 as New Generic.list(of object)
-		ActionArgs_K_597242.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_597242.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_597242.Add(1) 'InsertQueryType IN
-		ActionArgs_K_597242.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_597242.Add(EvalExpression("ListOfRows_K_597242")) 'ListOfRows IN
-		ActionArgs_K_597242.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_597242 As object() = ActionArgs_K_597242.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_597242,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 		'Set MetaTradTable = NOTHING
 		_CurrentNode = "RDK:597258"
@@ -951,6 +951,17 @@ exec_group:
 		End With
 		MetaTradTable.Add(MetaTrad)
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664072"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664072 as New Generic.list(of object)
+		ActionArgs_K_664072.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664072.Add(EvalExpression("SqlStatement_K_664072")) 'SqlStatement IN
+		ActionArgs_K_664072.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664072.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664072 As object() = ActionArgs_K_664072.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664072)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 		'SetStruct TradTable <-- Trad = baseIDX+i|dmfolder_row.ITA|dmfolder_row.ENG|dmfolder_row.ESP|dmfolder_row.FRA|dmfolder_ro... (125 chars)
 		_CurrentNode = "RDK:597206"
 		Trad = new TradType
@@ -963,6 +974,17 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_597206")
 		End With
 		TradTable.Add(Trad)
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664064"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664064 as New Generic.list(of object)
+		ActionArgs_K_664064.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664064.Add(EvalExpression("SqlStatement_K_664064")) 'SqlStatement IN
+		ActionArgs_K_664064.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664064.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664064 As object() = ActionArgs_K_664064.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664064)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	next_iteration:
 		Index_RDK_597147 += 1
@@ -1061,19 +1083,6 @@ exec_group:
 		Call FOREACHLOOP_K_632()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:634"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_634 as New Generic.list(of object)
-		ActionArgs_K_634.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_634.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_634.Add(1) 'InsertQueryType IN
-		ActionArgs_K_634.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_634.Add(EvalExpression("ListOfRows_K_634")) 'ListOfRows IN
-		ActionArgs_K_634.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_634 As object() = ActionArgs_K_634.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_634,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set baseIDX = i+baseIDX
 		_CurrentNode = "RDK:636"
 		baseIDX = EvalExpression("Set_baseIDX_K_636")
@@ -1103,6 +1112,17 @@ exec_group:
 		'Set TradTable[i-1].IDX = i+baseIDX
 		_CurrentNode = "RDK:631"
 		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_631")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664140"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664140 as New Generic.list(of object)
+		ActionArgs_K_664140.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664140.Add(EvalExpression("SqlStatement_K_664140")) 'SqlStatement IN
+		ActionArgs_K_664140.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664140.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664140 As object() = ActionArgs_K_664140.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664140)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	next_iteration:
 		Index_RDK_632 += 1
@@ -1148,19 +1168,6 @@ exec_group:
 		Call FOREACHLOOP_K_646()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:648"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_648 as New Generic.list(of object)
-		ActionArgs_K_648.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_648.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_648.Add(1) 'InsertQueryType IN
-		ActionArgs_K_648.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_648.Add(EvalExpression("ListOfRows_K_648")) 'ListOfRows IN
-		ActionArgs_K_648.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_648 As object() = ActionArgs_K_648.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_648,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set SupportTableTags = NOTHING
 		_CurrentNode = "RDK:650"
 		SupportTableTags = CompilerUtil.CreateInstanceByType(SupportTableTags.GetType)
@@ -1199,6 +1206,17 @@ exec_group:
 		End With
 		MetaTradTable.Add(MetaTrad)
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664166"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664166 as New Generic.list(of object)
+		ActionArgs_K_664166.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664166.Add(EvalExpression("SqlStatement_K_664166")) 'SqlStatement IN
+		ActionArgs_K_664166.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664166.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664166 As object() = ActionArgs_K_664166.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664166)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_646 += 1
 		If Index_RDK_646 >= MaxCount_RDK_646 then return
@@ -1230,19 +1248,6 @@ exec_group:
 		Call FOREACHLOOP_K_679()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:680"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_680 as New Generic.list(of object)
-		ActionArgs_K_680.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_680.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_680.Add(1) 'InsertQueryType IN
-		ActionArgs_K_680.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_680.Add(EvalExpression("ListOfRows_K_680")) 'ListOfRows IN
-		ActionArgs_K_680.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_680 As object() = ActionArgs_K_680.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_680,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set baseIDX = i+baseIDX
 		_CurrentNode = "RDK:681"
 		baseIDX = EvalExpression("Set_baseIDX_K_681")
@@ -1276,6 +1281,17 @@ exec_group:
 		'Set TradTable[i-1].ESP = N/D
 		_CurrentNode = "RDK:695"
 		TradTable(i-1).ESP = EvalConstant(CompilerUtil.GetFieldType(TradTable(i-1),"ESP"), "N/D")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664192"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664192 as New Generic.list(of object)
+		ActionArgs_K_664192.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664192.Add(EvalExpression("SqlStatement_K_664192")) 'SqlStatement IN
+		ActionArgs_K_664192.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664192.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664192 As object() = ActionArgs_K_664192.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664192)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	next_iteration:
 		Index_RDK_679 += 1
@@ -1321,19 +1337,6 @@ exec_group:
 		Call FOREACHLOOP_K_685()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:686"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_686 as New Generic.list(of object)
-		ActionArgs_K_686.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_686.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_686.Add(1) 'InsertQueryType IN
-		ActionArgs_K_686.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_686.Add(EvalExpression("ListOfRows_K_686")) 'ListOfRows IN
-		ActionArgs_K_686.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_686 As object() = ActionArgs_K_686.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_686,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set SupportTableTags = NOTHING
 		_CurrentNode = "RDK:687"
 		SupportTableTags = CompilerUtil.CreateInstanceByType(SupportTableTags.GetType)
@@ -1372,6 +1375,17 @@ exec_group:
 		End With
 		MetaTradTable.Add(MetaTrad)
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664200"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664200 as New Generic.list(of object)
+		ActionArgs_K_664200.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664200.Add(EvalExpression("SqlStatement_K_664200")) 'SqlStatement IN
+		ActionArgs_K_664200.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664200.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664200 As object() = ActionArgs_K_664200.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664200)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_685 += 1
 		If Index_RDK_685 >= MaxCount_RDK_685 then return
@@ -1385,36 +1399,10 @@ exec_group:
 		Call FOREACHLOOP_K_722()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:767"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_767 as New Generic.list(of object)
-		ActionArgs_K_767.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_767.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_767.Add(1) 'InsertQueryType IN
-		ActionArgs_K_767.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_767.Add(EvalExpression("ListOfRows_K_767")) 'ListOfRows IN
-		ActionArgs_K_767.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_767 As object() = ActionArgs_K_767.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_767,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'FOREACH MetaTrad IN MetaTradTable
 		Call FOREACHLOOP_K_596820()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:596807"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_596807 as New Generic.list(of object)
-		ActionArgs_K_596807.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_596807.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_596807.Add(1) 'InsertQueryType IN
-		ActionArgs_K_596807.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_596807.Add(EvalExpression("ListOfRows_K_596807")) 'ListOfRows IN
-		ActionArgs_K_596807.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_596807 As object() = ActionArgs_K_596807.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_596807,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 		'Set baseIDX = baseIDX+i
 		_CurrentNode = "RDK:778"
 		baseIDX = EvalExpression("Set_baseIDX_K_778")
@@ -1509,7 +1497,7 @@ exec_group:
 			Call THENGROUP_K_757()
 
 		else
-			'SetStruct TradTable <-- Trad = baseIDX+i|iif(_language="ITA",kvRow.value,Trad.ITA)
+			'Execute SQL Statement
 			Call ELSEGROUP_K_774()
 
 		End if
@@ -1556,6 +1544,17 @@ exec_group:
 		End With
 		TradTable.Add(Trad)
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664220"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664220 as New Generic.list(of object)
+		ActionArgs_K_664220.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664220.Add(EvalExpression("SqlStatement_K_664220")) 'SqlStatement IN
+		ActionArgs_K_664220.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664220.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664220 As object() = ActionArgs_K_664220.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664220)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_764 += 1
 		If Index_RDK_764 >= MaxCount_RDK_764 then return
@@ -1563,7 +1562,7 @@ exec_group:
 		goto next_foreach
 	End Sub
 
-	'SetStruct TradTable <-- Trad = baseIDX+i|iif(_language="ITA",kvRow.value,Trad.ITA)
+	'Execute SQL Statement
 	Private Sub ELSEGROUP_K_774()
 		_CurrentNode = "RDK:774"
 		'FOREACH kvRow IN kvTable
@@ -1600,6 +1599,17 @@ exec_group:
 		_CurrentNode = "RDK:663069"
 		TradTable(i-1) = EvalExpression("Set_TradTable_i_1__K_663069")
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664240"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664240 as New Generic.list(of object)
+		ActionArgs_K_664240.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664240.Add(EvalExpression("SqlStatement_K_664240")) 'SqlStatement IN
+		ActionArgs_K_664240.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664240.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664240 As object() = ActionArgs_K_664240.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664240)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_754 += 1
 		If Index_RDK_754 >= MaxCount_RDK_754 then return
@@ -1634,6 +1644,17 @@ exec_group:
 		_CurrentNode = "RDK:663107"
 		MetaTradTable(j-1) = EvalExpression("Set_MetaTradTable_j_1__K_663107")
 		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:664254"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_664254 as New Generic.list(of object)
+		ActionArgs_K_664254.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_664254.Add(EvalExpression("SqlStatement_K_664254")) 'SqlStatement IN
+		ActionArgs_K_664254.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_664254.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_664254 As object() = ActionArgs_K_664254.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_664254)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	next_iteration:
 		Index_RDK_596820 += 1
 		If Index_RDK_596820 >= MaxCount_RDK_596820 then return
@@ -1648,6 +1669,10 @@ exec_group:
 		_CurrentNode = "RDK:784"
 		xml_crm = EvalExpression("Set_xml_crm_K_784")
 		
+		'Set LastUpdateCRM = FileLastWriteDate(CRM_TradPath)
+		_CurrentNode = "RDK:686784"
+		LastUpdateCRM = EvalExpression("Set_LastUpdateCRM_K_686784")
+		
 		'Set array_xml = XmlChildren(xml_crm, "TRANSLATED_STRINGS")
 		_CurrentNode = "RDK:795"
 		array_xml = EvalExpression("Set_array_xml_K_795")
@@ -1656,32 +1681,6 @@ exec_group:
 		Call FOREACHLOOP_K_803()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
-		'Insert DB Structured
-		_CurrentNode = "RDK:873"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_873 as New Generic.list(of object)
-		ActionArgs_K_873.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_873.Add("METATRADS") 'InsertTable IN
-		ActionArgs_K_873.Add(1) 'InsertQueryType IN
-		ActionArgs_K_873.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_873.Add(EvalExpression("ListOfRows_K_873")) 'ListOfRows IN
-		ActionArgs_K_873.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_873 As object() = ActionArgs_K_873.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_873,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-		'Insert DB Structured
-		_CurrentNode = "RDK:1403"		'ACTION RDEngineering_DBInsert
-		Dim ActionArgs_K_1403 as New Generic.list(of object)
-		ActionArgs_K_1403.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_1403.Add("TRADS") 'InsertTable IN
-		ActionArgs_K_1403.Add(1) 'InsertQueryType IN
-		ActionArgs_K_1403.Add(Nothing) 'SingleRow IN
-		ActionArgs_K_1403.Add(EvalExpression("ListOfRows_K_1403")) 'ListOfRows IN
-		ActionArgs_K_1403.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_1403 As object() = ActionArgs_K_1403.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBInsert",_ActionArgs_K_1403,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.EMPTY))
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
 	End Sub
 
 	'FOREACH tag IN array_xml
@@ -1762,11 +1761,11 @@ exec_group:
 		_CurrentNode = "RDK:802"
 		value = EvalExpression("Set_value_K_802")
 		
-		'Set j = j+1
+		'Set k = k+1
 		_CurrentNode = "RDK:863"
-		j = EvalExpression("Set_j_K_863")
+		k = EvalExpression("Set_k_K_863")
 		
-		'SetStruct MetaTradTable <-- MetaTrad = j+baseIDX|CRM|XML|value||LastUpdate
+		'SetStruct MetaTradTable <-- MetaTrad = k+baseIDX|CRM|XML|value||LastUpdateCRM
 		_CurrentNode = "RDK:876"
 		MetaTrad = new MetaTradType
 		With MetaTrad
@@ -1778,13 +1777,35 @@ exec_group:
 		End With
 		MetaTradTable.Add(MetaTrad)
 		
-		'SetStruct TradTable <-- Trad = baseIDX+j
+		'SetStruct TradTable <-- Trad = baseIDX+k
 		_CurrentNode = "RDK:887"
 		Trad = new TradType
 		With Trad
 			.IDX = EvalExpression("IDX_K_887")
 		End With
 		TradTable.Add(Trad)
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669674"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669674 as New Generic.list(of object)
+		ActionArgs_K_669674.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669674.Add(EvalExpression("SqlStatement_K_669674")) 'SqlStatement IN
+		ActionArgs_K_669674.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669674.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669674 As object() = ActionArgs_K_669674.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669674)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669712"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669712 as New Generic.list(of object)
+		ActionArgs_K_669712.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669712.Add(EvalExpression("SqlStatement_K_669712")) 'SqlStatement IN
+		ActionArgs_K_669712.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669712.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669712 As object() = ActionArgs_K_669712.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669712)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
@@ -1797,7 +1818,7 @@ exec_group:
 '----------------------------------------------------
 		if not _GroupExecute then return
 		_ChoiceTaken = True
-		'SetStruct Trad = TradTable[j-1].IDX|XmlText(tag)|TradTable[j-1].ENG|TradTable[j-1].ESP|TradTable[j-1].FRA|TradTable[j-1]... (124 chars)
+		'SetStruct Trad = Trad.IDX|XmlText(tag)|Trad.ENG|Trad.ESP|Trad.FRA|Trad.DEU
 		_CurrentNode = "RDK:989"
 		Trad = new TradType
 		With Trad
@@ -1809,9 +1830,20 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_989")
 		End With
 		
-		'Set TradTable[j-1] = Trad
+		'Set TradTable[k-1] = Trad
 		_CurrentNode = "RDK:663145"
-		TradTable(j-1) = EvalExpression("Set_TradTable_j_1__K_663145")
+		TradTable(k-1) = EvalExpression("Set_TradTable_k_1__K_663145")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669732"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669732 as New Generic.list(of object)
+		ActionArgs_K_669732.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669732.Add(EvalExpression("SqlStatement_K_669732")) 'SqlStatement IN
+		ActionArgs_K_669732.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669732.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669732 As object() = ActionArgs_K_669732.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669732)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
@@ -1824,7 +1856,7 @@ exec_group:
 '----------------------------------------------------
 		if not _GroupExecute then return
 		_ChoiceTaken = True
-		'SetStruct Trad = TradTable[j-1].IDX|TradTable[j-1].ITA|XmlText(tag)|TradTable[j-1].ESP|TradTable[j-1].FRA|TradTable[j-1]... (124 chars)
+		'SetStruct Trad = Trad.IDX|Trad.ITA|XmlText(tag)|Trad.ESP|Trad.FRA|Trad.DEU
 		_CurrentNode = "RDK:1085"
 		Trad = new TradType
 		With Trad
@@ -1836,9 +1868,20 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_1085")
 		End With
 		
-		'Set TradTable[j-1] = Trad
+		'Set TradTable[k-1] = Trad
 		_CurrentNode = "RDK:663183"
-		TradTable(j-1) = EvalExpression("Set_TradTable_j_1__K_663183")
+		TradTable(k-1) = EvalExpression("Set_TradTable_k_1__K_663183")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669758"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669758 as New Generic.list(of object)
+		ActionArgs_K_669758.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669758.Add(EvalExpression("SqlStatement_K_669758")) 'SqlStatement IN
+		ActionArgs_K_669758.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669758.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669758 As object() = ActionArgs_K_669758.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669758)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
@@ -1851,7 +1894,7 @@ exec_group:
 '----------------------------------------------------
 		if not _GroupExecute then return
 		_ChoiceTaken = True
-		'SetStruct Trad = TradTable[j-1].IDX|TradTable[j-1].ITA|TradTable[j-1].ENG|XmlText(tag)|TradTable[j-1].FRA|TradTable[j-1]... (124 chars)
+		'SetStruct Trad = Trad.IDX|Trad.ITA|Trad.ENG|XmlText(tag)|Trad.FRA|Trad.DEU
 		_CurrentNode = "RDK:1116"
 		Trad = new TradType
 		With Trad
@@ -1863,9 +1906,20 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_1116")
 		End With
 		
-		'Set TradTable[j-1] = Trad
+		'Set TradTable[k-1] = Trad
 		_CurrentNode = "RDK:663203"
-		TradTable(j-1) = EvalExpression("Set_TradTable_j_1__K_663203")
+		TradTable(k-1) = EvalExpression("Set_TradTable_k_1__K_663203")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669796"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669796 as New Generic.list(of object)
+		ActionArgs_K_669796.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669796.Add(EvalExpression("SqlStatement_K_669796")) 'SqlStatement IN
+		ActionArgs_K_669796.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669796.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669796 As object() = ActionArgs_K_669796.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669796)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
@@ -1878,7 +1932,7 @@ exec_group:
 '----------------------------------------------------
 		if not _GroupExecute then return
 		_ChoiceTaken = True
-		'SetStruct Trad = TradTable[j-1].IDX|TradTable[j-1].ITA|TradTable[j-1].ENG|TradTable[j-1].ESP|XmlText(tag)|TradTable[j-1]... (124 chars)
+		'SetStruct Trad = Trad.IDX|Trad.ITA|Trad.ENG|Trad.ESP|XmlText(tag)|Trad.DEU
 		_CurrentNode = "RDK:1147"
 		Trad = new TradType
 		With Trad
@@ -1890,9 +1944,20 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_1147")
 		End With
 		
-		'Set TradTable[j-1] = Trad
+		'Set TradTable[k-1] = Trad
 		_CurrentNode = "RDK:663223"
-		TradTable(j-1) = EvalExpression("Set_TradTable_j_1__K_663223")
+		TradTable(k-1) = EvalExpression("Set_TradTable_k_1__K_663223")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669822"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669822 as New Generic.list(of object)
+		ActionArgs_K_669822.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669822.Add(EvalExpression("SqlStatement_K_669822")) 'SqlStatement IN
+		ActionArgs_K_669822.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669822.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669822 As object() = ActionArgs_K_669822.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669822)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
@@ -1905,7 +1970,7 @@ exec_group:
 '----------------------------------------------------
 		if not _GroupExecute then return
 		_ChoiceTaken = True
-		'SetStruct Trad = TradTable[j-1].IDX|TradTable[j-1].ITA|TradTable[j-1].ENG|TradTable[j-1].ESP|TradTable[j-1].FRA|XmlText(... (124 chars)
+		'SetStruct Trad = Trad.IDX|Trad.ITA|Trad.ENG|Trad.ESP|Trad.FRA|XmlText(tag)
 		_CurrentNode = "RDK:1178"
 		Trad = new TradType
 		With Trad
@@ -1917,9 +1982,20 @@ exec_group:
 			.DEU = EvalExpression("DEU_K_1178")
 		End With
 		
-		'Set TradTable[j-1] = Trad
+		'Set TradTable[k-1] = Trad
 		_CurrentNode = "RDK:663243"
-		TradTable(j-1) = EvalExpression("Set_TradTable_j_1__K_663243")
+		TradTable(k-1) = EvalExpression("Set_TradTable_k_1__K_663243")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:669848"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_669848 as New Generic.list(of object)
+		ActionArgs_K_669848.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_669848.Add(EvalExpression("SqlStatement_K_669848")) 'SqlStatement IN
+		ActionArgs_K_669848.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_669848.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_669848 As object() = ActionArgs_K_669848.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_669848)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 

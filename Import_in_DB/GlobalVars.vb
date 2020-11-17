@@ -72,6 +72,7 @@ End Class
 	Public [ConnStr_PDM] As string
 	Public [GS_TradPath] As string
 	Public [CRM_TradPath] As string
+	Public [IniFilePath] As string
 	Public [MetaTradTable] As New Generic.List(Of MetaTradType)
 	Public [MetaTrad] As New MetaTradType
 	Public [TradTable] As New Generic.List(Of TradType)
@@ -105,6 +106,8 @@ End Class
 	Public [array_xml] As New Generic.List(Of string)
 	Public [tag] As string
 	Public [value] As string
+	Public [k] As integer
+	Public [LastUpdateCRM] As date
 	Public [Orig_str] As boolean
 	Public [ITA] As boolean
 	Public [ENG] As boolean

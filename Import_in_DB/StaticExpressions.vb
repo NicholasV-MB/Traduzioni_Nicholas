@@ -7,6 +7,12 @@ Imports RuleDesigner.Configurator.Core.RDCoreCompiler.BasicFunctionsProxy
 Module StaticExpressions
 
     'This placeholder is for static expression table
+	'OriginalExpression: 'ProcPath()+"Settings.ini"
+	<Extension()>
+	Public Function Eval_Static_Set_IniFilePath_K_686349(ByVal Main As RDCompiledProcess) As Object
+		return ProcPath()+"Settings.ini"
+	End Function
+
 	'FOREACH _language IN Languages BYREF
 	'OriginalExpression: 'Languages
 	<Extension()>
@@ -69,10 +75,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: 'TradTable
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_341(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
+	Public Function Eval_Static_SqlStatement_K_663596(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -87,11 +93,18 @@ Module StaticExpressions
 		return "SELECT DISTINCT "+_Param.Input.ID+ " AS ORIGIN_ID_0" 
 	End Function
 
-	'Condition for group IFTHENELSE
-	'OriginalExpression: 'StrLength(_Param.Input.ID2)>0 AND _Param.Input.TableName<>"wo_state"
+	'Condition for group: IFTHENELSE
+	'OriginalExpression: '_Param.Input.ID2<>""
 	<Extension()>
 	Public Function Eval_Static_CondExp1_K_362(ByVal Main As RDCompiledProcess) As Object
-		return StrLength(_Param.Input.ID2)>0 AND _Param.Input.TableName<>"wo_state"
+		return _Param.Input.ID2<>""
+	End Function
+
+	'Condition for group: IFTHENELSE
+	'OriginalExpression: '_Param.Input.TableName<>"wo_state"
+	<Extension()>
+	Public Function Eval_Static_CondExp2_K_362(ByVal Main As RDCompiledProcess) As Object
+		return _Param.Input.TableName<>"wo_state"
 	End Function
 
 	'OriginalExpression: 'queryFindTags + ", "+_Param.Input.ID2+ " AS ORIGIN_ID_1"
@@ -207,11 +220,18 @@ Module StaticExpressions
 		return queryFindTags + " FROM "+_Param.Input.TableName + " WHERE "+condITA+" AND "+condENG+" AND "+condESP+" AND "+condFRA+" AND "+condDEU+" GROUP BY "+_Param.Input.ID
 	End Function
 
-	'Condition for group IFTHENELSE
-	'OriginalExpression: 'StrLength(_Param.Input.ID2)>0 AND _Param.Input.TableName<>"wo_state"
+	'Condition for group: IFTHENELSE
+	'OriginalExpression: '_Param.Input.ID2<>""
 	<Extension()>
 	Public Function Eval_Static_CondExp1_K_596588(ByVal Main As RDCompiledProcess) As Object
-		return StrLength(_Param.Input.ID2)>0 AND _Param.Input.TableName<>"wo_state"
+		return _Param.Input.ID2<>""
+	End Function
+
+	'Condition for group: IFTHENELSE
+	'OriginalExpression: '_Param.Input.TableName<>"wo_state"
+	<Extension()>
+	Public Function Eval_Static_CondExp2_K_596588(ByVal Main As RDCompiledProcess) As Object
+		return _Param.Input.TableName<>"wo_state"
 	End Function
 
 	'OriginalExpression: 'queryFindTags + ", "+_Param.Input.ID2
@@ -232,10 +252,46 @@ Module StaticExpressions
 		return queryFindTags
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ("+Trad.IDX+", '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ("+Trad.IDX+", '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "FUSION", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_FUSION_K_686229(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "FUSION", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "LOCAL", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_LOCAL_K_686243(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "LOCAL", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "PDM", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_PDM_K_686251(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "PDM", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+	<Extension()>
+	Public Function Eval_Static_Set_GS_TradPath_K_686259(ByVal Main As RDCompiledProcess) As Object
+		return ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+	End Function
+
+	'OriginalExpression: 'ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+	<Extension()>
+	Public Function Eval_Static_Set_CRM_TradPath_K_686267(ByVal Main As RDCompiledProcess) As Object
+		return ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+	End Function
+
+	'OriginalExpression: 'SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+	<Extension()>
+	Public Function Eval_Static_Set_Languages_K_686311(ByVal Main As RDCompiledProcess) As Object
+		return SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
 	End Function
 
 	'OriginalExpression: 'ConnStr_LOCAL
@@ -274,6 +330,12 @@ Module StaticExpressions
 		return dmfolder_row.LAST_UPDATE
 	End Function
 
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_664072(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	End Function
+
 	'OriginalExpression: 'baseIDX+i
 	<Extension()>
 	Public Function Eval_Static_IDX_K_597206(ByVal Main As RDCompiledProcess) As Object
@@ -310,22 +372,16 @@ Module StaticExpressions
 		return dmfolder_row.DEU
 	End Function
 
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null)"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_664064(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null)"
+	End Function
+
 	'OriginalExpression: 'i+baseIDX
 	<Extension()>
 	Public Function Eval_Static_Set_baseIDX_K_597220(ByVal Main As RDCompiledProcess) As Object
 		return i+baseIDX
-	End Function
-
-	'OriginalExpression: 'TradTable
-	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_597234(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
-	End Function
-
-	'OriginalExpression: 'MetaTradTable
-	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_597242(ByVal Main As RDCompiledProcess) As Object
-		return MetaTradTable
 	End Function
 
 	'OriginalExpression: '""
@@ -352,10 +408,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: 'TradTable
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_634(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
+	Public Function Eval_Static_SqlStatement_K_664140(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -406,10 +462,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: 'MetaTradTable
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_648(ByVal Main As RDCompiledProcess) As Object
-		return MetaTradTable
+	Public Function Eval_Static_SqlStatement_K_664166(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -418,10 +474,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: 'TradTable
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_680(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
+	Public Function Eval_Static_SqlStatement_K_664192(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -472,10 +528,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: 'MetaTradTable
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_686(ByVal Main As RDCompiledProcess) As Object
-		return MetaTradTable
+	Public Function Eval_Static_SqlStatement_K_664200(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'OriginalExpression: 'NewDateTime(1800, 1, 1, 10, 0, 0)
@@ -553,6 +609,12 @@ Module StaticExpressions
 		return iif(_language="ITA",kvRow.value,Trad.ITA)
 	End Function
 
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null)"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_664220(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null)"
+	End Function
+
 	'OriginalExpression: 'TradTable(i-1).IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_596640(ByVal Main As RDCompiledProcess) As Object
@@ -595,10 +657,10 @@ Module StaticExpressions
 		return Trad
 	End Function
 
-	'OriginalExpression: 'TradTable
+	'OriginalExpression: '"UPDATE TRADS  SET ENG='"+StrSql(Trad.ENG)+"',      ESP='"+StrSql(Trad.ESP)+"',      FRA='"+StrSql(Trad.FRA)+"',      DEU='"+StrSql(Trad.DEU)+"'  WHERE IDX='"+StrSql(Trad.IDX)+"'" 
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_767(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
+	Public Function Eval_Static_SqlStatement_K_664240(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET ENG='"+StrSql(Trad.ENG)+"',      ESP='"+StrSql(Trad.ESP)+"',      FRA='"+StrSql(Trad.FRA)+"',      DEU='"+StrSql(Trad.DEU)+"'  WHERE IDX='"+StrSql(Trad.IDX)+"'" 
 	End Function
 
 	'OriginalExpression: 'MetaTradTable(j-1).IDX
@@ -637,10 +699,10 @@ Module StaticExpressions
 		return MetaTrad
 	End Function
 
-	'OriginalExpression: 'METATradTable
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_596807(ByVal Main As RDCompiledProcess) As Object
-		return METATradTable
+	Public Function Eval_Static_SqlStatement_K_664254(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'OriginalExpression: 'baseIDX+i
@@ -649,16 +711,16 @@ Module StaticExpressions
 		return baseIDX+i
 	End Function
 
-	'OriginalExpression: 'FileLastWriteDate(CRM_TradPath)
-	<Extension()>
-	Public Function Eval_Static_Set_LastUpdate_K_596928(ByVal Main As RDCompiledProcess) As Object
-		return FileLastWriteDate(CRM_TradPath)
-	End Function
-
 	'OriginalExpression: 'StrReplace(ReadTextFile(CRM_TradPath), "-->", "--> <TRANSLATED_STRINGS>")+"</TRANSLATED_STRINGS>"
 	<Extension()>
 	Public Function Eval_Static_Set_xml_crm_K_784(ByVal Main As RDCompiledProcess) As Object
 		return StrReplace(ReadTextFile(CRM_TradPath), "-->", "--> <TRANSLATED_STRINGS>")+"</TRANSLATED_STRINGS>"
+	End Function
+
+	'OriginalExpression: 'FileLastWriteDate(CRM_TradPath)
+	<Extension()>
+	Public Function Eval_Static_Set_LastUpdateCRM_K_686784(ByVal Main As RDCompiledProcess) As Object
+		return FileLastWriteDate(CRM_TradPath)
 	End Function
 
 	'OriginalExpression: 'XmlChildren(xml_crm, "TRANSLATED_STRINGS")
@@ -716,16 +778,16 @@ Module StaticExpressions
 		return XmlText(tag)
 	End Function
 
-	'OriginalExpression: 'j+1
+	'OriginalExpression: 'k+1
 	<Extension()>
-	Public Function Eval_Static_Set_j_K_863(ByVal Main As RDCompiledProcess) As Object
-		return j+1
+	Public Function Eval_Static_Set_k_K_863(ByVal Main As RDCompiledProcess) As Object
+		return k+1
 	End Function
 
-	'OriginalExpression: 'j+baseIDX
+	'OriginalExpression: 'k+baseIDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_876(ByVal Main As RDCompiledProcess) As Object
-		return j+baseIDX
+		return k+baseIDX
 	End Function
 
 	'OriginalExpression: 'value
@@ -734,16 +796,28 @@ Module StaticExpressions
 		return value
 	End Function
 
-	'OriginalExpression: 'LastUpdate
+	'OriginalExpression: 'LastUpdateCRM
 	<Extension()>
 	Public Function Eval_Static_LAST_UPDATE_K_876(ByVal Main As RDCompiledProcess) As Object
-		return LastUpdate
+		return LastUpdateCRM
 	End Function
 
-	'OriginalExpression: 'baseIDX+j
+	'OriginalExpression: 'baseIDX+k
 	<Extension()>
 	Public Function Eval_Static_IDX_K_887(ByVal Main As RDCompiledProcess) As Object
-		return baseIDX+j
+		return baseIDX+k
+	End Function
+
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null)"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669674(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null)"
+	End Function
+
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669712(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'Condition for group CHOICE
@@ -753,10 +827,10 @@ Module StaticExpressions
 		return ITA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).IDX
+	'OriginalExpression: 'Trad.IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_989(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).IDX
+		return Trad.IDX
 	End Function
 
 	'OriginalExpression: 'XmlText(tag)
@@ -765,34 +839,40 @@ Module StaticExpressions
 		return XmlText(tag)
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ENG
+	'OriginalExpression: 'Trad.ENG
 	<Extension()>
 	Public Function Eval_Static_ENG_K_989(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ENG
+		return Trad.ENG
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ESP
+	'OriginalExpression: 'Trad.ESP
 	<Extension()>
 	Public Function Eval_Static_ESP_K_989(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ESP
+		return Trad.ESP
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).FRA
+	'OriginalExpression: 'Trad.FRA
 	<Extension()>
 	Public Function Eval_Static_FRA_K_989(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).FRA
+		return Trad.FRA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).DEU
+	'OriginalExpression: 'Trad.DEU
 	<Extension()>
 	Public Function Eval_Static_DEU_K_989(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).DEU
+		return Trad.DEU
 	End Function
 
 	'OriginalExpression: 'Trad
 	<Extension()>
-	Public Function Eval_Static_Set_TradTable_j_1__K_663145(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_Set_TradTable_k_1__K_663145(ByVal Main As RDCompiledProcess) As Object
 		return Trad
+	End Function
+
+	'OriginalExpression: '"UPDATE TRADS  SET ITA='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669732(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET ITA='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
 	End Function
 
 	'Condition for group CHOICE
@@ -802,16 +882,16 @@ Module StaticExpressions
 		return ENG
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).IDX
+	'OriginalExpression: 'Trad.IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_1085(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).IDX
+		return Trad.IDX
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ITA
+	'OriginalExpression: 'Trad.ITA
 	<Extension()>
 	Public Function Eval_Static_ITA_K_1085(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ITA
+		return Trad.ITA
 	End Function
 
 	'OriginalExpression: 'XmlText(tag)
@@ -820,28 +900,34 @@ Module StaticExpressions
 		return XmlText(tag)
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ESP
+	'OriginalExpression: 'Trad.ESP
 	<Extension()>
 	Public Function Eval_Static_ESP_K_1085(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ESP
+		return Trad.ESP
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).FRA
+	'OriginalExpression: 'Trad.FRA
 	<Extension()>
 	Public Function Eval_Static_FRA_K_1085(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).FRA
+		return Trad.FRA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).DEU
+	'OriginalExpression: 'Trad.DEU
 	<Extension()>
 	Public Function Eval_Static_DEU_K_1085(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).DEU
+		return Trad.DEU
 	End Function
 
 	'OriginalExpression: 'Trad
 	<Extension()>
-	Public Function Eval_Static_Set_TradTable_j_1__K_663183(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_Set_TradTable_k_1__K_663183(ByVal Main As RDCompiledProcess) As Object
 		return Trad
+	End Function
+
+	'OriginalExpression: '"UPDATE TRADS  SET ENG='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k)
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669758(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET ENG='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k)
 	End Function
 
 	'Condition for group CHOICE
@@ -851,22 +937,22 @@ Module StaticExpressions
 		return ESP
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).IDX
+	'OriginalExpression: 'Trad.IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_1116(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).IDX
+		return Trad.IDX
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ITA
+	'OriginalExpression: 'Trad.ITA
 	<Extension()>
 	Public Function Eval_Static_ITA_K_1116(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ITA
+		return Trad.ITA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ENG
+	'OriginalExpression: 'Trad.ENG
 	<Extension()>
 	Public Function Eval_Static_ENG_K_1116(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ENG
+		return Trad.ENG
 	End Function
 
 	'OriginalExpression: 'XmlText(tag)
@@ -875,22 +961,28 @@ Module StaticExpressions
 		return XmlText(tag)
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).FRA
+	'OriginalExpression: 'Trad.FRA
 	<Extension()>
 	Public Function Eval_Static_FRA_K_1116(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).FRA
+		return Trad.FRA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).DEU
+	'OriginalExpression: 'Trad.DEU
 	<Extension()>
 	Public Function Eval_Static_DEU_K_1116(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).DEU
+		return Trad.DEU
 	End Function
 
 	'OriginalExpression: 'Trad
 	<Extension()>
-	Public Function Eval_Static_Set_TradTable_j_1__K_663203(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_Set_TradTable_k_1__K_663203(ByVal Main As RDCompiledProcess) As Object
 		return Trad
+	End Function
+
+	'OriginalExpression: '"UPDATE TRADS  SET ESP='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k)
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669796(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET ESP='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k)
 	End Function
 
 	'Condition for group CHOICE
@@ -900,28 +992,28 @@ Module StaticExpressions
 		return FRA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).IDX
+	'OriginalExpression: 'Trad.IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_1147(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).IDX
+		return Trad.IDX
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ITA
+	'OriginalExpression: 'Trad.ITA
 	<Extension()>
 	Public Function Eval_Static_ITA_K_1147(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ITA
+		return Trad.ITA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ENG
+	'OriginalExpression: 'Trad.ENG
 	<Extension()>
 	Public Function Eval_Static_ENG_K_1147(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ENG
+		return Trad.ENG
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ESP
+	'OriginalExpression: 'Trad.ESP
 	<Extension()>
 	Public Function Eval_Static_ESP_K_1147(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ESP
+		return Trad.ESP
 	End Function
 
 	'OriginalExpression: 'XmlText(tag)
@@ -930,16 +1022,22 @@ Module StaticExpressions
 		return XmlText(tag)
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).DEU
+	'OriginalExpression: 'Trad.DEU
 	<Extension()>
 	Public Function Eval_Static_DEU_K_1147(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).DEU
+		return Trad.DEU
 	End Function
 
 	'OriginalExpression: 'Trad
 	<Extension()>
-	Public Function Eval_Static_Set_TradTable_j_1__K_663223(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_Set_TradTable_k_1__K_663223(ByVal Main As RDCompiledProcess) As Object
 		return Trad
+	End Function
+
+	'OriginalExpression: '"UPDATE TRADS  SET FRA='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_669822(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET FRA='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
 	End Function
 
 	'Condition for group CHOICE
@@ -949,34 +1047,34 @@ Module StaticExpressions
 		return DEU
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).IDX
+	'OriginalExpression: 'Trad.IDX
 	<Extension()>
 	Public Function Eval_Static_IDX_K_1178(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).IDX
+		return Trad.IDX
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ITA
+	'OriginalExpression: 'Trad.ITA
 	<Extension()>
 	Public Function Eval_Static_ITA_K_1178(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ITA
+		return Trad.ITA
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ENG
+	'OriginalExpression: 'Trad.ENG
 	<Extension()>
 	Public Function Eval_Static_ENG_K_1178(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ENG
+		return Trad.ENG
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).ESP
+	'OriginalExpression: 'Trad.ESP
 	<Extension()>
 	Public Function Eval_Static_ESP_K_1178(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).ESP
+		return Trad.ESP
 	End Function
 
-	'OriginalExpression: 'TradTable(j-1).FRA
+	'OriginalExpression: 'Trad.FRA
 	<Extension()>
 	Public Function Eval_Static_FRA_K_1178(ByVal Main As RDCompiledProcess) As Object
-		return TradTable(j-1).FRA
+		return Trad.FRA
 	End Function
 
 	'OriginalExpression: 'XmlText(tag)
@@ -987,20 +1085,14 @@ Module StaticExpressions
 
 	'OriginalExpression: 'Trad
 	<Extension()>
-	Public Function Eval_Static_Set_TradTable_j_1__K_663243(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_Set_TradTable_k_1__K_663243(ByVal Main As RDCompiledProcess) As Object
 		return Trad
 	End Function
 
-	'OriginalExpression: 'MetaTradTable
+	'OriginalExpression: '"UPDATE TRADS  SET DEU='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
 	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_873(ByVal Main As RDCompiledProcess) As Object
-		return MetaTradTable
-	End Function
-
-	'OriginalExpression: 'TradTable
-	<Extension()>
-	Public Function Eval_Static_ListOfRows_K_1403(ByVal Main As RDCompiledProcess) As Object
-		return TradTable
+	Public Function Eval_Static_SqlStatement_K_669848(ByVal Main As RDCompiledProcess) As Object
+		return "UPDATE TRADS  SET DEU='"+StrSql(XmlText(tag))+"' WHERE IDX="+StrSql(baseIDX+k) 
 	End Function
 
 
