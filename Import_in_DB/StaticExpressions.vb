@@ -408,10 +408,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664140(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+		return "INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -420,10 +420,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans1"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans2"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(not IsEmpty(Trad.ESP), "='"+StrSql(Trad.ESP)+"'", " IS NULL")
+	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore='"+StrSql(Trad.ITA)+"'  AND cvalTrans1='"+StrSql(Trad.ENG)+"'  AND cvalTrans2='"+StrSql(Trad.FRA)+"'  AND cvalTrans3='"+StrSql(Trad.DEU)+"'  AND cvalTrans4='"+StrSql(Trad.ESP)+"'"
 	<Extension()>
 	Public Function Eval_Static_Set_queryFindTags_K_640(ByVal Main As RDCompiledProcess) As Object
-		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans1"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans2"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(not IsEmpty(Trad.ESP), "='"+StrSql(Trad.ESP)+"'", " IS NULL")
+		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore='"+StrSql(Trad.ITA)+"'  AND cvalTrans1='"+StrSql(Trad.ENG)+"'  AND cvalTrans2='"+StrSql(Trad.FRA)+"'  AND cvalTrans3='"+StrSql(Trad.DEU)+"'  AND cvalTrans4='"+StrSql(Trad.ESP)+"'"
 	End Function
 
 	'OriginalExpression: '"DB_PDM"
@@ -435,6 +435,31 @@ Module StaticExpressions
 	'OriginalExpression: 'queryFindTags
 	<Extension()>
 	Public Function Eval_Static_SelectQuery_K_642(ByVal Main As RDCompiledProcess) As Object
+		return queryFindTags
+	End Function
+
+	'Condition for group IFTHENELSE
+	'OriginalExpression: 'Count(SupportTableTags)=0
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_697802(ByVal Main As RDCompiledProcess) As Object
+		return Count(SupportTableTags)=0
+	End Function
+
+	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore"+IIF(Trad.ITA="", " IS NULL ", "='"+StrSql(Trad.ITA)+"' ")+"  AND cvalTrans1"+IIF(Trad.ENG="", " IS NULL ", "='"+StrSql(Trad.ENG)+"' ")+"  AND cvalTrans2"+IIF(Trad.FRA="", " IS NULL ", "='"+StrSql(Trad.FRA)+"' ")+"  AND cvalTrans3"+IIF(Trad.DEU="", " IS NULL ", "='"+StrSql(Trad.DEU)+"' ")+"  AND cvalTrans4"+IIF(Trad.ESP="", " IS NULL ", "='"+StrSql(Trad.ESP)+"'") 
+	<Extension()>
+	Public Function Eval_Static_Set_queryFindTags_K_697834(ByVal Main As RDCompiledProcess) As Object
+		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('328', '329')  AND cvalValore"+IIF(Trad.ITA="", " IS NULL ", "='"+StrSql(Trad.ITA)+"' ")+"  AND cvalTrans1"+IIF(Trad.ENG="", " IS NULL ", "='"+StrSql(Trad.ENG)+"' ")+"  AND cvalTrans2"+IIF(Trad.FRA="", " IS NULL ", "='"+StrSql(Trad.FRA)+"' ")+"  AND cvalTrans3"+IIF(Trad.DEU="", " IS NULL ", "='"+StrSql(Trad.DEU)+"' ")+"  AND cvalTrans4"+IIF(Trad.ESP="", " IS NULL ", "='"+StrSql(Trad.ESP)+"'") 
+	End Function
+
+	'OriginalExpression: '"DB_PDM"
+	<Extension()>
+	Public Function Eval_Static_ConnectionName_K_697842(ByVal Main As RDCompiledProcess) As Object
+		return "DB_PDM"
+	End Function
+
+	'OriginalExpression: 'queryFindTags
+	<Extension()>
+	Public Function Eval_Static_SelectQuery_K_697842(ByVal Main As RDCompiledProcess) As Object
 		return queryFindTags
 	End Function
 
@@ -462,10 +487,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664166(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -486,10 +511,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") 
+	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2='"+StrSql(Trad.ITA)+"'  AND cvalTrans3='"+StrSql(Trad.ENG)+"'  AND cvalTrans4='"+StrSql(Trad.FRA)+"'  AND cvalTrans5='"+StrSql(Trad.DEU)+"'" 
 	<Extension()>
 	Public Function Eval_Static_Set_queryFindTags_K_682(ByVal Main As RDCompiledProcess) As Object
-		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2"+IIF(not IsEmpty(Trad.ITA), "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(not IsEmpty(Trad.ENG), "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(not IsEmpty(Trad.FRA), "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans5"+IIF(not IsEmpty(Trad.DEU), "='"+StrSql(Trad.DEU)+"'", " IS NULL") 
+		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2='"+StrSql(Trad.ITA)+"'  AND cvalTrans3='"+StrSql(Trad.ENG)+"'  AND cvalTrans4='"+StrSql(Trad.FRA)+"'  AND cvalTrans5='"+StrSql(Trad.DEU)+"'" 
 	End Function
 
 	'OriginalExpression: '"DB_PDM"
@@ -501,6 +526,31 @@ Module StaticExpressions
 	'OriginalExpression: 'queryFindTags
 	<Extension()>
 	Public Function Eval_Static_SelectQuery_K_683(ByVal Main As RDCompiledProcess) As Object
+		return queryFindTags
+	End Function
+
+	'Condition for group IFTHENELSE
+	'OriginalExpression: 'Count(SupportTableTags)=0
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_697910(ByVal Main As RDCompiledProcess) As Object
+		return Count(SupportTableTags)=0
+	End Function
+
+	'OriginalExpression: '"SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2"+IIF(Trad.ITA<>"", "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(Trad.ENG<>"", "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(Trad.FRA<>"", "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans5"+IIF(Trad.DEU<>"", "='"+StrSql(Trad.DEU)+"'", " IS NULL")  
+	<Extension()>
+	Public Function Eval_Static_Set_queryFindTags_K_697907(ByVal Main As RDCompiledProcess) As Object
+		return "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL  WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91')  AND cvalTrans2"+IIF(Trad.ITA<>"", "='"+StrSql(Trad.ITA)+"'", " IS NULL") +"  AND cvalTrans3"+IIF(Trad.ENG<>"", "='"+StrSql(Trad.ENG)+"'", " IS NULL") +"  AND cvalTrans4"+IIF(Trad.FRA<>"", "='"+StrSql(Trad.FRA)+"'", " IS NULL") +"  AND cvalTrans5"+IIF(Trad.DEU<>"", "='"+StrSql(Trad.DEU)+"'", " IS NULL")  
+	End Function
+
+	'OriginalExpression: '"DB_PDM"
+	<Extension()>
+	Public Function Eval_Static_ConnectionName_K_697908(ByVal Main As RDCompiledProcess) As Object
+		return "DB_PDM"
+	End Function
+
+	'OriginalExpression: 'queryFindTags
+	<Extension()>
+	Public Function Eval_Static_SelectQuery_K_697908(ByVal Main As RDCompiledProcess) As Object
 		return queryFindTags
 	End Function
 
@@ -528,10 +578,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664200(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
 	End Function
 
 	'OriginalExpression: 'NewDateTime(1800, 1, 1, 10, 0, 0)

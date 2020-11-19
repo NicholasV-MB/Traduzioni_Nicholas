@@ -1069,7 +1069,7 @@ exec_group:
 		ActionArgs_K_628.Add(Nothing) 'SelectTable IN
 		ActionArgs_K_628.Add(Nothing) 'SelectFieldName IN
 		ActionArgs_K_628.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_628.Add(EvalConstant(GetType(string),"SELECT cvalValore as ITA, cvalTrans1 as ENG, cvalTrans4 as ESP, cvalTrans2 as FRA, cvalTrans3 as DEU FROM CODVAL WHERE cpID in ('328', '329' ) ANDç§NOT (cvalValore='' AND cvalTrans1='' AND cvalTrans4='' AND cvalTrans2='' AND cvalTrans3='')")) 'SelectQuery IN
+		ActionArgs_K_628.Add(EvalConstant(GetType(string),"SELECT DISTINCT cvalValore as ITA, cvalTrans1 as ENG, cvalTrans4 as ESP, cvalTrans2 as FRA, cvalTrans3 as DEU FROM CODVAL WHERE cpID in ('328', '329' ) ANDç§NOT (cvalValore='' AND cvalTrans1='' AND cvalTrans4='' AND cvalTrans2='' AND cvalTrans3='')")) 'SelectQuery IN
 		ActionArgs_K_628.Add(2) 'SelectQueryType IN
 		ActionArgs_K_628.Add(Nothing) 'FirstRow OUT
 		ActionArgs_K_628.Add(TradTable) 'AllRows OUT
@@ -1142,7 +1142,7 @@ exec_group:
 	next_foreach:
 		Trad = Values_RDK_638(Index_RDK_638)
 		
-		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('328', '329') AND cvalV... (536 chars)
+		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('328', '329') AND cvalV... (305 chars)
 		_CurrentNode = "RDK:640"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_640")
 		
@@ -1164,6 +1164,11 @@ exec_group:
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		SupportTableTags = _ActionArgs_K_642(8)		'OUT
 		
+		'If Count(SupportTableTags)=0 is True
+		Call IFTHENELSE_K_697802()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
+
 		'FOREACH SupportRowTags IN SupportTableTags BYREF
 		Call FOREACHLOOP_K_646()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
@@ -1180,6 +1185,48 @@ exec_group:
 		Index_RDK_638 += 1
 		If Index_RDK_638 >= MaxCount_RDK_638 then return
 		goto next_foreach
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub IFTHENELSE_K_697802()
+		_CurrentNode = "RDK:697802"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_697802")
+exec_group:
+'----------------------------------------------------
+		if _GroupExecute then
+		    'Call THEN group
+			'If Count(SupportTableTags)=0 is True
+			Call THENGROUP_K_697803()
+
+		End if
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub THENGROUP_K_697803()
+		_CurrentNode = "RDK:697803"
+		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('328', '329') AND cvalV... (492 chars)
+		_CurrentNode = "RDK:697834"
+		queryFindTags = EvalExpression("Set_queryFindTags_K_697834")
+		
+		'Select DB Structured
+		_CurrentNode = "RDK:697842"		'ACTION RDEngineering_DBSelectStructured
+		Dim ActionArgs_K_697842 as New Generic.list(of object)
+		ActionArgs_K_697842.Add(EvalExpression("ConnectionName_K_697842")) 'ConnectionName IN
+		ActionArgs_K_697842.Add(1) 'SelectQueryMode IN
+		ActionArgs_K_697842.Add(Nothing) 'SelectTable IN
+		ActionArgs_K_697842.Add(Nothing) 'SelectFieldName IN
+		ActionArgs_K_697842.Add(Nothing) 'SelectFieldValue IN
+		ActionArgs_K_697842.Add(EvalExpression("SelectQuery_K_697842")) 'SelectQuery IN
+		ActionArgs_K_697842.Add(2) 'SelectQueryType IN
+		ActionArgs_K_697842.Add(Nothing) 'FirstRow OUT
+		ActionArgs_K_697842.Add(SupportTableTags) 'AllRows OUT
+		ActionArgs_K_697842.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_697842 As object() = ActionArgs_K_697842.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_697842,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		SupportTableTags = _ActionArgs_K_697842(8)		'OUT
+		
 	End Sub
 
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
@@ -1234,7 +1281,7 @@ exec_group:
 		ActionArgs_K_677.Add(Nothing) 'SelectTable IN
 		ActionArgs_K_677.Add(Nothing) 'SelectFieldName IN
 		ActionArgs_K_677.Add(Nothing) 'SelectFieldValue IN
-		ActionArgs_K_677.Add("SELECT  cvalTrans2 as ITA, cvalTrans3 as ENG, '' as ESP, cvalTrans4 as FRA,  cvalTrans5 as DEU FROM CODVAL WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91' )") 'SelectQuery IN
+		ActionArgs_K_677.Add("SELECT DISTINCT  cvalTrans2 as ITA, cvalTrans3 as ENG, '' as ESP, cvalTrans4 as FRA,  cvalTrans5 as DEU FROM CODVAL WHERE cpID in ('497', '489', '459', '370', '222', '223', '220', '91' )") 'SelectQuery IN
 		ActionArgs_K_677.Add(2) 'SelectQueryType IN
 		ActionArgs_K_677.Add(Nothing) 'FirstRow OUT
 		ActionArgs_K_677.Add(TradTable) 'AllRows OUT
@@ -1311,7 +1358,7 @@ exec_group:
 	next_foreach:
 		Trad = Values_RDK_690(Index_RDK_690)
 		
-		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('497', '489', '459', '37... (492 chars)
+		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('497', '489', '459', '37... (308 chars)
 		_CurrentNode = "RDK:682"
 		queryFindTags = EvalExpression("Set_queryFindTags_K_682")
 		
@@ -1333,6 +1380,11 @@ exec_group:
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		SupportTableTags = _ActionArgs_K_683(8)		'OUT
 		
+		'If Count(SupportTableTags)=0 is True
+		Call IFTHENELSE_K_697910()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
+
 		'FOREACH SupportRowTags IN SupportTableTags BYREF
 		Call FOREACHLOOP_K_685()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
@@ -1349,6 +1401,48 @@ exec_group:
 		Index_RDK_690 += 1
 		If Index_RDK_690 >= MaxCount_RDK_690 then return
 		goto next_foreach
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub IFTHENELSE_K_697910()
+		_CurrentNode = "RDK:697910"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_697910")
+exec_group:
+'----------------------------------------------------
+		if _GroupExecute then
+		    'Call THEN group
+			'If Count(SupportTableTags)=0 is True
+			Call THENGROUP_K_697909()
+
+		End if
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub THENGROUP_K_697909()
+		_CurrentNode = "RDK:697909"
+		'Set queryFindTags = "SELECT cvalID ORIGIN_ID_0, cpID AS ORIGIN_ID_1 FROM CODVAL WHERE cpID in ('497', '489', '459', '37... (457 chars)
+		_CurrentNode = "RDK:697907"
+		queryFindTags = EvalExpression("Set_queryFindTags_K_697907")
+		
+		'Select DB Structured
+		_CurrentNode = "RDK:697908"		'ACTION RDEngineering_DBSelectStructured
+		Dim ActionArgs_K_697908 as New Generic.list(of object)
+		ActionArgs_K_697908.Add(EvalExpression("ConnectionName_K_697908")) 'ConnectionName IN
+		ActionArgs_K_697908.Add(1) 'SelectQueryMode IN
+		ActionArgs_K_697908.Add(Nothing) 'SelectTable IN
+		ActionArgs_K_697908.Add(Nothing) 'SelectFieldName IN
+		ActionArgs_K_697908.Add(Nothing) 'SelectFieldValue IN
+		ActionArgs_K_697908.Add(EvalExpression("SelectQuery_K_697908")) 'SelectQuery IN
+		ActionArgs_K_697908.Add(2) 'SelectQueryType IN
+		ActionArgs_K_697908.Add(Nothing) 'FirstRow OUT
+		ActionArgs_K_697908.Add(SupportTableTags) 'AllRows OUT
+		ActionArgs_K_697908.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_697908 As object() = ActionArgs_K_697908.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_697908,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		SupportTableTags = _ActionArgs_K_697908(8)		'OUT
+		
 	End Sub
 
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
