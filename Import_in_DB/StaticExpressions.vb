@@ -75,10 +75,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_663596(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -252,10 +252,10 @@ Module StaticExpressions
 		return queryFindTags
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+RDToString(SupportRowTags.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
 	End Function
 
 	'OriginalExpression: 'ReadIni(IniFilePath, "FUSION", "ConnectionString")
@@ -372,10 +372,10 @@ Module StaticExpressions
 		return dmfolder_row.DEU
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664064(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null)"
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -408,10 +408,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664140(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null)"
+		return "INSERT INTO TRADS  VALUES('"+StrSql(TradTable(i-1).IDX)+"',  '"+StrSql(TradTable(i-1).ITA)+"',  '"+StrSql(TradTable(i-1).ENG)+"',  '"+StrSql(TradTable(i-1).ESP)+"',  '"+StrSql(TradTable(i-1).FRA)+"',  '"+StrSql(TradTable(i-1).DEU)+"',  Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -499,10 +499,10 @@ Module StaticExpressions
 		return i+baseIDX
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664192(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null)"
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -659,10 +659,10 @@ Module StaticExpressions
 		return iif(_language="ITA",kvRow.value,Trad.ITA)
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664220(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null)"
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '"+StrSql(Trad.ITA)+"', Null, Null, Null, Null, Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: 'TradTable(i-1).IDX
@@ -858,10 +858,10 @@ Module StaticExpressions
 		return baseIDX+k
 	End Function
 
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null)"
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null, Null)"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_669674(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null)"
+		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null, Null)"
 	End Function
 
 	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"

@@ -707,7 +707,7 @@ exec_group:
 		_CurrentNode = "RDK:266"		'ACTION RDEngineering_DBExecuteStatement
 		Dim ActionArgs_K_266 as New Generic.list(of object)
 		ActionArgs_K_266.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_266.Add(EvalConstant(GetType(string),"IF NOT EXISTS (SELECT * ç§           FROM INFORMATION_SCHEMA.TABLES ç§           WHERE TABLE_TYPE='BASE TABLE' ç§           AND TABLE_NAME='TRADS') ç§   CREATE TABLE TRADS (ç§    IDX INT  PRIMARY KEY ,ç§    ITA varchar(1024),ç§    ENG varchar(1024),ç§    ESP varchar(1024),ç§    FRA varchar(1024),ç§    DEU varchar(1024),ç§    UPDATED BIT,ç§    NEW BITç§)ç§ELSEç§TRUNCATE TABLE TRADS")) 'SqlStatement IN
+		ActionArgs_K_266.Add(EvalConstant(GetType(string),"IF NOT EXISTS (SELECT * ç§           FROM INFORMATION_SCHEMA.TABLES ç§           WHERE TABLE_TYPE='BASE TABLE' ç§           AND TABLE_NAME='TRADS') ç§   CREATE TABLE TRADS (ç§    IDX INT  PRIMARY KEY ,ç§    ITA varchar(1024),ç§    ENG varchar(1024),ç§    ESP varchar(1024),ç§    FRA varchar(1024),ç§    DEU varchar(1024),ç§    UPDATED BIT,ç§    NEW BIT,ç§    DELETED BITç§)ç§ELSEç§TRUNCATE TABLE TRADS")) 'SqlStatement IN
 		ActionArgs_K_266.Add(Nothing) 'StatementResult OUT
 		ActionArgs_K_266.Add(Nothing) 'Options IN
 		Dim _ActionArgs_K_266 As object() = ActionArgs_K_266.ToArray

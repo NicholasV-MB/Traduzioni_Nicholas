@@ -3,3 +3,11 @@ IMPORT_IN_DB:
 	- non è possibile controllare con la funzione "IsEmpty()" se è stata valorizzata una variabile con la dll, da rdx invece funziona 
 		--> bisogna fare il controllo che la variabile sia ="" o <>""
 	- all'interno della dll non è possibile eseguire la funzione "FileLastWriteDate()" prima di aver letto il file, mentre nell'rdx si
+
+MigrateToLocalDB:
+	- funzione Count(string[]) e Count(string[][]) vengono compilate quando viene generata la dll ma quando viene eseguita da errore di "riferimento ad oggetto non trovato"
+
+Web_Interface:
+	- filtro della web grid (captionfilter) non resta nella visualizzazione -> ho fatto un bottone di backup per sapere su cosa è stato fatto il filtro e per rimuoverlo + 
+	  gestione di filtri multipli
+	- SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected
