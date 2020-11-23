@@ -71,6 +71,12 @@
 	<ESP>DEVELOPED TASK. Title</ESP>
 	<DEU>DEVELOPED TASK. Title</DEU>
 	<FRA>DEVELOPED TASK. Title</FRA>
+<Orig_str>Attività Completata</Orig_str>
+	<ITA>Attività Sviluppata</ITA>
+	<ENG>Developed Task</ENG>
+	<ESP>Developed Task</ESP>
+	<DEU>Developed Task</DEU>
+	<FRA>Developed Task</FRA>
 <Orig_str>Attività completata</Orig_str>
 	<ENG>Developed Task</ENG>
 	<ESP>Developed Task</ESP>

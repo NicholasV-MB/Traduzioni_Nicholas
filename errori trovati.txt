@@ -11,3 +11,7 @@ Web_Interface:
 	- filtro della web grid (captionfilter) non resta nella visualizzazione -> ho fatto un bottone di backup per sapere su cosa è stato fatto il filtro e per rimuoverlo + 
 	  gestione di filtri multipli
 	- SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected
+
+Export_from_DB:
+	- funzione ReplaceFromTo() il tag "TO" non è necessariamente successivo a quello "FROM"
+	- errore nello scrivere la fine "]]>" di una stringa che inizia per "<[CDATA["

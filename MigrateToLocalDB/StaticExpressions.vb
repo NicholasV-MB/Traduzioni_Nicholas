@@ -101,6 +101,12 @@ Module StaticExpressions
 		return F_table="dm_folder_prop_001"
 	End Function
 
+	'OriginalExpression: 'False
+	<Extension()>
+	Public Function Eval_Static_Set_endwhile_K_356(ByVal Main As RDCompiledProcess) As Object
+		return False
+	End Function
+
 	'Condition for group WHILE
 	'OriginalExpression: 'endwhile
 	<Extension()>
@@ -108,10 +114,10 @@ Module StaticExpressions
 		return endwhile
 	End Function
 
-	'OriginalExpression: '"SELECT * FROM "+F_table+" WHERE DMCODEID>"+RDToString(MinCounter)+" AND DMCODEID<"+RDToString(MaxCounter)
+	'OriginalExpression: '"SELECT * FROM "+F_table+" WHERE "+ IIF(F_table="dm_folder_001",      "DMCODEID>"+RDToString(MinCounter)+" AND DMCODEID<"+RDToString(MaxCounter),     "PPNODEID>"+RDToString(MinCounter)+" AND PPNODEID<"+RDToString(MaxCounter) )
 	<Extension()>
 	Public Function Eval_Static_SelectQuery_K_91(ByVal Main As RDCompiledProcess) As Object
-		return "SELECT * FROM "+F_table+" WHERE DMCODEID>"+RDToString(MinCounter)+" AND DMCODEID<"+RDToString(MaxCounter)
+		return "SELECT * FROM "+F_table+" WHERE "+ IIF(F_table="dm_folder_001",      "DMCODEID>"+RDToString(MinCounter)+" AND DMCODEID<"+RDToString(MaxCounter),     "PPNODEID>"+RDToString(MinCounter)+" AND PPNODEID<"+RDToString(MaxCounter) )
 	End Function
 
 	'OriginalExpression: 'IIF(k=0, True, False)

@@ -320,6 +320,11 @@ exec_group:
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		SupportTableTags = _ActionArgs_K_374(8)		'OUT
 		
+		'If Count(SupportTableTags)=0 is True
+		Call IFTHENELSE_K_698105()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+		If CompilerUtil.MustDoNextIteration(_ExitTarget) Then goto next_iteration
+
 		'FOREACH SupportRowTags IN SupportTableTags BYREF
 		Call FOREACHLOOP_K_375()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
@@ -581,10 +586,48 @@ exec_group:
 		
 	End Sub
 
+	'If Count(SupportTableTags)=0 is True
+	Private Sub IFTHENELSE_K_698105()
+		_CurrentNode = "RDK:698105"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_698105")
+exec_group:
+'----------------------------------------------------
+		if _GroupExecute then
+		    'Call THEN group
+			'If Count(SupportTableTags)=0 is True
+			Call THENGROUP_K_698106()
+
+		End if
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub THENGROUP_K_698106()
+		_CurrentNode = "RDK:698106"
+		'Select DB Structured
+		_CurrentNode = "RDK:698137"		'ACTION RDEngineering_DBSelectStructured
+		Dim ActionArgs_K_698137 as New Generic.list(of object)
+		ActionArgs_K_698137.Add(EvalExpression("ConnectionName_K_698137")) 'ConnectionName IN
+		ActionArgs_K_698137.Add(1) 'SelectQueryMode IN
+		ActionArgs_K_698137.Add(Nothing) 'SelectTable IN
+		ActionArgs_K_698137.Add(Nothing) 'SelectFieldName IN
+		ActionArgs_K_698137.Add(Nothing) 'SelectFieldValue IN
+		ActionArgs_K_698137.Add(EvalExpression("SelectQuery_K_698137")) 'SelectQuery IN
+		ActionArgs_K_698137.Add(2) 'SelectQueryType IN
+		ActionArgs_K_698137.Add(Nothing) 'FirstRow OUT
+		ActionArgs_K_698137.Add(SupportTableTags) 'AllRows OUT
+		ActionArgs_K_698137.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_698137 As object() = ActionArgs_K_698137.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBSelectStructured",_ActionArgs_K_698137,CompilerUtil.ContextBuilder(CompilerUtil.CTXMODE.BASIC))
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		SupportTableTags = _ActionArgs_K_698137(8)		'OUT
+		
+	End Sub
+
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
 	Private Sub FOREACHLOOP_K_375()
 		_CurrentNode = "RDK:375"
-		Dim Values_RDK_375 as object = SupportTableTags
+		Dim Values_RDK_375 as object = EvalExpression("ForEachValues_K_375")
 		Dim Index_RDK_375 as integer
 		Dim MaxCount_RDK_375 as integer = CompilerUtil.Count(Values_RDK_375)
 		If MaxCount_RDK_375 <= 0 then return

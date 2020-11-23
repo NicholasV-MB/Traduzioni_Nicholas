@@ -252,6 +252,32 @@ Module StaticExpressions
 		return queryFindTags
 	End Function
 
+	'Condition for group IFTHENELSE
+	'OriginalExpression: 'Count(SupportTableTags)=0
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_698105(ByVal Main As RDCompiledProcess) As Object
+		return Count(SupportTableTags)=0
+	End Function
+
+	'OriginalExpression: '"DB_"+_Param.Input.DB
+	<Extension()>
+	Public Function Eval_Static_ConnectionName_K_698137(ByVal Main As RDCompiledProcess) As Object
+		return "DB_"+_Param.Input.DB
+	End Function
+
+	'OriginalExpression: 'StrReplace(queryFindTags, " IS NULL", "=''")
+	<Extension()>
+	Public Function Eval_Static_SelectQuery_K_698137(ByVal Main As RDCompiledProcess) As Object
+		return StrReplace(queryFindTags, " IS NULL", "=''")
+	End Function
+
+	'FOREACH SupportRowTags IN SupportTableTags BYREF
+	'OriginalExpression: 'SupportTableTags
+	<Extension()>
+	Public Function Eval_Static_ForEachValues_K_375(ByVal Main As RDCompiledProcess) As Object
+		return SupportTableTags
+	End Function
+
 	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object

@@ -88,8 +88,6 @@ Public Class RDCompiledProcess
 		FusionServer = "Provider=sqloledb;Initial Catalog=FUSIONTEST;Data Source=192.168.0.27;User Id=SA;Password=Ruled2014;"
 		FusionLocal = "Provider=sqloledb;Initial Catalog=FUSIONTEST;Data Source=LAPT-IT07\RULEDESIGNER;User Id=SA;Password=MBOffline$;"
 		FusionTables = EvalConstant(FusionTables.GetType, "LIST { ç§""ba_activitytype"",ç§""ba_properties"",ç§""ba_prop_value"",ç§""ba_activity_category"",ç§""wo_state"",ç§""pr_item"",ç§""pr_type"",ç§""dm_class"",ç§""dm_folder_001"",ç§""ba_source"",ç§""LANGUAGE"",ç§""pr_project_001"",ç§""dm_folder_prop_001""ç§}")
-		MinCounter = 0
-		MaxCounter = 100000
 		endwhile = false
 
 
@@ -480,6 +478,18 @@ exec_group:
 	'If F_table="dm_folder_001" is True OR ...
 	Private Sub THENGROUP_K_179()
 		_CurrentNode = "RDK:179"
+		'Set MinCounter = 0
+		_CurrentNode = "RDK:346"
+		MinCounter = EvalConstant(MinCounter.GetType, "0")
+		
+		'Set MaxCounter = 10000
+		_CurrentNode = "RDK:348"
+		MaxCounter = EvalConstant(MaxCounter.GetType, "10000")
+		
+		'Set endwhile = False
+		_CurrentNode = "RDK:356"
+		endwhile = EvalExpression("Set_endwhile_K_356")
+		
 		'While endwhile is False
 		Call WHILELOOP_K_219()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
