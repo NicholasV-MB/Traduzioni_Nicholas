@@ -15,3 +15,5 @@ Web_Interface:
 Export_from_DB:
 	- funzione ReplaceFromTo() il tag "TO" non è necessariamente successivo a quello "FROM"
 	- errore nello scrivere la fine "]]>" di una stringa che inizia per "<[CDATA["
+	- dll da errori come  "Cast non valido dalla stringa "SELECT * FROM METATRADS WHERE ID" al tipo 'Double'. Formato della stringa di input non corretto" in un nodo 
+	  "Select DB Structured" dove la query è "SELECT * FROM METATRADS WHERE IDX="+Trad.IDX con Trad.IDX tipo "integer"
