@@ -25,7 +25,7 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - Si può aggiungere nuove traduzioni, ma queste andranno solo nella tabella "LANGUAGE" di FusionTest
 - L'esportazione delle traduzioni modificate può essere eseguita da qualsiasi tipo di utente se sceglie di salvare dopo aver premuto "END"
 - Tutte le modifiche apportate verranno esportate nei file e nei database locali 
-- Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom esegueendo ["merge_update_xml.rdx"](merge_update_xml.rdx)
+- Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom eseguendo ["merge_update_xml.rdx"](merge_update_xml.rdx)
 
 ## Altre note
 - Sono stati riscontrati diversi problemi, soprattutto nell'esecuzione delle dll generate dai file rdx. Tutti quelli riscontrati sono elencati nel file ["errori_trovati.md"](errori_trovati.md)
