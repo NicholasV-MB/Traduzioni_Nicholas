@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T08:41:52" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T09:44:56" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -1010,7 +1010,7 @@ ORDER BY T.ITA]]></EXP>
 				<PAR Name="ImgLeft" />
 				<PAR Name="ImgRight" />
 				<PAR Name="CSSStyle">
-					<EXP><![CDATA[$C$CSS/GridFixHeader.css]]></EXP>
+					<EXP><![CDATA[$C$CSS/Grid_FixHeader.css]]></EXP>
 				</PAR>
 				<PAR Name="RDActionTimeOut" />
 				<PAR Name="CaptionsList">
@@ -1047,26 +1047,26 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$FilterTrad]]></EXP>
 				</PAR>
 				<PAR Name="Options">
-					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(ODDBACKCOLOR=#dcdcdc)"+IIF(Mode="read", "(NODELETE)(NOEDIT)", "")]]></EXP>
+					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(ODDBACKCOLOR=#dcdcdc)"+IIF(Mode="read", "(NODELETE)(NOEDIT)", "")+IIF(myUser.groupID<>1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
 			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
-				<VAR_COND Id="RDK:921048" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:921129" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:921049" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:921130" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="EDIT"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:921050" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:921131" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:921051" Name="SORT">
+				<VAR_COND Id="RDK:921132" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:921052" Name="FILTER">
+				<VAR_COND Id="RDK:921133" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:921053" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:921134" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice">

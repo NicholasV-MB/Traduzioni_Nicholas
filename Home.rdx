@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-23T08:48:01" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T09:08:29" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -207,6 +207,10 @@
 			</PAR>
 			<PAR Name="Options" />
 		</ACTION_CALL>
+		<SET Id="RDK:922047" VarRef="myUser.groupID" Suppressed="True">
+			<EXP><![CDATA[$C$3]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
 		<IFTHENELSE Id="RDK:642" Expanded="True">
 			<VALUECONDITION Value="true">
 				<EXP><![CDATA[$=$IsEmpty(Lock)]]></EXP>

@@ -11,7 +11,7 @@ table.RDGRID tbody
 {
     display: block;
     overflow-y: auto;
-    height: 600px;
+    height: 550px;
 }
 
 table.RDGRID tr {
