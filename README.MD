@@ -9,11 +9,11 @@ La gestione delle traduzioni è così strutturata:
 ## Setup
 Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisognerà seguire i seguenti passaggi:
 - da Microsoft SQL Server Management Studio assicurarsi di avere un DB che si chiama MBKOffline e creare un DB che si chiama FusionTest e uno che si chiama PDMTest
-- settare correttamente le connection string ai DB FuionTest e PDMTest locali nel file ["settings.ini"]("settings.ini")
-- lanciare il file rdx ["migrator_caller.rdx"]("migrator_caller.rdx") che in circa 35 minuti creerà e clonerà i dati necessari dalle tabelle dei database sul server di test
-- nel frattempo copiare il file ["Grid_FixHeader.css"]("Grid_FixHeader.css") nel percorso di Rule Designer locale sotto la cartella WebPlayer\CSS, ad esempio "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\CSS"
+- settare correttamente le connection string ai DB FuionTest e PDMTest locali nel file ["settings.ini"](settings.ini)
+- lanciare il file rdx ["migrator_caller.rdx"](migrator_caller.rdx) che in circa 35 minuti creerà e clonerà i dati necessari dalle tabelle dei database sul server di test
+- nel frattempo copiare il file ["Grid_FixHeader.css"](Grid_FixHeader.css) nel percorso di Rule Designer locale sotto la cartella "WebPlayer\CSS", ad esempio "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\CSS"
 - quando l'importazione sarà conclusa, comparirà un messaggio che indicherà quanti secondi ha impiegato
-- da questo momento sarà possibile avviare il file ["Home.rdx"]("Home.rdx") e testare in modalità admin (o forzando un altro tipo di utente dal codice) la consultazione e la modifica delle traduzioni
+- da questo momento sarà possibile avviare il file ["Home.rdx"](Home.rdx) e testare in modalità admin (o forzando un altro tipo di utente dal codice) la consultazione e la modifica delle traduzioni
 
 ## Note sull'esecuzione
 - Quando un utente è collegato in modalità "modifica", chiunque arrivi dopo si collegherà automaticamente in modalità "lettura"
@@ -25,9 +25,9 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - Si può aggiungere nuove traduzioni, ma queste andranno solo nella tabella "LANGUAGE" di FusionTest
 - L'esportazione delle traduzioni modificate può essere eseguita da qualsiasi tipo di utente se sceglie di salvare dopo aver premuto "END"
 - Tutte le modifiche apportate verranno esportate nei file e nei database locali 
-- Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom esegueendo ["merge_update_xml.rdx"]("merge_update_xml.rdx")
+- Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom esegueendo ["merge_update_xml.rdx"](merge_update_xml.rdx)
 
 ## Altre note
-- Sono stati riscontrati diversi problemi, soprattutto nell'esecuzione delle dll generate dai file rdx. Tutti quelli riscontrati sono elencati nel file ["errori trovati.txt"]("errori trovati.txt")
-- Le dll rendono l'esecuzione del codice molto più veloce, purtroppo è non è stato possibile generarla per il file Export_From_Db poiché non sono riuscito a trovare un soluzione efficace che sostiuisse il nodo che mi da l'errore
-- L'esecuzione di ["Export_From_Db.rdx"]("Export_From_Db.rdx") è abbastanza veloce per una quantità ridotta di modifiche, ma presenta un vero collo di bottiglia nella modifica dei file [".json"]("/Graphical Studio") che arrivano da Graphical Studio poichè in RuleDesigner non è presente una gestione dei json in quanto tali, ma solo come testi da leggere e inserire in una lista di strutture "chiave-valore", che quindi bisogna scorrere fino a trovare l'occorrenza giusta e modificarla (per 5 file) 
+- Sono stati riscontrati diversi problemi, soprattutto nell'esecuzione delle dll generate dai file rdx. Tutti quelli riscontrati sono elencati nel file ["errori_trovati.txt"](errori_trovati.txt)
+- Le dll rendono l'esecuzione del codice molto più veloce, purtroppo è non è stato possibile generarla per il file ["Export_From_Db.rdx"](Export_From_Db.rdx) poiché non sono riuscito a trovare un soluzione efficace che sostiuisse il nodo che mi da l'errore
+- L'esecuzione di ["Export_From_Db.rdx"](Export_From_Db.rdx) è abbastanza veloce per una quantità ridotta di modifiche, ma presenta un vero collo di bottiglia nella modifica dei file [".json"]("/Graphical%20Studio") che arrivano da Graphical Studio poichè in RuleDesigner non è presente una gestione dei json in quanto tali, ma solo come testi da leggere e inserire in una lista di strutture "chiave-valore", che quindi bisogna scorrere fino a trovare l'occorrenza giusta e modificarla (per 5 file) 
