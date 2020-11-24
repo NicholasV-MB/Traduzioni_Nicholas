@@ -7,10 +7,9 @@
 - funzione Count(string[]) e Count(string[][]) vengono compilate quando viene generata la dll ma quando viene eseguita da errore di "riferimento ad oggetto non trovato"
 
 # Web_Interface:
-- filtro della web grid (captionfilter) non resta nella visualizzazione -> ho fatto un bottone di backup per sapere su cosa è stato fatto il filtro e per rimuoverlo + gestione di filtri multipli
-- SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected
+- SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected --> ho dovuto rinominare il campo con "IS_NEW"
 
 # Export_from_DB:
 - funzione ReplaceFromTo() il tag "TO" non è necessariamente successivo a quello "FROM"
-- errore nello scrivere la fine "]]>" di una stringa che inizia per "<[CDATA["
-- dll da errori come  "Cast non valido dalla stringa "SELECT * FROM METATRADS WHERE ID" al tipo 'Double'. Formato della stringa di input non corretto" in un nodo "Select DB Structured" dove la query è "SELECT * FROM METATRADS WHERE IDX="+Trad.IDX con Trad.IDX tipo "integer"
+- errore nello scrivere la fine "]]>" di una stringa che inizia per "<[CDATA[", l'ho separato in variabili
+- dll da errori come  "Cast non valido dalla stringa "SELECT * FROM METATRADS WHERE ID" al tipo 'Double'. Formato della stringa di input non corretto" in un nodo "Select DB Structured" dove la query è "SELECT * FROM METATRADS WHERE IDX="+Trad.IDX con Trad.IDX tipo "integer", anche provando ad usare un "Execute SQL Statement" al suo posto viene fornito un errore generico "DBG: RUNDLL" sul nodo
