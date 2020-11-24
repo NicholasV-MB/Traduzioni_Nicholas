@@ -18494,6 +18494,9 @@ Ogni Attività di questo tipo sarà conteggiata con questo tempo complessivo, per 
   <Orig_str>Task Id per Giorno 24</Orig_str>
     <DEU>Task-ID für Tag 24</DEU>
     <FRA>ID de Tâche pour le Jour 24</FRA>
+
+
+
 <Orig_str>Attività in Attesa</Orig_str>
 	<ITA>Attività Da Sviluppare</ITA>
 	<ENG>To be developed Task</ENG>
@@ -19392,4 +19395,8 @@ Ogni Attività di questo tipo sarà conteggiata con questo tempo complessivo, per 
 	<ESP>Service price</ESP>
 	<DEU>Service price</DEU>
 	<FRA>Service price</FRA>
-</TRANSLATED_STRINGS>
+
+
+	
+	
+	</TRANSLATED_STRINGS>

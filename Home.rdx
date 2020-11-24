@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T09:08:29" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T10:06:19" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -177,6 +177,34 @@
 			</PAR>
 			<PAR Name="Transaction">
 				<EXP><![CDATA[$C$-1]]></EXP>
+			</PAR>
+			<PAR Name="Options" />
+		</ACTION_CALL>
+		<ACTION_CALL Id="RDK:923559" Name="RDEngineering_DBExecuteStatement">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="SqlStatement">
+				<EXP><![CDATA[$C$IF NOT EXISTS (SELECT * 
+           FROM INFORMATION_SCHEMA.TABLES 
+           WHERE TABLE_TYPE='BASE TABLE' 
+           AND TABLE_NAME='IS_MODIFY_LOCKED') 
+   CREATE TABLE IS_MODIFY_LOCKED(
+	[MY_USER] [varchar](500) NOT NULL,
+	[IN_MODIFICATION] [bit] NULL,
+   PRIMARY KEY CLUSTERED 
+   (
+	[MY_USER] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF,         ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+]]></EXP>
+			</PAR>
+			<PAR Name="StatementResult">
+				<EXP><![CDATA[$V$]]></EXP>
 			</PAR>
 			<PAR Name="Options" />
 		</ACTION_CALL>
