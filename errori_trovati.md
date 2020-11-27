@@ -8,6 +8,7 @@
 
 # Web_Interface:
 - SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected --> ho dovuto rinominare il campo con "IS_NEW"
+- Nella grid editabile non è possibile settare un campo di una riga non editabile a partire da una condizione e non è possibile sapere quale campo è stato appena modificato o selezionato
 
 # Export_from_DB:
 - funzione ReplaceFromTo() il tag "TO" non è necessariamente successivo a quello "FROM"
