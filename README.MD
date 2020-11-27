@@ -28,7 +28,7 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - Si può aggiungere nuove traduzioni, ma queste andranno solo nella tabella "LANGUAGE" di FusionTest
 - L'esportazione delle traduzioni modificate può essere eseguita da qualsiasi tipo di utente se sceglie di salvare dopo aver premuto "END" 
 - Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom eseguendo ["merge_update_xml.rdx"](merge_update_xml.rdx)
-* Chiamare questo processo ad ogni aggiornamento? Ci sono problemi di inconsistenza tra versioni?
+  - Chiamare questo processo ad ogni aggiornamento? Ci sono problemi di inconsistenza tra versioni?
 - Ogni qualvolta si desidererà ripristinare fie e tabelle originali in locale, basterà rieseguire ["migrator_caller.rdx"](migrator_caller.rdx); copiare i file presenti in ["CRM/originals"](CRM/originals/) nella cartella ["CRM"](CRM/) e analogamente farlo con la cartella ["Graphical Studio"](Graphical%20Studio/)
 
 ## Altre note
