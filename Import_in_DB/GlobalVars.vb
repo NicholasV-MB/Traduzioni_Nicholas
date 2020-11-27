@@ -73,6 +73,7 @@ End Class
 	Public [GS_TradPath] As string
 	Public [CRM_TradPath] As string
 	Public [IniFilePath] As string
+	Public [dateformat] As string
 	Public [MetaTradTable] As New Generic.List(Of MetaTradType)
 	Public [MetaTrad] As New MetaTradType
 	Public [TradTable] As New Generic.List(Of TradType)

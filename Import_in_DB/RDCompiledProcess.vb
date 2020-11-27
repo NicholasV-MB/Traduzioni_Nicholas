@@ -705,6 +705,10 @@ exec_group:
 		_CurrentNode = "RDK:686243"
 		ConnStr_LOCAL = EvalExpression("Set_ConnStr_LOCAL_K_686243")
 		
+		'Set dateformat = ReadIni(IniFilePath, "LOCAL", "SetDateFormat")
+		_CurrentNode = "RDK:698234"
+		dateformat = EvalExpression("Set_dateformat_K_698234")
+		
 		'Set ConnStr_PDM = ReadIni(IniFilePath, "PDM", "ConnectionString")
 		_CurrentNode = "RDK:686251"
 		ConnStr_PDM = EvalExpression("Set_ConnStr_PDM_K_686251")

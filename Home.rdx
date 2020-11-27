@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-24T10:06:19" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-27T09:54:02" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -32,12 +32,30 @@
 				<FIELD Id="RDK:620" Name="languageID" Type="string" DesignTimeRemark="REQUIRED" />
 				<FIELD Id="RDK:621" Name="languageName" Type="string" />
 			</TYPE>
+			<TYPE Id="RDK:933318" Name="ErrorType" Expanded="True" SubType="structure">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:933319" Name="Status" Type="boolean" />
+				<FIELD Id="RDK:933320" Name="Message" Type="string" />
+			</TYPE>
 		</GROUP>
-		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
+		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True">
+			<PAR_DEF Id="RDK:933308" Name="ContexID" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+			<PAR_DEF Id="RDK:933310" Name="URL" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+			<PAR_DEF Id="RDK:933312" Name="myUser" TypeRD="UserType" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+		</GROUP>
 		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
 			<VAR Id="RDK:626" Name="URL" Type="string" Expanded="True">
-				<SET Id="RDK:625" VarRef="Me">
-					<EXP><![CDATA[$C$http://testsint.modulblok.com/FUSIONTEST/]]></EXP>
+				<SET Id="RDK:625" VarRef="Me" Suppressed="True">
+					<EXP><![CDATA[$=$http://testsint.modulblok.com/FUSIONTEST/]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 			</VAR>
@@ -54,6 +72,7 @@
 					<PAR Name="AdvancedOptions" />
 				</SET>
 			</VAR>
+			<VAR Id="RDK:933322" Name="Error" Type="ErrorType" Expanded="True" />
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True" />
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True" />
@@ -66,6 +85,17 @@
 			<VALUECONDITION Value="false">
 				<EXP><![CDATA[$=$OFFLINE]]></EXP>
 			</VALUECONDITION>
+			<IFTHENELSE Id="RDK:933324" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$IsEmpty(URL)]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:933325" SubType="Then" Expanded="True">
+					<SET Id="RDK:933331" VarRef="URL">
+						<EXP><![CDATA[$C$http://testsint.modulblok.com/FUSIONTEST/]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</GROUP>
+			</IFTHENELSE>
 			<ACTION_CALL Id="RDK:30" Name="RDEngineering_FUSIONLogin">
 				<PAR Name="RDLibraryName">
 					<EXP><![CDATA[$C$RDEngineering_RULEDESIGNER]]></EXP>
@@ -143,12 +173,6 @@
 				</ACTION_CALL>
 				<EXIT_PROCESS Id="RDK:32" ExitStatus="0" />
 			</GROUP>
-		</GROUP>
-		<GROUP Id="RDK:639" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
-			<SET Id="RDK:636" VarRef="ConnStr_LOCAL">
-				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
-				<PAR Name="AdvancedOptions" />
-			</SET>
 			<ACTION_CALL Id="RDK:637" Name="RDEngineering_FUSIONGetUserInfo" DesignTimeRemark="{Query Type} - {User}">
 				<PAR Name="RDLibraryName">
 					<EXP><![CDATA[$C$RDEngineering_RULEDESIGNER]]></EXP>
@@ -164,6 +188,12 @@
 				<PAR Name="options" />
 			</ACTION_CALL>
 		</GROUP>
+		<GROUP Id="RDK:639" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
+			<SET Id="RDK:636" VarRef="ConnStr_LOCAL">
+				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+		</GROUP>
 		<ACTION_CALL Id="RDK:19" Name="RDEngineering_DBOpen">
 			<PAR Name="RDLibraryName">
 				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -172,8 +202,7 @@
 				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
 			</PAR>
 			<PAR Name="ConnectionString">
-				<EXP><![CDATA[$=$ConnStr_LOCAL
-]]></EXP>
+				<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
 			</PAR>
 			<PAR Name="Transaction">
 				<EXP><![CDATA[$C$-1]]></EXP>
@@ -235,10 +264,6 @@
 			</PAR>
 			<PAR Name="Options" />
 		</ACTION_CALL>
-		<SET Id="RDK:922047" VarRef="myUser.groupID" Suppressed="True">
-			<EXP><![CDATA[$C$3]]></EXP>
-			<PAR Name="AdvancedOptions" />
-		</SET>
 		<IFTHENELSE Id="RDK:642" Expanded="True">
 			<VALUECONDITION Value="true">
 				<EXP><![CDATA[$=$IsEmpty(Lock)]]></EXP>
@@ -544,18 +569,335 @@ EDIT ON
 				</IFTHENELSE>
 			</GROUP>
 			<GROUP Id="RDK:644" SubType="Else" Expanded="True">
-				<ACTION_CALL Id="RDK:920061" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+				<IFTHENELSE Id="RDK:935797" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Lock.MY_USER=myUser.name]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:935798" SubType="Then" Expanded="True">
+						<ACTION_CALL Id="RDK:935807" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="MsgText">
+								<EXP><![CDATA[$=$"Hi "+myUser.name+", you have already locked this process in modification mode! 
+Please enter, press "+QtCh()+"END"+QtCh()+" button and exit correctly next time"]]></EXP>
+							</PAR>
+							<PAR Name="MsgFormat">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="MsgStyle">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="WaitForInput">
+								<EXP><![CDATA[$C$true]]></EXP>
+							</PAR>
+							<PAR Name="RunTimeRemark" />
+							<PAR Name="WebResourcePath" />
+							<PAR Name="ImgTop" />
+							<PAR Name="ImgBottom" />
+							<PAR Name="ImgLeft" />
+							<PAR Name="ImgRight" />
+							<PAR Name="CSSStyle" />
+							<PAR Name="RDActionTimeOut" />
+							<PAR Name="ButtonsMode">
+								<EXP><![CDATA[$C$4]]></EXP>
+							</PAR>
+							<PAR Name="ButtonList" />
+							<PAR Name="ButtonImgs" />
+							<PAR Name="ButtonAction" />
+							<PAR Name="ButtonOptions" />
+							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonPressed">
+								<EXP><![CDATA[$V$Button]]></EXP>
+							</PAR>
+							<PAR Name="HeaderData" />
+							<PAR Name="InputTree">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<SET Id="RDK:935809" VarRef="mode">
+							<EXP><![CDATA[$C$modify]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+					<GROUP Id="RDK:935799" SubType="Else" Expanded="True">
+						<ACTION_CALL Id="RDK:920061" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="MsgText">
+								<EXP><![CDATA[$=$"The process is already in modification mode, locked by "+Lock.MY_USER+"
+"+IIF(CountByExp(myUser.groups,"Me=1")<1, "Connecting in reading mode", "Do you want to unlock the process and modify?") ]]></EXP>
+							</PAR>
+							<PAR Name="MsgFormat">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="MsgStyle">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="WaitForInput">
+								<EXP><![CDATA[$C$true]]></EXP>
+							</PAR>
+							<PAR Name="RunTimeRemark" />
+							<PAR Name="WebResourcePath" />
+							<PAR Name="ImgTop" />
+							<PAR Name="ImgBottom" />
+							<PAR Name="ImgLeft" />
+							<PAR Name="ImgRight" />
+							<PAR Name="CSSStyle" />
+							<PAR Name="RDActionTimeOut" />
+							<PAR Name="ButtonsMode">
+								<EXP><![CDATA[$C$3]]></EXP>
+							</PAR>
+							<PAR Name="ButtonList">
+								<EXP><![CDATA[$=$IIF(CountByExp(myUser.groups,"Me=1")<1, "OK", "READ,UNLOCK")]]></EXP>
+							</PAR>
+							<PAR Name="ButtonImgs" />
+							<PAR Name="ButtonAction" />
+							<PAR Name="ButtonOptions" />
+							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonPressed">
+								<EXP><![CDATA[$V$Button]]></EXP>
+							</PAR>
+							<PAR Name="HeaderData" />
+							<PAR Name="InputTree">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<IFTHENELSE Id="RDK:935766" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Button="UNLOCK"]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:935767" SubType="Then" Expanded="True">
+								<ACTION_CALL Id="RDK:935787" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$C$TRUNCATE TABLE IS_MODIFY_LOCKED]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<SET Id="RDK:935776" VarRef="mode">
+									<EXP><![CDATA[$C$modify]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<SET_STRUCT Id="RDK:935791" VarRef="Lock" ClearAll="True">
+									<PAR Name="MY_USER">
+										<EXP><![CDATA[$=$myUser.name]]></EXP>
+									</PAR>
+									<PAR Name="IN_MODIFICATION">
+										<EXP><![CDATA[$=$True]]></EXP>
+									</PAR>
+								</SET_STRUCT>
+								<ACTION_CALL Id="RDK:935789" Name="RDEngineering_DBInsert">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="InsertTable">
+										<EXP><![CDATA[$C$IS_MODIFY_LOCKED]]></EXP>
+									</PAR>
+									<PAR Name="InsertQueryType">
+										<EXP><![CDATA[$C$0]]></EXP>
+									</PAR>
+									<PAR Name="SingleRow">
+										<EXP><![CDATA[$=$Lock]]></EXP>
+									</PAR>
+									<PAR Name="ListOfRows" />
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:935793" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+									</PAR>
+									<PAR Name="MsgText">
+										<EXP><![CDATA[$C$<style type="text/css"> 
+HTML CSSResult
+EDIT ON
+    body {
+        font: 1em sans-serif;
+        text-align: center;
+    }
+    .stage {
+        border-bottom: 3px solid #444;
+        display: flex;
+        height: 450px;
+        width: 100%;
+    }
+
+    .trapezoid {
+
+      align-self: flex-end;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      margin: 0 auto 0 auto;
+      width: 275px;
+      height: 100px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 250px solid #F44336;
+      z-index:-1;
+    }
+    
+    .trianglebottomleft {
+      align-self: flex-end;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        position:absolute;
+        margin-left: calc(50% - 108px);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 150px 0 0 175px;
+        border-color: transparent transparent transparent #ffffff;
+    }
+    .trianglebottomright{
+       align-self: flex-end;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        position:absolute;
+        margin-left: calc(50% - 108px);
+        width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 150px 175px;
+    border-color: transparent transparent #ffffff transparent;
+    }
+    .bounce-7 {
+        animation-name: bounce-7;
+        animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    }
+    @keyframes bounce-7 {
+        0%   { transform: scale(1,1)      translateY(0); }
+        10%  { transform: scale(1.1,.9)   translateY(0); }
+        30%  { transform: scale(.9,1.1)   translateY(-100px); }
+        50%  { transform: scale(1.05,.95) translateY(0); }
+        57%  { transform: scale(1,1)      translateY(-7px); }
+        64%  { transform: scale(1,1)      translateY(0); }
+        100% { transform: scale(1,1)      translateY(0); }
+    }
+
+    .bounce-8 {
+        animation-name: bounce-8;
+        animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    }
+    @keyframes bounce-8 {
+        0%   { transform: scale(1,1)      translateY(0); }
+        10%  { transform: scale(1.1,.9)   translateY(0); }
+        30%  { transform: scale(.9,1.1)   translateY(-87px); }
+        50%  { transform: scale(1.05,.95) translateY(0); }
+        57%  { transform: scale(1,1)      translateY(-7px); }
+        64%  { transform: scale(1,1)      translateY(0); }
+        100% { transform: scale(1,1)      translateY(0); }
+    }
+</style>
+<div class="trainglebottomleft"></div>
+<div class="stage">
+    <div class="trapezoid bounce-7"></div>
+    <div class="trianglebottomleft bounce-8"></div>
+    <div class="trianglebottomright bounce-8"></div>
+</div>]]></EXP>
+									</PAR>
+									<PAR Name="MsgFormat">
+										<EXP><![CDATA[$C$1]]></EXP>
+									</PAR>
+									<PAR Name="MsgStyle">
+										<EXP><![CDATA[$C$4]]></EXP>
+									</PAR>
+									<PAR Name="WaitForInput">
+										<EXP><![CDATA[$C$False]]></EXP>
+									</PAR>
+									<PAR Name="RunTimeRemark" />
+									<PAR Name="WebResourcePath" />
+									<PAR Name="ImgTop" />
+									<PAR Name="ImgBottom" />
+									<PAR Name="ImgLeft" />
+									<PAR Name="ImgRight" />
+									<PAR Name="CSSStyle" />
+									<PAR Name="RDActionTimeOut" />
+									<PAR Name="ButtonsMode">
+										<EXP><![CDATA[$C$16]]></EXP>
+									</PAR>
+									<PAR Name="ButtonList" />
+									<PAR Name="ButtonImgs" />
+									<PAR Name="ButtonAction" />
+									<PAR Name="ButtonOptions" />
+									<PAR Name="ButtonDefs" />
+									<PAR Name="ButtonPressed">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="HeaderData" />
+									<PAR Name="InputTree">
+										<EXP><![CDATA[$=$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<PROCESS_CALL Id="RDK:935795">
+									<EXP><![CDATA[$C$Import_in_DB.rdx]]></EXP>
+								</PROCESS_CALL>
+							</GROUP>
+							<GROUP Id="RDK:935768" SubType="Else" Expanded="True">
+								<SET Id="RDK:920136" VarRef="mode">
+									<EXP><![CDATA[$C$read]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+							</GROUP>
+						</IFTHENELSE>
+					</GROUP>
+				</IFTHENELSE>
+			</GROUP>
+		</IFTHENELSE>
+		<ACTION_CALL Id="RDK:20" Name="RDEngineering_DBClose">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="Transaction">
+				<EXP><![CDATA[$C$-1]]></EXP>
+			</PAR>
+		</ACTION_CALL>
+		<GROUP Id="RDK:933314" Name="CALL WEB INTERFACE" SubType="Generic" Expanded="True" ErrorProtected="True" BlockFailedVarRef="Error.Status" BlockFailedErrMsgRef="Error.Message">
+			<PROCESS_CALL Id="RDK:649">
+				<EXP><![CDATA[$C$Web_Interface.rdx]]></EXP>
+				<PAR Name="Mode">
+					<EXP><![CDATA[$=$mode]]></EXP>
+				</PAR>
+				<PAR Name="myUser">
+					<EXP><![CDATA[$V$myUser]]></EXP>
+				</PAR>
+			</PROCESS_CALL>
+		</GROUP>
+		<IFTHENELSE Id="RDK:933457" Expanded="True">
+			<VALUECONDITION Value="true">
+				<EXP><![CDATA[$=$Error.Status]]></EXP>
+			</VALUECONDITION>
+			<GROUP Id="RDK:933458" SubType="Then" Expanded="True">
+				<ACTION_CALL Id="RDK:933469" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 					</PAR>
 					<PAR Name="MsgText">
-						<EXP><![CDATA[$C$The process is already in modification mode, connecting in reading mode]]></EXP>
+						<EXP><![CDATA[$=$"GOT STATUS ERROR "+ Error.Status+" WHILE EXECUTING PROCESS WEB_INTERFACE_RDX
+MESSAGE "+Error.Message]]></EXP>
 					</PAR>
 					<PAR Name="MsgFormat">
 						<EXP><![CDATA[$C$0]]></EXP>
 					</PAR>
 					<PAR Name="MsgStyle">
-						<EXP><![CDATA[$C$0]]></EXP>
+						<EXP><![CDATA[$C$2]]></EXP>
 					</PAR>
 					<PAR Name="WaitForInput">
 						<EXP><![CDATA[$C$true]]></EXP>
@@ -577,7 +919,7 @@ EDIT ON
 					<PAR Name="ButtonOptions" />
 					<PAR Name="ButtonDefs" />
 					<PAR Name="ButtonPressed">
-						<EXP><![CDATA[$V$Button]]></EXP>
+						<EXP><![CDATA[$V$]]></EXP>
 					</PAR>
 					<PAR Name="HeaderData" />
 					<PAR Name="InputTree">
@@ -585,32 +927,56 @@ EDIT ON
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<SET Id="RDK:920136" VarRef="mode">
-					<EXP><![CDATA[$C$read]]></EXP>
-					<PAR Name="AdvancedOptions" />
-				</SET>
+				<IFTHENELSE Id="RDK:933464" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$mode="modify"]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:933465" SubType="Then" Expanded="True">
+						<ACTION_CALL Id="RDK:933476" Name="RDEngineering_DBOpen">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionString">
+								<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="Transaction">
+								<EXP><![CDATA[$C$-1]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:933472" Name="RDEngineering_DBExecuteStatement">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SqlStatement">
+								<EXP><![CDATA[$C$TRUNCATE TABLE IS_MODIFY_LOCKED]]></EXP>
+							</PAR>
+							<PAR Name="StatementResult">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:933474" Name="RDEngineering_DBClose">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="Transaction">
+								<EXP><![CDATA[$C$-1]]></EXP>
+							</PAR>
+						</ACTION_CALL>
+					</GROUP>
+				</IFTHENELSE>
 			</GROUP>
 		</IFTHENELSE>
-		<ACTION_CALL Id="RDK:20" Name="RDEngineering_DBClose">
-			<PAR Name="RDLibraryName">
-				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-			</PAR>
-			<PAR Name="ConnectionName">
-				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-			</PAR>
-			<PAR Name="Transaction">
-				<EXP><![CDATA[$C$-1]]></EXP>
-			</PAR>
-		</ACTION_CALL>
-		<PROCESS_CALL Id="RDK:649" Expanded="True">
-			<EXP><![CDATA[$C$Web_Interface.rdx]]></EXP>
-			<PAR Name="Mode">
-				<EXP><![CDATA[$=$mode]]></EXP>
-			</PAR>
-			<PAR Name="myUser">
-				<EXP><![CDATA[$V$myUser]]></EXP>
-			</PAR>
-		</PROCESS_CALL>
 	</GROUP>
 	<EXTERNAL_DATA>
 		<PROFILES_DATA />

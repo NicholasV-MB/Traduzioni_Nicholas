@@ -138,10 +138,10 @@ Module StaticExpressions
 		return MaxCounter+10000
 	End Function
 
-	'OriginalExpression: '"SET DATEFORMAT dmy;  INSERT INTO "+F_table+" VALUES("
+	'OriginalExpression: 'dateformat+"  INSERT INTO "+F_table+" VALUES("
 	<Extension()>
 	Public Function Eval_Static_Set_query_insert_K_199(ByVal Main As RDCompiledProcess) As Object
-		return "SET DATEFORMAT dmy;  INSERT INTO "+F_table+" VALUES("
+		return dateformat+"  INSERT INTO "+F_table+" VALUES("
 	End Function
 
 	'Condition for group IFTHENELSE

@@ -25,6 +25,7 @@ Public Module GlobalVars
 	Public [PDMLocal] As string
 	Public [FusionServer] As string
 	Public [FusionLocal] As string
+	Public [dateformat] As string
 	Public [FusionTables] As New Generic.List(Of string)
 	Public [FusionCreateTables] As New Generic.List(Of string)
 	Public [F_table] As string

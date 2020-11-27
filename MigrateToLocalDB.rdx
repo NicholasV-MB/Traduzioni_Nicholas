@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="MigrateToLocalDB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-19T09:15:44" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-23T10:30:51" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-19T09:15:44" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-26T16:02:16" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True" />
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
@@ -53,6 +53,12 @@ PRIMARY KEY CLUSTERED
 				<VAR Id="RDK:24" Name="FusionLocal" Type="string" Expanded="True">
 					<SET Id="RDK:38" VarRef="Me">
 						<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=FUSIONTEST;Data Source=LAPT-IT07\RULEDESIGNER;User Id=SA;Password=MBOffline$;]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+				<VAR Id="RDK:359" Name="dateformat" Type="string" Expanded="True">
+					<SET Id="RDK:361" VarRef="Me">
+						<EXP><![CDATA[$C$SET DATEFORMAT dmy;]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
@@ -869,7 +875,7 @@ IIF(F_table="dm_folder_001",
 									<EXP><![CDATA[$V$]]></EXP>
 								</PAR>
 								<SET Id="RDK:199" VarRef="query_insert">
-									<EXP><![CDATA[$=$"SET DATEFORMAT dmy;
+									<EXP><![CDATA[$=$dateformat+"
 
 INSERT INTO "+F_table+" VALUES("]]></EXP>
 									<PAR Name="AdvancedOptions" />

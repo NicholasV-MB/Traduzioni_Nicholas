@@ -87,6 +87,7 @@ Public Class RDCompiledProcess
 		PDMLocal = "Provider=sqloledb;Initial Catalog=PDMtest;Data Source=LAPT-IT07\RULEDESIGNER;User Id=SA;Password=MBOffline$;"
 		FusionServer = "Provider=sqloledb;Initial Catalog=FUSIONTEST;Data Source=192.168.0.27;User Id=SA;Password=Ruled2014;"
 		FusionLocal = "Provider=sqloledb;Initial Catalog=FUSIONTEST;Data Source=LAPT-IT07\RULEDESIGNER;User Id=SA;Password=MBOffline$;"
+		dateformat = "SET DATEFORMAT dmy;"
 		FusionTables = EvalConstant(FusionTables.GetType, "LIST { ç§""ba_activitytype"",ç§""ba_properties"",ç§""ba_prop_value"",ç§""ba_activity_category"",ç§""wo_state"",ç§""pr_item"",ç§""pr_type"",ç§""dm_class"",ç§""dm_folder_001"",ç§""ba_source"",ç§""LANGUAGE"",ç§""pr_project_001"",ç§""dm_folder_prop_001""ç§}")
 		endwhile = false
 
@@ -556,7 +557,7 @@ exec_group:
 	next_foreach:
 		row = Values_RDK_203(Index_RDK_203)
 		
-		'Set query_insert = "SET DATEFORMAT dmy;INSERT INTO "+F_table+" VALUES("
+		'Set query_insert = dateformat+"INSERT INTO "+F_table+" VALUES("
 		_CurrentNode = "RDK:199"
 		query_insert = EvalExpression("Set_query_insert_K_199")
 		

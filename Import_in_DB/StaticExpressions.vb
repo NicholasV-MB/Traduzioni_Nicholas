@@ -278,10 +278,10 @@ Module StaticExpressions
 		return SupportTableTags
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
+	'OriginalExpression: 'dateformat+" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
+		return dateformat+" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
 	End Function
 
 	'OriginalExpression: 'ReadIni(IniFilePath, "FUSION", "ConnectionString")
@@ -294,6 +294,12 @@ Module StaticExpressions
 	<Extension()>
 	Public Function Eval_Static_Set_ConnStr_LOCAL_K_686243(ByVal Main As RDCompiledProcess) As Object
 		return ReadIni(IniFilePath, "LOCAL", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "LOCAL", "SetDateFormat")
+	<Extension()>
+	Public Function Eval_Static_Set_dateformat_K_698234(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "LOCAL", "SetDateFormat")
 	End Function
 
 	'OriginalExpression: 'ReadIni(IniFilePath, "PDM", "ConnectionString")

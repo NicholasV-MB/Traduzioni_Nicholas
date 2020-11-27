@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-23T17:04:25" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-26T11:32:01" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" SubType="structure" HasArrayType="True">
@@ -90,6 +90,7 @@
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
+				<VAR Id="RDK:698226" Name="dateformat" Type="string" Expanded="True" />
 			</GROUP>
 			<GROUP Id="RDK:596286" Name="StructureTypes" SubType="VarSet" IncludeDate="0">
 				<VAR Id="RDK:33" Name="MetaTradTable" Type="MetaTradType[]" Expanded="True" />
@@ -307,7 +308,7 @@
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:467">
+					<IFTHENELSE Id="RDK:467" Expanded="True">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.ENG)=0]]></EXP>
 						</VALUECONDITION>
@@ -317,7 +318,7 @@
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:466" SubType="Else">
+						<GROUP Id="RDK:466" SubType="Else" Expanded="True">
 							<SET Id="RDK:465" VarRef="condENg">
 								<EXP><![CDATA[$=$Param.Input.Fields+"ENG='"+StrSql(Trad.ENG)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -334,14 +335,14 @@
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:488" SubType="Else">
+						<GROUP Id="RDK:488" SubType="Else" Expanded="True">
 							<SET Id="RDK:487" VarRef="condESP">
 								<EXP><![CDATA[$=$Param.Input.Fields+"ESP='"+StrSql(Trad.ESP)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
 					</IFTHENELSE>
-					<IFTHENELSE Id="RDK:505">
+					<IFTHENELSE Id="RDK:505" Expanded="True">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$StrLength(Trad.FRA)=0]]></EXP>
 						</VALUECONDITION>
@@ -351,7 +352,7 @@
 								<PAR Name="AdvancedOptions" />
 							</SET>
 						</GROUP>
-						<GROUP Id="RDK:504" SubType="Else">
+						<GROUP Id="RDK:504" SubType="Else" Expanded="True">
 							<SET Id="RDK:503" VarRef="condFRA">
 								<EXP><![CDATA[$=$Param.Input.Fields+"FRA='"+StrSql(Trad.FRA)+"'"]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -489,7 +490,8 @@
 								<EXP><![CDATA[$C$LocalDB]]></EXP>
 							</PAR>
 							<PAR Name="SqlStatement">
-								<EXP><![CDATA[$=$"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+Param.Input.DB+"', '"+Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(Param.Input.TableName="wo_state", Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(ToString(SupportRowTags.LAST_UPDATE)="",ToString(Now()),ToString(SupportRowTags.LAST_UPDATE))+"')"]]></EXP>
+								<EXP><![CDATA[$=$dateformat+"
+INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+Param.Input.DB+"', '"+Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(Param.Input.TableName="wo_state", Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(ToString(SupportRowTags.LAST_UPDATE)="",ToString(Now()),ToString(SupportRowTags.LAST_UPDATE))+"')"]]></EXP>
 							</PAR>
 							<PAR Name="StatementResult">
 								<EXP><![CDATA[$V$]]></EXP>
@@ -540,6 +542,10 @@
 			</SET>
 			<SET Id="RDK:686243" VarRef="ConnStr_LOCAL">
 				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+			<SET Id="RDK:698234" VarRef="dateformat">
+				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "SetDateFormat")]]></EXP>
 				<PAR Name="AdvancedOptions" />
 			</SET>
 			<SET Id="RDK:686251" VarRef="ConnStr_PDM">
@@ -1894,22 +1900,22 @@ WHERE IDX='"+StrSql(Trad.IDX)+"'"
 					<EXP><![CDATA[$V$]]></EXP>
 				</PAR>
 				<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
-					<VAR_COND Id="RDK:698208" Name="Orig_str">
+					<VAR_COND Id="RDK:698356" Name="Orig_str">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698209" Name="ITA">
+					<VAR_COND Id="RDK:698357" Name="ITA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698210" Name="ENG">
+					<VAR_COND Id="RDK:698358" Name="ENG">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698211" Name="ESP">
+					<VAR_COND Id="RDK:698359" Name="ESP">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698212" Name="FRA">
+					<VAR_COND Id="RDK:698360" Name="FRA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698213" Name="DEU">
+					<VAR_COND Id="RDK:698361" Name="DEU">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
 					</VAR_COND>
 					<CHOICE Id="RDK:821" Name="Choice" Expanded="True">
