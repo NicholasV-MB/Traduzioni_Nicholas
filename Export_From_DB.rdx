@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:1" Name="Export_From_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T16:53:28" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-27T09:26:24" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T16:53:28" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-30T12:25:43" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:2" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:5" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:33" Name="TradType" SubType="structure" HasArrayType="True">
@@ -306,7 +306,7 @@ VALUES('"+StrSql(MetaTrad.ORIGIN_ID_0)+"',
 			<PAR Name="SelectFieldName" />
 			<PAR Name="SelectFieldValue" />
 			<PAR Name="SelectQuery">
-				<EXP><![CDATA[$C$SELECT * FROM TRADS WHERE UPDATED=1]]></EXP>
+				<EXP><![CDATA[$C$SELECT * FROM TRADS WHERE UPDATED=1 AND (NEW<>1 or NEW IS NULL)]]></EXP>
 			</PAR>
 			<PAR Name="SelectQueryType">
 				<EXP><![CDATA[$C$2]]></EXP>
@@ -361,16 +361,16 @@ VALUES('"+StrSql(MetaTrad.ORIGIN_ID_0)+"',
 					<EXP><![CDATA[$V$]]></EXP>
 				</PAR>
 				<NODE Id="RDK:147" Name="FIND ORIGIN DB" Expanded="True">
-					<VAR_COND Id="RDK:20491" Name="FUSION">
+					<VAR_COND Id="RDK:20581" Name="FUSION">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "FUSION"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20492" Name="PDM">
+					<VAR_COND Id="RDK:20582" Name="PDM">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "PDM"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20493" Name="GRAPHICAL_STUDIO">
+					<VAR_COND Id="RDK:20583" Name="GRAPHICAL_STUDIO">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "GRAPHICAL STUDIO"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20494" Name="CRM">
+					<VAR_COND Id="RDK:20584" Name="CRM">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "CRM"]]></EXP>
 					</VAR_COND>
 					<CHOICE Id="RDK:184" Name="Choice" Expanded="True" DesignTimeRemark="FUSION">
@@ -393,38 +393,38 @@ VALUES('"+StrSql(MetaTrad.ORIGIN_ID_0)+"',
 							<PAR Name="Options" />
 						</ACTION_CALL>
 						<NODE Id="RDK:558" Name="FIND ORIGIN TABLE" Expanded="True">
-							<VAR_COND Id="RDK:20495" Name="LANGUAGE">
+							<VAR_COND Id="RDK:20585" Name="LANGUAGE">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "LANGUAGE"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20496" Name="ba_properties">
+							<VAR_COND Id="RDK:20586" Name="ba_properties">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_properties"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20497" Name="ba_prop_value">
+							<VAR_COND Id="RDK:20587" Name="ba_prop_value">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_prop_value"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20498" Name="ba_activitytype">
+							<VAR_COND Id="RDK:20588" Name="ba_activitytype">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_activitytype"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20499" Name="ba_activity_category">
+							<VAR_COND Id="RDK:20589" Name="ba_activity_category">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_activity_category"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20500" Name="wo_state">
+							<VAR_COND Id="RDK:20590" Name="wo_state">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "wo_state"
 ]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20501" Name="pr_item">
+							<VAR_COND Id="RDK:20591" Name="pr_item">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "pr_item"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20502" Name="pr_type">
+							<VAR_COND Id="RDK:20592" Name="pr_type">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "pr_type"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20503" Name="dm_class">
+							<VAR_COND Id="RDK:20593" Name="dm_class">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "dm_class"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20504" Name="dm_folder_001">
+							<VAR_COND Id="RDK:20594" Name="dm_folder_001">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "dm_folder_001"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20505" Name="ba_source">
+							<VAR_COND Id="RDK:20595" Name="ba_source">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_source"]]></EXP>
 							</VAR_COND>
 							<CHOICE Id="RDK:704" Name="Choice" Expanded="True">
@@ -1060,16 +1060,16 @@ tags_to_replace)
 					<EXP><![CDATA[$V$]]></EXP>
 				</PAR>
 				<NODE Id="RDK:12530" Name="FIND ORIGIN DB" Expanded="True">
-					<VAR_COND Id="RDK:20506" Name="FUSION">
+					<VAR_COND Id="RDK:20596" Name="FUSION">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "FUSION"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20507" Name="PDM">
+					<VAR_COND Id="RDK:20597" Name="PDM">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "PDM"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20508" Name="GRAPHICAL_STUDIO">
+					<VAR_COND Id="RDK:20598" Name="GRAPHICAL_STUDIO">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "GRAPHICAL STUDIO"]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:20509" Name="CRM">
+					<VAR_COND Id="RDK:20599" Name="CRM">
 						<EXP><![CDATA[$=$MetaTrad.ORIGIN_DB = "CRM"]]></EXP>
 					</VAR_COND>
 					<CHOICE Id="RDK:12490" Name="Choice" Expanded="True" DesignTimeRemark="FUSION">
@@ -1092,38 +1092,38 @@ tags_to_replace)
 							<PAR Name="Options" />
 						</ACTION_CALL>
 						<NODE Id="RDK:12488" Name="FIND ORIGIN TABLE" Expanded="True">
-							<VAR_COND Id="RDK:20510" Name="LANGUAGE">
+							<VAR_COND Id="RDK:20600" Name="LANGUAGE">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "LANGUAGE"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20511" Name="ba_properties">
+							<VAR_COND Id="RDK:20601" Name="ba_properties">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_properties"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20512" Name="ba_prop_value">
+							<VAR_COND Id="RDK:20602" Name="ba_prop_value">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_prop_value"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20513" Name="ba_activitytype">
+							<VAR_COND Id="RDK:20603" Name="ba_activitytype">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_activitytype"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20514" Name="ba_activity_category">
+							<VAR_COND Id="RDK:20604" Name="ba_activity_category">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_activity_category"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20515" Name="wo_state">
+							<VAR_COND Id="RDK:20605" Name="wo_state">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "wo_state"
 ]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20516" Name="pr_item">
+							<VAR_COND Id="RDK:20606" Name="pr_item">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "pr_item"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20517" Name="pr_type">
+							<VAR_COND Id="RDK:20607" Name="pr_type">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "pr_type"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20518" Name="dm_class">
+							<VAR_COND Id="RDK:20608" Name="dm_class">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "dm_class"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20519" Name="dm_folder_001">
+							<VAR_COND Id="RDK:20609" Name="dm_folder_001">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "dm_folder_001"]]></EXP>
 							</VAR_COND>
-							<VAR_COND Id="RDK:20520" Name="ba_source">
+							<VAR_COND Id="RDK:20610" Name="ba_source">
 								<EXP><![CDATA[$=$MetaTrad.ORIGIN_TABLE = "ba_source"]]></EXP>
 							</VAR_COND>
 							<CHOICE Id="RDK:12467" Name="Choice" Expanded="True">
