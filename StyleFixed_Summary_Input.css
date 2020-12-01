@@ -1,0 +1,580 @@
+/* Foglio di stile CSS predefinito per un nuovo progetto di applicazione Web */
+/* Classi personalizzate per RULE DESIGNER */
+
+
+/* 
+ ********************************************************************
+ * GENERICI WEB-INPUT, WEB-FORM, WEB-SUMMAYGRID, WEB-MESSAGE ...                              *
+ ********************************************************************
+ */
+.RDCONTROL
+{
+	background-color:#FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:8pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+	width:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	/*border-bottom:1px solid #000000;*/
+	border-spacing:0;
+	border-collapse:collapse;
+	outline: none;		
+}
+
+/*
+ * In questa sezione è possibile modificare l'aspetto dei pulsanti standard della webform
+ * (OK, CANCEL, BACK, ...)
+ */
+.RDBUTTON
+{
+	/*background-color:white;*/
+	/*color: Transparent;*/
+	font-family: Verdana;
+	font-size: 8pt;
+	/*border-style:window-inset;*/
+}
+
+.RDBUTTON[value="SAVE"]
+{
+	float:right;
+	margin-right: 20px;
+}
+
+.RDBUTTON_IMAGE
+{
+	padding-left: 5px;	
+	padding-right: 5px;
+	border-bottom: 4px solid #e1001a;
+}
+
+.RDBUTTON_IMAGE:hover
+{
+    /*background-color: #FFFFD4;*/
+	/*background-color: #cf9b2b;*/
+	/*background-color: #ffffff;*/
+	border-bottom: 4px solid #ffffff !important;
+	transition: .5s;
+}
+
+.RDBUTTON_IMAGE_PRESSED
+{
+    background-color: #ff8686;
+	padding-left: 5px;	
+	padding-right: 5px;
+	border-bottom: 4px solid #ffffff;
+}
+
+.RDBUTTON_IMAGE_DISABLED
+{
+	border-bottom: 4px solid #e1001a !important;
+}
+
+/* Aspetto dei separatori fra i pulsanti*/
+.RDBUTTON_SEPARATOR
+{
+    padding-left: 30px;
+	vertical-align: top;
+}
+
+.RDBUTTON_DISABLED 
+{
+	vertical-align: top;
+	padding: 0px;
+}
+
+.RDBUTTON_AREA_TOP
+{
+   background-color: #e1001a;
+   padding-bottom: 3px;
+}
+
+.RDBUTTON_AREA_TOP_LEFT
+{
+   background-color: #e1001a;
+}
+
+.RDBUTTON_AREA_TOP_RIGHT
+{
+   background-color: #e1001a;
+}
+
+/*
+.RDBUTTON_AREA_LEFT
+{
+	text-align:center
+}
+
+.RDBUTTON_AREA_TOP
+{
+   background-image:url(Buttonbar_middle.gif);
+   background-repeat:repeat-x;
+   background-position: top center;   
+}
+
+.RDBUTTON_AREA_TOP_RIGHT
+{
+   background-image:url(Buttonbar_right.gif);
+   background-repeat:no-repeat;
+   background-position:top left;
+   width:10px;
+}
+
+.RDBUTTON_AREA_TOP_LEFT
+{
+   background-image:url(Buttonbar_left.gif);
+   background-repeat:no-repeat;
+   background-position:top right;
+   width:18px;
+}
+*/
+.RDCONTROL_CHECKBOX_IMG {
+	padding: 0px !important;
+	margin: 0px;
+}
+
+.RDCONTROL_CHECKBOX_IMG_CELL{
+	padding: 0px !important;
+}
+
+.RDCONTROL_CHECKBOX_BUFFER_CELL {
+    padding: 0px !important;
+}
+
+.RDCONTROL_CHECKBOX_2 {
+    background-color: #FFBF00;
+    clear: both;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.RDCONTROL_CHECKBOX_2 .RDWI_DIV_CONTROL_REQ {
+    background-color: white;
+}
+
+.RDWI_DIV_CONTROL_REQ_READONLY .RDCONTROL {
+    color: #c0c0c0;
+}
+
+.RDCONTROL_TEXTAREA_2 {
+	background-color: #eceff4;
+	color:#000000;
+	font-family:Verdana;
+	font-size:8pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+    clear: both;
+    float: left;
+	height: 300px;
+	width:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	border-width:0;
+}
+
+.RDCONTROL_TEXTAREA_RED {
+	color:red;
+	font-weight:bold;
+}
+
+.RDCONTROL_RADIOBUTTONSWHITE {
+	background-color:white;
+	color:#000000;
+	font-family:Verdana;
+	font-size:8pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+    clear: both;
+    float: left;
+	border:0;
+	padding:0;
+	margin:0;
+	border-width:0;
+}
+
+.RDCONTROL_RADIOBUTTONS_IMG:hover
+{
+	background-color: #ff8686 !important;
+	/*transition: .5s;*/
+}
+
+.RDCONTROL_FOCUSED {
+	font-weight:bold;
+	/*background-color:#FFFFD4;*/
+	border-bottom:4px solid #e1001a !important;
+}
+
+
+/* Controllo combo scrivibile */
+.RDCONTROL_WRITECOMBO
+{
+	background-color: palegoldenrod;
+	padding-bottom: 4px;
+    padding-top: 3px;
+}
+.RDCONTROL_COMBOBOX 
+{
+    border-bottom:1px solid #000000;
+	border-top:0px solid #000000;
+	border-left:0px solid #000000;
+	border-right:0px solid #000000;
+	padding-bottom: 4px;
+    padding-top: 3px;
+}
+.RDCONTROL_TEXT 
+{
+    border-bottom:1px solid #000000;
+	border-top:0px solid #000000;
+	border-left:0px solid #000000;
+	border-right:0px solid #000000;
+	padding-bottom: 4px;
+    padding-top: 3px;
+}
+
+.RDCONTROL_TEXTAREA
+{
+    border-bottom:1px solid #000000;
+	border-top:0px solid #000000;
+	border-left:0px solid #000000;
+	border-right:0px solid #000000;
+	padding-bottom: 4px;
+    padding-top: 3px;
+}
+
+.RDWI_SIDELABEL_INPUT
+{
+	color:#000000;
+	background: #FFFFFF;
+}
+
+.RDWI_SIDELABEL_INPUT_REQ
+{
+	color:#000000;
+	background: #FFFFFF;
+}
+
+.RDWI_SIDELABEL_PROMPT
+{
+	color:#000000;
+}
+
+.RDWI_SIDELABEL_PROMPT_REQ
+{
+	background-color: #FFFFFF;
+	color:#000000;
+}
+
+.RDWI_DIV_LABEL
+{
+	background-color: #FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+	padding-top: 3px;
+	/*padding-left: 10px;*/
+}
+
+.RDWI_DIV_LABEL_REQ
+{
+	background-color: #FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:bold;
+	font-variant:normal;
+	width:auto;
+	padding-top: 3px;
+	/*padding-left: 10px;*/
+}
+
+.RDWI_DIV_LABEL_REQ_READONLY
+{
+	background-color: #FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:bold;
+	font-variant:normal;
+	width:auto;
+	padding-top: 3px;
+	/*padding-left: 10px;*/
+}
+
+.RDWI_DIV_LABEL_READONLY
+{
+	background-color: #FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+	padding-top: 3px;
+	/*padding-left: 10px;*/
+}
+
+.RDWI_DIV_CONTROL_REQ
+{
+	/*background-color: #ECEFF4;*/
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+}
+
+.RDWI_DIV_CONTROL_REQ_READONLY
+{
+	background-color: #FFFFFF;
+	color:#000000;
+	font-family:Verdana;
+	font-size:9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+}
+
+.MIACLASSE
+{
+	color:white;
+
+}
+
+.RDWI_DIV_BREAK
+{
+	margin-top: 10px;
+}
+
+.RDWI_DIV_FLOAT
+{
+	margin-top: 10px;
+}
+
+
+/*
+ *	Gestione delle immagini nel contorno
+ */
+
+
+/*
+ * TOP_ROW
+ */
+.RDWI_TOP_LEFT
+{
+	height: 1px;
+}
+.RDWI_TOP_CENTER
+{
+	height: 1px;
+}
+.RDWI_TOP_RIGHT
+{
+	height: 1px;
+}
+
+/*
+ * MIDDLE_ROW
+ */
+.RDWI_MIDDLE_LEFT
+{
+	width: 1px;
+}
+.RDWI_MIDDLE_RIGHT
+{
+	width: 1px;
+}
+
+/*
+ * BOTTOM_ROW
+ */
+.RDWI_BOTTOM_LEFT
+{
+	height: 1px;
+}
+.RDWI_BOTTOM_CENTER
+{
+	height: 1px;
+}
+.RDWI_BOTTOM_RIGHT
+{
+	height: 1px;
+}
+
+.RDGRID_HEADER
+{
+	background-color:#dcecf9;
+	height:24px;
+	width:100%;
+	color:#000000;
+	font-family:Verdana;
+	font-size: 9pt;
+	font-style:normal;
+	font-weight:bold;
+	font-variant:normal;
+}
+
+.RDGRID_FOOTER
+{
+	background-color:#000000;
+	height:24px;
+	width:100%;
+	color:#000000;
+	font-family:Verdana;
+	font-size: 9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+}
+
+.RD_TREE_ITEM {
+	overflow:hidden;
+	width:100%;
+	font-family:Verdana;
+	font-size:8pt;
+	z-index:100000;
+	color:#000000;
+}
+
+.RDWI_FIELDSET fieldset
+{ 
+    width: 650px;
+    font-family:Verdana;
+	font-size:8pt;
+	color:#000000;
+}
+
+.RDWI_CONTENT_TREE_CELL {
+    text-align:left;
+   	vertical-align: top;
+   	width:600px;
+}
+
+.RDGRID_ROW_TITLE
+{
+	background-color:#000000;
+	color:#ffffff;
+}
+
+.RDGRID_ROW 
+{
+	background-color: dcdcdc;
+	height: 30px;
+}
+
+.RDGRID_IMAGE 
+{
+	background-color: dcdcdc;
+}
+
+.RDGRID_ICON 
+{
+	background-color: transparent !important;
+}
+
+.RDGRID_CELL {
+	background-color: transparent !important;
+}
+
+.RDWI_TITLE_ROW 
+{
+	/*height: 40px;*/
+}
+
+/* Autocomplete TextBox*/
+.autocomplete-list{
+	/*padding:3px;
+	border: solid 1px #000000;
+	list-style: none;
+	display:none;*/
+	z-index: 1000;
+}
+
+.RDCONTROL_DISABLED
+{
+	background-color:#f3f3f3 !important;
+	color:#000000 !important;
+	border-bottom: none !important;
+}
+
+#rdFilterFlyout {
+    font-family: Verdana;
+	font-size: 10pt;
+}
+
+
+/*
+.RDWI_SUMMARYGRID_TABLE table{
+    width: 750px;
+    display: inline-block;
+}
+
+.RDWI_WEBINPUT_TABLE table {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+    padding-top: 60px;
+}
+*/
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE {
+    width: 70%;
+    display: inline-block;
+    position: fixed;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table thead {
+    display: block;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tbody {
+    display: block;
+    overflow-y: auto;
+    height: 500px;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tr {
+    table-layout: fixed;
+    display: table;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE td{
+    word-wrap: break-word;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE {
+    width: 30%;
+    position: fixed;
+    display: inline-block;
+    /* vertical-align: top; */
+    /* overflow: hidden; */
+    /* float: right; */
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 70%;
+   overflow-x: auto;
+    
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE fieldset {
+    width: auto;
+}
+
+
+
+
+
+

@@ -11,7 +11,7 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - da Microsoft SQL Server Management Studio assicurarsi di avere un DB che si chiama MBKOffline e creare un DB che si chiama FusionTest e uno che si chiama PDMTest
 - settare correttamente le connection string ai DB FuionTest e PDMTest locali nel file ["Settings.ini"](Settings.ini)
 - lanciare il file rdx ["migrator_caller.rdx"](migrator_caller.rdx) che in circa 35 minuti creerà e clonerà i dati necessari dalle tabelle dei database sul server di test in locale
-- nel frattempo copiare il file ["Grid_FixHeader.css"](Grid_FixHeader.css) nel percorso di Rule Designer locale sotto la cartella "WebPlayer\CSS", ad esempio "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\CSS"
+- nel frattempo copiare il file ["Grid_FixHeader.css"](Grid_FixHeader.css) e il file ["StyleFixed_Summary_Input.css"](StyleFixed_Summary_Input.css) nel percorso di Rule Designer locale sotto la cartella "WebPlayer\CSS", ad esempio "C:\Program Files (x86)\RuleDesigner\RD Configurator Fusion\WebPlayer\CSS"
 - quando l'importazione sarà conclusa, comparirà un messaggio che indicherà quanti secondi ha impiegato
 - da questo momento sarà possibile avviare il file ["Home.rdx"](Home.rdx) e testare in modalità admin (o forzando un altro tipo di utente dal codice) la consultazione e la modifica delle traduzioni
 
@@ -30,6 +30,11 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - Si può testare il merge del file xml relativo al CRM delle traduzioni originali fornite da RuleDesigner con quelle custom eseguendo ["merge_update_xml.rdx"](merge_update_xml.rdx)
   - Chiamare questo processo ad ogni aggiornamento? Ci sono problemi di inconsistenza tra versioni?
 - Ogni qualvolta si desidererà ripristinare fie e tabelle originali in locale, basterà rieseguire ["migrator_caller.rdx"](migrator_caller.rdx); copiare i file presenti in ["CRM/originals"](CRM/originals/) nella cartella ["CRM"](CRM/) e analogamente farlo con la cartella ["Graphical Studio"](Graphical%20Studio/)
+- Sono presenti versioni della "Web_Interface":
+  - La ["Web_Interface.rdx"]("Web_Interface.rdx") è la versione con la griglia editabile le cui modifiche vengono trasmesse a db solo quando viene premuto un pulsante qualsiasi , non ad ogni modifica 
+  - La ["Web_Interface_old_v0.rdx"]("Web_Interface_old_v0.rdx") è la prima versione senza girglia editabile e con la maschera di modifica che si apre al click
+  - La ["Web_Interface_v0.rdx"]("Web_Interface_v0.rdx") è la versione con la SummaryInput composta da SummaryGrid e Web, in questo caso la griglia non è editabile, la WebInput è viene posizionata alla destra della griglia dal css e valorizzata al click su una riga
+
 
 ## Altre note
 - Sono stati riscontrati diversi problemi, soprattutto nell'esecuzione delle dll generate dai file rdx. Tutti quelli riscontrati sono elencati nel file ["errori_trovati.md"](errori_trovati.md)

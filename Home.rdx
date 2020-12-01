@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-30T11:57:36" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-01T11:38:06" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -870,7 +870,7 @@ EDIT ON
 			</PAR>
 		</ACTION_CALL>
 		<GROUP Id="RDK:933314" Name="CALL WEB INTERFACE" SubType="Generic" Expanded="True" ErrorProtected="True" BlockFailedVarRef="Error.Status" BlockFailedErrMsgRef="Error.Message">
-			<PROCESS_CALL Id="RDK:649" Suppressed="True">
+			<PROCESS_CALL Id="RDK:649">
 				<EXP><![CDATA[$C$Web_Interface_v0.rdx]]></EXP>
 				<PAR Name="Mode">
 					<EXP><![CDATA[$=$mode]]></EXP>
@@ -879,7 +879,7 @@ EDIT ON
 					<EXP><![CDATA[$V$myUser]]></EXP>
 				</PAR>
 			</PROCESS_CALL>
-			<PROCESS_CALL Id="RDK:958519" Expanded="True">
+			<PROCESS_CALL Id="RDK:958519" Expanded="True" Suppressed="True">
 				<EXP><![CDATA[$C$Web_Interface.rdx]]></EXP>
 				<PAR Name="Mode">
 					<EXP><![CDATA[$=$mode]]></EXP>
