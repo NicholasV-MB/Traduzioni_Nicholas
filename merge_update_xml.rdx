@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="merge_update_xml" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T14:24:53" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-23T10:32:34" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-11T14:24:53" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T17:25:34" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True" />
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True" />
@@ -105,6 +105,7 @@ And IsTagInString(origin, "</TRANSLATED_STRINGS>")]]></EXP>
 						<EXP><![CDATA[$V$]]></EXP>
 					</PAR>
 				</ACTION_CALL>
+				<EXIT_PROCESS Id="RDK:106" ExitStatus="1" ExitMessage="$C$File Origin non corretto" />
 			</GROUP>
 		</IFTHENELSE>
 		<SET Id="RDK:52" VarRef="custom">
