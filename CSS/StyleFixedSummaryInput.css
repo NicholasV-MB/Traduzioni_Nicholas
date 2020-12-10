@@ -39,6 +39,12 @@
 	/*border-style:window-inset;*/
 }
 
+.RDBUTTON[value="SAVE"]
+{
+	float:right;
+	margin-right: 20px;
+}
+
 .RDBUTTON_IMAGE
 {
 	padding-left: 5px;	
@@ -516,7 +522,7 @@
 }
 
 .RDWI_WEBINPUT_TABLE table {
-    width: 200px;
+    width: 50%;
     display: inline-block;
     vertical-align: top;
     padding-left: 20px;
@@ -525,40 +531,56 @@
 */
 
 .WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE {
-    width: 840px;
+    width: 70%;
     display: inline-block;
+    position: fixed;
 }
 
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table thead {
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE  table thead {
     display: block;
 }
 
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tbody {
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE  table tbody {
     display: block;
     overflow-y: auto;
     height: 500px;
 }
+
+
 
 .WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tr {
     table-layout: fixed;
     display: table;
 }
 
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE td{
+    word-wrap: break-word;
+}
+
 .WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE {
-    width: 300px;
+    width: 30%;
+    position: fixed;
     display: inline-block;
     /* vertical-align: top; */
     /* overflow: hidden; */
     /* float: right; */
     padding-top: 20px;
-	padding-left: 20px;
-    /* margin-right: 30px; */
-    position: fixed;
+    padding-left: 20px;
+    margin-left: 70%;
+   overflow-x: auto;
+    
 }
 
 .WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE fieldset {
     width: auto;
 }
+
+th.DELETE{
+  width:2%;
+}
+
 
 
 

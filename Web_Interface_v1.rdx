@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-11-30T15:49:15" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T15:47:49" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -135,7 +135,7 @@
 		</GROUP>
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True" />
 	</GROUP>
-	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True">
+	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" LogDisable="$=$IsSubProcess()">
 		<GROUP Id="RDK:862962" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
 			<SET Id="RDK:862957" VarRef="ConnStr_LOCAL">
 				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
@@ -275,7 +275,7 @@ ORDER BY T.ITA]]></EXP>
 		</ACTION_CALL>
 		<WHILELOOP Id="RDK:51" Expanded="True">
 			<VALUECONDITION Value="false">
-				<EXP><![CDATA[$=$Button="END"]]></EXP>
+				<EXP><![CDATA[$=$Button="EXIT"]]></EXP>
 			</VALUECONDITION>
 			<ACTION_CALL Id="RDK:55" Name="RDEngineering_RemoteSummaryGrid">
 				<PAR Name="RDLibraryName">
@@ -300,7 +300,7 @@ ORDER BY T.ITA]]></EXP>
 				<PAR Name="ImgLeft" />
 				<PAR Name="ImgRight" />
 				<PAR Name="CSSStyle">
-					<EXP><![CDATA[$C$CSS/Grid_FixHeader.css]]></EXP>
+					<EXP><![CDATA[$C$CSS/GridFixHeader.css]]></EXP>
 				</PAR>
 				<PAR Name="RDActionTimeOut" />
 				<PAR Name="CaptionsList">
@@ -317,7 +317,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$C$3]]></EXP>
 				</PAR>
 				<PAR Name="ButtonList">
-					<EXP><![CDATA[$=$IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+"SAVE CURRENT CHANGES, END"]]></EXP>
+					<EXP><![CDATA[$=$IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+"SAVE CURRENT CHANGES, EXIT"]]></EXP>
 				</PAR>
 				<PAR Name="ButtonImgs" />
 				<PAR Name="ButtonAction" />
@@ -340,30 +340,1173 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ODDBACKCOLOR=#dcdcdc)"+IIF(Mode="read", "(NODELETE)", "")+IIF(CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
-			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
-				<VAR_COND Id="RDK:975650" Name="ADD_TRAD">
+			<SELECTCASE Id="RDK:978330" Expanded="True">
+				<EXP><![CDATA[$=$Button]]></EXP>
+				<CASEGROUP Id="RDK:978331" CaseType="0">
+					<EXP><![CDATA[$C$ADD]]></EXP>
+					<GROUP Id="RDK:978438" Name="AutoCommit" SubType="Generic">
+						<SET Id="RDK:978430" VarRef="Updated_Trads">
+							<EXP><![CDATA[$=$TradTable]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<SET Id="RDK:978431" VarRef="Trads">
+							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<IFTHENELSE Id="RDK:978437">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:978436" SubType="Then">
+								<SET Id="RDK:978432" VarRef="Trads">
+									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<SET Id="RDK:978433" VarRef="ids_changed">
+									<EXP><![CDATA[$=$StrListToStr(StrArrayFromListOfStructs(Trads, "IDX"), ", ")]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<ACTION_CALL Id="RDK:978434" Name="RDEngineering_DBUpdate">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="UpdateTable">
+										<EXP><![CDATA[$C$TRADS]]></EXP>
+									</PAR>
+									<PAR Name="UpdateQueryType">
+										<EXP><![CDATA[$C$1]]></EXP>
+									</PAR>
+									<PAR Name="SingleRow" />
+									<PAR Name="ListOfRows">
+										<EXP><![CDATA[$=$Trads]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:978435" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$=$dateformat+"
+UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+							</GROUP>
+						</IFTHENELSE>
+					</GROUP>
+					<SET Id="RDK:978453" VarRef="Trad">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET_STRUCT Id="RDK:978467" VarRef="MetaTrad" ClearAll="True">
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_DB">
+							<EXP><![CDATA[$C$FUSION]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_TABLE">
+							<EXP><![CDATA[$C$LANGUAGE]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_0" />
+						<PAR Name="ORIGIN_ID_1" />
+						<PAR Name="LAST_UPDATE" />
+					</SET_STRUCT>
+					<WHILELOOP Id="RDK:978502">
+						<VALUECONDITION Value="false">
+							<EXP><![CDATA[$=$ValidTag]]></EXP>
+						</VALUECONDITION>
+						<ACTION_CALL Id="RDK:978493" Name="RDEngineering_RemoteGetInput" DesignTimeRemark="{VarName}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="InputVar">
+								<EXP><![CDATA[$=$MetaTrad]]></EXP>
+							</PAR>
+							<PAR Name="ProfileName">
+								<EXP><![CDATA[$C$MetaTradProfile]]></EXP>
+							</PAR>
+							<PAR Name="RunTimeRemark" />
+							<PAR Name="WebResourcePath" />
+							<PAR Name="ImgTop" />
+							<PAR Name="ImgBottom" />
+							<PAR Name="ImgLeft" />
+							<PAR Name="ImgRight" />
+							<PAR Name="CSSStyle" />
+							<PAR Name="RDActionTimeOut" />
+							<PAR Name="LayoutMode">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="ButtonsMode">
+								<EXP><![CDATA[$C$4]]></EXP>
+							</PAR>
+							<PAR Name="ButtonList" />
+							<PAR Name="ButtonImgs" />
+							<PAR Name="ButtonAction" />
+							<PAR Name="ButtonOptions" />
+							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonPressed">
+								<EXP><![CDATA[$V$Button]]></EXP>
+							</PAR>
+							<PAR Name="HeaderData" />
+							<PAR Name="InputTree">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:978494" Name="RDEngineering_DBSelect">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SelectQuery">
+								<EXP><![CDATA[$=$"SELECT IDX FROM METATRADS WHERE ORIGIN_DB='FUSION' AND ORIGIN_TABLE='LANGUAGE' AND ORIGIN_ID_0='"+MetaTrad.ORIGIN_ID_0+"'"]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryType">
+								<EXP><![CDATA[$C$2]]></EXP>
+							</PAR>
+							<PAR Name="FirstValue">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="FirstRow">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="AllRows">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="FirstColumn">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="NumRows">
+								<EXP><![CDATA[$V$Matching_IDX]]></EXP>
+							</PAR>
+							<PAR Name="ColumnHeader">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="ColumnHeaders">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<SET Id="RDK:978495" VarRef="Matching_IDX">
+							<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<IFTHENELSE Id="RDK:978501">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:978498" SubType="Then">
+								<SET Id="RDK:978496" VarRef="ValidTag">
+									<EXP><![CDATA[$C$True]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<SET_STRUCT Id="RDK:978497" VarRef="Trad" ClearAll="True">
+									<PAR Name="IDX">
+										<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+									</PAR>
+									<PAR Name="ITA" />
+									<PAR Name="ENG" />
+									<PAR Name="ESP" />
+									<PAR Name="FRA" />
+									<PAR Name="DEU" />
+									<PAR Name="UPDATED" />
+									<PAR Name="NEW">
+										<EXP><![CDATA[$C$True]]></EXP>
+									</PAR>
+								</SET_STRUCT>
+							</GROUP>
+							<GROUP Id="RDK:978500" SubType="Else">
+								<ACTION_CALL Id="RDK:978499" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+									</PAR>
+									<PAR Name="MsgText">
+										<EXP><![CDATA[$=$"WARNING! TAG: "+MetaTrad.ORIGIN_ID_0+" already stored in table LANGUAGE of Database FUSION
+Please, choose a different TAG"]]></EXP>
+									</PAR>
+									<PAR Name="MsgFormat">
+										<EXP><![CDATA[$C$0]]></EXP>
+									</PAR>
+									<PAR Name="MsgStyle">
+										<EXP><![CDATA[$C$0]]></EXP>
+									</PAR>
+									<PAR Name="WaitForInput">
+										<EXP><![CDATA[$C$True]]></EXP>
+									</PAR>
+									<PAR Name="RunTimeRemark" />
+									<PAR Name="WebResourcePath" />
+									<PAR Name="ImgTop" />
+									<PAR Name="ImgBottom" />
+									<PAR Name="ImgLeft" />
+									<PAR Name="ImgRight" />
+									<PAR Name="CSSStyle" />
+									<PAR Name="RDActionTimeOut" />
+									<PAR Name="ButtonsMode">
+										<EXP><![CDATA[$C$0]]></EXP>
+									</PAR>
+									<PAR Name="ButtonList" />
+									<PAR Name="ButtonImgs" />
+									<PAR Name="ButtonAction" />
+									<PAR Name="ButtonOptions" />
+									<PAR Name="ButtonDefs" />
+									<PAR Name="ButtonPressed">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="HeaderData" />
+									<PAR Name="InputTree">
+										<EXP><![CDATA[$=$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+							</GROUP>
+						</IFTHENELSE>
+					</WHILELOOP>
+					<ACTION_CALL Id="RDK:978518" Name="RDEngineering_RemoteGetInput" DesignTimeRemark="{VarName}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="InputVar">
+							<EXP><![CDATA[$=$Trad]]></EXP>
+						</PAR>
+						<PAR Name="ProfileName">
+							<EXP><![CDATA[$C$TradProfile]]></EXP>
+						</PAR>
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="ImgTop" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgRight" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="LayoutMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="ButtonList" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="ButtonAction" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$Button]]></EXP>
+						</PAR>
+						<PAR Name="HeaderData">
+							<EXP><![CDATA[$=$"<div style='background-color:#3498DB'><h3>&nbsp;&nbsp;TAG<br>&nbsp;&nbsp;"+MetaTrad.ORIGIN_ID_0+"</h3></div>"]]></EXP>
+						</PAR>
+						<PAR Name="InputTree">
+							<EXP><![CDATA[$=$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<SET Id="RDK:978532" VarRef="ValidTag">
+						<EXP><![CDATA[$C$False]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<GROUP Id="RDK:978558" Name="AddTrad" SubType="Generic">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$Button="OK"]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:978556" Name="sql" SubType="Generic">
+							<ACTION_CALL Id="RDK:978553" Name="RDEngineering_DBInsert">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="InsertTable">
+									<EXP><![CDATA[$C$METATRADS]]></EXP>
+								</PAR>
+								<PAR Name="InsertQueryType">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="SingleRow">
+									<EXP><![CDATA[$=$MetaTrad]]></EXP>
+								</PAR>
+								<PAR Name="ListOfRows" />
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:978554" Name="RDEngineering_DBInsert">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="InsertTable">
+									<EXP><![CDATA[$C$TRADS]]></EXP>
+								</PAR>
+								<PAR Name="InsertQueryType">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="SingleRow">
+									<EXP><![CDATA[$=$Trad]]></EXP>
+								</PAR>
+								<PAR Name="ListOfRows" />
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:978555" Name="RDEngineering_DBSelectStructured">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="SelectQueryMode">
+									<EXP><![CDATA[$C$1]]></EXP>
+								</PAR>
+								<PAR Name="SelectTable" />
+								<PAR Name="SelectFieldName" />
+								<PAR Name="SelectFieldValue" />
+								<PAR Name="SelectQuery">
+									<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+								</PAR>
+								<PAR Name="SelectQueryType">
+									<EXP><![CDATA[$C$2]]></EXP>
+								</PAR>
+								<PAR Name="FirstRow">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="AllRows">
+									<EXP><![CDATA[$V$TradTable]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+						<SET Id="RDK:978557" VarRef="MAX_IDX">
+							<EXP><![CDATA[$=$MAX_IDX +1]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+					<ACTION_CALL Id="RDK:978574" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery" />
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$Trads]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(WHERE=DELETED IS NULL)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<SET Id="RDK:978588" VarRef="Trad">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</CASEGROUP>
+				<CASEGROUP Id="RDK:978346" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$DELETE]]></EXP>
+					<GROUP Id="RDK:978650" Name="AutoCommit" SubType="Generic">
+						<SET Id="RDK:978642" VarRef="Updated_Trads">
+							<EXP><![CDATA[$=$TradTable]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<SET Id="RDK:978643" VarRef="Trads">
+							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<IFTHENELSE Id="RDK:978649">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:978648" SubType="Then">
+								<SET Id="RDK:978644" VarRef="Trads">
+									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<SET Id="RDK:978645" VarRef="ids_changed">
+									<EXP><![CDATA[$=$StrListToStr(StrArrayFromListOfStructs(Trads, "IDX"), ", ")]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<ACTION_CALL Id="RDK:978646" Name="RDEngineering_DBUpdate">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="UpdateTable">
+										<EXP><![CDATA[$C$TRADS]]></EXP>
+									</PAR>
+									<PAR Name="UpdateQueryType">
+										<EXP><![CDATA[$C$1]]></EXP>
+									</PAR>
+									<PAR Name="SingleRow" />
+									<PAR Name="ListOfRows">
+										<EXP><![CDATA[$=$Trads]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:978647" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$=$dateformat+"
+UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+							</GROUP>
+						</IFTHENELSE>
+					</GROUP>
+					<IFTHENELSE Id="RDK:978687" Expanded="True">
+						<VALUECONDITION Value="false">
+							<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")<1
+]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:978684" SubType="Then" Expanded="True">
+							<SET Id="RDK:978677" VarRef="Button">
+								<EXP><![CDATA[$=$""]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<ACTION_CALL Id="RDK:978678" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"Are you sure you want to delete TAGS "+TradTable[idx].TAGS+" from "+TradTable[idx].ORIGIN+" ?" ]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$True]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList">
+									<EXP><![CDATA[$C$YES,NO]]></EXP>
+								</PAR>
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$Button]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<IFTHENELSE Id="RDK:978683" Expanded="True">
+								<VALUECONDITION Value="true">
+									<EXP><![CDATA[$=$Button="YES"]]></EXP>
+								</VALUECONDITION>
+								<GROUP Id="RDK:978682" SubType="Then">
+									<GROUP Id="RDK:978681" Name="sql" SubType="Generic">
+										<ACTION_CALL Id="RDK:978679" Name="RDEngineering_DBExecuteStatement">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+											</PAR>
+											<PAR Name="ConnectionName">
+												<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+											</PAR>
+											<PAR Name="SqlStatement">
+												<EXP><![CDATA[$=$"UPDATE TRADS SET DELETED=1 WHERE IDX="+TradTable[idx].IDX]]></EXP>
+											</PAR>
+											<PAR Name="StatementResult">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+										<ACTION_CALL Id="RDK:978680" Name="RDEngineering_DBSelectStructured">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+											</PAR>
+											<PAR Name="ConnectionName">
+												<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+											</PAR>
+											<PAR Name="SelectQueryMode">
+												<EXP><![CDATA[$C$1]]></EXP>
+											</PAR>
+											<PAR Name="SelectTable" />
+											<PAR Name="SelectFieldName" />
+											<PAR Name="SelectFieldValue" />
+											<PAR Name="SelectQuery">
+												<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+											</PAR>
+											<PAR Name="SelectQueryType">
+												<EXP><![CDATA[$C$2]]></EXP>
+											</PAR>
+											<PAR Name="FirstRow">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="AllRows">
+												<EXP><![CDATA[$V$TradTable]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+									</GROUP>
+								</GROUP>
+							</IFTHENELSE>
+						</GROUP>
+						<GROUP Id="RDK:978686" SubType="Else">
+							<ACTION_CALL Id="RDK:978685" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$C$ACTION NOT ALLOWED]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$true]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$5]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$Button]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+					</IFTHENELSE>
+					<ACTION_CALL Id="RDK:978703" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery" />
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$Trads]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(WHERE=DELETED IS NULL)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+				</CASEGROUP>
+				<CASEGROUP Id="RDK:978354" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$DELETE ALL FILTERS]]></EXP>
+					<GROUP Id="RDK:978771" Name="AutoCommit" SubType="Generic">
+						<SET Id="RDK:978761" VarRef="Updated_Trads">
+							<EXP><![CDATA[$=$TradTable]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<SET Id="RDK:978762" VarRef="Trads">
+							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<IFTHENELSE Id="RDK:978768">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:978767" SubType="Then">
+								<SET Id="RDK:978763" VarRef="Trads">
+									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<SET Id="RDK:978764" VarRef="ids_changed">
+									<EXP><![CDATA[$=$StrListToStr(StrArrayFromListOfStructs(Trads, "IDX"), ", ")]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<ACTION_CALL Id="RDK:978765" Name="RDEngineering_DBUpdate">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="UpdateTable">
+										<EXP><![CDATA[$C$TRADS]]></EXP>
+									</PAR>
+									<PAR Name="UpdateQueryType">
+										<EXP><![CDATA[$C$1]]></EXP>
+									</PAR>
+									<PAR Name="SingleRow" />
+									<PAR Name="ListOfRows">
+										<EXP><![CDATA[$=$Trads]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:978766" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$=$dateformat+"
+UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+							</GROUP>
+						</IFTHENELSE>
+						<ACTION_CALL Id="RDK:978769" Name="RDEngineering_DBSelectStructured">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryMode">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="SelectTable">
+								<EXP><![CDATA[$C$TRADS]]></EXP>
+							</PAR>
+							<PAR Name="SelectFieldName" />
+							<PAR Name="SelectFieldValue" />
+							<PAR Name="SelectQuery" />
+							<PAR Name="SelectQueryType">
+								<EXP><![CDATA[$C$2]]></EXP>
+							</PAR>
+							<PAR Name="FirstRow">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="AllRows">
+								<EXP><![CDATA[$V$Trads]]></EXP>
+							</PAR>
+							<PAR Name="Options">
+								<EXP><![CDATA[$C$(WHERE=DELETED IS NULL)]]></EXP>
+							</PAR>
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:978770" Name="RDEngineering_DBSelectStructured">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryMode">
+								<EXP><![CDATA[$C$1]]></EXP>
+							</PAR>
+							<PAR Name="SelectTable" />
+							<PAR Name="SelectFieldName" />
+							<PAR Name="SelectFieldValue" />
+							<PAR Name="SelectQuery">
+								<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryType">
+								<EXP><![CDATA[$C$2]]></EXP>
+							</PAR>
+							<PAR Name="FirstRow">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="AllRows">
+								<EXP><![CDATA[$V$TradTable]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+					</GROUP>
+					<SET Id="RDK:978786" VarRef="FilterTrad">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</CASEGROUP>
+				<CASEGROUP Id="RDK:978362" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$SAVE CURRENT CHANGES]]></EXP>
+					<SET Id="RDK:978833" VarRef="Updated_Trads">
+						<EXP><![CDATA[$=$TradTable]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:978847" VarRef="Trads">
+						<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<IFTHENELSE Id="RDK:978873" Expanded="True">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:978872" SubType="Then" Expanded="True">
+							<SET Id="RDK:978868" VarRef="Trads">
+								<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<SET Id="RDK:978869" VarRef="ids_changed">
+								<EXP><![CDATA[$=$StrListToStr(StrArrayFromListOfStructs(Trads, "IDX"), ", ")]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<ACTION_CALL Id="RDK:978870" Name="RDEngineering_DBUpdate">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="UpdateTable">
+									<EXP><![CDATA[$C$TRADS]]></EXP>
+								</PAR>
+								<PAR Name="UpdateQueryType">
+									<EXP><![CDATA[$C$1]]></EXP>
+								</PAR>
+								<PAR Name="SingleRow" />
+								<PAR Name="ListOfRows">
+									<EXP><![CDATA[$=$Trads]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:978871" Name="RDEngineering_DBExecuteStatement">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="SqlStatement">
+									<EXP><![CDATA[$=$dateformat+"
+UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+								</PAR>
+								<PAR Name="StatementResult">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+					</IFTHENELSE>
+					<ACTION_CALL Id="RDK:978889" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery" />
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$Trads]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(WHERE=DELETED IS NULL)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:978909" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable" />
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery">
+							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$TradTable]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</CASEGROUP>
+			</SELECTCASE>
+			<GROUP Id="RDK:978941" Name="SORT BUTTON PRESSED" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:979034" Name="AutoCommit" SubType="Generic">
+					<SET Id="RDK:979024" VarRef="Updated_Trads">
+						<EXP><![CDATA[$=$TradTable]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:979025" VarRef="Trads">
+						<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<IFTHENELSE Id="RDK:979031">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:979030" SubType="Then">
+							<SET Id="RDK:979026" VarRef="Trads">
+								<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<SET Id="RDK:979027" VarRef="ids_changed">
+								<EXP><![CDATA[$=$StrListToStr(StrArrayFromListOfStructs(Trads, "IDX"), ", ")]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<ACTION_CALL Id="RDK:979028" Name="RDEngineering_DBUpdate">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="UpdateTable">
+									<EXP><![CDATA[$C$TRADS]]></EXP>
+								</PAR>
+								<PAR Name="UpdateQueryType">
+									<EXP><![CDATA[$C$1]]></EXP>
+								</PAR>
+								<PAR Name="SingleRow" />
+								<PAR Name="ListOfRows">
+									<EXP><![CDATA[$=$Trads]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:979029" Name="RDEngineering_DBExecuteStatement">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+								</PAR>
+								<PAR Name="ConnectionName">
+									<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+								</PAR>
+								<PAR Name="SqlStatement">
+									<EXP><![CDATA[$=$dateformat+"
+UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+								</PAR>
+								<PAR Name="StatementResult">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+					</IFTHENELSE>
+					<ACTION_CALL Id="RDK:979032" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery" />
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$Trads]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(WHERE=DELETED IS NULL)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:979033" Name="RDEngineering_DBSelectStructured">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryMode">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="SelectTable" />
+						<PAR Name="SelectFieldName" />
+						<PAR Name="SelectFieldValue" />
+						<PAR Name="SelectQuery">
+							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+						</PAR>
+						<PAR Name="SelectQueryType">
+							<EXP><![CDATA[$C$2]]></EXP>
+						</PAR>
+						<PAR Name="FirstRow">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="AllRows">
+							<EXP><![CDATA[$V$TradTable]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<SET_STRUCT Id="RDK:979051" VarRef="sorted" ClearAll="True">
+					<PAR Name="field">
+						<EXP><![CDATA[$=$StrAfter(Button, ",")]]></EXP>
+					</PAR>
+					<PAR Name="Desc">
+						<EXP><![CDATA[$=$StrStartWith(StrAfter(StrBefore(Button, ","), "SORTCLICK_"), "D")]]></EXP>
+					</PAR>
+				</SET_STRUCT>
+			</GROUP>
+			<GROUP Id="RDK:979085" Name="FILTER BUTTON PRESSED" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:979152" Name="AutoCommit" SubType="Generic" />
+				<SET_STRUCT Id="RDK:979169" VarRef="FilterTrad" ClearAll="True">
+					<PAR Name="ORIGIN">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ORIGIN", SplitStr(Button, ",", "")[2], FilterTrad.ORIGIN)]]></EXP>
+					</PAR>
+					<PAR Name="TAGS">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="TAGS", SplitStr(Button, ",", "")[2], FilterTrad.TAGS)]]></EXP>
+					</PAR>
+					<PAR Name="IDX" />
+					<PAR Name="ITA">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ITA", SplitStr(Button, ",", "")[2], FilterTrad.ITA)]]></EXP>
+					</PAR>
+					<PAR Name="ENG">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ENG", SplitStr(Button, ",", "")[2], FilterTrad.ENG)]]></EXP>
+					</PAR>
+					<PAR Name="ESP">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ESP", SplitStr(Button, ",", "")[2], FilterTrad.ESP)]]></EXP>
+					</PAR>
+					<PAR Name="FRA">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="FRA", SplitStr(Button, ",", "")[2], FilterTrad.FRA)]]></EXP>
+					</PAR>
+					<PAR Name="DEU">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="DEU", SplitStr(Button, ",", "")[2], FilterTrad.DEU)]]></EXP>
+					</PAR>
+					<PAR Name="UPDATED">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="UPDATED", SplitStr(Button, ",", "")[2], FilterTrad.UPDATED)]]></EXP>
+					</PAR>
+					<PAR Name="NEW">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="NEW", SplitStr(Button, ",", "")[2], FilterTrad.NEW)]]></EXP>
+					</PAR>
+					<PAR Name="LAST_UPDATE">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="LAST_UPDATE", SplitStr(Button, ",", "")[2], FilterTrad.LAST_UPDATE)]]></EXP>
+					</PAR>
+				</SET_STRUCT>
+			</GROUP>
+			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
+				<VAR_COND Id="RDK:979834" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:975651" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:979835" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:975652" Name="SORT">
+				<VAR_COND Id="RDK:979836" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:975653" Name="FILTER">
+				<VAR_COND Id="RDK:979837" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:975654" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:979838" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:975655" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:979839" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
-				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:61" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$ADD_TRAD]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:963608" Name="AutoCommit" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:963608" Name="AutoCommit" SubType="Generic">
 						<SET Id="RDK:964037" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -372,11 +1515,11 @@ ORDER BY T.ITA]]></EXP>
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:963607" Expanded="True">
+						<IFTHENELSE Id="RDK:963607">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:963606" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:963606" SubType="Then">
 								<SET Id="RDK:963600" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -441,7 +1584,7 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 						<PAR Name="ORIGIN_ID_1" />
 						<PAR Name="LAST_UPDATE" />
 					</SET_STRUCT>
-					<WHILELOOP Id="RDK:1925" Expanded="True">
+					<WHILELOOP Id="RDK:1925">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$ValidTag]]></EXP>
 						</VALUECONDITION>
@@ -523,11 +1666,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 							<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:2076" Expanded="True">
+						<IFTHENELSE Id="RDK:2076">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:2077" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:2077" SubType="Then">
 								<SET Id="RDK:2118" VarRef="ValidTag">
 									<EXP><![CDATA[$C$True]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -547,7 +1690,7 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 									</PAR>
 								</SET_STRUCT>
 							</GROUP>
-							<GROUP Id="RDK:668878" SubType="Else" Expanded="True">
+							<GROUP Id="RDK:668878" SubType="Else">
 								<ACTION_CALL Id="RDK:668888" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 									<PAR Name="RDLibraryName">
 										<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -637,11 +1780,11 @@ Please, choose a different TAG"]]></EXP>
 						<EXP><![CDATA[$C$False]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$Button="OK"]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:941233" Name="sql" SubType="Generic" Expanded="True">
+						<GROUP Id="RDK:941233" Name="sql" SubType="Generic">
 							<ACTION_CALL Id="RDK:1279" Name="RDEngineering_DBInsert">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -768,11 +1911,11 @@ ORDER BY T.ITA
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</CHOICE>
-				<CHOICE Id="RDK:96" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:96" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$DELETE_TRAD]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:963522" Name="AutoCommit" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:963522" Name="AutoCommit" SubType="Generic">
 						<SET Id="RDK:963999" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -781,11 +1924,11 @@ ORDER BY T.ITA
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:963521" Expanded="True">
+						<IFTHENELSE Id="RDK:963521">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:963520" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:963520" SubType="Then">
 								<SET Id="RDK:963514" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -832,12 +1975,12 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 							</GROUP>
 						</IFTHENELSE>
 					</GROUP>
-					<IFTHENELSE Id="RDK:890535" Expanded="True">
+					<IFTHENELSE Id="RDK:890535">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")<1
 ]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:890536" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:890536" SubType="Then">
 							<SET Id="RDK:920808" VarRef="Button">
 								<EXP><![CDATA[$=$""]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -885,12 +2028,12 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 								</PAR>
 								<PAR Name="Options" />
 							</ACTION_CALL>
-							<IFTHENELSE Id="RDK:890621" Expanded="True">
+							<IFTHENELSE Id="RDK:890621">
 								<VALUECONDITION Value="true">
 									<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 								</VALUECONDITION>
-								<GROUP Id="RDK:890619" SubType="Then" Expanded="True">
-									<GROUP Id="RDK:941387" Name="sql" SubType="Generic" Expanded="True">
+								<GROUP Id="RDK:890619" SubType="Then">
+									<GROUP Id="RDK:941387" Name="sql" SubType="Generic">
 										<ACTION_CALL Id="RDK:890707" Name="RDEngineering_DBExecuteStatement">
 											<PAR Name="RDLibraryName">
 												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -958,7 +2101,7 @@ ORDER BY T.ITA
 								</GROUP>
 							</IFTHENELSE>
 						</GROUP>
-						<GROUP Id="RDK:890537" SubType="Else" Expanded="True">
+						<GROUP Id="RDK:890537" SubType="Else">
 							<ACTION_CALL Id="RDK:100" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -1032,11 +2175,11 @@ ORDER BY T.ITA
 						</PAR>
 					</ACTION_CALL>
 				</CHOICE>
-				<CHOICE Id="RDK:869140" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:869140" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$SORT]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:962141" Name="AutoCommit" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:962141" Name="AutoCommit" SubType="Generic">
 						<SET Id="RDK:963961" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -1045,11 +2188,11 @@ ORDER BY T.ITA
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:963230" Expanded="True">
+						<IFTHENELSE Id="RDK:963230">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:963229" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:963229" SubType="Then">
 								<SET Id="RDK:963223" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -1182,11 +2325,11 @@ ORDER BY T.ITA
 						</PAR>
 					</SET_STRUCT>
 				</CHOICE>
-				<CHOICE Id="RDK:871569" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:871569" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$FILTER]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:962252" Name="AutoCommit" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:962252" Name="AutoCommit" SubType="Generic">
 						<SET Id="RDK:963923" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -1195,11 +2338,11 @@ ORDER BY T.ITA
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:963325" Expanded="True">
+						<IFTHENELSE Id="RDK:963325">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:963324" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:963324" SubType="Then">
 								<SET Id="RDK:963318" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -1357,11 +2500,11 @@ ORDER BY T.ITA
 						</PAR>
 					</SET_STRUCT>
 				</CHOICE>
-				<CHOICE Id="RDK:892321" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:892321" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$DELETE_FILTER]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:963456" Name="AutoCommit" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:963456" Name="AutoCommit" SubType="Generic">
 						<SET Id="RDK:963864" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -1370,11 +2513,11 @@ ORDER BY T.ITA
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:963455" Expanded="True">
+						<IFTHENELSE Id="RDK:963455">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:963454" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:963454" SubType="Then">
 								<SET Id="RDK:963448" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -1503,7 +2646,7 @@ ORDER BY T.ITA
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</CHOICE>
-				<CHOICE Id="RDK:924180" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:924180" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$SAVE_CHANGES]]></EXP>
 					</VALUECONDITION>
@@ -1515,11 +2658,11 @@ ORDER BY T.ITA
 						<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<IFTHENELSE Id="RDK:963051" Expanded="True">
+					<IFTHENELSE Id="RDK:963051">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:963082" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:963082" SubType="Then">
 							<SET Id="RDK:958610" VarRef="Trads">
 								<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -1796,7 +2939,7 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 				<EXP><![CDATA[$C$0]]></EXP>
 			</PAR>
 		</ACTION_CALL>
-		<IFTHENELSE Id="RDK:920176" Expanded="True">
+		<IFTHENELSE Id="RDK:920176" Expanded="True" Suppressed="True">
 			<VALUECONDITION Value="false">
 				<EXP><![CDATA[$=$Mode="read"]]></EXP>
 			</VALUECONDITION>

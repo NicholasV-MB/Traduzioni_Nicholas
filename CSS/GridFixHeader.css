@@ -1,0 +1,78 @@
+.RDBUTTON_AREA_TOP
+{
+   background-color: #e1001a;
+   padding-bottom: 3px;
+}
+
+.RDBUTTON_AREA_TOP_LEFT
+{
+   background-color: #e1001a;
+}
+
+.RDBUTTON_AREA_TOP_RIGHT
+{
+   background-color: #e1001a;
+}
+
+
+table
+{
+	display: block;
+}
+table.RDGRID thead 
+{
+    display: block;
+    background-color: 6495ed;
+}
+table.RDGRID tbody 
+{
+    display: block;
+    overflow-y: auto;
+    height: 550px;
+}
+
+table.RDGRID tr {
+  display: table;
+  table-layout: fixed;
+  width:100%;
+}
+
+table.RDGRID td {
+ 	width:10%;
+	word-wrap: break-word;
+}
+
+
+.RDGRID_ROW_TITLE
+{
+	/*background-color: 6495ed;*/
+	background-color:#000000;
+	color:#ffffff;
+}
+
+.RDWI_SUMMARYGRID_TABLE {
+    position: fixed;
+}
+
+
+.RDGRID_ROW {
+	height: 30px;
+}
+
+
+.RDGRID_CELL {
+	background-color: transparent !important;
+}
+
+.RDGRID_HEADER
+{
+	background-color:#dcecf9;
+	height:24px;
+	width:100%;
+	color:#000000;
+	font-family:Verdana;
+	font-size: 9pt;
+	font-style:normal;
+	font-weight:bold;
+	font-variant:normal;
+}

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-01T11:38:06" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T16:17:46" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -354,7 +354,7 @@ EDIT ON
         100% { transform: scale(1,1)      translateY(0); }
     }
 </style>
-<div class="trainglebottomleft"></div>
+<h1><center>IMPORT DATA...</center></h1>
 <div class="stage">
     <div class="trapezoid bounce-7"></div>
     <div class="trianglebottomleft bounce-8"></div>
@@ -802,7 +802,7 @@ EDIT ON
         100% { transform: scale(1,1)      translateY(0); }
     }
 </style>
-<div class="trainglebottomleft"></div>
+<h1><center>IMPORT DATA...</center></h1>
 <div class="stage">
     <div class="trapezoid bounce-7"></div>
     <div class="trianglebottomleft bounce-8"></div>
@@ -870,7 +870,16 @@ EDIT ON
 			</PAR>
 		</ACTION_CALL>
 		<GROUP Id="RDK:933314" Name="CALL WEB INTERFACE" SubType="Generic" Expanded="True" ErrorProtected="True" BlockFailedVarRef="Error.Status" BlockFailedErrMsgRef="Error.Message">
-			<PROCESS_CALL Id="RDK:649">
+			<PROCESS_CALL Id="RDK:649" Suppressed="True">
+				<EXP><![CDATA[$C$Web_Interface_MUI.rdx]]></EXP>
+				<PAR Name="Mode">
+					<EXP><![CDATA[$=$mode]]></EXP>
+				</PAR>
+				<PAR Name="myUser">
+					<EXP><![CDATA[$V$myUser]]></EXP>
+				</PAR>
+			</PROCESS_CALL>
+			<PROCESS_CALL Id="RDK:958522">
 				<EXP><![CDATA[$C$Web_Interface_v0.rdx]]></EXP>
 				<PAR Name="Mode">
 					<EXP><![CDATA[$=$mode]]></EXP>
@@ -984,6 +993,49 @@ MESSAGE "+Error.Message]]></EXP>
 						</ACTION_CALL>
 					</GROUP>
 				</IFTHENELSE>
+			</GROUP>
+			<GROUP Id="RDK:984797" SubType="Else" Expanded="True">
+				<ACTION_CALL Id="RDK:984798" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+					</PAR>
+					<PAR Name="MsgText">
+						<EXP><![CDATA[$C$Process ended without errors]]></EXP>
+					</PAR>
+					<PAR Name="MsgFormat">
+						<EXP><![CDATA[$C$0]]></EXP>
+					</PAR>
+					<PAR Name="MsgStyle">
+						<EXP><![CDATA[$C$0]]></EXP>
+					</PAR>
+					<PAR Name="WaitForInput">
+						<EXP><![CDATA[$C$true]]></EXP>
+					</PAR>
+					<PAR Name="RunTimeRemark" />
+					<PAR Name="WebResourcePath" />
+					<PAR Name="ImgTop" />
+					<PAR Name="ImgBottom" />
+					<PAR Name="ImgLeft" />
+					<PAR Name="ImgRight" />
+					<PAR Name="CSSStyle" />
+					<PAR Name="RDActionTimeOut" />
+					<PAR Name="ButtonsMode">
+						<EXP><![CDATA[$C$15]]></EXP>
+					</PAR>
+					<PAR Name="ButtonList" />
+					<PAR Name="ButtonImgs" />
+					<PAR Name="ButtonAction" />
+					<PAR Name="ButtonOptions" />
+					<PAR Name="ButtonDefs" />
+					<PAR Name="ButtonPressed">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="HeaderData" />
+					<PAR Name="InputTree">
+						<EXP><![CDATA[$=$]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
 			</GROUP>
 		</IFTHENELSE>
 	</GROUP>

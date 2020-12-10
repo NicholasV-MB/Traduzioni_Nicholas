@@ -1,0 +1,2945 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PROCESS Id="RDK:0001" Name="Web_Interface_MUI" Options="(MODERNUI)" Expanded="True" Bookmarked="True">
+	<PROCESSPROPERTY CrUser="lbianchini [ENG-BIANCHINI]" CrDate="2020-12-02T14:20:13" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T13:49:20" LanguageVersion="2011.1.1.0" />
+	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
+		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
+			<GROUP Id="RDK:12" Name="ModernUITypes" SubType="TypeSet" Include="Type_ModernUITypes.rdx" IncludeDate="132515425792837564" Expanded="True">
+				<TYPE Id="RDK:14533" Name="MUIControlType" DesignTimeRemark="Control Definition" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14509" Name="Id" Type="string" DesignTimeRemark="Control Id" />
+					<FIELD Id="RDK:14510" Name="Label" Type="string" DesignTimeRemark="Control Label" />
+					<FIELD Id="RDK:14511" Name="Field" Type="string" DesignTimeRemark="Field name of the structure binded to the control panel" />
+					<FIELD Id="RDK:14512" Name="Value" Type="string" DesignTimeRemark="Control value" />
+					<FIELD Id="RDK:14513" Name="Uom" Type="string" DesignTimeRemark="Control uom" />
+					<FIELD Id="RDK:14514" Name="Tooltip" Type="string" DesignTimeRemark="Control  tooltip" />
+					<FIELD Id="RDK:14515" Name="Styles" Type="string" DesignTimeRemark="Control styles (Html styles format xxx=yyy;...;zzz=www))" DesignTimeNotes="All styles have optional namespaces &lt;size:&gt;&#xD;&#xA;&#xD;&#xA;    desktop:  tablet: mobile:     Human readable device size&#xD;&#xA;    sx:   sm:    md:    lg:            Bootstrap standard sizes&#xD;&#xA;    s:      m:        l:    xl:             T-Shirt like sizes&#xD;&#xA;&#xD;&#xA;&lt;size:&gt;Height=xxx                  Setup the control height&#xD;&#xA;&lt;size:&gt;Width=xxx                   Setup the control width (12 column if flexy)&#xD;&#xA;&lt;size:&gt;Margin=xxx                  Setup the control margin&#xD;&#xA;&lt;size:&gt;Align=xxx                     Setup the control align --&gt; left, right, top. bottom, center, justify&#xD;&#xA;&lt;size:&gt;Offset=xxx                   Setup the control offset from border (12 column if flexy)&#xD;&#xA;&#xD;&#xA;" />
+					<FIELD Id="RDK:14516" Name="Classes" Type="string" DesignTimeRemark="Control classes (Html class format)" />
+					<FIELD Id="RDK:14517" Name="Rules" Type="string" DesignTimeRemark="Control rules (Unused yet)" />
+					<FIELD Id="RDK:14518" Name="Image" Type="string" DesignTimeRemark="Image resource" />
+					<FIELD Id="RDK:14519" Name="ParentId" Type="string" DesignTimeRemark="Control parentId" DesignTimeNotes="Use controlset ID to group controls&#xD;&#xA;Use grid/list ID to define editable subfields&#xD;&#xA;" />
+					<FIELD Id="RDK:14520" Name="UIType" Type="string" DesignTimeRemark="Control UIType: (textbox, dropdown, etc.)" DesignTimeNotes="            //Common controls (single value)&#xD;&#xA;            textbox,                            //Textbox semplice&#xD;&#xA;            textarea,                           //Textbox esteso multilinea&#xD;&#xA;            imageview,                       //Renderizza una immagine&#xD;&#xA;            dropdown,                        //Casella di scelta a tendina con valori obbligatori&#xD;&#xA;            dropdownwithimages,       //Casella di scelta a tendina con valori obbligatori e immagine interna associata&#xD;&#xA;            dropdownimagesonly,       //Casella di scelta a tendina con valori obbligatori con sole immagini&#xD;&#xA;            combobox,                        //Casella di scelta a tendina con valore scrivibile (textbox+dropdown)&#xD;&#xA;            checkbox,                         //Casella checkbox True/False (opzionalmente anche threestate undefined)&#xD;&#xA;            yesno,                               //Simile al checkbox ma realizzato con due opzioni mutualmente esclusive&#xD;&#xA;            //Multiselection controls&#xD;&#xA;            checklist,                          //Array di checkbox con display testuale a fianco di ognuno&#xD;&#xA;            checkwithimages,             //Array di checkbox con display testuale e immagine a fianco di ognuno&#xD;&#xA;            checkimagesonly,             //Array di checkbox con display formato dalla sola immagine, con stile &quot;selected&quot; per ognuna&#xD;&#xA;            radiobuttons,                     //Scelta mutualmente esclusiva fra diversi valori possibili, ognuno con label&#xD;&#xA;            radiowithimages,               //Scelta mutualmente esclusiva fra diversi valori possibili, ognuno con label e immagine&#xD;&#xA;            radioimagesonly,               //Scelta mutualmente esclusiva fra diverse immagini visualizzate, una sola avrà stile &quot;selected&quot;&#xD;&#xA;            //Infrastructure Buttons&#xD;&#xA;            simplebutton,                    //Pulsante semplice UI del dispositivo dotato di label interna, con valore associato per submit&#xD;&#xA;            imagebutton,                    //Pulsante di tipo immagine, senza label interna, con valore associato per submit&#xD;&#xA;            smartbutton,                     //Pulsante esteso con label e immagine, stile pressed, etc., con valore associato per submit&#xD;&#xA;            fabbutton,                        //Pulsante tondo per Fab-Area dotato di label simbolica (+ x ?, etc.), con valore associato per submit&#xD;&#xA;            //Menu and layout&#xD;&#xA;            menugroup,                     //Separatore di gruppo per menu&#xD;&#xA;            menuitem,                        //Controllo che rappresenta una voce del menu&#xD;&#xA;            //Complex controls&#xD;&#xA;            password,                        //Textbox ottimizzata per l'inserimento di password con asterischi&#xD;&#xA;            textzoom,                         //Textbox con bulsante laterale che genera evento onclick&#xD;&#xA;            textsearch,                       //Textbox con search automatico sui valori alla digitazione&#xD;&#xA;            textsearchmulti,                //Textbox con search automatico sui valori alla digitazione e possibilità di scelta multipla&#xD;&#xA;            texthtml,                           //Textbox con controllo html (TINYMCE)&#xD;&#xA;            imagepicker,                    //Seleziona una immagine locale dalla gallery del dispositivo (utilizza evento onupload)&#xD;&#xA;            datepicker,                      //Seleziona una data di calendario&#xD;&#xA;            timepicker,                       //Seleziona una orario&#xD;&#xA;            telpicker,                          //Textbox ottimizzata per l'inserimento di un numero telefonico&#xD;&#xA;            mailpicker,                        //Textbox ottimizzata per l'inserimento di un indirizzo email&#xD;&#xA;            signature,                         //Controllo tipo jSignature per leggere una firma (stringa immagine base64)&#xD;&#xA;            slider,                               //Controllo tipo slider numerico (double)&#xD;&#xA;            rating,                              //Controllo rating stellette 0..5 (double)&#xD;&#xA;            calendar,                         //Controllo calendario&#xD;&#xA;            //File controls&#xD;&#xA;            fileupload,                        //Funzionalità di upload generica di file dal dispositivo (utilizza evento onupload)&#xD;&#xA;            //Dataset controls&#xD;&#xA;            datagrid,                          //Griglia di visualizzazione dati tabellari (specifica per web)&#xD;&#xA;            cardbox,                          //Visualizzazione tabellare in forma di card ciascuno dei quali alimentato con i dati di riga&#xD;&#xA;            listgroup,                         //Controllo lista con colonne multiple, legate a datagrid&#xD;&#xA;            //non-input controls&#xD;&#xA;            label,                              //Label testuale con style definito (font, color, size, etc.)&#xD;&#xA;            separator,                       //Separatore fra campi (spazio vuoto o linea html)&#xD;&#xA;            backgroundimage,         //Come imageview ma utilizzato per la immagine di background dell'intera scheda dati&#xD;&#xA;            htmlblock,                      //Renderizzazione di un blocco di HTML&#xD;&#xA;            webview,                       //Renderizzazione di una pagina web incorporata e caricata in base a uri&#xD;&#xA;                                                 //Nota: il value di una webview viene inviato tramite PostMessage(&quot;*&quot;)&#xD;&#xA;            //containers&#xD;&#xA;            tabs                              //Tab bar in binding con controlset figli per pannelli a mutua esclusione&#xD;&#xA;            controlset	                //Aggregatore logico di controlli (legati al padre tramite l'attributo parentId), &#xD;&#xA;                                                //non viene renderizzato come controllo ma permette di applicare ai controlli figli le propprietà visible e read only&#xD;&#xA;" />
+					<FIELD Id="RDK:14521" Name="Action" Type="string" DesignTimeRemark="Action to specify if the control is a button (CANCEL,VALIDATE,SUBMIT,NONE)" />
+					<FIELD Id="RDK:14522" Name="Required" Type="boolean" DesignTimeRemark="Set the control as required if 'True'" />
+					<FIELD Id="RDK:14523" Name="Hidden" Type="boolean" DesignTimeRemark="Set the control as hidden if 'True'" />
+					<FIELD Id="RDK:14524" Name="ReadOnly" Type="boolean" DesignTimeRemark="Set the control as readonly if 'True'" />
+					<FIELD Id="RDK:14525" Name="Disabled" Type="boolean" DesignTimeRemark="Set the control as disabled if 'True'" />
+					<FIELD Id="RDK:14526" Name="Pressed" Type="boolean" DesignTimeRemark="Set the control as pressed if 'True'" />
+					<FIELD Id="RDK:14527" Name="AutoCommit" Type="boolean" DesignTimeRemark="Confirm input on data selection with default validation if 'True'" />
+					<FIELD Id="RDK:14528" Name="ValidateFail" Type="boolean" />
+					<FIELD Id="RDK:14529" Name="ValidateMsg" Type="string" />
+					<FIELD Id="RDK:14530" Name="DataFilter" Type="variant" DesignTimeRemark="Structure containing the control filter setup" />
+					<FIELD Id="RDK:14531" Name="DataSource" Type="variant" DesignTimeRemark="Datasource for multi-values control type (dropdown,radiobuttons,grids)" DesignTimeNotes="For multivalue single controls:&#xD;&#xA;    DataSourceValInfo Type&#xD;&#xA;For grids:&#xD;&#xA;    DataSourceColInfo Type&#xD;&#xA;    Simple structure (field/caption)&#xD;&#xA;For simple dropdown&#xD;&#xA;    List of number or string" />
+					<FIELD Id="RDK:14532" Name="Options" Type="string" DesignTimeRemark="Control related options" DesignTimeNotes="(CLASSCSS=xxx)           Add a css class specific to the control&#xD;&#xA;(WIDTH=xxx)              Control width&#xD;&#xA;(HEIGHT=xxx)             Control height&#xD;&#xA;(INDENT=nn)              Control indentation&#xD;&#xA;(BREAK)                  Interrupt fluent flow and place control on a new line&#xD;&#xA;(FONTNAME=xxx)           Control font name style&#xD;&#xA;(FONTSIZE=xxx)           Control font size style&#xD;&#xA;(BOLD)                   Control bold style if used&#xD;&#xA;(ITALIC)                 Control italic style if used&#xD;&#xA;(FORECOLOR=xxx)          Control forecolor style&#xD;&#xA;(BACKCOLOR=xxx)          Control backcolor style&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;For Textzoom:&#xD;&#xA;   (LEFTICON)                  &#xD;&#xA;   (CONFIRM=xxx)            &#xD;&#xA;For Slider:&#xD;&#xA;   (RANGE=min,max,step)            &#xD;&#xA;For DataGrids:&#xD;&#xA;   (GRIDHEADERS=EXPORT,SWITCH,SEARCH,FILTERS,COLUMNS,ORDERBY,DOWNLOAD,REFRESH)&#xD;&#xA;   (GRIDFOOTERS=RECENT,FAVORITE,DEFAULT)        &#xD;&#xA;   (SELECTION=NONE,SINGLE,MULTIPLE,ASYNC)       &#xD;&#xA;   (NOROWEDIT)              &#xD;&#xA;   (ACTION=xx,yy,zz)       &#xD;&#xA;   (ROWCLICKACTION=key)&#xD;&#xA;   (ROWACTION=key,icon,description,columns,confirm,confirmMessage)     &#xD;&#xA;   (TABLEHEIGHT=&lt;size&gt;|xs:&lt;size&gt;;..;lg:&lt;size&gt;)&#xD;&#xA;For CardGrid:&#xD;&#xA;   (CARDBUTTONS=NEW,VIEW,EDIT,DELETE,DOWNLOAD)        &#xD;&#xA;For controlset&#xD;&#xA;   (GROUPCSS=class) - Class to be applied to controlset&#xD;&#xA;   (GROUPTYPE=ACCORDION,PANEL) - Default is accordion" />
+				</TYPE>
+				<TYPE Id="RDK:14539" Name="MUIPanelType" DesignTimeRemark="Panel Definition" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14534" Name="Name" Type="string" DesignTimeRemark="Panel name (MAIN, TOP_TOOLBAR, BOTTOM_TOOLBAR, RIGHT_TOOLBAR, LEFT_TOOLBAR, FAB_TOOLBAR, TREE, MENUBAR, HEADER, FOOTER, TOP_IMAGE, BOTTOM_IMAGE, RIGHT_IMAGE, LEFT_IMAGE, MASTER_IMAGE, DETAIL" />
+					<FIELD Id="RDK:14535" Name="BindingType" Type="string" DesignTimeRemark="Name of the structure type binded to the panel" />
+					<FIELD Id="RDK:14536" Name="Controls" Type="MUIControlType[]" DesignTimeRemark="List of controls for the panel (Controls must be of MUIControlType)" />
+					<FIELD Id="RDK:14537" Name="Status" Type="string" DesignTimeRemark="Rendering status disposition: empty=definition, changed, unchanged" />
+					<FIELD Id="RDK:14538" Name="Options" Type="string" DesignTimeRemark="(TAB)    Create custom tab panel controlset" DesignTimeNotes="(TAB)    Create custom tab panels as controlset" />
+				</TYPE>
+				<TYPE Id="RDK:14545" Name="MUIEventType" DesignTimeRemark="Event Definition" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14540" Name="Name" Type="string" />
+					<FIELD Id="RDK:14541" Name="Source" Type="string" />
+					<FIELD Id="RDK:14542" Name="Field" Type="string" />
+					<FIELD Id="RDK:14543" Name="Index" Type="integer" />
+					<FIELD Id="RDK:14544" Name="Data" Type="structure" />
+				</TYPE>
+				<TYPE Id="RDK:14546" Name="MUIRuleType" SubType="structure">
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14552" Name="DataSourceValInfo" DesignTimeRemark="Used for simple DataSource" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14547" Name="Value" Type="string" />
+					<FIELD Id="RDK:14548" Name="Prompt" Type="string" />
+					<FIELD Id="RDK:14549" Name="Image" Type="string" />
+					<FIELD Id="RDK:14550" Name="Tooltip" Type="string" />
+					<FIELD Id="RDK:14551" Name="Tags" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14568" Name="DataSourceColInfo" DesignTimeRemark="Used for complex DataSource" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14553" Name="Field" Type="string" />
+					<FIELD Id="RDK:14554" Name="Caption" Type="string" />
+					<FIELD Id="RDK:14555" Name="IsKey" Type="boolean" />
+					<FIELD Id="RDK:14556" Name="IsHidden" Type="boolean" />
+					<FIELD Id="RDK:14557" Name="IsOption" Type="boolean" />
+					<FIELD Id="RDK:14558" Name="IsEditable" Type="boolean" />
+					<FIELD Id="RDK:14559" Name="IsTooltip" Type="boolean" />
+					<FIELD Id="RDK:14560" Name="IsCalculated" Type="boolean" />
+					<FIELD Id="RDK:14561" Name="Expression" Type="string" DesignTimeRemark="UNUSED" />
+					<FIELD Id="RDK:14562" Name="FilterData" Type="string" />
+					<FIELD Id="RDK:14563" Name="ValueMapping" Type="DataSourceValInfo[]" />
+					<FIELD Id="RDK:14564" Name="RenderStyle" Options="(STYLE_EDITOR)" Type="string" DesignTimeRemark="desktop:width=100;mobile" />
+					<FIELD Id="RDK:14565" Name="RenderType" Type="string" DesignTimeRemark="Empty=AUTO, TEXT, NUMERIC, DATE, BOOLEAN, IMAGE, DROPDOWN" />
+					<FIELD Id="RDK:14566" Name="RenderFormat" Type="string" DesignTimeRemark="##0.00 €" />
+					<FIELD Id="RDK:14567" Name="Options" Type="string" />
+				</TYPE>
+			</GROUP>
+			<TYPE Id="RDK:73" Name="GridTranslation" Expanded="True" SubType="structure" HasArrayType="True">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:74" Name="IDX" Options="(DB_PRIMARYKEY)" Type="integer" />
+				<FIELD Id="RDK:2280" Name="ORIGIN" Options="(DB_IGNORE)" Type="string" />
+				<FIELD Id="RDK:8399" Name="TAGS" Options="(DB_IGNORE)" Type="string" />
+				<FIELD Id="RDK:76" Name="ITA" Type="string" />
+				<FIELD Id="RDK:78" Name="ENG" Type="string" />
+				<FIELD Id="RDK:8401" Name="ESP" Type="string" />
+				<FIELD Id="RDK:80" Name="FRA" Type="string" />
+				<FIELD Id="RDK:8403" Name="DEU" Type="string" />
+				<FIELD Id="RDK:8405" Name="UPDATED" Type="boolean" />
+				<FIELD Id="RDK:8407" Name="IS_NEW" Options="(DB_IGNORE)" Type="boolean" />
+				<FIELD Id="RDK:8409" Name="LAST_UPDATE" Options="(DB_IGNORE)" Type="date" />
+				<FIELD Id="RDK:35339" Name="OPT" Options="(DB_IGNORE)" Type="string" />
+			</TYPE>
+			<TYPE Id="RDK:81" Name="Binded" Expanded="True" SubType="structure">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:82" Name="GridTranslation" Options="(DB_IGNORE)" Type="GridTranslation[]" />
+				<FIELD Id="RDK:84" Name="IDX" Options="(DB_PRIMARYKEY)" Type="integer" />
+				<FIELD Id="RDK:2284" Name="TAGS" Options="(DB_IGNORE)" Type="string" />
+				<FIELD Id="RDK:86" Name="ITA" Type="string" />
+				<FIELD Id="RDK:88" Name="ENG" Type="string" />
+				<FIELD Id="RDK:90" Name="ESP" Type="string" />
+				<FIELD Id="RDK:8411" Name="FRA" Type="string" />
+				<FIELD Id="RDK:8413" Name="DEU" Type="string" />
+				<FIELD Id="RDK:8427" Name="UPDATED" Type="boolean" />
+				<FIELD Id="RDK:5591" Name="GridEditableMode" Options="(DB_IGNORE)" Type="boolean" />
+			</TYPE>
+			<GROUP Id="RDK:7852" Name="RuleDesignerTypes" SubType="TypeSet" Include="Type_RuleDesignerTypes.rdx" IncludeDate="132515425793150074">
+				<TYPE Id="RDK:14573" Name="PropertyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14569" Name="key" Type="string" />
+					<FIELD Id="RDK:14570" Name="value" Type="string" />
+					<FIELD Id="RDK:14571" Name="required" Type="boolean" />
+					<FIELD Id="RDK:14572" Name="rowIndex" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:14574" Name="PropertiesType" SubType="list" ItemListTypeName="PropertyType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14579" Name="VatDetailType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14575" Name="vatRate" Type="double" />
+					<FIELD Id="RDK:14576" Name="initAmount" Type="double" />
+					<FIELD Id="RDK:14577" Name="baseAmount" Type="double" />
+					<FIELD Id="RDK:14578" Name="finalAmount" Type="double" />
+				</TYPE>
+				<TYPE Id="RDK:14580" Name="VatDetailsType" SubType="list" ItemListTypeName="VatDetailType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14584" Name="CompanyBusinessType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14581" Name="categoryID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14582" Name="typeID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14583" Name="description" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14585" Name="CompanyBusinessesType" SubType="list" ItemListTypeName="CompanyBusinessType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14597" Name="CompanyDestinationType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14586" Name="id" Type="integer" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:14587" Name="description" Type="string" />
+					<FIELD Id="RDK:14588" Name="address" Type="string" />
+					<FIELD Id="RDK:14589" Name="postCode" Type="string" />
+					<FIELD Id="RDK:14590" Name="city" Type="string" />
+					<FIELD Id="RDK:14591" Name="provinceID" Type="string" />
+					<FIELD Id="RDK:14592" Name="nationID" Type="string" />
+					<FIELD Id="RDK:14593" Name="phoneNumber" Type="string" />
+					<FIELD Id="RDK:14594" Name="faxNumber" Type="string" />
+					<FIELD Id="RDK:14595" Name="mailAddress" Type="string" />
+					<FIELD Id="RDK:14596" Name="notes" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14598" Name="CompanyDestinationsType" SubType="list" ItemListTypeName="CompanyDestinationType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14602" Name="CompanyRelationType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14599" Name="typeID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14600" Name="relatedCompanyID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14601" Name="notes" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14603" Name="CompanyRelationsType" SubType="list" ItemListTypeName="CompanyRelationType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14627" Name="CompanyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14604" Name="id" Type="string" />
+					<FIELD Id="RDK:14605" Name="code" Type="string" />
+					<FIELD Id="RDK:14606" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14607" Name="address" Type="string" />
+					<FIELD Id="RDK:14608" Name="town" Type="string" />
+					<FIELD Id="RDK:14609" Name="postalCode" Type="string" />
+					<FIELD Id="RDK:14610" Name="province" Type="string" />
+					<FIELD Id="RDK:14611" Name="country" Type="string" />
+					<FIELD Id="RDK:14612" Name="language" Type="string" />
+					<FIELD Id="RDK:14613" Name="phoneNumber" Type="string" />
+					<FIELD Id="RDK:14614" Name="faxNumber" Type="string" />
+					<FIELD Id="RDK:14615" Name="vatNumber" Type="string" />
+					<FIELD Id="RDK:14616" Name="fiscalCode" Type="string" />
+					<FIELD Id="RDK:14617" Name="eMail" Type="string" />
+					<FIELD Id="RDK:14618" Name="webSite" Type="string" />
+					<FIELD Id="RDK:14619" Name="status" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14620" Name="reliability" Type="string" />
+					<FIELD Id="RDK:14621" Name="seller" Type="integer" />
+					<FIELD Id="RDK:14622" Name="headCompany" Type="boolean" />
+					<FIELD Id="RDK:14623" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:14624" Name="businesses" Type="CompanyBusinessesType" />
+					<FIELD Id="RDK:14625" Name="destinations" Type="CompanyDestinationsType" />
+					<FIELD Id="RDK:14626" Name="relations" Type="CompanyRelationsType" />
+				</TYPE>
+				<TYPE Id="RDK:14628" Name="CompaniesType" SubType="list" ItemListTypeName="CompanyType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14643" Name="ContactType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14629" Name="personID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14630" Name="companyID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14631" Name="description" Type="string" />
+					<FIELD Id="RDK:14632" Name="mainRoleID" Type="integer" />
+					<FIELD Id="RDK:14633" Name="groupRoleID" Type="integer" />
+					<FIELD Id="RDK:14634" Name="functionID" Type="integer" />
+					<FIELD Id="RDK:14635" Name="acceptMassiveActions" Type="boolean" />
+					<FIELD Id="RDK:14636" Name="siteID" Type="integer" />
+					<FIELD Id="RDK:14637" Name="isReferent" Type="boolean" />
+					<FIELD Id="RDK:14638" Name="isObsolete" Type="boolean" />
+					<FIELD Id="RDK:14639" Name="sourceID" Type="integer" />
+					<FIELD Id="RDK:14640" Name="roleIDs" Type="integer[]" />
+					<FIELD Id="RDK:14641" Name="officeIDs" Type="string[]" />
+					<FIELD Id="RDK:14642" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:14646" Name="CountryType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14644" Name="id" Type="string" />
+					<FIELD Id="RDK:14645" Name="name" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14647" Name="CountriesType" SubType="list" ItemListTypeName="CountryType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14650" Name="DocumentFileType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14648" Name="filename" Type="string" />
+					<FIELD Id="RDK:14649" Name="fullFilename" Type="string" DesignTimeRemark="REQUIRED" />
+				</TYPE>
+				<TYPE Id="RDK:14651" Name="DocumentFilesType" SubType="list" ItemListTypeName="DocumentFileType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14654" Name="DocumentLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14652" Name="documentID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14653" Name="linkTypeID" Type="string" DesignTimeRemark="REQUIRED" />
+				</TYPE>
+				<TYPE Id="RDK:14655" Name="DocumentLinksType" SubType="list" ItemListTypeName="DocumentLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14673" Name="DocumentType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14656" Name="id" Type="string" />
+					<FIELD Id="RDK:14657" Name="version" Type="string" />
+					<FIELD Id="RDK:14658" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14659" Name="protocol" Type="string" />
+					<FIELD Id="RDK:14660" Name="description" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14661" Name="name" Type="string" DesignTimeRemark="REQUIRED - Alfresco Only" />
+					<FIELD Id="RDK:14662" Name="modificationNotes" Type="string" />
+					<FIELD Id="RDK:14663" Name="languageID" Type="string" />
+					<FIELD Id="RDK:14664" Name="keywords" Type="string" />
+					<FIELD Id="RDK:14665" Name="files" Type="DocumentFilesType" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14666" Name="linkedDocuments" Type="DocumentLinksType" />
+					<FIELD Id="RDK:14667" Name="linkedCompanyIDs" Type="string[]" />
+					<FIELD Id="RDK:14668" Name="linkedPDMPartNumbers" Type="string[]" />
+					<FIELD Id="RDK:14669" Name="linkedProductIDs" Type="string[]" />
+					<FIELD Id="RDK:14670" Name="linkedProjectIDs" Type="string[]" />
+					<FIELD Id="RDK:14671" Name="linkedOfferIDs" Type="string[]" />
+					<FIELD Id="RDK:14672" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:14695" Name="IncidentReportType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14674" Name="id" Type="string" />
+					<FIELD Id="RDK:14675" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14676" Name="contactID" Type="string" />
+					<FIELD Id="RDK:14677" Name="projectID" Type="string" />
+					<FIELD Id="RDK:14678" Name="familyID" Type="string" />
+					<FIELD Id="RDK:14679" Name="productID" Type="string" />
+					<FIELD Id="RDK:14680" Name="object" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14681" Name="description" Type="string" />
+					<FIELD Id="RDK:14682" Name="email" Type="string" />
+					<FIELD Id="RDK:14683" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14684" Name="assignToGroupID" Type="double" />
+					<FIELD Id="RDK:14685" Name="assignToUserID" Type="double" />
+					<FIELD Id="RDK:14686" Name="priorityID" Type="double" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14687" Name="gravityID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14688" Name="statusID" Type="string" />
+					<FIELD Id="RDK:14689" Name="deadline" Type="date" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14690" Name="openingDate" Type="date" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:14691" Name="closingDate" Type="date" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:14692" Name="firstReply" Type="string" />
+					<FIELD Id="RDK:14693" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:14694" Name="attachmentIDs" Type="integer[]" />
+				</TYPE>
+				<TYPE Id="RDK:14706" Name="IncidentReportReplyType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14696" Name="incidentReportID" Type="string" />
+					<FIELD Id="RDK:14697" Name="reply" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14698" Name="closingNote" Type="string" />
+					<FIELD Id="RDK:14699" Name="assignToGroupID" Type="double" />
+					<FIELD Id="RDK:14700" Name="assignToUserID" Type="double" />
+					<FIELD Id="RDK:14701" Name="priorityID" Type="double" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14702" Name="gravityID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14703" Name="statusID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14704" Name="deadline" Type="date" />
+					<FIELD Id="RDK:14705" Name="attachmentIDs" Type="integer[]" />
+				</TYPE>
+				<TYPE Id="RDK:14725" Name="OfferItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14707" Name="id" Type="integer" />
+					<FIELD Id="RDK:14708" Name="sequence" Type="integer" />
+					<FIELD Id="RDK:14709" Name="productId" Type="string" />
+					<FIELD Id="RDK:14710" Name="productCode" Type="string" />
+					<FIELD Id="RDK:14711" Name="productVersion" Type="string" />
+					<FIELD Id="RDK:14712" Name="productVersionId" Type="integer" />
+					<FIELD Id="RDK:14713" Name="productDescription" Type="string" />
+					<FIELD Id="RDK:14714" Name="productFullDescription" Type="string" />
+					<FIELD Id="RDK:14715" Name="serialNumberId" Type="string" />
+					<FIELD Id="RDK:14716" Name="serialNumberCode" Type="string" />
+					<FIELD Id="RDK:14717" Name="type" Type="string" DesignTimeRemark="REQUIRED" DesignTimeNotes="P = product&#xD;&#xA;E = external product&#xD;&#xA;S = service&#xD;&#xA;C = free comment&#xD;&#xA;X = standard comment" />
+					<FIELD Id="RDK:14718" Name="typeOfSale" Type="string" />
+					<FIELD Id="RDK:14719" Name="qtyUM" Type="string" />
+					<FIELD Id="RDK:14720" Name="qty" Type="double" />
+					<FIELD Id="RDK:14721" Name="unitPrice" Type="double" />
+					<FIELD Id="RDK:14722" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:14723" Name="discount" Type="double" />
+					<FIELD Id="RDK:14724" Name="vatID" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:14726" Name="OfferItemsType" SubType="list" ItemListTypeName="OfferItemType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14755" Name="OfferType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14727" Name="id" Type="integer" />
+					<FIELD Id="RDK:14728" Name="code" Type="string" />
+					<FIELD Id="RDK:14729" Name="description" Type="string" />
+					<FIELD Id="RDK:14730" Name="version" Type="string" />
+					<FIELD Id="RDK:14731" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14732" Name="projectID" Type="string" />
+					<FIELD Id="RDK:14733" Name="statusID" Type="string" />
+					<FIELD Id="RDK:14734" Name="opportunityID" Type="string" />
+					<FIELD Id="RDK:14735" Name="paymentType" Type="integer" />
+					<FIELD Id="RDK:14736" Name="currency" Type="string" />
+					<FIELD Id="RDK:14737" Name="type" Type="integer" />
+					<FIELD Id="RDK:14738" Name="validity" Type="date" />
+					<FIELD Id="RDK:14739" Name="discount" Type="double" />
+					<FIELD Id="RDK:14740" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:14741" Name="urgent" Type="boolean" />
+					<FIELD Id="RDK:14742" Name="deliveryDestinationID" Type="integer" />
+					<FIELD Id="RDK:14743" Name="deliveryDate" Type="date" />
+					<FIELD Id="RDK:14744" Name="addressee" Type="string" />
+					<FIELD Id="RDK:14745" Name="courrierID" Type="string" />
+					<FIELD Id="RDK:14746" Name="courrierDetails" Type="string" />
+					<FIELD Id="RDK:14747" Name="shippingCost" Type="double" />
+					<FIELD Id="RDK:14748" Name="shippingInfo" Type="string" />
+					<FIELD Id="RDK:14749" Name="initPrice" Type="double" />
+					<FIELD Id="RDK:14750" Name="basePrice" Type="double" />
+					<FIELD Id="RDK:14751" Name="vatLiable" Type="boolean" />
+					<FIELD Id="RDK:14752" Name="vatExemptionID" Type="integer" />
+					<FIELD Id="RDK:14753" Name="items" Type="OfferItemsType" />
+					<FIELD Id="RDK:14754" Name="vatDetails" Type="VatDetailsType" />
+				</TYPE>
+				<TYPE Id="RDK:14774" Name="OrderItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14756" Name="id" Type="integer" />
+					<FIELD Id="RDK:14757" Name="sequence" Type="integer" />
+					<FIELD Id="RDK:14758" Name="productId" Type="string" />
+					<FIELD Id="RDK:14759" Name="productCode" Type="string" />
+					<FIELD Id="RDK:14760" Name="productVersion" Type="string" />
+					<FIELD Id="RDK:14761" Name="productVersionId" Type="integer" />
+					<FIELD Id="RDK:14762" Name="productDescription" Type="string" />
+					<FIELD Id="RDK:14763" Name="productFullDescription" Type="string" />
+					<FIELD Id="RDK:14764" Name="serialNumberId" Type="string" />
+					<FIELD Id="RDK:14765" Name="serialNumberCode" Type="string" />
+					<FIELD Id="RDK:14766" Name="type" Type="string" DesignTimeRemark="REQUIRED" DesignTimeNotes="P = product&#xD;&#xA;E = external product&#xD;&#xA;S = service&#xD;&#xA;C = free comment&#xD;&#xA;X = standard comment" />
+					<FIELD Id="RDK:14767" Name="typeOfSale" Type="string" />
+					<FIELD Id="RDK:14768" Name="qtyUM" Type="string" />
+					<FIELD Id="RDK:14769" Name="qty" Type="double" />
+					<FIELD Id="RDK:14770" Name="unitPrice" Type="double" />
+					<FIELD Id="RDK:14771" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:14772" Name="discount" Type="double" />
+					<FIELD Id="RDK:14773" Name="vatID" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:14775" Name="OrderItemsType" SubType="list" ItemListTypeName="OrderItemType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14804" Name="OrderType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14776" Name="id" Type="integer" />
+					<FIELD Id="RDK:14777" Name="code" Type="string" />
+					<FIELD Id="RDK:14778" Name="description" Type="string" />
+					<FIELD Id="RDK:14779" Name="version" Type="string" />
+					<FIELD Id="RDK:14780" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14781" Name="projectID" Type="string" />
+					<FIELD Id="RDK:14782" Name="statusID" Type="string" />
+					<FIELD Id="RDK:14783" Name="parentOfferID" Type="integer" />
+					<FIELD Id="RDK:14784" Name="paymentType" Type="integer" />
+					<FIELD Id="RDK:14785" Name="currency" Type="string" />
+					<FIELD Id="RDK:14786" Name="type" Type="integer" />
+					<FIELD Id="RDK:14787" Name="validity" Type="date" />
+					<FIELD Id="RDK:14788" Name="discount" Type="double" />
+					<FIELD Id="RDK:14789" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:14790" Name="urgent" Type="boolean" />
+					<FIELD Id="RDK:14791" Name="deliveryDestinationID" Type="integer" />
+					<FIELD Id="RDK:14792" Name="deliveryDate" Type="date" />
+					<FIELD Id="RDK:14793" Name="addressee" Type="string" />
+					<FIELD Id="RDK:14794" Name="courrierID" Type="string" />
+					<FIELD Id="RDK:14795" Name="courrierDetails" Type="string" />
+					<FIELD Id="RDK:14796" Name="shippingCost" Type="double" />
+					<FIELD Id="RDK:14797" Name="shippingInfo" Type="string" />
+					<FIELD Id="RDK:14798" Name="initPrice" Type="double" />
+					<FIELD Id="RDK:14799" Name="basePrice" Type="double" />
+					<FIELD Id="RDK:14800" Name="vatLiable" Type="boolean" />
+					<FIELD Id="RDK:14801" Name="vatExemptionID" Type="integer" />
+					<FIELD Id="RDK:14802" Name="items" Type="OrderItemsType" />
+					<FIELD Id="RDK:14803" Name="vatDetails" Type="VatDetailsType" />
+				</TYPE>
+				<TYPE Id="RDK:14822" Name="PersonType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14805" Name="id" Type="string" />
+					<FIELD Id="RDK:14806" Name="fullName" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14807" Name="phone" Type="string" />
+					<FIELD Id="RDK:14808" Name="email" Type="string" />
+					<FIELD Id="RDK:14809" Name="titleID" Type="string" />
+					<FIELD Id="RDK:14810" Name="info" Type="string" />
+					<FIELD Id="RDK:14811" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14812" Name="chiefID" Type="string" />
+					<FIELD Id="RDK:14813" Name="mobilePhone" Type="string" />
+					<FIELD Id="RDK:14814" Name="isObsolete" Type="boolean" />
+					<FIELD Id="RDK:14815" Name="homePhone" Type="string" />
+					<FIELD Id="RDK:14816" Name="homeMail" Type="string" />
+					<FIELD Id="RDK:14817" Name="gender" Type="string" DesignTimeRemark="M|F" />
+					<FIELD Id="RDK:14818" Name="photo" Type="string" />
+					<FIELD Id="RDK:14819" Name="languageID" Type="string" />
+					<FIELD Id="RDK:14820" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:14821" Name="businesses" Type="CompanyBusinessesType" />
+				</TYPE>
+				<TYPE Id="RDK:14843" Name="ProductType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14823" Name="id" Type="string" />
+					<FIELD Id="RDK:14824" Name="parentID" Type="string" />
+					<FIELD Id="RDK:14825" Name="versionID" Type="integer" />
+					<FIELD Id="RDK:14826" Name="parentVersionID" Type="integer" />
+					<FIELD Id="RDK:14827" Name="code" Type="string" />
+					<FIELD Id="RDK:14828" Name="version" Type="string" />
+					<FIELD Id="RDK:14829" Name="shortDescription" Type="string" />
+					<FIELD Id="RDK:14830" Name="longDescription" Type="string" />
+					<FIELD Id="RDK:14831" Name="type" Type="string" />
+					<FIELD Id="RDK:14832" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:14833" Name="familyID" Type="string" />
+					<FIELD Id="RDK:14834" Name="subFamilyID" Type="string" />
+					<FIELD Id="RDK:14835" Name="categoryID" Type="string" />
+					<FIELD Id="RDK:14836" Name="price" Type="double" />
+					<FIELD Id="RDK:14837" Name="cost" Type="double" />
+					<FIELD Id="RDK:14838" Name="lastVersion" Type="boolean" />
+					<FIELD Id="RDK:14839" Name="packNumber" Type="integer" />
+					<FIELD Id="RDK:14840" Name="weight" Type="double" />
+					<FIELD Id="RDK:14841" Name="weightUM" Type="string" />
+					<FIELD Id="RDK:14842" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:14848" Name="ProductLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14844" Name="productID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14845" Name="versionID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14846" Name="qty" Type="double" />
+					<FIELD Id="RDK:14847" Name="type" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14849" Name="ProductLinksType" SubType="list" ItemListTypeName="ProductLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14856" Name="PartNumberType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14850" Name="code" Type="string" />
+					<FIELD Id="RDK:14851" Name="version" Type="integer" />
+					<FIELD Id="RDK:14852" Name="qty" Type="double" />
+					<FIELD Id="RDK:14853" Name="folder" Type="integer" />
+					<FIELD Id="RDK:14854" Name="linkType" Type="string" />
+					<FIELD Id="RDK:14855" Name="projectPhaseID" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14857" Name="PartNumbersType" SubType="list" ItemListTypeName="PartNumberType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14861" Name="ProjectLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14858" Name="projectID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14859" Name="linkType" Type="string" DesignTimeRemark="REQUIRED - Use PRNTC for default Parent-Child relations" />
+					<FIELD Id="RDK:14860" Name="isMaster" Type="boolean" />
+				</TYPE>
+				<TYPE Id="RDK:14862" Name="ProjectLinksType" SubType="list" ItemListTypeName="ProjectLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14868" Name="ProjectPhaseType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14863" Name="id" Type="string" />
+					<FIELD Id="RDK:14864" Name="description" Type="string" />
+					<FIELD Id="RDK:14865" Name="workflowID" Type="string" />
+					<FIELD Id="RDK:14866" Name="isNew" Type="boolean" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:14867" Name="isClosed" Type="boolean" DesignTimeRemark="READONLY" />
+				</TYPE>
+				<TYPE Id="RDK:14869" Name="ProjectPhasesType" SubType="list" ItemListTypeName="ProjectPhaseType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14883" Name="ProjectType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14870" Name="id" Type="string" />
+					<FIELD Id="RDK:14871" Name="code" Type="string" />
+					<FIELD Id="RDK:14872" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14873" Name="description" Type="string" />
+					<FIELD Id="RDK:14874" Name="template" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14875" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:14876" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14877" Name="statusID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14878" Name="estimatedStartDate" Type="date" />
+					<FIELD Id="RDK:14879" Name="estimatedEndDate" Type="date" />
+					<FIELD Id="RDK:14880" Name="links" Type="ProjectLinksType" />
+					<FIELD Id="RDK:14881" Name="phases" Type="ProjectPhasesType" />
+					<FIELD Id="RDK:14882" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:14889" Name="PhaseCheckType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14884" Name="rowIndex" Type="integer" />
+					<FIELD Id="RDK:14885" Name="description" Type="string" />
+					<FIELD Id="RDK:14886" Name="status" Type="string" />
+					<FIELD Id="RDK:14887" Name="executedBy" Type="integer" />
+					<FIELD Id="RDK:14888" Name="executedOn" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:14890" Name="PhaseChecksType" SubType="list" ItemListTypeName="PhaseCheckType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14898" Name="ProjectPhaseItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14891" Name="projectID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14892" Name="itemID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14893" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:14894" Name="groupID" Type="integer" />
+					<FIELD Id="RDK:14895" Name="statusID" Type="string" />
+					<FIELD Id="RDK:14896" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:14897" Name="checkList" Type="PhaseChecksType" />
+				</TYPE>
+				<TYPE Id="RDK:14906" Name="PermissionType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14899" Name="groupId" Type="integer" />
+					<FIELD Id="RDK:14900" Name="userId" Type="integer" />
+					<FIELD Id="RDK:14901" Name="allowView" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:14902" Name="allowInsert" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:14903" Name="allowEdit" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:14904" Name="allowDelete" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:14905" Name="allowCustomSec" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+				</TYPE>
+				<TYPE Id="RDK:14907" Name="PermissionsType" SubType="list" ItemListTypeName="PermissionType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14910" Name="SecurityType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14908" Name="key" Type="string" />
+					<FIELD Id="RDK:14909" Name="permissions" Type="PermissionsType" />
+				</TYPE>
+				<TYPE Id="RDK:14914" Name="TaskParticipantType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14911" Name="userID" Type="integer" />
+					<FIELD Id="RDK:14912" Name="role" Type="string" DesignTimeRemark="P = Mandatory Partecipant, C = Partecipant must confirm, N = Notification Only" />
+					<FIELD Id="RDK:14913" Name="accepted" Type="boolean" />
+				</TYPE>
+				<TYPE Id="RDK:14915" Name="TaskParticipantsType" SubType="list" ItemListTypeName="TaskParticipantType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14925" Name="TaskResourceType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14916" Name="id" Type="string" />
+					<FIELD Id="RDK:14917" Name="type" Type="string" />
+					<FIELD Id="RDK:14918" Name="period" Type="string" />
+					<FIELD Id="RDK:14919" Name="beginDate" Type="date" />
+					<FIELD Id="RDK:14920" Name="endDate" Type="date" />
+					<FIELD Id="RDK:14921" Name="beginHour" Type="string" />
+					<FIELD Id="RDK:14922" Name="beginMinute" Type="string" />
+					<FIELD Id="RDK:14923" Name="endHour" Type="string" />
+					<FIELD Id="RDK:14924" Name="endMinute" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:14926" Name="TaskResourcesType" SubType="list" ItemListTypeName="TaskResourceType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14930" Name="TaskWorktimeType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14927" Name="userID" Type="integer" />
+					<FIELD Id="RDK:14928" Name="date" Type="date" />
+					<FIELD Id="RDK:14929" Name="hours" Type="double" />
+				</TYPE>
+				<TYPE Id="RDK:14931" Name="TaskWorktimesType" SubType="list" ItemListTypeName="TaskWorktimeType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:14964" Name="TaskType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14932" Name="id" Type="integer" />
+					<FIELD Id="RDK:14933" Name="creatorID" Type="integer" />
+					<FIELD Id="RDK:14934" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14935" Name="title" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14936" Name="text" Type="string" />
+					<FIELD Id="RDK:14937" Name="validity" Type="string" />
+					<FIELD Id="RDK:14938" Name="location" Type="string" />
+					<FIELD Id="RDK:14939" Name="priority" Type="integer" />
+					<FIELD Id="RDK:14940" Name="alert" Type="boolean" />
+					<FIELD Id="RDK:14941" Name="notify" Type="string" DesignTimeRemark="&quot;&quot;|&quot;Y&quot;|&quot;N&quot;" />
+					<FIELD Id="RDK:14942" Name="period" Type="string" />
+					<FIELD Id="RDK:14943" Name="totalTime" Type="double" />
+					<FIELD Id="RDK:14944" Name="estimatedTime" Type="double" />
+					<FIELD Id="RDK:14945" Name="beginDate" Type="date" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14946" Name="endDate" Type="date" />
+					<FIELD Id="RDK:14947" Name="beginHour" Type="string" />
+					<FIELD Id="RDK:14948" Name="beginMinute" Type="string" />
+					<FIELD Id="RDK:14949" Name="endHour" Type="string" />
+					<FIELD Id="RDK:14950" Name="endMinute" Type="string" />
+					<FIELD Id="RDK:14951" Name="assignedUserID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14952" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14953" Name="opportunityID" Type="string" />
+					<FIELD Id="RDK:14954" Name="contactID" Type="string" />
+					<FIELD Id="RDK:14955" Name="projectID" Type="string" />
+					<FIELD Id="RDK:14956" Name="phaseID" Type="string" />
+					<FIELD Id="RDK:14957" Name="phaseStatusID" Type="string" />
+					<FIELD Id="RDK:14958" Name="participants" Type="TaskParticipantsType" />
+					<FIELD Id="RDK:14959" Name="resources" Type="TaskResourcesType" />
+					<FIELD Id="RDK:14960" Name="worktimes" Type="TaskWorktimesType" />
+					<FIELD Id="RDK:14961" Name="products" Type="ProductLinksType" />
+					<FIELD Id="RDK:14962" Name="attachmentIDs" Type="integer[]" />
+					<FIELD Id="RDK:14963" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:14986" Name="UserType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14965" Name="id" Type="integer" />
+					<FIELD Id="RDK:14966" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14967" Name="password" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14968" Name="fullname" Type="string" />
+					<FIELD Id="RDK:14969" Name="initials" Type="string" />
+					<FIELD Id="RDK:14970" Name="groupID" Type="integer" DesignTimeRemark="0 is NOT a valid ID" />
+					<FIELD Id="RDK:14971" Name="groupName" Type="string" />
+					<FIELD Id="RDK:14972" Name="groups" Type="integer[]" DesignTimeRemark="0 is NOT a valid ID" />
+					<FIELD Id="RDK:14973" Name="secondaryGroups" Type="integer[]" DesignTimeRemark="READONLY - 0 is NOT a valid ID" />
+					<FIELD Id="RDK:14974" Name="eMail" Type="string" />
+					<FIELD Id="RDK:14975" Name="isInternal" Type="boolean" />
+					<FIELD Id="RDK:14976" Name="personID" Type="string" />
+					<FIELD Id="RDK:14977" Name="statusID" Type="string" />
+					<FIELD Id="RDK:14978" Name="menuID" Type="string" />
+					<FIELD Id="RDK:14979" Name="companyID" Type="string" />
+					<FIELD Id="RDK:14980" Name="companyName" Type="string" />
+					<FIELD Id="RDK:14981" Name="systemCompanyID" Type="string" />
+					<FIELD Id="RDK:14982" Name="systemCompanyName" Type="string" />
+					<FIELD Id="RDK:14983" Name="systemCompanies" Type="string[]" DesignTimeRemark="Leave empty for all companies" />
+					<FIELD Id="RDK:14984" Name="languageID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14985" Name="languageName" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:15004" Name="AFDocumentType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:14987" Name="id" Type="string" />
+					<FIELD Id="RDK:14988" Name="version" Type="string" />
+					<FIELD Id="RDK:14989" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14990" Name="protocol" Type="string" />
+					<FIELD Id="RDK:14991" Name="description" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14992" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14993" Name="modificationNotes" Type="string" />
+					<FIELD Id="RDK:14994" Name="languageID" Type="string" />
+					<FIELD Id="RDK:14995" Name="keywords" Type="string" />
+					<FIELD Id="RDK:14996" Name="files" Type="DocumentFilesType" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:14997" Name="linkedDocuments" Type="DocumentLinksType" />
+					<FIELD Id="RDK:14998" Name="linkedCompanyIDs" Type="string[]" />
+					<FIELD Id="RDK:14999" Name="linkedPDMPartNumbers" Type="string[]" />
+					<FIELD Id="RDK:15000" Name="linkedProductIDs" Type="string[]" />
+					<FIELD Id="RDK:15001" Name="linkedProjectIDs" Type="string[]" />
+					<FIELD Id="RDK:15002" Name="linkedOfferIDs" Type="string[]" />
+					<FIELD Id="RDK:15003" Name="properties" Type="structure" />
+				</TYPE>
+				<TYPE Id="RDK:15011" Name="AFSimpleDocPropertyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15005" Name="cm:from" Type="date" />
+					<FIELD Id="RDK:15006" Name="cm:to" Type="date" />
+					<FIELD Id="RDK:15007" Name="cmis:createdBy" Type="string" />
+					<FIELD Id="RDK:15008" Name="cmis:creationDate" Type="date" />
+					<FIELD Id="RDK:15009" Name="cmis:lastModifiedBy" Type="string" />
+					<FIELD Id="RDK:15010" Name="cmis:lastModificationDate" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:15017" Name="BOMFilter" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15012" Name="id" Type="string" />
+					<FIELD Id="RDK:15013" Name="name" Type="string" />
+					<FIELD Id="RDK:15014" Name="attribute" Type="string" />
+					<FIELD Id="RDK:15015" Name="filter" Type="string" />
+					<FIELD Id="RDK:15016" Name="options" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:15018" Name="BOMFilterList" SubType="list" ItemListTypeName="BOMFilter">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:15023" Name="BOMProperty" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15019" Name="name" Type="string" />
+					<FIELD Id="RDK:15020" Name="description" Type="string" />
+					<FIELD Id="RDK:15021" Name="value" Type="string" />
+					<FIELD Id="RDK:15022" Name="flag" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:15024" Name="BOMPropertyList" SubType="list" ItemListTypeName="BOMProperty">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:15039" Name="Attributes_on_Material" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15025" Name="Code" Type="string" />
+					<FIELD Id="RDK:15026" Name="Description" Type="string" />
+					<FIELD Id="RDK:15027" Name="Cost" Type="double" />
+					<FIELD Id="RDK:15028" Name="Version" Type="string" />
+					<FIELD Id="RDK:15029" Name="Price" Type="double" />
+					<FIELD Id="RDK:15030" Name="Family" Type="string" />
+					<FIELD Id="RDK:15031" Name="Category" Type="string" />
+					<FIELD Id="RDK:15032" Name="FileName" Type="string" />
+					<FIELD Id="RDK:15033" Name="PdmID" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15034" Name="CadReferences" Type="string[]" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15035" Name="UM" Type="string" />
+					<FIELD Id="RDK:15036" Name="LastVersion" Type="boolean" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15037" Name="Filters" Type="BOMFilterList" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15038" Name="Properties" Type="BOMPropertyList" DesignTimeRemark="SPAREPARTS ONLY" />
+				</TYPE>
+				<TYPE Id="RDK:15063" Name="Attributes_on_BOM" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15040" Name="Level" Type="integer" Hidden="True" />
+					<FIELD Id="RDK:15041" Name="ParentCode" Type="string" Hidden="True" />
+					<FIELD Id="RDK:15042" Name="ChildCode" Type="string" Hidden="True" />
+					<FIELD Id="RDK:15043" Name="Description" Type="string" Hidden="True" />
+					<FIELD Id="RDK:15044" Name="Qty" Type="double" />
+					<FIELD Id="RDK:15045" Name="QtyUM" Type="string" />
+					<FIELD Id="RDK:15046" Name="Cost" Type="double" />
+					<FIELD Id="RDK:15047" Name="Folder" Type="string" />
+					<FIELD Id="RDK:15048" Name="ParentVersion" Type="string" />
+					<FIELD Id="RDK:15049" Name="ChildVersion" Type="string" />
+					<FIELD Id="RDK:15050" Name="LastVersion" Type="boolean" />
+					<FIELD Id="RDK:15051" Name="ParentFileName" Type="string" />
+					<FIELD Id="RDK:15052" Name="ChildFileName" Type="string" />
+					<FIELD Id="RDK:15053" Name="Price" Type="double" />
+					<FIELD Id="RDK:15054" Name="Family" Type="string" />
+					<FIELD Id="RDK:15055" Name="Category" Type="string" />
+					<FIELD Id="RDK:15056" Name="SheetName" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15057" Name="BalloonNumber" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15058" Name="FileName" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15059" Name="IsOrderable" Type="boolean" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15060" Name="PdmID" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15061" Name="CadReferences" Type="string[]" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:15062" Name="Properties" Type="BOMPropertyList" DesignTimeRemark="SPAREPARTS ONLY" />
+				</TYPE>
+				<TYPE Id="RDK:15071" Name="Attributes_on_Header" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15064" Name="BOMType" Type="string" />
+					<FIELD Id="RDK:15065" Name="Author" Type="string" />
+					<FIELD Id="RDK:15066" Name="Comments" Type="string" />
+					<FIELD Id="RDK:15067" Name="Version" Type="string" />
+					<FIELD Id="RDK:15068" Name="CrDate" Type="date" />
+					<FIELD Id="RDK:15069" Name="ValidityStart" Type="date" />
+					<FIELD Id="RDK:15070" Name="ValidityEnd" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:15075" Name="BOM" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15072" Name="header" Type="Attributes_on_Header" />
+					<FIELD Id="RDK:15073" Name="material" Type="Attributes_on_Material" />
+					<FIELD Id="RDK:15074" Name="links" Type="Attributes_on_BOM[]" />
+				</TYPE>
+				<TYPE Id="RDK:15107" Name="PDMCodeItem" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:15076" Name="CodeId" Type="integer" />
+					<FIELD Id="RDK:15077" Name="Code" Type="string" />
+					<FIELD Id="RDK:15078" Name="RevisionId" Type="integer" />
+					<FIELD Id="RDK:15079" Name="Revision" Type="string" />
+					<FIELD Id="RDK:15080" Name="LastRevision" Type="boolean" />
+					<FIELD Id="RDK:15081" Name="IsVersion" Type="boolean" />
+					<FIELD Id="RDK:15082" Name="VersionId" Type="integer" />
+					<FIELD Id="RDK:15083" Name="Version" Type="string" />
+					<FIELD Id="RDK:15084" Name="Title" Type="string" />
+					<FIELD Id="RDK:15085" Name="FullDescription" Type="string" />
+					<FIELD Id="RDK:15086" Name="Notes" Type="string" />
+					<FIELD Id="RDK:15087" Name="CategoryId" Type="integer" />
+					<FIELD Id="RDK:15088" Name="Category" Type="string" />
+					<FIELD Id="RDK:15089" Name="CategoryLayout" Type="string" />
+					<FIELD Id="RDK:15090" Name="StatusId" Type="integer" />
+					<FIELD Id="RDK:15091" Name="Status" Type="string" />
+					<FIELD Id="RDK:15092" Name="StUser" Type="string" />
+					<FIELD Id="RDK:15093" Name="StDate" Type="date" />
+					<FIELD Id="RDK:15094" Name="ModUser" Type="string" />
+					<FIELD Id="RDK:15095" Name="ModDate" Type="date" />
+					<FIELD Id="RDK:15096" Name="CrUser" Type="string" />
+					<FIELD Id="RDK:15097" Name="CrDate" Type="date" />
+					<FIELD Id="RDK:15098" Name="Vaulted" Type="boolean" />
+					<FIELD Id="RDK:15099" Name="Extract" Type="boolean" />
+					<FIELD Id="RDK:15100" Name="ExtractHost" Type="string" />
+					<FIELD Id="RDK:15101" Name="ExtractUser" Type="string" />
+					<FIELD Id="RDK:15102" Name="ExtractByUserInMachine" Type="boolean" />
+					<FIELD Id="RDK:15103" Name="Archived" Type="boolean" />
+					<FIELD Id="RDK:15104" Name="ArchivedNotes" Type="string" />
+					<FIELD Id="RDK:15105" Name="ServerPath" Type="string" />
+					<FIELD Id="RDK:15106" Name="UpdateStatus" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:15108" Name="PDMCodeItemList" SubType="list" ItemListTypeName="PDMCodeItem">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+			</GROUP>
+		</GROUP>
+		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True">
+			<PAR_DEF Id="RDK:7848" Name="Mode" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+			<PAR_DEF Id="RDK:7850" Name="myUser" TypeRD="UserType" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+		</GROUP>
+		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
+			<VAR Id="RDK:93" Name="TranslationPanel" Type="MUIPanelType[]" Expanded="True" />
+			<VAR Id="RDK:94" Name="TranslationInput" Type="Binded" Expanded="True" />
+			<VAR Id="RDK:102" Name="GridTranslationColumns" Type="DataSourceColInfo[]" Expanded="True" />
+			<VAR Id="RDK:104" Name="DataSourceColInfo" Type="DataSourceColInfo" />
+			<VAR Id="RDK:129" Name="ButtonPressed" Type="string" Expanded="True" />
+			<VAR Id="RDK:130" Name="FieldAffected" Type="string" Expanded="True" />
+			<VAR Id="RDK:131" Name="IndexAffected" Type="integer" Expanded="True" />
+			<VAR Id="RDK:34661" Name="iRowSelected" Type="integer" Expanded="True" />
+			<VAR Id="RDK:4179" Name="bErr" Type="boolean" Expanded="True" />
+			<VAR Id="RDK:4180" Name="ErrMsg" Type="string" Expanded="True" />
+			<VAR Id="RDK:7414" Name="IniFilePath" Type="string">
+				<SET Id="RDK:7413" VarRef="Me">
+					<EXP><![CDATA[$=$ProcPath()+"Settings.ini"]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:112" Name="ConnString" Type="string" Expanded="True" />
+		</GROUP>
+		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True" />
+		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
+			<FUNCTION Id="RDK:125" Name="GetTranslationGridValues" Expanded="True">
+				<ACTION_CALL Id="RDK:124" Name="RDEngineering_DBSelectStructured">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+					</PAR>
+					<PAR Name="ConnectionName">
+						<EXP><![CDATA[$=$ConnString]]></EXP>
+					</PAR>
+					<PAR Name="SelectQueryMode">
+						<EXP><![CDATA[$C$1]]></EXP>
+					</PAR>
+					<PAR Name="SelectTable" />
+					<PAR Name="SelectFieldName" />
+					<PAR Name="SelectFieldValue" />
+					<PAR Name="SelectQuery">
+						<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA]]></EXP>
+					</PAR>
+					<PAR Name="SelectQueryType">
+						<EXP><![CDATA[$C$2]]></EXP>
+					</PAR>
+					<PAR Name="FirstRow">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="AllRows">
+						<EXP><![CDATA[$V$TranslationInput.GridTranslation]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+			</FUNCTION>
+			<FUNCTION Id="RDK:6051" Name="ManageGridColumns" Expanded="True">
+				<GROUP Id="RDK:6061" Name="Grid Columns" SubType="Generic" Expanded="True">
+					<SET Id="RDK:6063" VarRef="GridTranslationColumns">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET_STRUCT Id="RDK:6057" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$TAGS]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$TAGS]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable" />
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType" />
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:6058" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ITA]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$ITA]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:6059" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ENG]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$ENG]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:6060" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ESP]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$ESP]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:8415" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$FRA]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$FRA]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:8417" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$DEU]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$DEU]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:8419" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$UPDATED]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$UPDATED]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption" />
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$C$False]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$BOOLEAN]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+					<SET_STRUCT Id="RDK:35341" VarRef="DataSourceColInfo" ClearAll="True" ListRef="GridTranslationColumns">
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$OPT]]></EXP>
+						</PAR>
+						<PAR Name="Caption">
+							<EXP><![CDATA[$C$OPT]]></EXP>
+						</PAR>
+						<PAR Name="IsKey" />
+						<PAR Name="IsHidden" />
+						<PAR Name="IsOption">
+							<EXP><![CDATA[$C$True]]></EXP>
+						</PAR>
+						<PAR Name="IsEditable">
+							<EXP><![CDATA[$C$False]]></EXP>
+						</PAR>
+						<PAR Name="IsTooltip" />
+						<PAR Name="IsCalculated" />
+						<PAR Name="Expression" />
+						<PAR Name="FilterData" />
+						<PAR Name="ValueMapping" />
+						<PAR Name="RenderStyle" />
+						<PAR Name="RenderType">
+							<EXP><![CDATA[$C$TEXT]]></EXP>
+						</PAR>
+						<PAR Name="RenderFormat" />
+						<PAR Name="Options" />
+					</SET_STRUCT>
+				</GROUP>
+			</FUNCTION>
+			<FUNCTION Id="RDK:662" Name="RENDER" Expanded="True" InputTypeName="string">
+				<GROUP Id="RDK:664" Name="INIT" SubType="Generic" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Param.Input="INIT"]]></EXP>
+					</VALUECONDITION>
+					<ACTION_CALL Id="RDK:92" Name="RDEngineering_ModernUIPanel" DesignTimeRemark="{PanelName} {BindingType}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ProfileName" />
+						<PAR Name="ToolbarDef" />
+						<PAR Name="ButtonList" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="ButtonAction" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RulePageDef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="BindingType">
+							<EXP><![CDATA[$C$Binded]]></EXP>
+						</PAR>
+						<PAR Name="RenderStatus" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:4665" Name="RDEngineering_ModernUIPanel" DesignTimeRemark="{PanelName} {BindingType}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ProfileName" />
+						<PAR Name="ToolbarDef" />
+						<PAR Name="ButtonList" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="ButtonAction" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RulePageDef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="BindingType">
+							<EXP><![CDATA[$C$Binded]]></EXP>
+						</PAR>
+						<PAR Name="RenderStatus" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:95" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$HeaderArea]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$controlset]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(GROUPTYPE=ROW)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:7149" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$GridArea]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-10]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$controlset]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(GROUPTYPE=ROW)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:97" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-2]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$controlset]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(GROUPTYPE=ROW)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:6501" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$SAVEALL]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$SAVE ALL]]></EXP>
+						</PAR>
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$SAVEALL]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-2]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$simplebutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden">
+							<EXP><![CDATA[$=$Not TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:4667" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$EXIT]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$EXIT]]></EXP>
+						</PAR>
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$EXIT]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip">
+							<EXP><![CDATA[$C$EXIT]]></EXP>
+						</PAR>
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image">
+							<EXP><![CDATA[$C$ICON:exit-run]]></EXP>
+						</PAR>
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$fabbutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:5102" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$HOME]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$HOME]]></EXP>
+						</PAR>
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$HOME]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip">
+							<EXP><![CDATA[$C$HOME]]></EXP>
+						</PAR>
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image">
+							<EXP><![CDATA[$C$ICON:home]]></EXP>
+						</PAR>
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$fabbutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<CALLFUNCTION Id="RDK:6065" Expanded="True">
+						<PAR Name="FuncName">
+							<EXP><![CDATA[$C$ManageGridColumns]]></EXP>
+						</PAR>
+						<PAR Name="InputExp" />
+						<PAR Name="ResultRef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</CALLFUNCTION>
+					<ACTION_CALL Id="RDK:98" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$HeaderArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$Grid Editable Mode]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$yesno]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled">
+							<EXP><![CDATA[$=$IIF(Mode="read", True, False)]]></EXP>
+						</PAR>
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit">
+							<EXP><![CDATA[$C$True]]></EXP>
+						</PAR>
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:5589" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$GridTranslation]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$GridArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$=$myUser.fullname + ", YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$GridTranslation]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$datagrid]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource">
+							<EXP><![CDATA[$=$GridTranslationColumns]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$=$"(GRIDHEADERS=FILTERS)(TABLEHEIGHT=800)" + IIF(TranslationInput.GridEditableMode, "", "(ROWCLICKACTION=SELECTROW)")]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:438" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$TAGS]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$TAGS]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$TAGS]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly">
+							<EXP><![CDATA[$C$True]]></EXP>
+						</PAR>
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:440" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$ITA]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$
+ITA]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ITA]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:446" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$ENG]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$ENG]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ENG]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:448" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$ESP]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$ESP]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$ESP]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:8421" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$FRA]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$FRA]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$FRA]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:8423" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$DEU]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$DEU]]></EXP>
+						</PAR>
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$DEU]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-12]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$textbox]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:658" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$Update record]]></EXP>
+						</PAR>
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$simplebutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled">
+							<EXP><![CDATA[$C$True]]></EXP>
+						</PAR>
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:4205" Name="REFRESH" SubType="Generic" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Param.Input="REFRESH"]]></EXP>
+					</VALUECONDITION>
+					<CALLFUNCTION Id="RDK:6069">
+						<PAR Name="FuncName">
+							<EXP><![CDATA[$C$ManageGridColumns]]></EXP>
+						</PAR>
+						<PAR Name="InputExp" />
+						<PAR Name="ResultRef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</CALLFUNCTION>
+					<ACTION_CALL Id="RDK:6503" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$InputArea]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-2]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$controlset]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden">
+							<EXP><![CDATA[$=$TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options">
+							<EXP><![CDATA[$C$(GROUPTYPE=ROW)]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:6505" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$SAVEALL]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label">
+							<EXP><![CDATA[$C$SAVE ALL]]></EXP>
+						</PAR>
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$SAVEALL]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes">
+							<EXP><![CDATA[$C$col-xl-2]]></EXP>
+						</PAR>
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$simplebutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden">
+							<EXP><![CDATA[$=$Not TranslationInput.GridEditableMode]]></EXP>
+						</PAR>
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:5606" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$GridTranslation]]></EXP>
+						</PAR>
+						<PAR Name="ParentId">
+							<EXP><![CDATA[$C$GridArea]]></EXP>
+						</PAR>
+						<PAR Name="Label" />
+						<PAR Name="Field">
+							<EXP><![CDATA[$C$GridTranslation]]></EXP>
+						</PAR>
+						<PAR Name="Value" />
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$datagrid]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled" />
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource">
+							<EXP><![CDATA[$=$GridTranslationColumns]]></EXP>
+						</PAR>
+						<PAR Name="Options">
+							<EXP><![CDATA[$=$"(GRIDHEADERS=FILTERS)(TABLEHEIGHT=800)" + IIF(TranslationInput.GridEditableMode, "", "(ROWCLICKACTION=SELECTROW)")]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:810" Name="ENABLE_UPDATE" SubType="Generic" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Param.Input="ENABLE_UPDATE"]]></EXP>
+					</VALUECONDITION>
+					<ACTION_CALL Id="RDK:818" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$simplebutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled">
+							<EXP><![CDATA[$=$IIF(Mode="read", True, False)]]></EXP>
+						</PAR>
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:4219" Name="DISABLE_UPDATE" SubType="Generic" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Param.Input="DISABLE_UPDATE"]]></EXP>
+					</VALUECONDITION>
+					<ACTION_CALL Id="RDK:4218" Name="RDEngineering_ModernUIControl" DesignTimeRemark="{ActionType} {PanelName} &lt;-- {UIType}:{Field} {Id} {ParentID}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RenderList">
+							<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+						</PAR>
+						<PAR Name="PanelName">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="CustomPanel" />
+						<PAR Name="ActionType">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="Id">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="ParentId" />
+						<PAR Name="Label" />
+						<PAR Name="Field" />
+						<PAR Name="Value">
+							<EXP><![CDATA[$C$UPDATERECORD]]></EXP>
+						</PAR>
+						<PAR Name="Uom" />
+						<PAR Name="Tooltip" />
+						<PAR Name="Styles" />
+						<PAR Name="Classes" />
+						<PAR Name="Rules" />
+						<PAR Name="Image" />
+						<PAR Name="ControlType">
+							<EXP><![CDATA[$C$simplebutton]]></EXP>
+						</PAR>
+						<PAR Name="Action" />
+						<PAR Name="Required" />
+						<PAR Name="Hidden" />
+						<PAR Name="ROnly" />
+						<PAR Name="Disabled">
+							<EXP><![CDATA[$C$True]]></EXP>
+						</PAR>
+						<PAR Name="Pressed" />
+						<PAR Name="AutoCommit" />
+						<PAR Name="ValidateFail" />
+						<PAR Name="ValidateMsg" />
+						<PAR Name="DataSource" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+			</FUNCTION>
+		</GROUP>
+	</GROUP>
+	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" Bookmarked="True">
+		<GROUP Id="RDK:113" Name="INIT" SubType="Generic" Expanded="True">
+			<SET Id="RDK:122" VarRef="ConnString">
+				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+			<CALLFUNCTION Id="RDK:126" Expanded="True">
+				<PAR Name="FuncName">
+					<EXP><![CDATA[$C$GetTranslationGridValues]]></EXP>
+				</PAR>
+				<PAR Name="InputExp" />
+				<PAR Name="ResultRef">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</CALLFUNCTION>
+			<SET Id="RDK:36019" VarRef="TranslationInput.GridTranslation[0].OPT" Suppressed="True">
+				<EXP><![CDATA[$C$(ROWBACKCOLOR=#6be38c)]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+		</GROUP>
+		<CALLFUNCTION Id="RDK:663" Expanded="True">
+			<PAR Name="FuncName">
+				<EXP><![CDATA[$C$RENDER]]></EXP>
+			</PAR>
+			<PAR Name="InputExp">
+				<EXP><![CDATA[$C$INIT]]></EXP>
+			</PAR>
+			<PAR Name="ResultRef">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="Options" />
+		</CALLFUNCTION>
+		<WHILELOOP Id="RDK:653" Expanded="True">
+			<GROUP Id="RDK:27916" Name="___Fix Render Status DEV BUG" SubType="Generic" Expanded="True" Suppressed="True">
+				<SET Id="RDK:27915" VarRef="TranslationPanel[0].Status">
+					<EXP><![CDATA[$C$definition]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</GROUP>
+			<ACTION_CALL Id="RDK:128" Name="RDEngineering_ModernUIRender">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="RenderList">
+					<EXP><![CDATA[$=$TranslationPanel]]></EXP>
+				</PAR>
+				<PAR Name="BindingMode">
+					<EXP><![CDATA[$C$0]]></EXP>
+				</PAR>
+				<PAR Name="InputData">
+					<EXP><![CDATA[$=$TranslationInput]]></EXP>
+				</PAR>
+				<PAR Name="CSSStyle" />
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$ButtonPressed]]></EXP>
+				</PAR>
+				<PAR Name="FieldAffected">
+					<EXP><![CDATA[$V$FieldAffected]]></EXP>
+				</PAR>
+				<PAR Name="IndexAffected">
+					<EXP><![CDATA[$V$IndexAffected]]></EXP>
+				</PAR>
+				<PAR Name="EventData">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options">
+					<EXP><![CDATA[$C$(REUSEINSTANCE)]]></EXP>
+				</PAR>
+			</ACTION_CALL>
+			<SELECTCASE Id="RDK:672" Expanded="True">
+				<EXP><![CDATA[$=$ButtonPressed]]></EXP>
+				<CASEGROUP Id="RDK:673" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$GRID_SELECTROW]]></EXP>
+					<SET_STRUCT Id="RDK:4197" VarRef="TranslationInput">
+						<PAR Name="GridTranslation" />
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].IDX]]></EXP>
+						</PAR>
+						<PAR Name="TAGS">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].TAGS]]></EXP>
+						</PAR>
+						<PAR Name="ITA">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].ITA]]></EXP>
+						</PAR>
+						<PAR Name="ENG">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].ENG]]></EXP>
+						</PAR>
+						<PAR Name="ESP">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].ESP]]></EXP>
+						</PAR>
+						<PAR Name="FRA">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].FRA]]></EXP>
+						</PAR>
+						<PAR Name="DEU">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation[IndexAffected].DEU]]></EXP>
+						</PAR>
+						<PAR Name="UPDATED" />
+						<PAR Name="GridEditableMode" />
+					</SET_STRUCT>
+					<SET Id="RDK:34660" VarRef="iRowSelected" DesignTimeRemark="memorizzo l'indice di riga selezionata, necessario per l'update perchè IndexAffected cambia">
+						<EXP><![CDATA[$=$IndexAffected]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<COMMENTS Id="RDK:37372" DesignTimeRemark="Selected row backcolor" />
+					<SET Id="RDK:37374" VarRef="TranslationInput.GridTranslation">
+						<EXP><![CDATA[$=$ExecOnValues(TranslationInput.GridTranslation, "SetStruct(Me, ""OPT"", IIF(Me_Idx=" + iRowSelected + ", ""(ROWBACKCOLOR=#6be38c)"", """"))", "(PARALLEL)")]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<CALLFUNCTION Id="RDK:806" Expanded="True">
+						<PAR Name="FuncName">
+							<EXP><![CDATA[$C$RENDER]]></EXP>
+						</PAR>
+						<PAR Name="InputExp">
+							<EXP><![CDATA[$C$ENABLE_UPDATE]]></EXP>
+						</PAR>
+						<PAR Name="ResultRef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</CALLFUNCTION>
+				</CASEGROUP>
+				<CASEGROUP Id="RDK:674" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$AUTOCOMMIT]]></EXP>
+					<SELECTCASE Id="RDK:5615" Expanded="True">
+						<EXP><![CDATA[$=$FieldAffected]]></EXP>
+						<CASEGROUP Id="RDK:5616" CaseType="0" Expanded="True">
+							<EXP><![CDATA[$C$GridEditableMode]]></EXP>
+							<COMMENTS Id="RDK:40760" DesignTimeRemark="Selected row backcolor (remove)" />
+							<SET Id="RDK:40762" VarRef="TranslationInput.GridTranslation">
+								<EXP><![CDATA[$=$ExecOnValues(TranslationInput.GridTranslation, "SetStruct(Me, ""OPT"", """")", "(PARALLEL)")]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<CALLFUNCTION Id="RDK:5619">
+								<PAR Name="FuncName">
+									<EXP><![CDATA[$C$RENDER]]></EXP>
+								</PAR>
+								<PAR Name="InputExp">
+									<EXP><![CDATA[$C$REFRESH]]></EXP>
+								</PAR>
+								<PAR Name="ResultRef">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</CALLFUNCTION>
+						</CASEGROUP>
+						<CASEGROUP Id="RDK:5617" CaseType="1" Expanded="True">
+							<EXP />
+						</CASEGROUP>
+					</SELECTCASE>
+				</CASEGROUP>
+			</SELECTCASE>
+			<GROUP Id="RDK:947" Name="UPDATE SINGLE RECORD" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$ButtonPressed="UPDATERECORD"]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:4176" Name="Update DB" SubType="Generic" Expanded="True" ErrorProtected="True" BlockFailedVarRef="bErr" BlockFailedErrMsgRef="ErrMsg">
+					<SET Id="RDK:14502" VarRef="TranslationInput.UPDATED">
+						<EXP><![CDATA[$C$1]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<ACTION_CALL Id="RDK:2287" Name="RDEngineering_DBUpdate">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$=$ConnString]]></EXP>
+						</PAR>
+						<PAR Name="UpdateTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="UpdateQueryType">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="SingleRow">
+							<EXP><![CDATA[$=$TranslationInput]]></EXP>
+						</PAR>
+						<PAR Name="ListOfRows" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<SET_STRUCT Id="RDK:14505" VarRef="TranslationInput.GridTranslation[iRowSelected]">
+						<PAR Name="IDX" />
+						<PAR Name="ORIGIN" />
+						<PAR Name="TAGS" />
+						<PAR Name="ITA">
+							<EXP><![CDATA[$=$TranslationInput.ITA]]></EXP>
+						</PAR>
+						<PAR Name="ENG">
+							<EXP><![CDATA[$=$TranslationInput.ENG]]></EXP>
+						</PAR>
+						<PAR Name="ESP">
+							<EXP><![CDATA[$=$TranslationInput.ESP]]></EXP>
+						</PAR>
+						<PAR Name="FRA">
+							<EXP><![CDATA[$=$TranslationInput.FRA]]></EXP>
+						</PAR>
+						<PAR Name="DEU">
+							<EXP><![CDATA[$=$TranslationInput.DEU]]></EXP>
+						</PAR>
+						<PAR Name="UPDATED">
+							<EXP><![CDATA[$=$TranslationInput.UPDATED]]></EXP>
+						</PAR>
+						<PAR Name="IS_NEW" />
+						<PAR Name="LAST_UPDATE" />
+						<PAR Name="OPT" />
+					</SET_STRUCT>
+					<ACTION_CALL Id="RDK:14507" Name="RDEngineering_DBExecuteStatement">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$=$ConnString]]></EXP>
+						</PAR>
+						<PAR Name="SqlStatement">
+							<EXP><![CDATA[$=$"UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX=" + SafeInt(TranslationInput.IDX)]]></EXP>
+						</PAR>
+						<PAR Name="StatementResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:678" Name="Check" SubType="Generic">
+					<IFTHENELSE Id="RDK:4184">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$bErr]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:4185" SubType="Then">
+							<ACTION_CALL Id="RDK:4239" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="RedirectMode">
+									<EXP><![CDATA[$C$5]]></EXP>
+								</PAR>
+								<PAR Name="Url" />
+								<PAR Name="HtmlFile" />
+								<PAR Name="HtmlData" />
+								<PAR Name="JsCode" />
+								<PAR Name="JsResult">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="CssSource" />
+								<PAR Name="PopupName">
+									<EXP><![CDATA[$C$ErrorMsg]]></EXP>
+								</PAR>
+								<PAR Name="PopupStyle" />
+								<PAR Name="Process" />
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WaitForInput" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$-1]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:4238" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"Something were wrong" + CrLf() + CrLf() + ErrMsg]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$1]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$true]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options">
+									<EXP><![CDATA[$C$(POPUPNAME=ErrorMsg)]]></EXP>
+								</PAR>
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:4240" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="RedirectMode">
+									<EXP><![CDATA[$C$7]]></EXP>
+								</PAR>
+								<PAR Name="Url" />
+								<PAR Name="HtmlFile" />
+								<PAR Name="HtmlData" />
+								<PAR Name="JsCode" />
+								<PAR Name="JsResult">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="CssSource" />
+								<PAR Name="PopupName">
+									<EXP><![CDATA[$C$ErrorMsg]]></EXP>
+								</PAR>
+								<PAR Name="PopupStyle" />
+								<PAR Name="Process" />
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WaitForInput" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$-1]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+						<GROUP Id="RDK:4186" SubType="Else">
+							<SET_STRUCT Id="RDK:4195" VarRef="TranslationInput">
+								<PAR Name="GridTranslation" />
+								<PAR Name="IDX">
+									<EXP><![CDATA[$C$NOTHING]]></EXP>
+								</PAR>
+								<PAR Name="TAG">
+									<EXP><![CDATA[$C$NOTHING]]></EXP>
+								</PAR>
+								<PAR Name="ITA">
+									<EXP><![CDATA[$C$NOTHING]]></EXP>
+								</PAR>
+								<PAR Name="ENG">
+									<EXP><![CDATA[$C$NOTHING]]></EXP>
+								</PAR>
+								<PAR Name="FRA">
+									<EXP><![CDATA[$C$NOTHING]]></EXP>
+								</PAR>
+							</SET_STRUCT>
+							<CALLFUNCTION Id="RDK:4235">
+								<PAR Name="FuncName">
+									<EXP><![CDATA[$C$RENDER]]></EXP>
+								</PAR>
+								<PAR Name="InputExp">
+									<EXP><![CDATA[$C$DISABLE_UPDATE]]></EXP>
+								</PAR>
+								<PAR Name="ResultRef">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</CALLFUNCTION>
+						</GROUP>
+					</IFTHENELSE>
+				</GROUP>
+			</GROUP>
+			<GROUP Id="RDK:7371" Name="UPDATE ALL RECORD" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$ButtonPressed="SAVEALL"]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:7385" Name="Update DB" SubType="Generic" Expanded="True" ErrorProtected="True" BlockFailedVarRef="bErr" BlockFailedErrMsgRef="ErrMsg">
+					<ACTION_CALL Id="RDK:7384" Name="RDEngineering_DBUpdate">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$=$ConnString]]></EXP>
+						</PAR>
+						<PAR Name="UpdateTable">
+							<EXP><![CDATA[$C$TRADS]]></EXP>
+						</PAR>
+						<PAR Name="UpdateQueryType">
+							<EXP><![CDATA[$C$1]]></EXP>
+						</PAR>
+						<PAR Name="SingleRow" />
+						<PAR Name="ListOfRows">
+							<EXP><![CDATA[$=$TranslationInput.GridTranslation]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+				<GROUP Id="RDK:7404" Name="Check" SubType="Generic" Expanded="True">
+					<ACTION_CALL Id="RDK:7396" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="Url" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="HtmlData" />
+						<PAR Name="JsCode" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="CssSource" />
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$ErrorMsg]]></EXP>
+						</PAR>
+						<PAR Name="PopupStyle" />
+						<PAR Name="Process" />
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="ImgTop" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgRight" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="ButtonList" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="ButtonAction" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="HeaderData" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<IFTHENELSE Id="RDK:7403" Expanded="True">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$bErr]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:7399" SubType="Then" Expanded="True">
+							<ACTION_CALL Id="RDK:7397" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"Something were wrong" + CrLf() + CrLf() + ErrMsg]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$1]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$true]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options">
+									<EXP><![CDATA[$C$(POPUPNAME=ErrorMsg)]]></EXP>
+								</PAR>
+							</ACTION_CALL>
+						</GROUP>
+						<GROUP Id="RDK:7402" SubType="Else" Expanded="True">
+							<ACTION_CALL Id="RDK:7407" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"UPDATE SUCCESS"]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$true]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options">
+									<EXP><![CDATA[$C$(POPUPNAME=ErrorMsg)]]></EXP>
+								</PAR>
+							</ACTION_CALL>
+						</GROUP>
+					</IFTHENELSE>
+					<ACTION_CALL Id="RDK:7398" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url}">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$7]]></EXP>
+						</PAR>
+						<PAR Name="Url" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="HtmlData" />
+						<PAR Name="JsCode" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="CssSource" />
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$ErrorMsg]]></EXP>
+						</PAR>
+						<PAR Name="PopupStyle" />
+						<PAR Name="Process" />
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="ImgTop" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgRight" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="ButtonList" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="ButtonAction" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="HeaderData" />
+						<PAR Name="Options" />
+					</ACTION_CALL>
+				</GROUP>
+			</GROUP>
+			<GROUP Id="RDK:676" Name="EXIT" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$ButtonPressed="EXIT"]]></EXP>
+				</VALUECONDITION>
+				<EXIT_PROCESS Id="RDK:4674" BreakType="3" ExitStatus="0" />
+			</GROUP>
+		</WHILELOOP>
+		<GROUP Id="RDK:680" Name="Group" SubType="Generic" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$Mode="read"]]></EXP>
+			</VALUECONDITION>
+			<ACTION_CALL Id="RDK:40786" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="MsgText">
+					<EXP><![CDATA[$C$Save and export changes?]]></EXP>
+				</PAR>
+				<PAR Name="MsgFormat">
+					<EXP><![CDATA[$C$0]]></EXP>
+				</PAR>
+				<PAR Name="MsgStyle">
+					<EXP><![CDATA[$C$3]]></EXP>
+				</PAR>
+				<PAR Name="WaitForInput">
+					<EXP><![CDATA[$C$True]]></EXP>
+				</PAR>
+				<PAR Name="RunTimeRemark" />
+				<PAR Name="WebResourcePath" />
+				<PAR Name="ImgTop" />
+				<PAR Name="ImgBottom" />
+				<PAR Name="ImgLeft" />
+				<PAR Name="ImgRight" />
+				<PAR Name="CSSStyle" />
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="ButtonsMode">
+					<EXP><![CDATA[$C$3]]></EXP>
+				</PAR>
+				<PAR Name="ButtonList">
+					<EXP><![CDATA[$C$SAVE,CANCEL]]></EXP>
+				</PAR>
+				<PAR Name="ButtonImgs" />
+				<PAR Name="ButtonAction" />
+				<PAR Name="ButtonOptions" />
+				<PAR Name="ButtonDefs" />
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$ButtonPressed]]></EXP>
+				</PAR>
+				<PAR Name="HeaderData" />
+				<PAR Name="InputTree">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</ACTION_CALL>
+			<IFTHENELSE Id="RDK:40793" Expanded="True">
+				<VALUECONDITION Value="true">
+					<EXP><![CDATA[$=$ButtonPressed="SAVE"]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:40788" SubType="Then" Expanded="True">
+					<PROCESS_CALL Id="RDK:40787" Expanded="True">
+						<EXP><![CDATA[$C$Export_From_DB.rdx]]></EXP>
+					</PROCESS_CALL>
+				</GROUP>
+				<GROUP Id="RDK:40792" SubType="Else" Expanded="True">
+					<ACTION_CALL Id="RDK:40789" Name="RDEngineering_DBOpen">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionString">
+							<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="Transaction">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:40790" Name="RDEngineering_DBExecuteStatement">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="SqlStatement">
+							<EXP><![CDATA[$C$TRUNCATE TABLE IS_MODIFY_LOCKED]]></EXP>
+						</PAR>
+						<PAR Name="StatementResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</ACTION_CALL>
+					<ACTION_CALL Id="RDK:40791" Name="RDEngineering_DBClose">
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+						</PAR>
+						<PAR Name="ConnectionName">
+							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+						</PAR>
+						<PAR Name="Transaction">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+					</ACTION_CALL>
+				</GROUP>
+			</IFTHENELSE>
+		</GROUP>
+		<GROUP Id="RDK:682" SubType="Generic" Expanded="True" />
+		<GROUP Id="RDK:684" SubType="Generic" Expanded="True" />
+		<GROUP Id="RDK:686" SubType="Generic" Expanded="True" />
+		<GROUP Id="RDK:688" SubType="Generic" Expanded="True" />
+		<GROUP Id="RDK:690" SubType="Generic" Expanded="True" />
+		<GROUP Id="RDK:692" SubType="Generic" Expanded="True" />
+	</GROUP>
+	<EXTERNAL_DATA>
+		<PROFILES_DATA />
+		<BOM_DATA />
+	</EXTERNAL_DATA>
+</PROCESS>
