@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T11:40:28" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T13:41:46" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure">
@@ -938,7 +938,6 @@
 					<EXP><![CDATA[$=$ListCrop(TradTable, from_idx, to_idx)]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<EXEC_ON_VALUES Id="RDK:984110" VarRef="TradTable" ExecMode="1" AppendTo="TradTable_Page" Options="&quot;(FROMIDX=&quot;+from_idx+&quot;)(TOIDX=&quot;+to_idx+&quot;)&quot;" Suppressed="True" />
 			</FUNCTION>
 		</GROUP>
 	</GROUP>
@@ -1248,7 +1247,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$C$3]]></EXP>
 				</PAR>
 				<PAR Name="ButtonList">
-					<EXP><![CDATA[$=$IIF(page_idx>1, "PREVIOUS PAGE,", "")+IIF(page_idx<MaxNumPages,"NEXT PAGE,", "")+IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+IIF(Mode<>"read", "EDIT FOR LANGUAGE,", "")+" EXIT"+IIF(IsEmpty(Trad), "", ",SAVE")
+					<EXP><![CDATA[$=$IIF(page_idx>1, "PREVIOUS PAGE,", "")+IIF(page_idx<MaxNumPages,"NEXT PAGE,", "")+IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+IIF(Mode<>"read", "EDIT FOR LANGUAGE,", "")+" EXIT"+IIF(IsEmpty(Trad) or Mode="read", "", ",SAVE")
 ]]></EXP>
 				</PAR>
 				<PAR Name="ButtonImgs" />
@@ -1384,11 +1383,11 @@ ORDER BY T.ITA]]></EXP>
 									<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable_ORIG, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
 									<PAR Name="AdvancedOptions" />
 								</SET>
-								<IFTHENELSE Id="RDK:971700">
+								<IFTHENELSE Id="RDK:971700" Expanded="True">
 									<VALUECONDITION Value="true">
 										<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
 									</VALUECONDITION>
-									<GROUP Id="RDK:971697" SubType="Then">
+									<GROUP Id="RDK:971697" SubType="Then" Expanded="True">
 										<SET Id="RDK:971686" VarRef="ValidTag">
 											<EXP><![CDATA[$C$True]]></EXP>
 											<PAR Name="AdvancedOptions" />
@@ -1448,7 +1447,7 @@ ORDER BY T.ITA]]></EXP>
 											</PAR>
 											<PAR Name="Options" />
 										</ACTION_CALL>
-										<GROUP Id="RDK:971695" Name="AddTrad" SubType="Generic">
+										<GROUP Id="RDK:971695" Name="AddTrad" SubType="Generic" Expanded="True">
 											<VALUECONDITION Value="true">
 												<EXP><![CDATA[$=$Button="OK"]]></EXP>
 											</VALUECONDITION>
@@ -1550,7 +1549,7 @@ ORDER BY T.ITA
 											<PAR Name="AdvancedOptions" />
 										</SET>
 									</GROUP>
-									<GROUP Id="RDK:971699" SubType="Else">
+									<GROUP Id="RDK:971699" SubType="Else" Expanded="True">
 										<ACTION_CALL Id="RDK:971698" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 											<PAR Name="RDLibraryName">
 												<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -1595,12 +1594,6 @@ Please, choose a different TAG"]]></EXP>
 										</ACTION_CALL>
 									</GROUP>
 								</IFTHENELSE>
-							</GROUP>
-							<GROUP Id="RDK:971703" SubType="Else" Suppressed="True">
-								<SET Id="RDK:971702" VarRef="ValidTag">
-									<EXP><![CDATA[$C$False]]></EXP>
-									<PAR Name="AdvancedOptions" />
-								</SET>
 							</GROUP>
 						</IFTHENELSE>
 					</WHILELOOP>
@@ -1889,7 +1882,7 @@ ORDER BY T.ITA
 								</GROUP>
 							</IFTHENELSE>
 						</GROUP>
-						<GROUP Id="RDK:971918" SubType="Else">
+						<GROUP Id="RDK:971918" SubType="Else" Expanded="True">
 							<ACTION_CALL Id="RDK:971917" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -2159,31 +2152,31 @@ ORDER BY T.ITA]]></EXP>
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:988085" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:988513" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988086" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:988514" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="SAVE" ]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988087" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:988515" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988088" Name="SORT">
+				<VAR_COND Id="RDK:988516" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988089" Name="FILTER">
+				<VAR_COND Id="RDK:988517" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988090" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:988518" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988091" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:988519" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988092" Name="SELECTED_ROW">
+				<VAR_COND Id="RDK:988520" Name="SELECTED_ROW">
 					<EXP><![CDATA[$=$Button="SelectRow"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988093" Name="CHANGE_INTERFACE">
+				<VAR_COND Id="RDK:988521" Name="CHANGE_INTERFACE">
 					<EXP><![CDATA[$=$Button="EDIT FOR LANGUAGE"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice">
@@ -3067,7 +3060,7 @@ ORDER BY T.ITA
 				<VALUECONDITION Value="false">
 					<EXP><![CDATA[$=$IsEmpty(sorted)]]></EXP>
 				</VALUECONDITION>
-				<GROUP Id="RDK:911711" SubType="Then">
+				<GROUP Id="RDK:911711" SubType="Then" Expanded="True">
 					<SET Id="RDK:911710" VarRef="TradTable">
 						<EXP><![CDATA[$=$SortListOfStructs(
     TradTable, 
@@ -3504,7 +3497,7 @@ EDIT ON
 					<EXP><![CDATA[$C$False]]></EXP>
 				</RP_SETFIELD_FORCED>
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$Mode&lt;&gt;&quot;read&quot;" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
@@ -3515,7 +3508,7 @@ EDIT ON
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$Mode&lt;&gt;&quot;read&quot;" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
@@ -3526,7 +3519,7 @@ EDIT ON
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$not( IsTagInString(Me.ORIGIN, &quot;PDM&quot;) and not (IsTagInString(Me.TAGS, &quot;328&quot;) or IsTagInString(Me.TAGS, &quot;329&quot;)))" />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$not( IsTagInString(Me.ORIGIN, &quot;PDM&quot;) and not (IsTagInString(Me.TAGS, &quot;328&quot;) or IsTagInString(Me.TAGS, &quot;329&quot;))) and Mode&lt;&gt;&quot;read&quot;" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
@@ -3537,7 +3530,7 @@ EDIT ON
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$Mode&lt;&gt;&quot;read&quot;" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
@@ -3548,7 +3541,7 @@ EDIT ON
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$Mode&lt;&gt;&quot;read&quot;" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>

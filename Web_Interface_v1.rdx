@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T11:40:50" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T12:36:52" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -128,13 +128,13 @@
 			<VAR Id="RDK:911053" Name="FilterTrad" Type="FilterTradType" Expanded="True" />
 			<VAR Id="RDK:952846" Name="ids_changed" Type="string" Expanded="True" />
 			<GROUP Id="RDK:979869" Name="PAGINATION HANDLER" SubType="VarSet" IncludeDate="0" Expanded="True">
-				<VAR Id="RDK:979860" Name="page_idx" Type="integer">
+				<VAR Id="RDK:979860" Name="page_idx" Type="integer" Expanded="True">
 					<SET Id="RDK:979859" VarRef="Me">
 						<EXP><![CDATA[$C$1]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:979862" Name="page_rows" Type="integer">
+				<VAR Id="RDK:979862" Name="page_rows" Type="integer" Expanded="True" Bookmarked="True" DesignTimeRemark="NUMERO DI RIGHE PER PAGINA">
 					<SET Id="RDK:979861" VarRef="Me">
 						<EXP><![CDATA[$C$500]]></EXP>
 						<PAR Name="AdvancedOptions" />
@@ -149,9 +149,9 @@
 			</GROUP>
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet">
-			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" Expanded="True" />
-			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" Expanded="True" />
-			<PROFILE Id="RDK:925531" Name="GridTradProfile" TypeName="TradType" Expanded="True" />
+			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" />
+			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" />
+			<PROFILE Id="RDK:925531" Name="GridTradProfile" TypeName="TradType" />
 		</GROUP>
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
 			<FUNCTION Id="RDK:979905" Name="SetPageList" Expanded="True">
@@ -163,11 +163,11 @@
 					<EXP><![CDATA[$=$Ceiling(tot_rows/page_rows)]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<IFTHENELSE Id="RDK:979900">
+				<IFTHENELSE Id="RDK:979900" Expanded="True">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$page_idx>MaxNumPages]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:979899" SubType="Then">
+					<GROUP Id="RDK:979899" SubType="Then" Expanded="True">
 						<SET Id="RDK:979898" VarRef="page_idx">
 							<EXP><![CDATA[$C$1]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -186,7 +186,6 @@
 					<EXP><![CDATA[$=$ListCrop(TradTable, from_idx, to_idx)]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<EXEC_ON_VALUES Id="RDK:979904" VarRef="TradTable" ExecMode="1" AppendTo="TradTable_Page" Options="&quot;(FROMIDX=&quot;+from_idx+&quot;)(TOIDX=&quot;+to_idx+&quot;)&quot;" Suppressed="True" />
 				<SET Id="RDK:980034" VarRef="Trads">
 					<EXP><![CDATA[$=$TradTable_Page]]></EXP>
 					<PAR Name="AdvancedOptions" />
@@ -198,7 +197,7 @@
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:980027" VarRef="Trads">
-					<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA, DEU")]]></EXP>
+					<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA,DEU")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<IFTHENELSE Id="RDK:980066" Expanded="True">
@@ -536,7 +535,7 @@ ORDER BY T.ITA]]></EXP>
 			</ACTION_CALL>
 			<SELECTCASE Id="RDK:978330" Expanded="True">
 				<EXP><![CDATA[$=$Button]]></EXP>
-				<CASEGROUP Id="RDK:978331" CaseType="0">
+				<CASEGROUP Id="RDK:978331" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$ADD]]></EXP>
 					<GROUP Id="RDK:978438" Name="AutoCommit" SubType="Generic" Suppressed="True">
 						<SET Id="RDK:978430" VarRef="Updated_Trads">
@@ -547,11 +546,11 @@ ORDER BY T.ITA]]></EXP>
 							<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:978437" Expanded="True">
+						<IFTHENELSE Id="RDK:978437">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:978436" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:978436" SubType="Then">
 								<SET Id="RDK:978432" VarRef="Trads">
 									<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -708,11 +707,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 							<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
 							<PAR Name="AdvancedOptions" />
 						</SET>
-						<IFTHENELSE Id="RDK:978501" Expanded="True">
+						<IFTHENELSE Id="RDK:978501">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:978498" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:978498" SubType="Then">
 								<SET Id="RDK:978496" VarRef="ValidTag">
 									<EXP><![CDATA[$C$True]]></EXP>
 									<PAR Name="AdvancedOptions" />
@@ -953,9 +952,9 @@ ORDER BY T.ITA
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:978346" CaseType="0">
+				<CASEGROUP Id="RDK:978346" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$DELETE]]></EXP>
-					<GROUP Id="RDK:978650" Name="AutoCommit" SubType="Generic" Expanded="True" Suppressed="True">
+					<GROUP Id="RDK:978650" Name="AutoCommit" SubType="Generic" Suppressed="True">
 						<SET Id="RDK:978642" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -1025,7 +1024,7 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 						</PAR>
 						<PAR Name="Options" />
 					</CALLFUNCTION>
-					<IFTHENELSE Id="RDK:978687" Expanded="True">
+					<IFTHENELSE Id="RDK:978687">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")<1
 ]]></EXP>
@@ -1225,9 +1224,9 @@ ORDER BY T.ITA
 						</PAR>
 					</ACTION_CALL>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:978354" CaseType="0">
+				<CASEGROUP Id="RDK:978354" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$DELETE ALL FILTERS]]></EXP>
-					<GROUP Id="RDK:978771" Name="AutoCommit" SubType="Generic" Expanded="True" Suppressed="True">
+					<GROUP Id="RDK:978771" Name="AutoCommit" SubType="Generic" Suppressed="True">
 						<SET Id="RDK:978761" VarRef="Updated_Trads">
 							<EXP><![CDATA[$=$TradTable]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -1427,7 +1426,7 @@ ORDER BY T.ITA
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:978362" CaseType="0">
+				<CASEGROUP Id="RDK:978362" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$SAVE CURRENT CHANGES]]></EXP>
 					<SET Id="RDK:978833" VarRef="Updated_Trads" Suppressed="True">
 						<EXP><![CDATA[$=$TradTable]]></EXP>
@@ -1437,11 +1436,11 @@ ORDER BY T.ITA
 						<EXP><![CDATA[$=$ListDiff(Updated_Trads, Trads, "EQFIELD=ITA,ENG,ESP,FRA")]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
-					<IFTHENELSE Id="RDK:978873" Expanded="True" Suppressed="True">
+					<IFTHENELSE Id="RDK:978873" Suppressed="True">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$Count(Trads)>0]]></EXP>
 						</VALUECONDITION>
-						<GROUP Id="RDK:978872" SubType="Then" Expanded="True">
+						<GROUP Id="RDK:978872" SubType="Then">
 							<SET Id="RDK:978868" VarRef="Trads">
 								<EXP><![CDATA[$=$SetStruct(Trads, "UPDATED", 1)]]></EXP>
 								<PAR Name="AdvancedOptions" />
@@ -2020,22 +2019,22 @@ ORDER BY T.ITA
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:981407" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:981515" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981408" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:981516" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981409" Name="SORT">
+				<VAR_COND Id="RDK:981517" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981410" Name="FILTER">
+				<VAR_COND Id="RDK:981518" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981411" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:981519" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981412" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:981520" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice">
@@ -3343,12 +3342,12 @@ ORDER BY T.ITA
 					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ENG", "*"+FilterTrad.ENG+"*")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<SET Id="RDK:911508" VarRef="TradTable">
-					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ESP", "*"+FilterTrad.ESP+"*")]]></EXP>
-					<PAR Name="AdvancedOptions" />
-				</SET>
 				<SET Id="RDK:911510" VarRef="TradTable">
 					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "FRA", "*"+FilterTrad.FRA+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911508" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ESP", "*"+FilterTrad.ESP+"*")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911560" VarRef="TradTable">
