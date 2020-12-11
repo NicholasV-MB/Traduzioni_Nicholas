@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T16:17:46" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T11:42:45" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -580,7 +580,7 @@ EDIT ON
 							</PAR>
 							<PAR Name="MsgText">
 								<EXP><![CDATA[$=$"Hi "+myUser.name+", you have already locked this process in modification mode! 
-Please enter, press "+QtCh()+"END"+QtCh()+" button and exit correctly next time"]]></EXP>
+Please enter, press "+QtCh()+"EXIT"+QtCh()+" button and exit correctly next time"]]></EXP>
 							</PAR>
 							<PAR Name="MsgFormat">
 								<EXP><![CDATA[$C$0]]></EXP>

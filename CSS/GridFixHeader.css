@@ -76,3 +76,16 @@ table.RDGRID td {
 	font-weight:bold;
 	font-variant:normal;
 }
+
+.RDGRID_FOOTER
+{
+	background-color:#000000;
+	height:24px;
+	width:100%;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size: 9pt;
+	font-style:normal;
+	font-weight:normal;
+	font-variant:normal;
+}

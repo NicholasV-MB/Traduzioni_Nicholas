@@ -34,6 +34,7 @@ Per testare in locale gli RDX sviluppati per la gestione delle traduzioni bisogn
 - Sono presenti anche versioni della "Web_Interface":
   - La ["Web_Interface_MUI.rdx"](Web_Interface_MUI.rdx) è la versione sviluppata con le funzioni della "Modern UI", ancora in beta e non ancora utilizzabile, necessita dell'attivazione dell'IIS Mode
   - La ["Web_Interface_old_v0.rdx"](Web_Interface_old_v0.rdx) è la prima versione senza girglia editabile e con la maschera di modifica che si apre al click
+- È stata gestita la paginazione per migliorare le perfomarmance di caricamento della WebGrid in entrambe le versioni dell'interfaccia
   
 
 ## Altre note

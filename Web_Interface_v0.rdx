@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T16:18:02" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T11:40:28" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure">
@@ -880,12 +880,67 @@
 			<VAR Id="RDK:911053" Name="FilterTrad" Type="FilterTradType" Expanded="True" />
 			<VAR Id="RDK:911060" Name="TradTable_ORIG" Type="TradType_list" Expanded="True" />
 			<VAR Id="RDK:952846" Name="field_changed" Type="string" Expanded="True" />
+			<GROUP Id="RDK:981218" Name="PAGINATION HANDLER" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<VAR Id="RDK:981228" Name="page_idx" Type="integer" Expanded="True">
+					<SET Id="RDK:981238" VarRef="Me">
+						<EXP><![CDATA[$C$1]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+				<VAR Id="RDK:981268" Name="page_rows" Type="integer" Expanded="True">
+					<SET Id="RDK:981287" VarRef="Me">
+						<EXP><![CDATA[$C$500]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</VAR>
+				<VAR Id="RDK:981298" Name="from_idx" Type="integer" Expanded="True" />
+				<VAR Id="RDK:981318" Name="to_idx" Type="integer" Expanded="True" />
+				<VAR Id="RDK:981506" Name="tot_rows" Type="integer" />
+				<VAR Id="RDK:981248" Name="TradTable_Page" Type="TradType_list" Expanded="True" />
+				<VAR Id="RDK:981694" Name="MaxNumPages" Type="integer" Expanded="True" />
+				<VAR Id="RDK:984055" Name="p_idx" Type="integer" />
+			</GROUP>
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True">
 			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" Expanded="True" />
 			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" Expanded="True" />
 		</GROUP>
-		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True" />
+		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
+			<FUNCTION Id="RDK:981366" Name="SetPageList" Expanded="True">
+				<SET Id="RDK:981573" VarRef="tot_rows">
+					<EXP><![CDATA[$=$Count(TradTable)]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:981704" VarRef="MaxNumPages">
+					<EXP><![CDATA[$=$Ceiling(tot_rows/page_rows)]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<IFTHENELSE Id="RDK:981732" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$page_idx>MaxNumPages]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:981733" SubType="Then" Expanded="True">
+						<SET Id="RDK:981775" VarRef="page_idx">
+							<EXP><![CDATA[$C$1]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+				</IFTHENELSE>
+				<SET Id="RDK:981395" VarRef="from_idx">
+					<EXP><![CDATA[$=$(page_idx-1)*page_rows]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:981414" VarRef="to_idx">
+					<EXP><![CDATA[$=$IIF(from_idx+page_rows-1>tot_rows, tot_rows-1, from_idx+page_rows-1)]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:981376" VarRef="TradTable_Page">
+					<EXP><![CDATA[$=$ListCrop(TradTable, from_idx, to_idx)]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<EXEC_ON_VALUES Id="RDK:984110" VarRef="TradTable" ExecMode="1" AppendTo="TradTable_Page" Options="&quot;(FROMIDX=&quot;+from_idx+&quot;)(TOIDX=&quot;+to_idx+&quot;)&quot;" Suppressed="True" />
+			</FUNCTION>
+		</GROUP>
 	</GROUP>
 	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" LogDisable="$=$IsSubProcess()">
 		<GROUP Id="RDK:862962" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
@@ -1004,6 +1059,16 @@ ORDER BY T.ITA]]></EXP>
 			<VALUECONDITION Value="false">
 				<EXP><![CDATA[$=$Button="EXIT"]]></EXP>
 			</VALUECONDITION>
+			<CALLFUNCTION Id="RDK:981646" Expanded="True">
+				<PAR Name="FuncName">
+					<EXP><![CDATA[$C$SetPageList]]></EXP>
+				</PAR>
+				<PAR Name="InputExp" />
+				<PAR Name="ResultRef">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</CALLFUNCTION>
 			<ACTION_CALL Id="RDK:55" Name="RDEngineering_RemoteSummaryGrid" Suppressed="True">
 				<PAR Name="RDLibraryName">
 					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -1065,7 +1130,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(ODDBACKCOLOR=#dcdcdc)"+IIF(Mode="read", "(NODELETE)(NOEDIT)", "")+IIF(CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")+"(EDITICONTOOLTIP=SAVE)"]]></EXP>
 				</PAR>
 			</ACTION_CALL>
-			<ACTION_CALL Id="RDK:958886" Name="RDEngineering_RemoteSummaryInput">
+			<ACTION_CALL Id="RDK:958886" Name="RDEngineering_RemoteSummaryInput" Suppressed="True">
 				<PAR Name="RDLibraryName">
 					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 				</PAR>
@@ -1133,9 +1198,79 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
+			<ACTION_CALL Id="RDK:981675" Name="RDEngineering_RemoteSummaryInput">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="GridVar">
+					<EXP><![CDATA[$=$TradTable_Page]]></EXP>
+				</PAR>
+				<PAR Name="GridEditable">
+					<EXP><![CDATA[$C$false]]></EXP>
+				</PAR>
+				<PAR Name="GridProfile" />
+				<PAR Name="GridHeader" />
+				<PAR Name="GridRemark" />
+				<PAR Name="InputVar">
+					<EXP><![CDATA[$=$Trad]]></EXP>
+				</PAR>
+				<PAR Name="InputProfile">
+					<EXP><![CDATA[$C$TradProfile]]></EXP>
+				</PAR>
+				<PAR Name="InputHeader" />
+				<PAR Name="InputRemark" />
+				<PAR Name="LayoutMode">
+					<EXP><![CDATA[$C$0]]></EXP>
+				</PAR>
+				<PAR Name="GridIdx">
+					<EXP><![CDATA[$V$idx]]></EXP>
+				</PAR>
+				<PAR Name="WebResourcePath" />
+				<PAR Name="ImgTop" />
+				<PAR Name="ImgBottom" />
+				<PAR Name="ImgLeft" />
+				<PAR Name="ImgRight" />
+				<PAR Name="CSSStyle">
+					<EXP><![CDATA[$C$CSS/StyleFixedSummaryInput.css]]></EXP>
+				</PAR>
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="CaptionsList" />
+				<PAR Name="HideColumns">
+					<EXP><![CDATA[$=$"IDX"+IIF(CountByExp(myUser.groups,"Me=1")<1,",ORIGIN,TAGS","")]]></EXP>
+				</PAR>
+				<PAR Name="Header">
+					<EXP><![CDATA[$=$"YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+				</PAR>
+				<PAR Name="Footer">
+					<EXP><![CDATA[$=$IIF(MaxNumPages>0, "PAGE "+page_idx+" OF "+MaxNumPages, "")]]></EXP>
+				</PAR>
+				<PAR Name="ButtonsMode">
+					<EXP><![CDATA[$C$3]]></EXP>
+				</PAR>
+				<PAR Name="ButtonList">
+					<EXP><![CDATA[$=$IIF(page_idx>1, "PREVIOUS PAGE,", "")+IIF(page_idx<MaxNumPages,"NEXT PAGE,", "")+IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+IIF(Mode<>"read", "EDIT FOR LANGUAGE,", "")+" EXIT"+IIF(IsEmpty(Trad), "", ",SAVE")
+]]></EXP>
+				</PAR>
+				<PAR Name="ButtonImgs" />
+				<PAR Name="ButtonAction" />
+				<PAR Name="ButtonOptions" />
+				<PAR Name="ButtonDefs" />
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$Button]]></EXP>
+				</PAR>
+				<PAR Name="InputTree">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="FilterData">
+					<EXP><![CDATA[$=$FilterTrad]]></EXP>
+				</PAR>
+				<PAR Name="Options">
+					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
+				</PAR>
+			</ACTION_CALL>
 			<SELECTCASE Id="RDK:971539" Expanded="True">
 				<EXP><![CDATA[$=$Button]]></EXP>
-				<CASEGROUP Id="RDK:971540" CaseType="0">
+				<CASEGROUP Id="RDK:971540" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$ADD]]></EXP>
 					<SET Id="RDK:971618" VarRef="Trad">
 						<EXP><![CDATA[$C$NOTHING]]></EXP>
@@ -1155,7 +1290,7 @@ ORDER BY T.ITA]]></EXP>
 						<PAR Name="ORIGIN_ID_1" />
 						<PAR Name="LAST_UPDATE" />
 					</SET_STRUCT>
-					<WHILELOOP Id="RDK:971705">
+					<WHILELOOP Id="RDK:971705" Expanded="True">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$ValidTag]]></EXP>
 						</VALUECONDITION>
@@ -1204,11 +1339,11 @@ ORDER BY T.ITA]]></EXP>
 							</PAR>
 							<PAR Name="Options" />
 						</ACTION_CALL>
-						<IFTHENELSE Id="RDK:971704">
+						<IFTHENELSE Id="RDK:971704" Expanded="True">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:971701" SubType="Then">
+							<GROUP Id="RDK:971701" SubType="Then" Expanded="True">
 								<ACTION_CALL Id="RDK:971684" Name="RDEngineering_DBSelect">
 									<PAR Name="RDLibraryName">
 										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -1317,7 +1452,7 @@ ORDER BY T.ITA]]></EXP>
 											<VALUECONDITION Value="true">
 												<EXP><![CDATA[$=$Button="OK"]]></EXP>
 											</VALUECONDITION>
-											<GROUP Id="RDK:971693" Name="sql" SubType="Generic">
+											<GROUP Id="RDK:971693" Name="sql" SubType="Generic" Expanded="True">
 												<ACTION_CALL Id="RDK:971689" Name="RDEngineering_DBInsert">
 													<PAR Name="RDLibraryName">
 														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -1576,12 +1711,55 @@ ORDER BY T.ITA]]></EXP>
 								<EXP><![CDATA[$=$""]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
-							<ACTION_CALL Id="RDK:971909" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+							<ACTION_CALL Id="RDK:971909" Name="RDEngineering_RemoteMsgBox" Suppressed="True" DesignTimeRemark="{Text}">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 								</PAR>
 								<PAR Name="MsgText">
 									<EXP><![CDATA[$=$"Are you sure you want to delete TAGS "+TradTable[idx].TAGS+" from "+TradTable[idx].ORIGIN+" ?" ]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$True]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList">
+									<EXP><![CDATA[$C$YES,NO]]></EXP>
+								</PAR>
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$Button]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<ACTION_CALL Id="RDK:984894" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"Are you sure you want to delete TAGS "+TradTable_Page[idx].TAGS+" from "+TradTable_PAGE[idx].ORIGIN+" ?" ]]></EXP>
 								</PAR>
 								<PAR Name="MsgFormat">
 									<EXP><![CDATA[$C$0]]></EXP>
@@ -1625,7 +1803,7 @@ ORDER BY T.ITA]]></EXP>
 								</VALUECONDITION>
 								<GROUP Id="RDK:971914" SubType="Then" Expanded="True">
 									<GROUP Id="RDK:971913" Name="sql" SubType="Generic" Expanded="True">
-										<ACTION_CALL Id="RDK:971910" Name="RDEngineering_DBExecuteStatement">
+										<ACTION_CALL Id="RDK:971910" Name="RDEngineering_DBExecuteStatement" Suppressed="True">
 											<PAR Name="RDLibraryName">
 												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
 											</PAR>
@@ -1634,6 +1812,21 @@ ORDER BY T.ITA]]></EXP>
 											</PAR>
 											<PAR Name="SqlStatement">
 												<EXP><![CDATA[$=$"UPDATE TRADS SET DELETED=1 WHERE IDX="+TradTable[idx].IDX]]></EXP>
+											</PAR>
+											<PAR Name="StatementResult">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+										<ACTION_CALL Id="RDK:984923" Name="RDEngineering_DBExecuteStatement">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+											</PAR>
+											<PAR Name="ConnectionName">
+												<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+											</PAR>
+											<PAR Name="SqlStatement">
+												<EXP><![CDATA[$=$"UPDATE TRADS SET DELETED=1 WHERE IDX="+TradTable_PAGE[idx].IDX]]></EXP>
 											</PAR>
 											<PAR Name="StatementResult">
 												<EXP><![CDATA[$V$]]></EXP>
@@ -1741,54 +1934,29 @@ ORDER BY T.ITA
 						</GROUP>
 					</IFTHENELSE>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:971951" CaseType="0" Expanded="True" Suppressed="True" DesignTimeRemark="SORT">
-					<EXP><![CDATA[$=$"StrStartWith(Me, "+QtCh()+"SORTCLICK"+QtCh()+")"]]></EXP>
-					<SET_STRUCT Id="RDK:971980" VarRef="sorted" ClearAll="True">
-						<PAR Name="field">
-							<EXP><![CDATA[$=$StrAfter(Button, ",")]]></EXP>
-						</PAR>
-						<PAR Name="Desc">
-							<EXP><![CDATA[$=$StrStartWith(StrAfter(StrBefore(Button, ","), "SORTCLICK_"), "D")]]></EXP>
-						</PAR>
-					</SET_STRUCT>
+				<CASEGROUP Id="RDK:971951" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$PREVIOUS PAGE]]></EXP>
+					<SET Id="RDK:981850" VarRef="page_idx">
+						<EXP><![CDATA[$=$page_idx-1]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:984138" VarRef="idx">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:972054" CaseType="0" Expanded="True" Suppressed="True" DesignTimeRemark="FILTER">
-					<EXP><![CDATA[$C$StrStartWith(Button, "EDITFILTER")]]></EXP>
-					<SET_STRUCT Id="RDK:972120" VarRef="FilterTrad" ClearAll="True">
-						<PAR Name="ORIGIN">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ORIGIN", SplitStr(Button, ",", "")[2], FilterTrad.ORIGIN)]]></EXP>
-						</PAR>
-						<PAR Name="TAGS">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="TAGS", SplitStr(Button, ",", "")[2], FilterTrad.TAGS)]]></EXP>
-						</PAR>
-						<PAR Name="IDX" />
-						<PAR Name="ITA">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ITA", SplitStr(Button, ",", "")[2], FilterTrad.ITA)]]></EXP>
-						</PAR>
-						<PAR Name="ENG">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ENG", SplitStr(Button, ",", "")[2], FilterTrad.ENG)]]></EXP>
-						</PAR>
-						<PAR Name="ESP">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ESP", SplitStr(Button, ",", "")[2], FilterTrad.ESP)]]></EXP>
-						</PAR>
-						<PAR Name="FRA">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="FRA", SplitStr(Button, ",", "")[2], FilterTrad.FRA)]]></EXP>
-						</PAR>
-						<PAR Name="DEU">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="DEU", SplitStr(Button, ",", "")[2], FilterTrad.DEU)]]></EXP>
-						</PAR>
-						<PAR Name="UPDATED">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="UPDATED", SplitStr(Button, ",", "")[2], FilterTrad.UPDATED)]]></EXP>
-						</PAR>
-						<PAR Name="IS_NEW">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="IS_NEW", SplitStr(Button, ",", "")[2], FilterTrad.IS_NEW)]]></EXP>
-						</PAR>
-						<PAR Name="LAST_UPDATE">
-							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="LAST_UPDATE", SplitStr(Button, ",", "")[2], FilterTrad.LAST_UPDATE)]]></EXP>
-						</PAR>
-					</SET_STRUCT>
+				<CASEGROUP Id="RDK:972054" CaseType="0" Expanded="True">
+					<EXP><![CDATA[$C$NEXT PAGE]]></EXP>
+					<SET Id="RDK:981906" VarRef="page_idx">
+						<EXP><![CDATA[$=$page_idx+1]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:984158" VarRef="idx">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
 				</CASEGROUP>
-				<CASEGROUP Id="RDK:972158" CaseType="0">
+				<CASEGROUP Id="RDK:972158" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$DELETE ALL FILTERS]]></EXP>
 					<SET Id="RDK:972196" VarRef="TradTable">
 						<EXP><![CDATA[$=$TradTable_ORIG]]></EXP>
@@ -1801,14 +1969,18 @@ ORDER BY T.ITA
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:972226" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$SelectRow]]></EXP>
-					<SET Id="RDK:972331" VarRef="Trad">
+					<SET Id="RDK:972331" VarRef="Trad" Suppressed="True">
 						<EXP><![CDATA[$=$TradTable[idx]]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:984874" VarRef="Trad">
+						<EXP><![CDATA[$=$TradTable_Page[idx]]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:972245" CaseType="0" Expanded="True" DesignTimeRemark="CHANGE INTERFACE">
 					<EXP><![CDATA[$C$EDIT FOR LANGUAGE]]></EXP>
-					<GROUP Id="RDK:978827" Name="SALVATAGGIO TRAD NEL DB" SubType="Generic">
+					<GROUP Id="RDK:978827" Name="SALVATAGGIO TRAD NEL DB" SubType="Generic" Expanded="True">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$IsEmpty(Trad)]]></EXP>
 						</VALUECONDITION>
@@ -1987,31 +2159,31 @@ ORDER BY T.ITA]]></EXP>
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:981199" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:988085" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981200" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:988086" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="SAVE" ]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981201" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:988087" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981202" Name="SORT">
+				<VAR_COND Id="RDK:988088" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981203" Name="FILTER">
+				<VAR_COND Id="RDK:988089" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981204" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:988090" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981205" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:988091" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981206" Name="SELECTED_ROW">
+				<VAR_COND Id="RDK:988092" Name="SELECTED_ROW">
 					<EXP><![CDATA[$=$Button="SelectRow"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:981207" Name="CHANGE_INTERFACE">
+				<VAR_COND Id="RDK:988093" Name="CHANGE_INTERFACE">
 					<EXP><![CDATA[$=$Button="EDIT FOR LANGUAGE"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice">
