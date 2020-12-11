@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T13:41:46" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T17:23:31" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure">
@@ -14,8 +14,9 @@
 				<FIELD Id="RDK:30" Name="FRA" Type="string" />
 				<FIELD Id="RDK:31" Name="DEU" Type="string" />
 				<FIELD Id="RDK:1301" Name="UPDATED" Type="boolean" />
-				<FIELD Id="RDK:2232" Name="IS_NEW" Type="boolean" />
+				<FIELD Id="RDK:2232" Name="NEW" Type="boolean" />
 				<FIELD Id="RDK:680143" Name="LAST_UPDATE" Type="date" />
+				<FIELD Id="RDK:988785" Name="OPT" Type="string" />
 			</TYPE>
 			<TYPE Id="RDK:930422" Name="TradType_list" Expanded="True" SubType="list" ItemListTypeName="TradType">
 				<UI_INPUT_TYPE TypeForm="Text" />
@@ -820,7 +821,7 @@
 				<FIELD Id="RDK:915156" Name="FRA" Type="string" />
 				<FIELD Id="RDK:915157" Name="DEU" Type="string" />
 				<FIELD Id="RDK:915158" Name="UPDATED" Type="string" />
-				<FIELD Id="RDK:915159" Name="IS_NEW" Type="string" />
+				<FIELD Id="RDK:915159" Name="NEW" Type="string" />
 				<FIELD Id="RDK:915160" Name="LAST_UPDATE" Type="string" />
 			</TYPE>
 		</GROUP>
@@ -904,6 +905,7 @@
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True">
 			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" Expanded="True" />
 			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" Expanded="True" />
+			<PROFILE Id="RDK:1008419" Name="TradGrid" TypeName="TradType" Expanded="True" />
 		</GROUP>
 		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True">
 			<FUNCTION Id="RDK:981366" Name="SetPageList" Expanded="True">
@@ -938,6 +940,15 @@
 					<EXP><![CDATA[$=$ListCrop(TradTable, from_idx, to_idx)]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
+				<GROUP Id="RDK:989184" Name="SET BACKGROUND COLOR ON IDX" SubType="Generic" Expanded="True">
+					<VALUECONDITION Value="false">
+						<EXP><![CDATA[$=$IsEmpty(Trad)]]></EXP>
+					</VALUECONDITION>
+					<SET Id="RDK:988805" VarRef="TradTable_PAGE">
+						<EXP><![CDATA[$=$ExecOnValues(TradTable_PAGE, "SetStruct(Me, ""OPT"", IIF(Me.IDX=" + Trad.IDX + ", ""(ROWBACKCOLOR=#6be38c)"", """"))", "(PARALLEL)")]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</GROUP>
 			</FUNCTION>
 		</GROUP>
 	</GROUP>
@@ -996,7 +1007,7 @@
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
 		END
-	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
 FROM TRADS as T with (NOLOCK)
 LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
 WHERE DELETED IS NULL OR DELETED=0
@@ -1205,9 +1216,11 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$TradTable_Page]]></EXP>
 				</PAR>
 				<PAR Name="GridEditable">
-					<EXP><![CDATA[$C$false]]></EXP>
+					<EXP><![CDATA[$C$true]]></EXP>
 				</PAR>
-				<PAR Name="GridProfile" />
+				<PAR Name="GridProfile">
+					<EXP><![CDATA[$C$TradGrid]]></EXP>
+				</PAR>
 				<PAR Name="GridHeader" />
 				<PAR Name="GridRemark" />
 				<PAR Name="InputVar">
@@ -1238,7 +1251,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"IDX"+IIF(CountByExp(myUser.groups,"Me=1")<1,",ORIGIN,TAGS","")]]></EXP>
 				</PAR>
 				<PAR Name="Header">
-					<EXP><![CDATA[$=$"YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+					<EXP><![CDATA[$=$myUser.name+", YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
 				</PAR>
 				<PAR Name="Footer">
 					<EXP><![CDATA[$=$IIF(MaxNumPages>0, "PAGE "+page_idx+" OF "+MaxNumPages, "")]]></EXP>
@@ -1264,7 +1277,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$FilterTrad]]></EXP>
 				</PAR>
 				<PAR Name="Options">
-					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
+					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)(OPTIONSFIELD=OPT)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
 			<SELECTCASE Id="RDK:971539" Expanded="True">
@@ -1515,7 +1528,7 @@ ORDER BY T.ITA]]></EXP>
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
 		END
-	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
 FROM TRADS as T with (NOLOCK)
 LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
 WHERE DELETED IS NULL OR DELETED=0
@@ -1613,7 +1626,7 @@ Please, choose a different TAG"]]></EXP>
 								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
 							</PAR>
 							<PAR Name="SqlStatement">
-								<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
+								<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
 							</PAR>
 							<PAR Name="StatementResult">
 								<EXP><![CDATA[$V$]]></EXP>
@@ -1664,7 +1677,7 @@ Please, choose a different TAG"]]></EXP>
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
 		END
-	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
 FROM TRADS as T with (NOLOCK)
 LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
 WHERE DELETED IS NULL OR DELETED=0
@@ -1855,7 +1868,7 @@ ORDER BY T.ITA]]></EXP>
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
 		END
-	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
 FROM TRADS as T with (NOLOCK)
 LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
 WHERE DELETED IS NULL OR DELETED=0
@@ -1959,6 +1972,10 @@ ORDER BY T.ITA
 						<EXP><![CDATA[$C$NOTHING]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
+					<SET Id="RDK:992385" VarRef="idx">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:972226" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$SelectRow]]></EXP>
@@ -1985,7 +2002,7 @@ ORDER BY T.ITA
 								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
 							</PAR>
 							<PAR Name="SqlStatement">
-								<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
+								<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
 							</PAR>
 							<PAR Name="StatementResult">
 								<EXP><![CDATA[$V$]]></EXP>
@@ -2019,6 +2036,10 @@ ORDER BY T.ITA
 							<EXP><![CDATA[$C$0]]></EXP>
 						</PAR>
 					</ACTION_CALL>
+					<SET Id="RDK:992374" VarRef="idx">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
 					<PROCESS_CALL Id="RDK:972388" Expanded="True">
 						<EXP><![CDATA[$C$Web_Interface_v1.rdx]]></EXP>
 						<PAR Name="Mode">
@@ -2072,7 +2093,7 @@ ORDER BY T.ITA
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
 		END
-	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
 FROM TRADS as T with (NOLOCK)
 LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
 WHERE DELETED IS NULL OR DELETED=0
@@ -2113,18 +2134,17 @@ ORDER BY T.ITA]]></EXP>
 					</PAR>
 				</SET_STRUCT>
 			</GROUP>
-			<GROUP Id="RDK:979636" Name="FILTER BUTTON PRESSED" SubType="Generic" Expanded="True">
+			<GROUP Id="RDK:991754" Name="FILTER BUTTON PRESSED" SubType="Generic" Expanded="True">
 				<VALUECONDITION Value="true">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VALUECONDITION>
-				<SET_STRUCT Id="RDK:979680" VarRef="FilterTrad" ClearAll="True">
+				<SET_STRUCT Id="RDK:991753" VarRef="FilterTrad" ClearAll="True">
 					<PAR Name="ORIGIN">
 						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ORIGIN", SplitStr(Button, ",", "")[2], FilterTrad.ORIGIN)]]></EXP>
 					</PAR>
 					<PAR Name="TAGS">
 						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="TAGS", SplitStr(Button, ",", "")[2], FilterTrad.TAGS)]]></EXP>
 					</PAR>
-					<PAR Name="IDX" />
 					<PAR Name="ITA">
 						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ITA", SplitStr(Button, ",", "")[2], FilterTrad.ITA)]]></EXP>
 					</PAR>
@@ -2143,8 +2163,8 @@ ORDER BY T.ITA]]></EXP>
 					<PAR Name="UPDATED">
 						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="UPDATED", SplitStr(Button, ",", "")[2], FilterTrad.UPDATED)]]></EXP>
 					</PAR>
-					<PAR Name="IS_NEW">
-						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="IS_NEW", SplitStr(Button, ",", "")[2], FilterTrad.IS_NEW)]]></EXP>
+					<PAR Name="NEW">
+						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="NEW", SplitStr(Button, ",", "")[2], FilterTrad.NEW)]]></EXP>
 					</PAR>
 					<PAR Name="LAST_UPDATE">
 						<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="LAST_UPDATE", SplitStr(Button, ",", "")[2], FilterTrad.LAST_UPDATE)]]></EXP>
@@ -2152,34 +2172,34 @@ ORDER BY T.ITA]]></EXP>
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:988513" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:1012390" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988514" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:1012391" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="SAVE" ]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988515" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:1012392" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988516" Name="SORT">
+				<VAR_COND Id="RDK:1012393" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988517" Name="FILTER">
+				<VAR_COND Id="RDK:1012394" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988518" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:1012395" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988519" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:1012396" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988520" Name="SELECTED_ROW">
+				<VAR_COND Id="RDK:1012397" Name="SELECTED_ROW">
 					<EXP><![CDATA[$=$Button="SelectRow"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:988521" Name="CHANGE_INTERFACE">
+				<VAR_COND Id="RDK:1012398" Name="CHANGE_INTERFACE">
 					<EXP><![CDATA[$=$Button="EDIT FOR LANGUAGE"]]></EXP>
 				</VAR_COND>
-				<CHOICE Id="RDK:61" Name="Choice">
+				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$ADD_TRAD]]></EXP>
 					</VALUECONDITION>
@@ -2201,7 +2221,7 @@ ORDER BY T.ITA]]></EXP>
 						<PAR Name="ORIGIN_ID_1" />
 						<PAR Name="LAST_UPDATE" />
 					</SET_STRUCT>
-					<WHILELOOP Id="RDK:1925">
+					<WHILELOOP Id="RDK:1925" Expanded="True">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$ValidTag]]></EXP>
 						</VALUECONDITION>
@@ -2250,11 +2270,11 @@ ORDER BY T.ITA]]></EXP>
 							</PAR>
 							<PAR Name="Options" />
 						</ACTION_CALL>
-						<IFTHENELSE Id="RDK:966855">
+						<IFTHENELSE Id="RDK:966855" Expanded="True">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:966856" SubType="Then">
+							<GROUP Id="RDK:966856" SubType="Then" Expanded="True">
 								<ACTION_CALL Id="RDK:1959" Name="RDEngineering_DBSelect">
 									<PAR Name="RDLibraryName">
 										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -2295,11 +2315,11 @@ ORDER BY T.ITA]]></EXP>
 									<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable_ORIG, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
 									<PAR Name="AdvancedOptions" />
 								</SET>
-								<IFTHENELSE Id="RDK:2076">
+								<IFTHENELSE Id="RDK:2076" Expanded="True">
 									<VALUECONDITION Value="true">
 										<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
 									</VALUECONDITION>
-									<GROUP Id="RDK:2077" SubType="Then">
+									<GROUP Id="RDK:2077" SubType="Then" Expanded="True">
 										<SET Id="RDK:2118" VarRef="ValidTag">
 											<EXP><![CDATA[$C$True]]></EXP>
 											<PAR Name="AdvancedOptions" />
@@ -2359,11 +2379,11 @@ ORDER BY T.ITA]]></EXP>
 											</PAR>
 											<PAR Name="Options" />
 										</ACTION_CALL>
-										<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic">
+										<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic" Expanded="True">
 											<VALUECONDITION Value="true">
 												<EXP><![CDATA[$=$Button="OK"]]></EXP>
 											</VALUECONDITION>
-											<GROUP Id="RDK:941233" Name="sql" SubType="Generic">
+											<GROUP Id="RDK:941233" Name="sql" SubType="Generic" Expanded="True">
 												<ACTION_CALL Id="RDK:1279" Name="RDEngineering_DBInsert">
 													<PAR Name="RDLibraryName">
 														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -3048,7 +3068,7 @@ ORDER BY T.ITA
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911576" VarRef="TradTable">
-					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "IS_NEW", "*"+FilterTrad.IS_NEW+"*")]]></EXP>
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "NEW", "*"+FilterTrad.NEW+"*")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911602" VarRef="TradTable">
@@ -3100,7 +3120,7 @@ ORDER BY T.ITA
 					<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
 				</PAR>
 				<PAR Name="SqlStatement">
-					<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
+					<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
 				</PAR>
 				<PAR Name="StatementResult">
 					<EXP><![CDATA[$V$]]></EXP>
@@ -3366,88 +3386,36 @@ EDIT ON
 	</GROUP>
 	<EXTERNAL_DATA>
 		<PROFILES_DATA>
-			<RELPROFILE Id="RDK:1175" TypeName="MetaTradType" Expanded="True">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="IDX" VariantName="Variant" ProfileName="MetaTradProfile" />
-				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE>
-					<EXP><![CDATA[$=$MAX_IDX]]></EXP>
-				</RP_SETFIELD_VALUE>
-				<RP_SETFIELD_FORCED>
-					<EXP><![CDATA[$C$True]]></EXP>
-				</RP_SETFIELD_FORCED>
-				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
-				<UI_INPUT_VALIDATION ValidationType="none" />
-				<UI_INPUT_SUPPORT />
-			</RELPROFILE>
-			<RELPROFILE Id="RDK:1182" TypeName="MetaTradType" Expanded="True">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="ORIGIN_DB" VariantName="Variant" ProfileName="MetaTradProfile" />
-				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE />
-				<RP_SETFIELD_FORCED>
-					<EXP><![CDATA[$C$True]]></EXP>
-				</RP_SETFIELD_FORCED>
-				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
-				<UI_INPUT_VALIDATION ValidationType="none" />
-				<UI_INPUT_SUPPORT />
-			</RELPROFILE>
-			<RELPROFILE Id="RDK:1640" TypeName="MetaTradType" Expanded="True">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="ORIGIN_TABLE" VariantName="Variant" />
-				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE />
-				<RP_SETFIELD_FORCED>
-					<EXP><![CDATA[$C$True]]></EXP>
-				</RP_SETFIELD_FORCED>
-				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
-				<UI_INPUT_VALIDATION ValidationType="none" />
-				<UI_INPUT_SUPPORT />
-			</RELPROFILE>
-			<RELPROFILE Id="RDK:1189" TypeName="MetaTradType" Expanded="True">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_0" VariantName="Variant" ProfileName="MetaTradProfile" />
+			<RELPROFILE Id="RDK:1008417" TypeName="TradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="TradGrid" />
+				<PNODE NodeType="field_variant" FieldName="UPDATED" VariantName="Variant" />
 				<RP_INITIAL_VALUE />
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Request="$=$Button=&quot;NEXT&quot;" TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="CheckBox" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
-				<UI_INPUT_SUPPORT>
-					<PAR Name="InputPromptExp">
-						<EXP><![CDATA[$C$TAG]]></EXP>
-					</PAR>
-					<PAR Name="InputImageExp" />
-					<PAR Name="InputTooltipExp" />
-					<PAR Name="InputStyleExp" />
-				</UI_INPUT_SUPPORT>
+				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
-			<RELPROFILE Id="RDK:1199" TypeName="MetaTradType" Expanded="True">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_1" VariantName="Variant" ProfileName="MetaTradProfile" />
+			<RELPROFILE Id="RDK:1008418" TypeName="TradType" Expanded="True" Suppressed="True">
+				<PNODE NodeType="profile" ProfileName="TradGrid" />
+				<PNODE NodeType="field_variant" FieldName="IS_NEW" VariantName="Variant" />
 				<RP_INITIAL_VALUE />
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Visible="False" TypeForm="Text" />
+				<UI_INPUT_TYPE TypeForm="CheckBox" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
-			<RELPROFILE Id="RDK:840565" TypeName="MetaTradType">
-				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
-				<PNODE NodeType="field_variant" FieldName="LAST_UPDATE" VariantName="Variant" />
+			<RELPROFILE Id="RDK:1010847" TypeName="TradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="TradGrid" />
+				<PNODE NodeType="field_variant" FieldName="NEW" VariantName="Variant" />
 				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE>
-					<EXP><![CDATA[$=$Now()]]></EXP>
-				</RP_SETFIELD_VALUE>
-				<RP_SETFIELD_FORCED>
-					<EXP><![CDATA[$C$True]]></EXP>
-				</RP_SETFIELD_FORCED>
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Visible="False" TypeForm="Date" Locked="True" />
+				<UI_INPUT_TYPE TypeForm="CheckBox" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
@@ -3552,11 +3520,11 @@ EDIT ON
 				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED />
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Visible="False" TypeForm="Yes_No" Locked="True" />
+				<UI_INPUT_TYPE Visible="False" TypeForm="CheckBox" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
-			<RELPROFILE Id="RDK:950753" TypeName="TradType">
+			<RELPROFILE Id="RDK:950753" TypeName="TradType" Suppressed="True">
 				<PNODE NodeType="profile" ProfileName="TradProfile" />
 				<PNODE NodeType="field_variant" FieldName="IS_NEW" VariantName="Variant" />
 				<RP_INITIAL_VALUE />
@@ -3565,7 +3533,103 @@ EDIT ON
 					<EXP><![CDATA[$C$False]]></EXP>
 				</RP_SETFIELD_FORCED>
 				<RP_SETOPTIONS />
-				<UI_INPUT_TYPE Visible="False" TypeForm="Yes_No" Locked="True" />
+				<UI_INPUT_TYPE Visible="False" TypeForm="CheckBox" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1010867" TypeName="TradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="NEW" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="CheckBox" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1175" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="IDX" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE>
+					<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+				</RP_SETFIELD_VALUE>
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1182" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_DB" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1640" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_TABLE" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1189" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_0" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="$=$Button=&quot;NEXT&quot;" TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT>
+					<PAR Name="InputPromptExp">
+						<EXP><![CDATA[$C$TAG]]></EXP>
+					</PAR>
+					<PAR Name="InputImageExp" />
+					<PAR Name="InputTooltipExp" />
+					<PAR Name="InputStyleExp" />
+				</UI_INPUT_SUPPORT>
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1199" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_1" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:840565" TypeName="MetaTradType">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="LAST_UPDATE" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE>
+					<EXP><![CDATA[$=$Now()]]></EXP>
+				</RP_SETFIELD_VALUE>
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Date" Locked="True" />
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
