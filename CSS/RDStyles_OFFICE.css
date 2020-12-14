@@ -39,17 +39,11 @@
 	/*border-style:window-inset;*/
 }
 
-.RDBUTTON[value="SAVE"]
-{
-	float:right;
-	margin-right: 20px;
-}
-
 .RDBUTTON_IMAGE
 {
-	padding-left: 5px;	
+	/*padding-left: 5px;	
 	padding-right: 5px;
-	border-bottom: 4px solid #e1001a;
+	border-bottom: 4px solid #e1001a;*/
 }
 
 .RDBUTTON_IMAGE:hover
@@ -57,28 +51,23 @@
     /*background-color: #FFFFD4;*/
 	/*background-color: #cf9b2b;*/
 	/*background-color: #ffffff;*/
-	border-bottom: 4px solid #ffffff !important;
-	transition: .5s;
+	/*border-bottom: 4px solid #ffffff !important;
+	transition: .5s;*/
 }
 
 .RDBUTTON_IMAGE_PRESSED
 {
-    background-color: #ff8686;
-	padding-left: 5px;	
+    background-color: #ffedb5;
+	/*padding-left: 5px;	
 	padding-right: 5px;
-	border-bottom: 4px solid #ffffff;
-}
-
-.RDBUTTON_IMAGE_DISABLED
-{
-	border-bottom: 4px solid #e1001a !important;
+	border-bottom: 4px solid #ffffff;*/
 }
 
 /* Aspetto dei separatori fra i pulsanti*/
 .RDBUTTON_SEPARATOR
 {
-    padding-left: 30px;
-	vertical-align: top;
+    /*padding-left: 30px;
+	vertical-align: top;*/
 }
 
 .RDBUTTON_DISABLED 
@@ -89,18 +78,27 @@
 
 .RDBUTTON_AREA_TOP
 {
-   background-color: #e1001a;
+   background-image:url(Buttonbar_middle.gif);
+   background-repeat:repeat-x;
+   background-position: top center;  
    padding-bottom: 3px;
+   padding-left: 0px;
 }
 
 .RDBUTTON_AREA_TOP_LEFT
 {
-   background-color: #e1001a;
+   background-image:url(Buttonbar_left.gif);
+   background-repeat:no-repeat;
+   background-position:top right;
+   width:18px;
 }
 
 .RDBUTTON_AREA_TOP_RIGHT
 {
-   background-color: #e1001a;
+   background-image:url(Buttonbar_right.gif);
+   background-repeat:no-repeat;
+   background-position:top left;
+   width:10px;
 }
 
 /*
@@ -132,18 +130,6 @@
    width:18px;
 }
 */
-.RDCONTROL_CHECKBOX_IMG {
-	padding: 0px !important;
-	margin: 0px;
-}
-
-.RDCONTROL_CHECKBOX_IMG_CELL{
-	padding: 0px !important;
-}
-
-.RDCONTROL_CHECKBOX_BUFFER_CELL {
-    padding: 0px !important;
-}
 
 .RDCONTROL_CHECKBOX_2 {
     background-color: #FFBF00;
@@ -201,7 +187,7 @@
 
 .RDCONTROL_RADIOBUTTONS_IMG:hover
 {
-	background-color: #ff8686 !important;
+	background-color: #ffedb5 !important;
 	/*transition: .5s;*/
 }
 
@@ -217,7 +203,7 @@
 {
 	background-color: palegoldenrod;
 	padding-bottom: 4px;
-    padding-top: 3px;
+    padding-top: 4px;
 }
 .RDCONTROL_COMBOBOX 
 {
@@ -226,7 +212,7 @@
 	border-left:0px solid #000000;
 	border-right:0px solid #000000;
 	padding-bottom: 4px;
-    padding-top: 3px;
+    padding-top: 4px;
 }
 .RDCONTROL_TEXT 
 {
@@ -235,7 +221,17 @@
 	border-left:0px solid #000000;
 	border-right:0px solid #000000;
 	padding-bottom: 4px;
-    padding-top: 3px;
+    padding-top: 4px;
+}
+
+.RDCONTROL_PASSWORD 
+{
+    border-bottom:1px solid #000000;
+	border-top:0px solid #000000;
+	border-left:0px solid #000000;
+	border-right:0px solid #000000;
+	padding-bottom: 4px;
+    padding-top: 4px;
 }
 
 .RDCONTROL_TEXTAREA
@@ -245,7 +241,7 @@
 	border-left:0px solid #000000;
 	border-right:0px solid #000000;
 	padding-bottom: 4px;
-    padding-top: 3px;
+    padding-top: 4px;
 }
 
 .RDWI_SIDELABEL_INPUT
@@ -428,10 +424,10 @@
 
 .RDGRID_FOOTER
 {
-	background-color:#000000;
+	background-color:#0072bc;
 	height:24px;
 	width:100%;
-	color:#ffffff;
+	color:#000000;
 	font-family:Verdana;
 	font-size: 9pt;
 	font-style:normal;
@@ -450,7 +446,7 @@
 
 .RDWI_FIELDSET fieldset
 { 
-    width: 650px;
+    /*width: 780px;			*/
     font-family:Verdana;
 	font-size:8pt;
 	color:#000000;
@@ -464,7 +460,7 @@
 
 .RDGRID_ROW_TITLE
 {
-	background-color:#000000;
+	background-color:#0072bc;
 	color:#ffffff;
 }
 
@@ -509,79 +505,29 @@
 	border-bottom: none !important;
 }
 
+.dd {
+    font-size: 8pt;
+    font-family: Verdana;
+}
+
+.dd .ddChild li .ddlabel {
+    font-size: 8pt;
+}
+
 #rdFilterFlyout {
     font-family: Verdana;
 	font-size: 10pt;
 }
 
-
-/*
-.RDWI_SUMMARYGRID_TABLE table{
-    width: 750px;
-    display: inline-block;
+.tree_input_body .RDBUTTON_AREA_BOTTOM input {
+    position: relative;
+    left: 1180px;
 }
 
-.RDWI_WEBINPUT_TABLE table {
-    width: 50%;
-    display: inline-block;
-    vertical-align: top;
-    padding-left: 20px;
-    padding-top: 60px;
-}
-*/
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE {
-    width: 70%;
-    display: inline-block;
-    position: fixed;
+.tree_input_body .RDBUTTON_AREA_BOTTOM {
+    text-align: left;
 }
 
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE  table thead {
-    display: block;
+.mytree .RD_TREE_ROOT {
+     width: 1000px;
 }
-
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE  table tbody {
-    display: block;
-    overflow-y: auto;
-    height: 500px;
-}
-
-
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tr {
-    table-layout: fixed;
-    display: table;
-}
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE td{
-    word-wrap: break-word;
-}
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE {
-    width: 30%;
-    position: fixed;
-    display: inline-block;
-    /* vertical-align: top; */
-    /* overflow: hidden; */
-    /* float: right; */
-    padding-top: 20px;
-    padding-left: 20px;
-    margin-left: 70%;
-   overflow-x: auto;
-    
-}
-
-.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE fieldset {
-    width: auto;
-}
-
-th.DELETE{
-  width:2%;
-}
-
-
-
-
-

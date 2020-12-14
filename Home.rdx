@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T13:40:14" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-14T16:51:43" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -395,8 +395,11 @@ EDIT ON
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
-				<PROCESS_CALL Id="RDK:920086">
+				<PROCESS_CALL Id="RDK:920086" Expanded="True" OptionsAsExp="True">
 					<EXP><![CDATA[$C$Import_in_DB.rdx]]></EXP>
+					<PAR Name="admin">
+						<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")>=1]]></EXP>
+					</PAR>
 				</PROCESS_CALL>
 				<ACTION_CALL Id="RDK:920073" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 					<PAR Name="RDLibraryName">
@@ -843,8 +846,11 @@ EDIT ON
 									</PAR>
 									<PAR Name="Options" />
 								</ACTION_CALL>
-								<PROCESS_CALL Id="RDK:935795">
+								<PROCESS_CALL Id="RDK:935795" Expanded="True">
 									<EXP><![CDATA[$C$Import_in_DB.rdx]]></EXP>
+									<PAR Name="admin">
+										<EXP><![CDATA[$C$True]]></EXP>
+									</PAR>
 								</PROCESS_CALL>
 							</GROUP>
 							<GROUP Id="RDK:935768" SubType="Else" Expanded="True">
@@ -1036,6 +1042,7 @@ MESSAGE "+Error.Message]]></EXP>
 					</PAR>
 					<PAR Name="Options" />
 				</ACTION_CALL>
+				<EXIT_PROCESS Id="RDK:1045087" ExitStatus="0" />
 			</GROUP>
 		</IFTHENELSE>
 	</GROUP>

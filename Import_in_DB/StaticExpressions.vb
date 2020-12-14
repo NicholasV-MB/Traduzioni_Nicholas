@@ -428,6 +428,13 @@ Module StaticExpressions
 		return FusionTableKeys
 	End Function
 
+	'Condition for group PDM
+	'OriginalExpression: 'admin
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_613(ByVal Main As RDCompiledProcess) As Object
+		return admin
+	End Function
+
 	'OriginalExpression: 'ConnStr_PDM
 	<Extension()>
 	Public Function Eval_Static_ConnectionString_K_625(ByVal Main As RDCompiledProcess) As Object

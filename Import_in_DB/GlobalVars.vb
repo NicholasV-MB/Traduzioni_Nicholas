@@ -8,6 +8,7 @@ Public Module GlobalVars
 
 #Region " -- Process Parameters Table -- "
 
+	Public [admin] As boolean	'IN
 
 
 #End Region

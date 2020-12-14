@@ -14,6 +14,17 @@
    background-color: #e1001a;
 }
 
+.RDBUTTON_SAVE 
+{
+	float:right;
+	margin-right: 20px;
+}
+
+.RDBUTTON_NAVPAGES
+{
+	float:right;
+	margin-right: 20px;
+}
 
 table
 {
@@ -28,7 +39,7 @@ table.RDGRID tbody
 {
     display: block;
     overflow-y: auto;
-    height: 550px;
+    height: 500px;
 }
 
 table.RDGRID tr {

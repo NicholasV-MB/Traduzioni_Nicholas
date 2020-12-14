@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-11T17:23:31" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-14T16:45:48" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure">
@@ -824,6 +824,72 @@
 				<FIELD Id="RDK:915159" Name="NEW" Type="string" />
 				<FIELD Id="RDK:915160" Name="LAST_UPDATE" Type="string" />
 			</TYPE>
+			<GROUP Id="RDK:1012410" Name="ToolbarTypes" SubType="TypeSet" Include="Type_ToolbarTypes.rdx" IncludeDate="132514547724883516" Expanded="True">
+				<TYPE Id="RDK:1012425" Name="ButtonDefType" Expanded="True" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:1012411" Name="ButtonText" Type="string" DesignTimeRemark="Label or Html content for this button" />
+					<FIELD Id="RDK:1012412" Name="ButtonValue" Type="string" DesignTimeRemark="String returned as ButtonPressed" />
+					<FIELD Id="RDK:1012414" Name="ButtonType" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)">
+						<TYPE Id="RDK:1012414" IsInternal="True" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)" Expanded="True" SubType="base" BaseType="string">
+							<UI_INPUT_TYPE TypeForm="Text" />
+							<UI_INPUT_VALIDATION ValidationType="none" />
+							<UI_INPUT_SUPPORT />
+							<TYPE_VALUES>
+								<EXP><![CDATA[$C$SIMPLE]]></EXP>
+								<EXP><![CDATA[$C$IMAGE]]></EXP>
+								<EXP><![CDATA[$C$SMART]]></EXP>
+								<EXP><![CDATA[$C$FAB]]></EXP>
+								<EXP><![CDATA[$C$HTML]]></EXP>
+							</TYPE_VALUES>
+						</TYPE>
+					</FIELD>
+					<FIELD Id="RDK:1012416" Name="ButtonAction" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)">
+						<TYPE Id="RDK:1012416" IsInternal="True" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)" Expanded="True" SubType="base" BaseType="string">
+							<UI_INPUT_TYPE TypeForm="Text" />
+							<UI_INPUT_VALIDATION ValidationType="none" />
+							<UI_INPUT_SUPPORT />
+							<TYPE_VALUES>
+								<EXP><![CDATA[$C$NONE]]></EXP>
+								<EXP><![CDATA[$C$SUBMIT]]></EXP>
+								<EXP><![CDATA[$C$VALIDATE]]></EXP>
+								<EXP><![CDATA[$C$CANCEL]]></EXP>
+								<EXP><![CDATA[$C$DISABLE]]></EXP>
+							</TYPE_VALUES>
+						</TYPE>
+					</FIELD>
+					<FIELD Id="RDK:1012418" Name="ButtonLocation" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)">
+						<TYPE Id="RDK:1012418" IsInternal="True" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)" Expanded="True" SubType="base" BaseType="string">
+							<UI_INPUT_TYPE TypeForm="Text" />
+							<UI_INPUT_VALIDATION ValidationType="none" />
+							<UI_INPUT_SUPPORT />
+							<TYPE_VALUES>
+								<EXP><![CDATA[$=$TOP]]></EXP>
+								<EXP><![CDATA[$C$RIGHT]]></EXP>
+								<EXP><![CDATA[$C$BOTTOM]]></EXP>
+								<EXP><![CDATA[$C$LEFT]]></EXP>
+								<EXP><![CDATA[$C$FAB]]></EXP>
+							</TYPE_VALUES>
+						</TYPE>
+					</FIELD>
+					<FIELD Id="RDK:1012420" Name="ButtonStyle" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)">
+						<TYPE Id="RDK:1012420" IsInternal="True" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)" Expanded="True" SubType="base" BaseType="string">
+							<UI_INPUT_TYPE TypeForm="Text" />
+							<UI_INPUT_VALIDATION ValidationType="none" />
+							<UI_INPUT_SUPPORT />
+							<TYPE_VALUES>
+								<EXP><![CDATA[$=$DISABLED]]></EXP>
+								<EXP><![CDATA[$C$LOCKED]]></EXP>
+								<EXP><![CDATA[$C$PRESSED]]></EXP>
+								<EXP><![CDATA[$C$FOCUSED]]></EXP>
+							</TYPE_VALUES>
+						</TYPE>
+					</FIELD>
+					<FIELD Id="RDK:1012421" Name="ButtonClass" Type="string" DesignTimeRemark="Extra CSS class for button rendering" />
+					<FIELD Id="RDK:1012422" Name="ButtonImage" Type="string" DesignTimeRemark="Image resource associated to button face" />
+					<FIELD Id="RDK:1012423" Name="ButtonTooltip" Type="string" DesignTimeRemark="Tooltip associated to button area" />
+					<FIELD Id="RDK:1012424" Name="ButtonOptions" Type="string" DesignTimeRemark="(BREAK) Split to new row, (GROUP=&lt;name&gt;) Start a new named group (GROUP=END) Close group" />
+				</TYPE>
+			</GROUP>
 		</GROUP>
 		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True">
 			<PAR_DEF Id="RDK:920047" Name="Mode" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
@@ -888,7 +954,7 @@
 						<PAR Name="AdvancedOptions" />
 					</SET>
 				</VAR>
-				<VAR Id="RDK:981268" Name="page_rows" Type="integer" Expanded="True">
+				<VAR Id="RDK:981268" Name="page_rows" Type="integer" Expanded="True" Bookmarked="True" DesignTimeRemark="NUMERO DI RIGHE PER PAGINA">
 					<SET Id="RDK:981287" VarRef="Me">
 						<EXP><![CDATA[$C$500]]></EXP>
 						<PAR Name="AdvancedOptions" />
@@ -900,6 +966,11 @@
 				<VAR Id="RDK:981248" Name="TradTable_Page" Type="TradType_list" Expanded="True" />
 				<VAR Id="RDK:981694" Name="MaxNumPages" Type="integer" Expanded="True" />
 				<VAR Id="RDK:984055" Name="p_idx" Type="integer" />
+			</GROUP>
+			<GROUP Id="RDK:1012604" Name="Buttons" SubType="VarSet" IncludeDate="0" Expanded="True">
+				<VAR Id="RDK:1012616" Name="Btn" Type="ButtonDefType" />
+				<VAR Id="RDK:1012627" Name="BtnList" Type="ButtonDefType[]" />
+				<VAR Id="RDK:1012638" Name="BtnTempList" Type="ButtonDefType[]" />
 			</GROUP>
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True">
@@ -950,6 +1021,330 @@
 					</SET>
 				</GROUP>
 			</FUNCTION>
+			<FUNCTION Id="RDK:1012564" Name="SetButtons" Expanded="True">
+				<SET Id="RDK:1012535" VarRef="BtnList">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET_STRUCT Id="RDK:1012536" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$ADD]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$=$IIF(Mode="read", "NONE", "SUBMIT")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$=$IIF(Mode="read", "DISABLED", "")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$PlusCircle_36.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$=$IIF(Mode="read", "Not allowed in ReadOnly mode", "Add new translation")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1012537" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$DELETE ALL FILTERS]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$=$IIF(IsEmpty(FilterTrad), "NONE", "SUBMIT")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$=$IIF(IsEmpty(FilterTrad), "DISABLED", "")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$filter_delete33.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$C$Delete all filters]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1012538" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$EXIT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$SUBMIT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle" />
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$Exit_36.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$C$Exit]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1012539" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$NONE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$C$DISABLED]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage" />
+					<PAR Name="ButtonTooltip" />
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1012540" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$NONE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$C$DISABLED]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage" />
+					<PAR Name="ButtonTooltip" />
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1028526" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$SEP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$NONE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$C$DISABLED]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage" />
+					<PAR Name="ButtonTooltip" />
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1028537" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$EDIT FOR LANGUAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$=$IIF(Mode="read", "NONE", "SUBMIT")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$=$IIF(Mode="read", "DISABLED", "")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$Editor32.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$=$IIF(Mode="read", "Change Interface not available in ReadOnly mode", "Edit for language - Change interface")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<GROUP Id="RDK:1012559" Name="STEP BUTTON" SubType="Generic" Expanded="True">
+					<GROUP Id="RDK:1012542" Name="PREVIOUS PAGE" SubType="Generic" Expanded="True">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$page_idx>1]]></EXP>
+						</VALUECONDITION>
+						<SET_STRUCT Id="RDK:1012541" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+							<PAR Name="ButtonText" />
+							<PAR Name="ButtonValue">
+								<EXP><![CDATA[$C$PREVIOUS PAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonType">
+								<EXP><![CDATA[$C$IMAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonAction">
+								<EXP><![CDATA[$C$SUBMIT]]></EXP>
+							</PAR>
+							<PAR Name="ButtonLocation">
+								<EXP><![CDATA[$C$TOP]]></EXP>
+							</PAR>
+							<PAR Name="ButtonStyle">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="ButtonClass">
+								<EXP><![CDATA[$C$RDBUTTON_NAVPAGES]]></EXP>
+							</PAR>
+							<PAR Name="ButtonImage">
+								<EXP><![CDATA[$C$ArrowCollapseLeft_36.png]]></EXP>
+							</PAR>
+							<PAR Name="ButtonTooltip">
+								<EXP><![CDATA[$C$PREVIOUS PAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonOptions" />
+						</SET_STRUCT>
+					</GROUP>
+					<GROUP Id="RDK:1012544" Name="NEXT PAGE" SubType="Generic" Expanded="True">
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$page_idx<MaxNumPages]]></EXP>
+						</VALUECONDITION>
+						<SET_STRUCT Id="RDK:1012543" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+							<PAR Name="ButtonText" />
+							<PAR Name="ButtonValue">
+								<EXP><![CDATA[$C$NEXT PAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonType">
+								<EXP><![CDATA[$C$IMAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonAction">
+								<EXP><![CDATA[$C$SUBMIT]]></EXP>
+							</PAR>
+							<PAR Name="ButtonLocation">
+								<EXP><![CDATA[$C$TOP]]></EXP>
+							</PAR>
+							<PAR Name="ButtonStyle">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="ButtonClass">
+								<EXP><![CDATA[$C$RDBUTTON_NAVPAGES]]></EXP>
+							</PAR>
+							<PAR Name="ButtonImage">
+								<EXP><![CDATA[$C$ArrowCollapseRight_36.png]]></EXP>
+							</PAR>
+							<PAR Name="ButtonTooltip">
+								<EXP><![CDATA[$C$NEXT PAGE]]></EXP>
+							</PAR>
+							<PAR Name="ButtonOptions" />
+						</SET_STRUCT>
+					</GROUP>
+				</GROUP>
+				<SET_STRUCT Id="RDK:1012560" VarRef="Btn" ClearAll="True" ListRef="BtnList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$SAVE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$=$IIF(IsEmpty(Trad) or Mode="read", "NONE", "SUBMIT")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle">
+						<EXP><![CDATA[$=$IIF(Mode="read", "DISABLED", "")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonClass">
+						<EXP><![CDATA[$C$RDBUTTON_SAVE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$Save_36.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$=$IIF(Mode="read", "Save button not available in ReadOnly mode", "Save")]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+			</FUNCTION>
+			<FUNCTION Id="RDK:1016695" Name="SetTempButtons" Expanded="True">
+				<SET Id="RDK:1016692" VarRef="BtnTempList">
+					<EXP><![CDATA[$C$NOTHING]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET_STRUCT Id="RDK:1016694" VarRef="Btn" ClearAll="True" ListRef="BtnTempList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$NEXT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$SUBMIT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle" />
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$OK_36.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$C$Ok]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+				<SET_STRUCT Id="RDK:1016693" VarRef="Btn" ClearAll="True" ListRef="BtnTempList">
+					<PAR Name="ButtonText" />
+					<PAR Name="ButtonValue">
+						<EXP><![CDATA[$C$CANCEL]]></EXP>
+					</PAR>
+					<PAR Name="ButtonType">
+						<EXP><![CDATA[$C$IMAGE]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction">
+						<EXP><![CDATA[$C$SUBMIT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonLocation">
+						<EXP><![CDATA[$C$TOP]]></EXP>
+					</PAR>
+					<PAR Name="ButtonStyle" />
+					<PAR Name="ButtonClass" />
+					<PAR Name="ButtonImage">
+						<EXP><![CDATA[$C$Cancel_36.png]]></EXP>
+					</PAR>
+					<PAR Name="ButtonTooltip">
+						<EXP><![CDATA[$C$Cancel]]></EXP>
+					</PAR>
+					<PAR Name="ButtonOptions" />
+				</SET_STRUCT>
+			</FUNCTION>
 		</GROUP>
 	</GROUP>
 	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" LogDisable="$=$IsSubProcess()">
@@ -962,6 +1357,42 @@
 				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "SetDateFormat")]]></EXP>
 				<PAR Name="AdvancedOptions" />
 			</SET>
+			<PROCESS_CALL Id="RDK:1012650" Expanded="True" Suppressed="True">
+				<EXP><![CDATA[$C$..\Process.rdx]]></EXP>
+				<PAR Name="PDMConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="MBKConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="SAGEConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="FUSIONConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="URLFusion">
+					<EXP><![CDATA[$V$URL]]></EXP>
+				</PAR>
+				<PAR Name="URLPDM">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="SAGETestConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="PDMDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="MBKDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="FUSIONDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="OfflineBaseFolder">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+			</PROCESS_CALL>
 		</GROUP>
 		<ACTION_CALL Id="RDK:44" Name="RDEngineering_DBOpen">
 			<PAR Name="RDLibraryName">
@@ -1208,7 +1639,7 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
-			<ACTION_CALL Id="RDK:981675" Name="RDEngineering_RemoteSummaryInput">
+			<ACTION_CALL Id="RDK:981675" Name="RDEngineering_RemoteSummaryInput" Suppressed="True" DesignTimeRemark="SUMMARY INPUT FINALE CON BOTTONI VECCHI">
 				<PAR Name="RDLibraryName">
 					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 				</PAR>
@@ -1280,6 +1711,102 @@ ORDER BY T.ITA]]></EXP>
 					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)(OPTIONSFIELD=OPT)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
 				</PAR>
 			</ACTION_CALL>
+			<CALLFUNCTION Id="RDK:1013038" Expanded="True">
+				<PAR Name="FuncName">
+					<EXP><![CDATA[$C$SetButtons]]></EXP>
+				</PAR>
+				<PAR Name="InputExp" />
+				<PAR Name="ResultRef">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</CALLFUNCTION>
+			<ACTION_CALL Id="RDK:1012974" Name="RDEngineering_RemoteSummaryInput" DesignTimeRemark="SUMMARY INPUT FINALE CON BOTTONI NUOVI">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="GridVar">
+					<EXP><![CDATA[$=$TradTable_Page]]></EXP>
+				</PAR>
+				<PAR Name="GridEditable">
+					<EXP><![CDATA[$C$true]]></EXP>
+				</PAR>
+				<PAR Name="GridProfile">
+					<EXP><![CDATA[$C$TradGrid]]></EXP>
+				</PAR>
+				<PAR Name="GridHeader" />
+				<PAR Name="GridRemark" />
+				<PAR Name="InputVar">
+					<EXP><![CDATA[$=$Trad]]></EXP>
+				</PAR>
+				<PAR Name="InputProfile">
+					<EXP><![CDATA[$C$TradProfile]]></EXP>
+				</PAR>
+				<PAR Name="InputHeader">
+					<EXP><![CDATA[$C$<script>
+var dest = document.getElementsByClassName('RDGRID_FOOTER_CELL')[0];
+var elements = document.getElementsByClassName('RDBUTTON_NAVPAGES');
+if(elements.length > 1){
+    dest.appendChild(elements[1]);
+}
+
+if(elements[0] != null){
+    dest.appendChild(elements[0]);
+}
+
+</script>]]></EXP>
+				</PAR>
+				<PAR Name="InputRemark" />
+				<PAR Name="LayoutMode">
+					<EXP><![CDATA[$C$0]]></EXP>
+				</PAR>
+				<PAR Name="GridIdx">
+					<EXP><![CDATA[$V$idx]]></EXP>
+				</PAR>
+				<PAR Name="WebResourcePath">
+					<EXP><![CDATA[$C$Modulblok]]></EXP>
+				</PAR>
+				<PAR Name="ImgTop" />
+				<PAR Name="ImgBottom" />
+				<PAR Name="ImgLeft" />
+				<PAR Name="ImgRight" />
+				<PAR Name="CSSStyle">
+					<EXP><![CDATA[$C$RDStyles_FixedSummaryInput.css]]></EXP>
+				</PAR>
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="CaptionsList" />
+				<PAR Name="HideColumns">
+					<EXP><![CDATA[$=$"IDX"+IIF(CountByExp(myUser.groups,"Me=1")<1,",ORIGIN,TAGS","")]]></EXP>
+				</PAR>
+				<PAR Name="Header">
+					<EXP><![CDATA[$=$myUser.name+", YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+				</PAR>
+				<PAR Name="Footer">
+					<EXP><![CDATA[$=$IIF(MaxNumPages>0, "PAGE "+page_idx+" OF "+MaxNumPages, "")]]></EXP>
+				</PAR>
+				<PAR Name="ButtonsMode">
+					<EXP><![CDATA[$C$17]]></EXP>
+				</PAR>
+				<PAR Name="ButtonList" />
+				<PAR Name="ButtonImgs" />
+				<PAR Name="ButtonAction" />
+				<PAR Name="ButtonOptions" />
+				<PAR Name="ButtonDefs">
+					<EXP><![CDATA[$=$BtnList]]></EXP>
+				</PAR>
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$Button]]></EXP>
+				</PAR>
+				<PAR Name="InputTree">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="FilterData">
+					<EXP><![CDATA[$=$FilterTrad]]></EXP>
+				</PAR>
+				<PAR Name="Options">
+					<EXP><![CDATA[$=$"(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)(ROWCLICKACTION=SelectRow)(OPTIONSFIELD=OPT)"+IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")]]></EXP>
+				</PAR>
+			</ACTION_CALL>
 			<SELECTCASE Id="RDK:971539" Expanded="True">
 				<EXP><![CDATA[$=$Button]]></EXP>
 				<CASEGROUP Id="RDK:971540" CaseType="0" Expanded="True">
@@ -1302,6 +1829,63 @@ ORDER BY T.ITA]]></EXP>
 						<PAR Name="ORIGIN_ID_1" />
 						<PAR Name="LAST_UPDATE" />
 					</SET_STRUCT>
+					<CALLFUNCTION Id="RDK:1016678">
+						<PAR Name="FuncName">
+							<EXP><![CDATA[$C$SetTempButtons]]></EXP>
+						</PAR>
+						<PAR Name="InputExp" />
+						<PAR Name="ResultRef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</CALLFUNCTION>
+					<ACTION_CALL Id="RDK:1016667" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgRight" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="HtmlData" />
+						<PAR Name="Options" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="ButtonAction" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$TRAD]]></EXP>
+						</PAR>
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="JsCode" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="CssSource" />
+						<PAR Name="PopupStyle">
+							<EXP><![CDATA[$C${ width: 650, height: 400 }]]></EXP>
+						</PAR>
+						<PAR Name="Url" />
+						<PAR Name="ImgTop" />
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="Process" />
+						<PAR Name="ButtonList" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="HeaderData" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+					</ACTION_CALL>
 					<WHILELOOP Id="RDK:971705" Expanded="True">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$ValidTag]]></EXP>
@@ -1320,28 +1904,30 @@ ORDER BY T.ITA]]></EXP>
 								<EXP><![CDATA[$C$MetaTradProfile]]></EXP>
 							</PAR>
 							<PAR Name="RunTimeRemark" />
-							<PAR Name="WebResourcePath" />
+							<PAR Name="WebResourcePath">
+								<EXP><![CDATA[$C$Modulblok]]></EXP>
+							</PAR>
 							<PAR Name="ImgTop" />
 							<PAR Name="ImgBottom" />
 							<PAR Name="ImgLeft" />
 							<PAR Name="ImgRight" />
 							<PAR Name="CSSStyle">
-								<EXP><![CDATA[$C$Input_form.css]]></EXP>
+								<EXP><![CDATA[$C$RDStyles_OFFICE.css]]></EXP>
 							</PAR>
 							<PAR Name="RDActionTimeOut" />
 							<PAR Name="LayoutMode">
-								<EXP><![CDATA[$C$0]]></EXP>
+								<EXP><![CDATA[$C$1]]></EXP>
 							</PAR>
 							<PAR Name="ButtonsMode">
-								<EXP><![CDATA[$C$3]]></EXP>
+								<EXP><![CDATA[$C$17]]></EXP>
 							</PAR>
-							<PAR Name="ButtonList">
-								<EXP><![CDATA[$C$NEXT, CANCEL]]></EXP>
-							</PAR>
+							<PAR Name="ButtonList" />
 							<PAR Name="ButtonImgs" />
 							<PAR Name="ButtonAction" />
 							<PAR Name="ButtonOptions" />
-							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonDefs">
+								<EXP><![CDATA[$=$BtnTempList]]></EXP>
+							</PAR>
 							<PAR Name="ButtonPressed">
 								<EXP><![CDATA[$V$Button]]></EXP>
 							</PAR>
@@ -1349,7 +1935,9 @@ ORDER BY T.ITA]]></EXP>
 							<PAR Name="InputTree">
 								<EXP><![CDATA[$=$]]></EXP>
 							</PAR>
-							<PAR Name="Options" />
+							<PAR Name="Options">
+								<EXP><![CDATA[$C$(POPUPNAME=TRAD)]]></EXP>
+							</PAR>
 						</ACTION_CALL>
 						<IFTHENELSE Id="RDK:971704" Expanded="True">
 							<VALUECONDITION Value="true">
@@ -1421,6 +2009,8 @@ ORDER BY T.ITA]]></EXP>
 											<PAR Name="UPDATED" />
 											<PAR Name="IS_NEW" />
 											<PAR Name="LAST_UPDATE" />
+											<PAR Name="NEW" />
+											<PAR Name="OPT" />
 										</SET_STRUCT>
 										<ACTION_CALL Id="RDK:971688" Name="RDEngineering_RemoteGetInput" DesignTimeRemark="{VarName}">
 											<PAR Name="RDLibraryName">
@@ -1433,24 +2023,30 @@ ORDER BY T.ITA]]></EXP>
 												<EXP><![CDATA[$C$TradProfile]]></EXP>
 											</PAR>
 											<PAR Name="RunTimeRemark" />
-											<PAR Name="WebResourcePath" />
+											<PAR Name="WebResourcePath">
+												<EXP><![CDATA[$C$Modulblok]]></EXP>
+											</PAR>
 											<PAR Name="ImgTop" />
 											<PAR Name="ImgBottom" />
 											<PAR Name="ImgLeft" />
 											<PAR Name="ImgRight" />
-											<PAR Name="CSSStyle" />
+											<PAR Name="CSSStyle">
+												<EXP><![CDATA[$C$RDStyles_OFFICE.css]]></EXP>
+											</PAR>
 											<PAR Name="RDActionTimeOut" />
 											<PAR Name="LayoutMode">
 												<EXP><![CDATA[$C$0]]></EXP>
 											</PAR>
 											<PAR Name="ButtonsMode">
-												<EXP><![CDATA[$C$5]]></EXP>
+												<EXP><![CDATA[$C$17]]></EXP>
 											</PAR>
 											<PAR Name="ButtonList" />
 											<PAR Name="ButtonImgs" />
 											<PAR Name="ButtonAction" />
 											<PAR Name="ButtonOptions" />
-											<PAR Name="ButtonDefs" />
+											<PAR Name="ButtonDefs">
+												<EXP><![CDATA[$=$BtnTempList]]></EXP>
+											</PAR>
 											<PAR Name="ButtonPressed">
 												<EXP><![CDATA[$V$Button]]></EXP>
 											</PAR>
@@ -1458,11 +2054,13 @@ ORDER BY T.ITA]]></EXP>
 											<PAR Name="InputTree">
 												<EXP><![CDATA[$=$]]></EXP>
 											</PAR>
-											<PAR Name="Options" />
+											<PAR Name="Options">
+												<EXP><![CDATA[$C$(POPUPNAME=TRAD)]]></EXP>
+											</PAR>
 										</ACTION_CALL>
 										<GROUP Id="RDK:971695" Name="AddTrad" SubType="Generic" Expanded="True">
 											<VALUECONDITION Value="true">
-												<EXP><![CDATA[$=$Button="OK"]]></EXP>
+												<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
 											</VALUECONDITION>
 											<GROUP Id="RDK:971693" Name="sql" SubType="Generic" Expanded="True">
 												<ACTION_CALL Id="RDK:971689" Name="RDEngineering_DBInsert">
@@ -1586,7 +2184,9 @@ Please, choose a different TAG"]]></EXP>
 											<PAR Name="ImgBottom" />
 											<PAR Name="ImgLeft" />
 											<PAR Name="ImgRight" />
-											<PAR Name="CSSStyle" />
+											<PAR Name="CSSStyle">
+												<EXP><![CDATA[$C$RDStyles_OFFICE.css]]></EXP>
+											</PAR>
 											<PAR Name="RDActionTimeOut" />
 											<PAR Name="ButtonsMode">
 												<EXP><![CDATA[$C$0]]></EXP>
@@ -1603,7 +2203,9 @@ Please, choose a different TAG"]]></EXP>
 											<PAR Name="InputTree">
 												<EXP><![CDATA[$=$]]></EXP>
 											</PAR>
-											<PAR Name="Options" />
+											<PAR Name="Options">
+												<EXP><![CDATA[$C$(POPUPNAME=TRAD)]]></EXP>
+											</PAR>
 										</ACTION_CALL>
 									</GROUP>
 								</IFTHENELSE>
@@ -1614,6 +2216,51 @@ Please, choose a different TAG"]]></EXP>
 						<EXP><![CDATA[$C$False]]></EXP>
 						<PAR Name="AdvancedOptions" />
 					</SET>
+					<ACTION_CALL Id="RDK:1016724" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgRight" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="HtmlData" />
+						<PAR Name="Options" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$TRAD]]></EXP>
+						</PAR>
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="JsCode" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="CssSource" />
+						<PAR Name="PopupStyle" />
+						<PAR Name="Url" />
+						<PAR Name="ImgTop" />
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="Process" />
+						<PAR Name="ButtonList" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$7]]></EXP>
+						</PAR>
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="ButtonAction" />
+						<PAR Name="HeaderData" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+					</ACTION_CALL>
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:971541" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$SAVE]]></EXP>
@@ -1707,6 +2354,63 @@ ORDER BY T.ITA]]></EXP>
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:971855" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$DELETE]]></EXP>
+					<CALLFUNCTION Id="RDK:1030687">
+						<PAR Name="FuncName">
+							<EXP><![CDATA[$C$SetTempButtons]]></EXP>
+						</PAR>
+						<PAR Name="InputExp" />
+						<PAR Name="ResultRef">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="Options" />
+					</CALLFUNCTION>
+					<ACTION_CALL Id="RDK:1030212" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgRight" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="HtmlData" />
+						<PAR Name="Options" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="ButtonAction" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$DELETE_T]]></EXP>
+						</PAR>
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="JsCode" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="CssSource" />
+						<PAR Name="PopupStyle">
+							<EXP><![CDATA[$C${ width: 650, height: 400 }]]></EXP>
+						</PAR>
+						<PAR Name="Url" />
+						<PAR Name="ImgTop" />
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="Process" />
+						<PAR Name="ButtonList" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$5]]></EXP>
+						</PAR>
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="HeaderData" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+					</ACTION_CALL>
 					<IFTHENELSE Id="RDK:971919" Expanded="True">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")<1
@@ -1717,6 +2421,16 @@ ORDER BY T.ITA]]></EXP>
 								<EXP><![CDATA[$=$""]]></EXP>
 								<PAR Name="AdvancedOptions" />
 							</SET>
+							<CALLFUNCTION Id="RDK:1030335">
+								<PAR Name="FuncName">
+									<EXP><![CDATA[$C$SetTempButtons]]></EXP>
+								</PAR>
+								<PAR Name="InputExp" />
+								<PAR Name="ResultRef">
+									<EXP><![CDATA[$V$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</CALLFUNCTION>
 							<ACTION_CALL Id="RDK:971909" Name="RDEngineering_RemoteMsgBox" Suppressed="True" DesignTimeRemark="{Text}">
 								<PAR Name="RDLibraryName">
 									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
@@ -1777,23 +2491,27 @@ ORDER BY T.ITA]]></EXP>
 									<EXP><![CDATA[$C$True]]></EXP>
 								</PAR>
 								<PAR Name="RunTimeRemark" />
-								<PAR Name="WebResourcePath" />
+								<PAR Name="WebResourcePath">
+									<EXP><![CDATA[$C$Modulblok]]></EXP>
+								</PAR>
 								<PAR Name="ImgTop" />
 								<PAR Name="ImgBottom" />
 								<PAR Name="ImgLeft" />
 								<PAR Name="ImgRight" />
-								<PAR Name="CSSStyle" />
+								<PAR Name="CSSStyle">
+									<EXP><![CDATA[$C$RDStyles_OFFICE.css]]></EXP>
+								</PAR>
 								<PAR Name="RDActionTimeOut" />
 								<PAR Name="ButtonsMode">
-									<EXP><![CDATA[$C$3]]></EXP>
+									<EXP><![CDATA[$C$17]]></EXP>
 								</PAR>
-								<PAR Name="ButtonList">
-									<EXP><![CDATA[$C$YES,NO]]></EXP>
-								</PAR>
+								<PAR Name="ButtonList" />
 								<PAR Name="ButtonImgs" />
 								<PAR Name="ButtonAction" />
 								<PAR Name="ButtonOptions" />
-								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonDefs">
+									<EXP><![CDATA[$=$BtnTempList]]></EXP>
+								</PAR>
 								<PAR Name="ButtonPressed">
 									<EXP><![CDATA[$V$Button]]></EXP>
 								</PAR>
@@ -1801,11 +2519,13 @@ ORDER BY T.ITA]]></EXP>
 								<PAR Name="InputTree">
 									<EXP><![CDATA[$=$]]></EXP>
 								</PAR>
-								<PAR Name="Options" />
+								<PAR Name="Options">
+									<EXP><![CDATA[$C$(POPUPNAME=DELETE_T)]]></EXP>
+								</PAR>
 							</ACTION_CALL>
 							<IFTHENELSE Id="RDK:971915" Expanded="True">
 								<VALUECONDITION Value="true">
-									<EXP><![CDATA[$=$Button="YES"]]></EXP>
+									<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
 								</VALUECONDITION>
 								<GROUP Id="RDK:971914" SubType="Then" Expanded="True">
 									<GROUP Id="RDK:971913" Name="sql" SubType="Generic" Expanded="True">
@@ -1935,10 +2655,57 @@ ORDER BY T.ITA
 								<PAR Name="InputTree">
 									<EXP><![CDATA[$=$]]></EXP>
 								</PAR>
-								<PAR Name="Options" />
+								<PAR Name="Options">
+									<EXP><![CDATA[$C$(POPUPNAME=DELETE_T)]]></EXP>
+								</PAR>
 							</ACTION_CALL>
 						</GROUP>
 					</IFTHENELSE>
+					<ACTION_CALL Id="RDK:1030250" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+						<PAR Name="ImgLeft" />
+						<PAR Name="ImgBottom" />
+						<PAR Name="ImgRight" />
+						<PAR Name="WebResourcePath" />
+						<PAR Name="HtmlData" />
+						<PAR Name="Options" />
+						<PAR Name="ButtonsMode">
+							<EXP><![CDATA[$C$0]]></EXP>
+						</PAR>
+						<PAR Name="RunTimeRemark" />
+						<PAR Name="HtmlFile" />
+						<PAR Name="RDLibraryName">
+							<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+						</PAR>
+						<PAR Name="PopupName">
+							<EXP><![CDATA[$C$DELETE_T]]></EXP>
+						</PAR>
+						<PAR Name="ButtonPressed">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+						<PAR Name="JsCode" />
+						<PAR Name="ButtonImgs" />
+						<PAR Name="CssSource" />
+						<PAR Name="PopupStyle" />
+						<PAR Name="Url" />
+						<PAR Name="ImgTop" />
+						<PAR Name="RDActionTimeOut" />
+						<PAR Name="Process" />
+						<PAR Name="ButtonList" />
+						<PAR Name="CSSStyle" />
+						<PAR Name="ButtonOptions" />
+						<PAR Name="RedirectMode">
+							<EXP><![CDATA[$C$7]]></EXP>
+						</PAR>
+						<PAR Name="WaitForInput">
+							<EXP><![CDATA[$C$true]]></EXP>
+						</PAR>
+						<PAR Name="ButtonAction" />
+						<PAR Name="HeaderData" />
+						<PAR Name="ButtonDefs" />
+						<PAR Name="JsResult">
+							<EXP><![CDATA[$V$]]></EXP>
+						</PAR>
+					</ACTION_CALL>
 				</CASEGROUP>
 				<CASEGROUP Id="RDK:971951" CaseType="0" Expanded="True">
 					<EXP><![CDATA[$C$PREVIOUS PAGE]]></EXP>
@@ -2172,34 +2939,34 @@ ORDER BY T.ITA]]></EXP>
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:1012390" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:1033816" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012391" Name="EDIT_TRAD">
+				<VAR_COND Id="RDK:1033817" Name="EDIT_TRAD">
 					<EXP><![CDATA[$=$Button="SAVE" ]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012392" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:1033818" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012393" Name="SORT">
+				<VAR_COND Id="RDK:1033819" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012394" Name="FILTER">
+				<VAR_COND Id="RDK:1033820" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012395" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:1033821" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012396" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:1033822" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012397" Name="SELECTED_ROW">
+				<VAR_COND Id="RDK:1033823" Name="SELECTED_ROW">
 					<EXP><![CDATA[$=$Button="SelectRow"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:1012398" Name="CHANGE_INTERFACE">
+				<VAR_COND Id="RDK:1033824" Name="CHANGE_INTERFACE">
 					<EXP><![CDATA[$=$Button="EDIT FOR LANGUAGE"]]></EXP>
 				</VAR_COND>
-				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
+				<CHOICE Id="RDK:61" Name="Choice">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$ADD_TRAD]]></EXP>
 					</VALUECONDITION>
@@ -2221,7 +2988,7 @@ ORDER BY T.ITA]]></EXP>
 						<PAR Name="ORIGIN_ID_1" />
 						<PAR Name="LAST_UPDATE" />
 					</SET_STRUCT>
-					<WHILELOOP Id="RDK:1925" Expanded="True">
+					<WHILELOOP Id="RDK:1925">
 						<VALUECONDITION Value="false">
 							<EXP><![CDATA[$=$ValidTag]]></EXP>
 						</VALUECONDITION>
@@ -2270,11 +3037,11 @@ ORDER BY T.ITA]]></EXP>
 							</PAR>
 							<PAR Name="Options" />
 						</ACTION_CALL>
-						<IFTHENELSE Id="RDK:966855" Expanded="True">
+						<IFTHENELSE Id="RDK:966855">
 							<VALUECONDITION Value="true">
 								<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
 							</VALUECONDITION>
-							<GROUP Id="RDK:966856" SubType="Then" Expanded="True">
+							<GROUP Id="RDK:966856" SubType="Then">
 								<ACTION_CALL Id="RDK:1959" Name="RDEngineering_DBSelect">
 									<PAR Name="RDLibraryName">
 										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -2315,11 +3082,11 @@ ORDER BY T.ITA]]></EXP>
 									<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable_ORIG, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
 									<PAR Name="AdvancedOptions" />
 								</SET>
-								<IFTHENELSE Id="RDK:2076" Expanded="True">
+								<IFTHENELSE Id="RDK:2076">
 									<VALUECONDITION Value="true">
 										<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
 									</VALUECONDITION>
-									<GROUP Id="RDK:2077" SubType="Then" Expanded="True">
+									<GROUP Id="RDK:2077" SubType="Then">
 										<SET Id="RDK:2118" VarRef="ValidTag">
 											<EXP><![CDATA[$C$True]]></EXP>
 											<PAR Name="AdvancedOptions" />
@@ -2379,11 +3146,11 @@ ORDER BY T.ITA]]></EXP>
 											</PAR>
 											<PAR Name="Options" />
 										</ACTION_CALL>
-										<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic" Expanded="True">
+										<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic">
 											<VALUECONDITION Value="true">
 												<EXP><![CDATA[$=$Button="OK"]]></EXP>
 											</VALUECONDITION>
-											<GROUP Id="RDK:941233" Name="sql" SubType="Generic" Expanded="True">
+											<GROUP Id="RDK:941233" Name="sql" SubType="Generic">
 												<ACTION_CALL Id="RDK:1279" Name="RDEngineering_DBInsert">
 													<PAR Name="RDLibraryName">
 														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
@@ -3159,15 +3926,72 @@ ORDER BY T.ITA
 				<EXP><![CDATA[$=$Mode="read"]]></EXP>
 			</VALUECONDITION>
 			<GROUP Id="RDK:920177" SubType="Then" Expanded="True">
+				<CALLFUNCTION Id="RDK:1030734">
+					<PAR Name="FuncName">
+						<EXP><![CDATA[$C$SetTempButtons]]></EXP>
+					</PAR>
+					<PAR Name="InputExp" />
+					<PAR Name="ResultRef">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</CALLFUNCTION>
+				<ACTION_CALL Id="RDK:1030442" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+					<PAR Name="ImgLeft" />
+					<PAR Name="ImgBottom" />
+					<PAR Name="ImgRight" />
+					<PAR Name="WebResourcePath" />
+					<PAR Name="HtmlData" />
+					<PAR Name="Options" />
+					<PAR Name="ButtonsMode">
+						<EXP><![CDATA[$C$0]]></EXP>
+					</PAR>
+					<PAR Name="RunTimeRemark" />
+					<PAR Name="HtmlFile" />
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+					</PAR>
+					<PAR Name="PopupName">
+						<EXP><![CDATA[$C$EXPORT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonPressed">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="JsCode" />
+					<PAR Name="ButtonImgs" />
+					<PAR Name="CssSource" />
+					<PAR Name="PopupStyle">
+						<EXP><![CDATA[$C${ width: 650, height: 400 }]]></EXP>
+					</PAR>
+					<PAR Name="Url" />
+					<PAR Name="ImgTop" />
+					<PAR Name="RDActionTimeOut" />
+					<PAR Name="Process" />
+					<PAR Name="ButtonList" />
+					<PAR Name="CSSStyle" />
+					<PAR Name="ButtonOptions" />
+					<PAR Name="RedirectMode">
+						<EXP><![CDATA[$C$5]]></EXP>
+					</PAR>
+					<PAR Name="WaitForInput">
+						<EXP><![CDATA[$C$true]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction" />
+					<PAR Name="HeaderData" />
+					<PAR Name="ButtonDefs" />
+					<PAR Name="JsResult">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+				</ACTION_CALL>
 				<ACTION_CALL Id="RDK:863047" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
 					<PAR Name="RDLibraryName">
 						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 					</PAR>
 					<PAR Name="MsgText">
-						<EXP><![CDATA[$C$Do you want to export your changes?]]></EXP>
+						<EXP><![CDATA[$C$EXIT PROCESS<br>Do you want to export your changes?]]></EXP>
 					</PAR>
 					<PAR Name="MsgFormat">
-						<EXP><![CDATA[$C$0]]></EXP>
+						<EXP><![CDATA[$C$1]]></EXP>
 					</PAR>
 					<PAR Name="MsgStyle">
 						<EXP><![CDATA[$C$3]]></EXP>
@@ -3176,23 +4000,27 @@ ORDER BY T.ITA
 						<EXP><![CDATA[$C$True]]></EXP>
 					</PAR>
 					<PAR Name="RunTimeRemark" />
-					<PAR Name="WebResourcePath" />
+					<PAR Name="WebResourcePath">
+						<EXP><![CDATA[$C$Modulblok]]></EXP>
+					</PAR>
 					<PAR Name="ImgTop" />
 					<PAR Name="ImgBottom" />
 					<PAR Name="ImgLeft" />
 					<PAR Name="ImgRight" />
-					<PAR Name="CSSStyle" />
+					<PAR Name="CSSStyle">
+						<EXP><![CDATA[$C$RDStyles_OFFICE.css]]></EXP>
+					</PAR>
 					<PAR Name="RDActionTimeOut" />
 					<PAR Name="ButtonsMode">
-						<EXP><![CDATA[$C$3]]></EXP>
+						<EXP><![CDATA[$C$17]]></EXP>
 					</PAR>
-					<PAR Name="ButtonList">
-						<EXP><![CDATA[$C$YES,NO]]></EXP>
-					</PAR>
+					<PAR Name="ButtonList" />
 					<PAR Name="ButtonImgs" />
 					<PAR Name="ButtonAction" />
 					<PAR Name="ButtonOptions" />
-					<PAR Name="ButtonDefs" />
+					<PAR Name="ButtonDefs">
+						<EXP><![CDATA[$=$BtnTempList]]></EXP>
+					</PAR>
 					<PAR Name="ButtonPressed">
 						<EXP><![CDATA[$V$Button]]></EXP>
 					</PAR>
@@ -3200,7 +4028,9 @@ ORDER BY T.ITA
 					<PAR Name="InputTree">
 						<EXP><![CDATA[$=$]]></EXP>
 					</PAR>
-					<PAR Name="Options" />
+					<PAR Name="Options">
+						<EXP><![CDATA[$C$(POPUPNAME=EXPORT)]]></EXP>
+					</PAR>
 				</ACTION_CALL>
 				<IFTHENELSE Id="RDK:863107" Expanded="True">
 					<VALUECONDITION Value="true">
@@ -3331,7 +4161,9 @@ EDIT ON
 							<PAR Name="InputTree">
 								<EXP><![CDATA[$=$]]></EXP>
 							</PAR>
-							<PAR Name="Options" />
+							<PAR Name="Options">
+								<EXP><![CDATA[$C$(POPUPNAME=EXPORT)]]></EXP>
+							</PAR>
 						</ACTION_CALL>
 						<PROCESS_CALL Id="RDK:862915" Expanded="True">
 							<EXP><![CDATA[$C$Export_From_DB.rdx]]></EXP>
@@ -3381,6 +4213,51 @@ EDIT ON
 						</ACTION_CALL>
 					</GROUP>
 				</IFTHENELSE>
+				<ACTION_CALL Id="RDK:1030386" Name="RDEngineering_RemoteRedirect" DesignTimeRemark="{Action Mode} {Url} {Popup Name}">
+					<PAR Name="ImgLeft" />
+					<PAR Name="ImgBottom" />
+					<PAR Name="ImgRight" />
+					<PAR Name="WebResourcePath" />
+					<PAR Name="HtmlData" />
+					<PAR Name="Options" />
+					<PAR Name="ButtonsMode">
+						<EXP><![CDATA[$C$0]]></EXP>
+					</PAR>
+					<PAR Name="RunTimeRemark" />
+					<PAR Name="HtmlFile" />
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+					</PAR>
+					<PAR Name="PopupName">
+						<EXP><![CDATA[$C$EXPORT]]></EXP>
+					</PAR>
+					<PAR Name="ButtonPressed">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+					<PAR Name="JsCode" />
+					<PAR Name="ButtonImgs" />
+					<PAR Name="CssSource" />
+					<PAR Name="PopupStyle" />
+					<PAR Name="Url" />
+					<PAR Name="ImgTop" />
+					<PAR Name="RDActionTimeOut" />
+					<PAR Name="Process" />
+					<PAR Name="ButtonList" />
+					<PAR Name="CSSStyle" />
+					<PAR Name="ButtonOptions" />
+					<PAR Name="RedirectMode">
+						<EXP><![CDATA[$C$7]]></EXP>
+					</PAR>
+					<PAR Name="WaitForInput">
+						<EXP><![CDATA[$C$true]]></EXP>
+					</PAR>
+					<PAR Name="ButtonAction" />
+					<PAR Name="HeaderData" />
+					<PAR Name="ButtonDefs" />
+					<PAR Name="JsResult">
+						<EXP><![CDATA[$V$]]></EXP>
+					</PAR>
+				</ACTION_CALL>
 			</GROUP>
 		</IFTHENELSE>
 	</GROUP>

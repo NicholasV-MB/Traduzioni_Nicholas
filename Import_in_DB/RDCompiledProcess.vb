@@ -671,7 +671,7 @@ exec_group:
 		Call CONFIGURATOR_K_569()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
-		'PDM *LOG_DISABLED
+		'PDM <admin is True> *LOG_DISABLED
 		Call PDM_K_613()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
@@ -1072,9 +1072,14 @@ exec_group:
 		
 	End Sub
 
-	'PDM *LOG_DISABLED
+	'PDM <admin is True> *LOG_DISABLED
 	Private Sub PDM_K_613()
 		_CurrentNode = "RDK:613"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_613")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
 		'Open DB Connection
 		_CurrentNode = "RDK:625"		'ACTION RDEngineering_DBOpen
 		Dim ActionArgs_K_625 as New Generic.list(of object)
