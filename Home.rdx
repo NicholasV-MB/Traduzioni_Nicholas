@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Home" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-14T16:51:43" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-20T15:53:42" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-14T17:27:25" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="LockType" Expanded="True" SubType="structure">
@@ -582,11 +582,11 @@ EDIT ON
 								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 							</PAR>
 							<PAR Name="MsgText">
-								<EXP><![CDATA[$=$"Hi "+myUser.name+", you have already locked this process in modification mode! 
+								<EXP><![CDATA[$=$"Hi <b>"+myUser.name+"</b>, you have already locked this process in modification mode! <br>
 Please enter, press "+QtCh()+"EXIT"+QtCh()+" button and exit correctly next time"]]></EXP>
 							</PAR>
 							<PAR Name="MsgFormat">
-								<EXP><![CDATA[$C$0]]></EXP>
+								<EXP><![CDATA[$C$1]]></EXP>
 							</PAR>
 							<PAR Name="MsgStyle">
 								<EXP><![CDATA[$C$0]]></EXP>
@@ -630,11 +630,11 @@ Please enter, press "+QtCh()+"EXIT"+QtCh()+" button and exit correctly next time
 								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
 							</PAR>
 							<PAR Name="MsgText">
-								<EXP><![CDATA[$=$"The process is already in modification mode, locked by "+Lock.MY_USER+"
+								<EXP><![CDATA[$=$"The process is already in modification mode, locked by <b>"+Lock.MY_USER+"</b><br>
 "+IIF(CountByExp(myUser.groups,"Me=1")<1, "Connecting in reading mode", "Do you want to unlock the process and modify?") ]]></EXP>
 							</PAR>
 							<PAR Name="MsgFormat">
-								<EXP><![CDATA[$C$0]]></EXP>
+								<EXP><![CDATA[$C$1]]></EXP>
 							</PAR>
 							<PAR Name="MsgStyle">
 								<EXP><![CDATA[$C$0]]></EXP>
