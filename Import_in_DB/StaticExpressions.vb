@@ -271,6 +271,19 @@ Module StaticExpressions
 		return StrReplace(queryFindTags, " IS NULL", "=''")
 	End Function
 
+	'Condition for group Group
+	'OriginalExpression: 'Count(SupportTableTags)=0 
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_698429(ByVal Main As RDCompiledProcess) As Object
+		return Count(SupportTableTags)=0 
+	End Function
+
+	'OriginalExpression: 'DateToStr(Now()) +" - ATTENZIONE, NEL DB FUSION CONTROLLARE TABELLA "+_Param.Input.TableName + " CON ITA="+Trad.ITA+", ENG="+Trad.ENG+", ESP="+Trad.ESP+", FRA="+Trad.FRA+", DEU="+ Trad.DEU
+	<Extension()>
+	Public Function Eval_Static_TextLine_K_698461(ByVal Main As RDCompiledProcess) As Object
+		return DateToStr(Now()) +" - ATTENZIONE, NEL DB FUSION CONTROLLARE TABELLA "+_Param.Input.TableName + " CON ITA="+Trad.ITA+", ENG="+Trad.ENG+", ESP="+Trad.ESP+", FRA="+Trad.FRA+", DEU="+ Trad.DEU
+	End Function
+
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
 	'OriginalExpression: 'SupportTableTags
 	<Extension()>

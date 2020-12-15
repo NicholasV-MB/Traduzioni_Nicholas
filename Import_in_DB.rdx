@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-15T17:08:32" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-15T17:52:25" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" SubType="structure" HasArrayType="True">
@@ -462,6 +462,24 @@
 								</PAR>
 								<PAR Name="Options" />
 							</ACTION_CALL>
+							<GROUP Id="RDK:698429" Name="Group" SubType="Generic" Expanded="True">
+								<VALUECONDITION Value="true">
+									<EXP><![CDATA[$=$Count(SupportTableTags)=0
+]]></EXP>
+								</VALUECONDITION>
+								<ACTION_CALL Id="RDK:698461" Name="RDEngineering_AppendTextLine">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_FILE_TEXT]]></EXP>
+									</PAR>
+									<PAR Name="FileName">
+										<EXP><![CDATA[$C$LOG/LOG.log]]></EXP>
+									</PAR>
+									<PAR Name="TextLine">
+										<EXP><![CDATA[$=$DateToStr(Now()) +" - ATTENZIONE, NEL DB FUSION CONTROLLARE TABELLA "+Param.Input.TableName + " CON ITA="+Trad.ITA+", ENG="+Trad.ENG+", ESP="+Trad.ESP+", FRA="+Trad.FRA+", DEU="+ Trad.DEU]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+							</GROUP>
 						</GROUP>
 					</IFTHENELSE>
 					<FOREACHLOOP Id="RDK:375" Expanded="True" ItemVarRef="SupportRowTags" ByRefMode="True">
@@ -1912,22 +1930,22 @@ WHERE IDX='"+StrSql(Trad.IDX)+"'"
 					<EXP><![CDATA[$V$]]></EXP>
 				</PAR>
 				<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
-					<VAR_COND Id="RDK:698415" Name="Orig_str">
+					<VAR_COND Id="RDK:698528" Name="Orig_str">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698416" Name="ITA">
+					<VAR_COND Id="RDK:698529" Name="ITA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698417" Name="ENG">
+					<VAR_COND Id="RDK:698530" Name="ENG">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698418" Name="ESP">
+					<VAR_COND Id="RDK:698531" Name="ESP">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698419" Name="FRA">
+					<VAR_COND Id="RDK:698532" Name="FRA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698420" Name="DEU">
+					<VAR_COND Id="RDK:698533" Name="DEU">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
 					</VAR_COND>
 					<CHOICE Id="RDK:821" Name="Choice" Expanded="True">

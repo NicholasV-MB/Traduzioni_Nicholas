@@ -622,6 +622,30 @@ exec_group:
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		SupportTableTags = _ActionArgs_K_698137(8)		'OUT
 		
+		'Group <Count(SupportTableTags)=0 is True>
+		Call Group_K_698429()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'Group <Count(SupportTableTags)=0 is True>
+	Private Sub Group_K_698429()
+		_CurrentNode = "RDK:698429"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_698429")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		'Append Text Line
+		_CurrentNode = "RDK:698461"		'ACTION RDEngineering_AppendTextLine
+		Dim ActionArgs_K_698461 as New Generic.list(of object)
+		ActionArgs_K_698461.Add("LOG/LOG.log") 'FileName IN
+		ActionArgs_K_698461.Add(EvalExpression("TextLine_K_698461")) 'TextLine IN
+		ActionArgs_K_698461.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_698461 As object() = ActionArgs_K_698461.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_FILE_TEXT","RDEngineering_AppendTextLine",_ActionArgs_K_698461)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
 	End Sub
 
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
