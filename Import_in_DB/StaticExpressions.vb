@@ -51,10 +51,10 @@ Module StaticExpressions
 		return ""
 	End Function
 
-	'OriginalExpression: 'queryTrads+ " WHERE NOT ("+_Param.Input.Fields+"ITA IS NULL AND "+_Param.Input.Fields+"ENG IS NULL AND "+_Param.Input.Fields+"ESP IS NULL AND "+_Param.Input.Fields+"FRA IS NULL AND "+_Param.Input.Fields+"DEU IS NULL) AND "+_Param.Input.Fields+"ENG<>'_ENG'"
+	'OriginalExpression: 'queryTrads+ " WHERE NOT ("+_Param.Input.Fields+"ITA IS NULL AND "+_Param.Input.Fields+"ENG IS NULL AND "+_Param.Input.Fields+"ESP IS NULL AND "+_Param.Input.Fields+"FRA IS NULL AND "+_Param.Input.Fields+"DEU IS NULL) "
 	<Extension()>
-	Public Function Eval_Static_Set_queryTrads_K_662637(ByVal Main As RDCompiledProcess) As Object
-		return queryTrads+ " WHERE NOT ("+_Param.Input.Fields+"ITA IS NULL AND "+_Param.Input.Fields+"ENG IS NULL AND "+_Param.Input.Fields+"ESP IS NULL AND "+_Param.Input.Fields+"FRA IS NULL AND "+_Param.Input.Fields+"DEU IS NULL) AND "+_Param.Input.Fields+"ENG<>'_ENG'"
+	Public Function Eval_Static_Set_queryTrads_K_698402(ByVal Main As RDCompiledProcess) As Object
+		return queryTrads+ " WHERE NOT ("+_Param.Input.Fields+"ITA IS NULL AND "+_Param.Input.Fields+"ENG IS NULL AND "+_Param.Input.Fields+"ESP IS NULL AND "+_Param.Input.Fields+"FRA IS NULL AND "+_Param.Input.Fields+"DEU IS NULL) "
 	End Function
 
 	'OriginalExpression: '"DB_"+_Param.Input.DB

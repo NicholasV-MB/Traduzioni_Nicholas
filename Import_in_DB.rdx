@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Import_in_DB" SystemProcess="True" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-14T16:41:51" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-06T08:40:15" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-15T17:08:32" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:12" Name="TradType" SubType="structure" HasArrayType="True">
@@ -180,8 +180,12 @@
 					<EXP><![CDATA[$=$""]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<SET Id="RDK:662637" VarRef="queryTrads">
+				<SET Id="RDK:662637" VarRef="queryTrads" Suppressed="True">
 					<EXP><![CDATA[$=$queryTrads+ " WHERE NOT ("+Param.Input.Fields+"ITA IS NULL AND "+Param.Input.Fields+"ENG IS NULL AND "+Param.Input.Fields+"ESP IS NULL AND "+Param.Input.Fields+"FRA IS NULL AND "+Param.Input.Fields+"DEU IS NULL) AND "+Param.Input.Fields+"ENG<>'_ENG'"]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:698402" VarRef="queryTrads">
+					<EXP><![CDATA[$=$queryTrads+ " WHERE NOT ("+Param.Input.Fields+"ITA IS NULL AND "+Param.Input.Fields+"ENG IS NULL AND "+Param.Input.Fields+"ESP IS NULL AND "+Param.Input.Fields+"FRA IS NULL AND "+Param.Input.Fields+"DEU IS NULL) "]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<ACTION_CALL Id="RDK:300" Name="RDEngineering_DBSelectStructured">
@@ -666,7 +670,7 @@ TRUNCATE TABLE METATRADS
 				</PAR>
 				<PAR Name="Options" />
 			</ACTION_CALL>
-			<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic">
+			<GROUP Id="RDK:94" Name="PrepareInfoTables" SubType="Generic" Expanded="True">
 				<SET_STRUCT Id="RDK:130" VarRef="FusionTableKeys" ClearAll="True" ListRef="FusionInfoTables">
 					<PAR Name="DB">
 						<EXP><![CDATA[$C$FUSION]]></EXP>
@@ -839,7 +843,7 @@ TRUNCATE TABLE METATRADS
 					</PAR>
 				</SET_STRUCT>
 			</GROUP>
-			<FOREACHLOOP Id="RDK:108" ItemVarRef="FusionTableKeys" ByRefMode="True">
+			<FOREACHLOOP Id="RDK:108" Expanded="True" ItemVarRef="FusionTableKeys" ByRefMode="True">
 				<PAR Name="ArrayValueExp">
 					<EXP><![CDATA[$V$FusionInfoTables]]></EXP>
 				</PAR>
@@ -1908,22 +1912,22 @@ WHERE IDX='"+StrSql(Trad.IDX)+"'"
 					<EXP><![CDATA[$V$]]></EXP>
 				</PAR>
 				<NODE Id="RDK:807" Name="TAG TYPE" Expanded="True">
-					<VAR_COND Id="RDK:698383" Name="Orig_str">
+					<VAR_COND Id="RDK:698415" Name="Orig_str">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<Orig_str")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698384" Name="ITA">
+					<VAR_COND Id="RDK:698416" Name="ITA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ITA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698385" Name="ENG">
+					<VAR_COND Id="RDK:698417" Name="ENG">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ENG")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698386" Name="ESP">
+					<VAR_COND Id="RDK:698418" Name="ESP">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<ESP")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698387" Name="FRA">
+					<VAR_COND Id="RDK:698419" Name="FRA">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<FRA")]]></EXP>
 					</VAR_COND>
-					<VAR_COND Id="RDK:698388" Name="DEU">
+					<VAR_COND Id="RDK:698420" Name="DEU">
 						<EXP><![CDATA[$=$StrStartWith(tag, "<DEU")]]></EXP>
 					</VAR_COND>
 					<CHOICE Id="RDK:821" Name="Choice" Expanded="True">

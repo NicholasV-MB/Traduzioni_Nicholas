@@ -111,9 +111,9 @@ Public Class RDCompiledProcess
 		_CurrentNode = "RDK:355"
 		afterSelect = EvalExpression("Set_afterSelect_K_355")
 		
-		'Set queryTrads = queryTrads+ " WHERE NOT ("+Param.Input.Fields+"ITA IS NULL AND "+Param.Input.Fields+"ENG IS NULL AND "+... (267 chars)
-		_CurrentNode = "RDK:662637"
-		queryTrads = EvalExpression("Set_queryTrads_K_662637")
+		'Set queryTrads = queryTrads+ " WHERE NOT ("+Param.Input.Fields+"ITA IS NULL AND "+Param.Input.Fields+"ENG IS NULL AND "+... (230 chars)
+		_CurrentNode = "RDK:698402"
+		queryTrads = EvalExpression("Set_queryTrads_K_698402")
 		
 		'Select DB Structured
 		_CurrentNode = "RDK:300"		'ACTION RDEngineering_DBSelectStructured
