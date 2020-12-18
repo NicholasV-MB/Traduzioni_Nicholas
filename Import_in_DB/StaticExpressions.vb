@@ -69,24 +69,6 @@ Module StaticExpressions
 		return queryTrads
 	End Function
 
-	'OriginalExpression: 'i+baseIDX
-	<Extension()>
-	Public Function Eval_Static_Set_TradTable_i_1__IDX_K_351(ByVal Main As RDCompiledProcess) As Object
-		return i+baseIDX
-	End Function
-
-	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
-	<Extension()>
-	Public Function Eval_Static_SqlStatement_K_663596(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
-	End Function
-
-	'OriginalExpression: 'i+baseIDX
-	<Extension()>
-	Public Function Eval_Static_Set_baseIDX_K_358(ByVal Main As RDCompiledProcess) As Object
-		return i+baseIDX
-	End Function
-
 	'OriginalExpression: '"SELECT DISTINCT "+_Param.Input.ID+ " AS ORIGIN_ID_0" 
 	<Extension()>
 	Public Function Eval_Static_Set_queryFindTags_K_361(ByVal Main As RDCompiledProcess) As Object
@@ -271,17 +253,41 @@ Module StaticExpressions
 		return StrReplace(queryFindTags, " IS NULL", "=''")
 	End Function
 
-	'Condition for group Group
-	'OriginalExpression: 'Count(SupportTableTags)=0 
+	'Condition for group IFTHENELSE
+	'OriginalExpression: 'Count(SupportTableTags)=0
 	<Extension()>
-	Public Function Eval_Static_CondExp1_K_698429(ByVal Main As RDCompiledProcess) As Object
-		return Count(SupportTableTags)=0 
+	Public Function Eval_Static_CondExp1_K_698546(ByVal Main As RDCompiledProcess) As Object
+		return Count(SupportTableTags)=0
 	End Function
 
 	'OriginalExpression: 'DateToStr(Now()) +" - ATTENZIONE, NEL DB FUSION CONTROLLARE TABELLA "+_Param.Input.TableName + " CON ITA="+Trad.ITA+", ENG="+Trad.ENG+", ESP="+Trad.ESP+", FRA="+Trad.FRA+", DEU="+ Trad.DEU
 	<Extension()>
-	Public Function Eval_Static_TextLine_K_698461(ByVal Main As RDCompiledProcess) As Object
+	Public Function Eval_Static_TextLine_K_698588(ByVal Main As RDCompiledProcess) As Object
 		return DateToStr(Now()) +" - ATTENZIONE, NEL DB FUSION CONTROLLARE TABELLA "+_Param.Input.TableName + " CON ITA="+Trad.ITA+", ENG="+Trad.ENG+", ESP="+Trad.ESP+", FRA="+Trad.FRA+", DEU="+ Trad.DEU
+	End Function
+
+	'OriginalExpression: 'i+baseIDX
+	<Extension()>
+	Public Function Eval_Static_Set_TradTable_i_1__IDX_K_698602(ByVal Main As RDCompiledProcess) As Object
+		return i+baseIDX
+	End Function
+
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_698616(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
+	End Function
+
+	'OriginalExpression: 'i+baseIDX
+	<Extension()>
+	Public Function Eval_Static_Set_TradTable_i_1__IDX_K_698637(ByVal Main As RDCompiledProcess) As Object
+		return i+baseIDX
+	End Function
+
+	'OriginalExpression: '"INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
+	<Extension()>
+	Public Function Eval_Static_SqlStatement_K_698645(ByVal Main As RDCompiledProcess) As Object
+		return "INSERT INTO TRADS VALUES('"+StrSql(TradTable(i-1).IDX)+"', '"+StrSql(TradTable(i-1).ITA)+"', '"+StrSql(TradTable(i-1).ENG)+"', '"+StrSql(TradTable(i-1).ESP)+"', '"+StrSql(TradTable(i-1).FRA)+"', '"+StrSql(TradTable(i-1).DEU)+"', Null, Null, Null)"
 	End Function
 
 	'FOREACH SupportRowTags IN SupportTableTags BYREF
@@ -295,6 +301,12 @@ Module StaticExpressions
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object
 		return dateformat+" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
+	End Function
+
+	'OriginalExpression: 'i+baseIDX
+	<Extension()>
+	Public Function Eval_Static_Set_baseIDX_K_698653(ByVal Main As RDCompiledProcess) As Object
+		return i+baseIDX
 	End Function
 
 	'OriginalExpression: 'ReadIni(IniFilePath, "FUSION", "ConnectionString")
@@ -337,6 +349,25 @@ Module StaticExpressions
 	<Extension()>
 	Public Function Eval_Static_Set_Languages_K_686311(ByVal Main As RDCompiledProcess) As Object
 		return SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+	End Function
+
+	'OriginalExpression: 'IsDirectory(ProcPath()+"LOG/")
+	<Extension()>
+	Public Function Eval_Static_Set_log_dir_exists_K_698721(ByVal Main As RDCompiledProcess) As Object
+		return IsDirectory(ProcPath()+"LOG/")
+	End Function
+
+	'Condition for group MAKE DIR
+	'OriginalExpression: 'log_dir_exists
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_698723(ByVal Main As RDCompiledProcess) As Object
+		return log_dir_exists
+	End Function
+
+	'OriginalExpression: 'ProcPath()+"LOG"
+	<Extension()>
+	Public Function Eval_Static_FolderPath_K_698722(ByVal Main As RDCompiledProcess) As Object
+		return ProcPath()+"LOG"
 	End Function
 
 	'OriginalExpression: 'ConnStr_LOCAL

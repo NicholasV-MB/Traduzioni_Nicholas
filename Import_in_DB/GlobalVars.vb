@@ -100,6 +100,7 @@ End Class
 	Public [condDEU] As string
 	Public [xml_crm] As string
 	Public [j] As integer
+	Public [log_dir_exists] As boolean
 	Public [JSONtext] As string
 	Public [JSONFile] As string
 	Public [kvTable] As New Generic.List(Of kvType)

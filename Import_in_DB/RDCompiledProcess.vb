@@ -134,20 +134,16 @@ Public Class RDCompiledProcess
 		TradTable = _ActionArgs_K_300(8)		'OUT
 		
 		'FOREACH Trad IN TradTable BYREF
-		Call FOREACHLOOP_K_350()
-		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
-
-		'Set baseIDX = i+baseIDX
-		_CurrentNode = "RDK:358"
-		baseIDX = EvalExpression("Set_baseIDX_K_358")
-		
-		'FOREACH Trad IN TradTable BYREF
 		Call FOREACHLOOP_K_359()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,true) Then Return
 
 		'Set TradTable = NOTHING
 		_CurrentNode = "RDK:405"
 		TradTable = CompilerUtil.CreateInstanceByType(TradTable.GetType)
+		
+		'Set baseIDX = i+baseIDX
+		_CurrentNode = "RDK:698653"
+		baseIDX = EvalExpression("Set_baseIDX_K_698653")
 		
 exit_function:
 	End sub
@@ -211,40 +207,6 @@ exec_group:
 	End Sub
 
 	'FOREACH Trad IN TradTable BYREF
-	Private Sub FOREACHLOOP_K_350()
-		_CurrentNode = "RDK:350"
-		Dim Values_RDK_350 as object = TradTable
-		Dim Index_RDK_350 as integer
-		Dim MaxCount_RDK_350 as integer = CompilerUtil.Count(Values_RDK_350)
-		If MaxCount_RDK_350 <= 0 then return
-		Index_RDK_350 = 0
-		i = 1
-	next_foreach:
-		Trad = Values_RDK_350(Index_RDK_350)
-		
-		'Set TradTable[i-1].IDX = i+baseIDX
-		_CurrentNode = "RDK:351"
-		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_351")
-		
-		'Execute SQL Statement
-		_CurrentNode = "RDK:663596"		'ACTION RDEngineering_DBExecuteStatement
-		Dim ActionArgs_K_663596 as New Generic.list(of object)
-		ActionArgs_K_663596.Add("LocalDB") 'ConnectionName IN
-		ActionArgs_K_663596.Add(EvalExpression("SqlStatement_K_663596")) 'SqlStatement IN
-		ActionArgs_K_663596.Add(Nothing) 'StatementResult OUT
-		ActionArgs_K_663596.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_663596 As object() = ActionArgs_K_663596.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_663596)
-		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
-		
-	next_iteration:
-		Index_RDK_350 += 1
-		If Index_RDK_350 >= MaxCount_RDK_350 then return
-		i += 1
-		goto next_foreach
-	End Sub
-
-	'FOREACH Trad IN TradTable BYREF
 	Private Sub FOREACHLOOP_K_359()
 		_CurrentNode = "RDK:359"
 		Dim Values_RDK_359 as object = TradTable
@@ -252,6 +214,7 @@ exec_group:
 		Dim MaxCount_RDK_359 as integer = CompilerUtil.Count(Values_RDK_359)
 		If MaxCount_RDK_359 <= 0 then return
 		Index_RDK_359 = 0
+		i = 1
 	next_foreach:
 		Trad = Values_RDK_359(Index_RDK_359)
 		
@@ -340,6 +303,7 @@ exec_group:
 	next_iteration:
 		Index_RDK_359 += 1
 		If Index_RDK_359 >= MaxCount_RDK_359 then return
+		i += 1
 		goto next_foreach
 	End Sub
 
@@ -598,6 +562,10 @@ exec_group:
 			'If Count(SupportTableTags)=0 is True
 			Call THENGROUP_K_698106()
 
+		else
+			'Execute SQL Statement
+			Call ELSEGROUP_K_698623()
+
 		End if
 	End Sub
 
@@ -622,28 +590,82 @@ exec_group:
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		SupportTableTags = _ActionArgs_K_698137(8)		'OUT
 		
-		'Group <Count(SupportTableTags)=0 is True>
-		Call Group_K_698429()
+		'If Count(SupportTableTags)=0 is True
+		Call IFTHENELSE_K_698546()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
 	End Sub
 
-	'Group <Count(SupportTableTags)=0 is True>
-	Private Sub Group_K_698429()
-		_CurrentNode = "RDK:698429"
+	'If Count(SupportTableTags)=0 is True
+	Private Sub IFTHENELSE_K_698546()
+		_CurrentNode = "RDK:698546"
 		'Group Conditions
-		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_698429")
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_698546")
 exec_group:
 '----------------------------------------------------
-		if not _GroupExecute then return
+		if _GroupExecute then
+		    'Call THEN group
+			'If Count(SupportTableTags)=0 is True
+			Call THENGROUP_K_698547()
+
+		else
+			'Append Text Line
+			Call ELSEGROUP_K_698548()
+
+		End if
+	End Sub
+
+	'If Count(SupportTableTags)=0 is True
+	Private Sub THENGROUP_K_698547()
+		_CurrentNode = "RDK:698547"
 		'Append Text Line
-		_CurrentNode = "RDK:698461"		'ACTION RDEngineering_AppendTextLine
-		Dim ActionArgs_K_698461 as New Generic.list(of object)
-		ActionArgs_K_698461.Add("LOG/LOG.log") 'FileName IN
-		ActionArgs_K_698461.Add(EvalExpression("TextLine_K_698461")) 'TextLine IN
-		ActionArgs_K_698461.Add(Nothing) 'Options IN
-		Dim _ActionArgs_K_698461 As object() = ActionArgs_K_698461.ToArray
-		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_FILE_TEXT","RDEngineering_AppendTextLine",_ActionArgs_K_698461)
+		_CurrentNode = "RDK:698588"		'ACTION RDEngineering_AppendTextLine
+		Dim ActionArgs_K_698588 as New Generic.list(of object)
+		ActionArgs_K_698588.Add("LOG/LOG.log") 'FileName IN
+		ActionArgs_K_698588.Add(EvalExpression("TextLine_K_698588")) 'TextLine IN
+		ActionArgs_K_698588.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_698588 As object() = ActionArgs_K_698588.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_FILE_TEXT","RDEngineering_AppendTextLine",_ActionArgs_K_698588)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
+	End Sub
+
+	'Append Text Line
+	Private Sub ELSEGROUP_K_698548()
+		_CurrentNode = "RDK:698548"
+		'Set TradTable[i-1].IDX = i+baseIDX
+		_CurrentNode = "RDK:698602"
+		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_698602")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:698616"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_698616 as New Generic.list(of object)
+		ActionArgs_K_698616.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_698616.Add(EvalExpression("SqlStatement_K_698616")) 'SqlStatement IN
+		ActionArgs_K_698616.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_698616.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_698616 As object() = ActionArgs_K_698616.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_698616)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		
+	End Sub
+
+	'Execute SQL Statement
+	Private Sub ELSEGROUP_K_698623()
+		_CurrentNode = "RDK:698623"
+		'Set TradTable[i-1].IDX = i+baseIDX
+		_CurrentNode = "RDK:698637"
+		TradTable(i-1).IDX = EvalExpression("Set_TradTable_i_1__IDX_K_698637")
+		
+		'Execute SQL Statement
+		_CurrentNode = "RDK:698645"		'ACTION RDEngineering_DBExecuteStatement
+		Dim ActionArgs_K_698645 as New Generic.list(of object)
+		ActionArgs_K_698645.Add("LocalDB") 'ConnectionName IN
+		ActionArgs_K_698645.Add(EvalExpression("SqlStatement_K_698645")) 'SqlStatement IN
+		ActionArgs_K_698645.Add(Nothing) 'StatementResult OUT
+		ActionArgs_K_698645.Add(Nothing) 'Options IN
+		Dim _ActionArgs_K_698645 As object() = ActionArgs_K_698645.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_DB_OLEDB","RDEngineering_DBExecuteStatement",_ActionArgs_K_698645)
 		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
@@ -681,6 +703,10 @@ exec_group:
 		_CurrentNode = "RDK:0008"
 		'INIT (Set Connection Strings)
 		Call INIT_K_28()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+		'CHECK LOG DIR
+		Call CHECK_LOG_DIR_K_698724()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
 		'LocalDB
@@ -748,6 +774,39 @@ exec_group:
 		'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
 		_CurrentNode = "RDK:686311"
 		Languages = EvalExpression("Set_Languages_K_686311")
+		
+	End Sub
+
+	'CHECK LOG DIR
+	Private Sub CHECK_LOG_DIR_K_698724()
+		_CurrentNode = "RDK:698724"
+		'Set log_dir_exists = IsDirectory(ProcPath()+"LOG/")
+		_CurrentNode = "RDK:698721"
+		log_dir_exists = EvalExpression("Set_log_dir_exists_K_698721")
+		
+		'MAKE DIR <log_dir_exists is False>
+		Call MAKE_DIR_K_698723()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'MAKE DIR <log_dir_exists is False>
+	Private Sub MAKE_DIR_K_698723()
+		_CurrentNode = "RDK:698723"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = NOT EvalExpression("CondExp1_K_698723")
+exec_group:
+'----------------------------------------------------
+		if not _GroupExecute then return
+		'MakeDir (ProcPath()+"LOG")
+		_CurrentNode = "RDK:698722"		'ACTION RDEngineering_MakeDir
+		Dim ActionArgs_K_698722 as New Generic.list(of object)
+		ActionArgs_K_698722.Add(EvalExpression("FolderPath_K_698722")) 'FolderPath IN
+		ActionArgs_K_698722.Add(Nothing) 'ForceCreation IN
+		ActionArgs_K_698722.Add(Nothing) 'UseRecycleBin IN
+		Dim _ActionArgs_K_698722 As object() = ActionArgs_K_698722.ToArray
+		_ActionResult = CompilerUtil.ExecuteAction("RDEngineering_MISC","RDEngineering_MakeDir",_ActionArgs_K_698722)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
 		
 	End Sub
 
