@@ -1,0 +1,2420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="ruled [SRV-PLMTEST]" ModDate="2020-12-02T16:35:23" LanguageVersion="2014.1.2.233" />
+	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
+		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
+			<TYPE Id="RDK:32" Name="TradType" SubType="structure">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:791046" Name="ORIGIN" Type="string" />
+				<FIELD Id="RDK:791080" Name="TAGS" Type="string" />
+				<FIELD Id="RDK:26" Name="IDX" Type="integer" />
+				<FIELD Id="RDK:27" Name="ITA" Type="string" />
+				<FIELD Id="RDK:28" Name="ENG" Type="string" />
+				<FIELD Id="RDK:29" Name="ESP" Type="string" />
+				<FIELD Id="RDK:30" Name="FRA" Type="string" />
+				<FIELD Id="RDK:31" Name="DEU" Type="string" />
+				<FIELD Id="RDK:1301" Name="UPDATED" Type="boolean" />
+				<FIELD Id="RDK:2232" Name="IS_NEW" Type="boolean" />
+				<FIELD Id="RDK:680143" Name="LAST_UPDATE" Type="date" />
+			</TYPE>
+			<TYPE Id="RDK:930422" Name="TradType_list" Expanded="True" SubType="list" ItemListTypeName="TradType">
+				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+				<TYPE_VALUES />
+			</TYPE>
+			<TYPE Id="RDK:1048" Name="MetaTradType" SubType="structure" HasArrayType="True">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:1043" Name="IDX" Type="integer" />
+				<FIELD Id="RDK:1044" Name="ORIGIN_DB" Type="string" />
+				<FIELD Id="RDK:1045" Name="ORIGIN_TABLE" Type="string" />
+				<FIELD Id="RDK:1046" Name="ORIGIN_ID_0" Type="string" />
+				<FIELD Id="RDK:1047" Name="ORIGIN_ID_1" Type="string" />
+				<FIELD Id="RDK:840581" Name="LAST_UPDATE">
+					<TYPE Id="RDK:840581" IsInternal="True" Expanded="True" SubType="base" BaseType="date">
+						<UI_INPUT_TYPE Visible="False" TypeForm="Date" Locked="True" />
+						<UI_INPUT_VALIDATION ValidationType="none" />
+						<UI_INPUT_SUPPORT />
+						<TYPE_VALUES />
+					</TYPE>
+				</FIELD>
+			</TYPE>
+			<GROUP Id="RDK:881533" Name="RuleDesignerTypes" SubType="TypeSet" Include="Type_RuleDesignerTypes.rdx" IncludeDate="132513884661238791">
+				<TYPE Id="RDK:970314" Name="PropertyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970310" Name="key" Type="string" />
+					<FIELD Id="RDK:970311" Name="value" Type="string" />
+					<FIELD Id="RDK:970312" Name="required" Type="boolean" />
+					<FIELD Id="RDK:970313" Name="rowIndex" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:970315" Name="PropertiesType" SubType="list" ItemListTypeName="PropertyType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970320" Name="VatDetailType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970316" Name="vatRate" Type="double" />
+					<FIELD Id="RDK:970317" Name="initAmount" Type="double" />
+					<FIELD Id="RDK:970318" Name="baseAmount" Type="double" />
+					<FIELD Id="RDK:970319" Name="finalAmount" Type="double" />
+				</TYPE>
+				<TYPE Id="RDK:970321" Name="VatDetailsType" SubType="list" ItemListTypeName="VatDetailType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970325" Name="CompanyBusinessType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970322" Name="categoryID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970323" Name="typeID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970324" Name="description" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970326" Name="CompanyBusinessesType" SubType="list" ItemListTypeName="CompanyBusinessType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970338" Name="CompanyDestinationType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970327" Name="id" Type="integer" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:970328" Name="description" Type="string" />
+					<FIELD Id="RDK:970329" Name="address" Type="string" />
+					<FIELD Id="RDK:970330" Name="postCode" Type="string" />
+					<FIELD Id="RDK:970331" Name="city" Type="string" />
+					<FIELD Id="RDK:970332" Name="provinceID" Type="string" />
+					<FIELD Id="RDK:970333" Name="nationID" Type="string" />
+					<FIELD Id="RDK:970334" Name="phoneNumber" Type="string" />
+					<FIELD Id="RDK:970335" Name="faxNumber" Type="string" />
+					<FIELD Id="RDK:970336" Name="mailAddress" Type="string" />
+					<FIELD Id="RDK:970337" Name="notes" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970339" Name="CompanyDestinationsType" SubType="list" ItemListTypeName="CompanyDestinationType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970343" Name="CompanyRelationType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970340" Name="typeID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970341" Name="relatedCompanyID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970342" Name="notes" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970344" Name="CompanyRelationsType" SubType="list" ItemListTypeName="CompanyRelationType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970368" Name="CompanyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970345" Name="id" Type="string" />
+					<FIELD Id="RDK:970346" Name="code" Type="string" />
+					<FIELD Id="RDK:970347" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970348" Name="address" Type="string" />
+					<FIELD Id="RDK:970349" Name="town" Type="string" />
+					<FIELD Id="RDK:970350" Name="postalCode" Type="string" />
+					<FIELD Id="RDK:970351" Name="province" Type="string" />
+					<FIELD Id="RDK:970352" Name="country" Type="string" />
+					<FIELD Id="RDK:970353" Name="language" Type="string" />
+					<FIELD Id="RDK:970354" Name="phoneNumber" Type="string" />
+					<FIELD Id="RDK:970355" Name="faxNumber" Type="string" />
+					<FIELD Id="RDK:970356" Name="vatNumber" Type="string" />
+					<FIELD Id="RDK:970357" Name="fiscalCode" Type="string" />
+					<FIELD Id="RDK:970358" Name="eMail" Type="string" />
+					<FIELD Id="RDK:970359" Name="webSite" Type="string" />
+					<FIELD Id="RDK:970360" Name="status" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970361" Name="reliability" Type="string" />
+					<FIELD Id="RDK:970362" Name="seller" Type="integer" />
+					<FIELD Id="RDK:970363" Name="headCompany" Type="boolean" />
+					<FIELD Id="RDK:970364" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:970365" Name="businesses" Type="CompanyBusinessesType" />
+					<FIELD Id="RDK:970366" Name="destinations" Type="CompanyDestinationsType" />
+					<FIELD Id="RDK:970367" Name="relations" Type="CompanyRelationsType" />
+				</TYPE>
+				<TYPE Id="RDK:970369" Name="CompaniesType" SubType="list" ItemListTypeName="CompanyType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970384" Name="ContactType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970370" Name="personID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970371" Name="companyID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970372" Name="description" Type="string" />
+					<FIELD Id="RDK:970373" Name="mainRoleID" Type="integer" />
+					<FIELD Id="RDK:970374" Name="groupRoleID" Type="integer" />
+					<FIELD Id="RDK:970375" Name="functionID" Type="integer" />
+					<FIELD Id="RDK:970376" Name="acceptMassiveActions" Type="boolean" />
+					<FIELD Id="RDK:970377" Name="siteID" Type="integer" />
+					<FIELD Id="RDK:970378" Name="isReferent" Type="boolean" />
+					<FIELD Id="RDK:970379" Name="isObsolete" Type="boolean" />
+					<FIELD Id="RDK:970380" Name="sourceID" Type="integer" />
+					<FIELD Id="RDK:970381" Name="roleIDs" Type="integer[]" />
+					<FIELD Id="RDK:970382" Name="officeIDs" Type="string[]" />
+					<FIELD Id="RDK:970383" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:970387" Name="CountryType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970385" Name="id" Type="string" />
+					<FIELD Id="RDK:970386" Name="name" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970388" Name="CountriesType" SubType="list" ItemListTypeName="CountryType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970391" Name="DocumentFileType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970389" Name="filename" Type="string" />
+					<FIELD Id="RDK:970390" Name="fullFilename" Type="string" DesignTimeRemark="REQUIRED" />
+				</TYPE>
+				<TYPE Id="RDK:970392" Name="DocumentFilesType" SubType="list" ItemListTypeName="DocumentFileType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970395" Name="DocumentLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970393" Name="documentID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970394" Name="linkTypeID" Type="string" DesignTimeRemark="REQUIRED" />
+				</TYPE>
+				<TYPE Id="RDK:970396" Name="DocumentLinksType" SubType="list" ItemListTypeName="DocumentLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970414" Name="DocumentType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970397" Name="id" Type="string" />
+					<FIELD Id="RDK:970398" Name="version" Type="string" />
+					<FIELD Id="RDK:970399" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970400" Name="protocol" Type="string" />
+					<FIELD Id="RDK:970401" Name="description" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970402" Name="name" Type="string" DesignTimeRemark="REQUIRED - Alfresco Only" />
+					<FIELD Id="RDK:970403" Name="modificationNotes" Type="string" />
+					<FIELD Id="RDK:970404" Name="languageID" Type="string" />
+					<FIELD Id="RDK:970405" Name="keywords" Type="string" />
+					<FIELD Id="RDK:970406" Name="files" Type="DocumentFilesType" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970407" Name="linkedDocuments" Type="DocumentLinksType" />
+					<FIELD Id="RDK:970408" Name="linkedCompanyIDs" Type="string[]" />
+					<FIELD Id="RDK:970409" Name="linkedPDMPartNumbers" Type="string[]" />
+					<FIELD Id="RDK:970410" Name="linkedProductIDs" Type="string[]" />
+					<FIELD Id="RDK:970411" Name="linkedProjectIDs" Type="string[]" />
+					<FIELD Id="RDK:970412" Name="linkedOfferIDs" Type="string[]" />
+					<FIELD Id="RDK:970413" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:970436" Name="IncidentReportType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970415" Name="id" Type="string" />
+					<FIELD Id="RDK:970416" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970417" Name="contactID" Type="string" />
+					<FIELD Id="RDK:970418" Name="projectID" Type="string" />
+					<FIELD Id="RDK:970419" Name="familyID" Type="string" />
+					<FIELD Id="RDK:970420" Name="productID" Type="string" />
+					<FIELD Id="RDK:970421" Name="object" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970422" Name="description" Type="string" />
+					<FIELD Id="RDK:970423" Name="email" Type="string" />
+					<FIELD Id="RDK:970424" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970425" Name="assignToGroupID" Type="double" />
+					<FIELD Id="RDK:970426" Name="assignToUserID" Type="double" />
+					<FIELD Id="RDK:970427" Name="priorityID" Type="double" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970428" Name="gravityID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970429" Name="statusID" Type="string" />
+					<FIELD Id="RDK:970430" Name="deadline" Type="date" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970431" Name="openingDate" Type="date" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:970432" Name="closingDate" Type="date" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:970433" Name="firstReply" Type="string" />
+					<FIELD Id="RDK:970434" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:970435" Name="attachmentIDs" Type="integer[]" />
+				</TYPE>
+				<TYPE Id="RDK:970447" Name="IncidentReportReplyType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970437" Name="incidentReportID" Type="string" />
+					<FIELD Id="RDK:970438" Name="reply" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970439" Name="closingNote" Type="string" />
+					<FIELD Id="RDK:970440" Name="assignToGroupID" Type="double" />
+					<FIELD Id="RDK:970441" Name="assignToUserID" Type="double" />
+					<FIELD Id="RDK:970442" Name="priorityID" Type="double" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970443" Name="gravityID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970444" Name="statusID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970445" Name="deadline" Type="date" />
+					<FIELD Id="RDK:970446" Name="attachmentIDs" Type="integer[]" />
+				</TYPE>
+				<TYPE Id="RDK:970466" Name="OfferItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970448" Name="id" Type="integer" />
+					<FIELD Id="RDK:970449" Name="sequence" Type="integer" />
+					<FIELD Id="RDK:970450" Name="productId" Type="string" />
+					<FIELD Id="RDK:970451" Name="productCode" Type="string" />
+					<FIELD Id="RDK:970452" Name="productVersion" Type="string" />
+					<FIELD Id="RDK:970453" Name="productVersionId" Type="integer" />
+					<FIELD Id="RDK:970454" Name="productDescription" Type="string" />
+					<FIELD Id="RDK:970455" Name="productFullDescription" Type="string" />
+					<FIELD Id="RDK:970456" Name="serialNumberId" Type="string" />
+					<FIELD Id="RDK:970457" Name="serialNumberCode" Type="string" />
+					<FIELD Id="RDK:970458" Name="type" Type="string" DesignTimeRemark="REQUIRED" DesignTimeNotes="P = product&#xD;&#xA;E = external product&#xD;&#xA;S = service&#xD;&#xA;C = free comment&#xD;&#xA;X = standard comment" />
+					<FIELD Id="RDK:970459" Name="typeOfSale" Type="string" />
+					<FIELD Id="RDK:970460" Name="qtyUM" Type="string" />
+					<FIELD Id="RDK:970461" Name="qty" Type="double" />
+					<FIELD Id="RDK:970462" Name="unitPrice" Type="double" />
+					<FIELD Id="RDK:970463" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:970464" Name="discount" Type="double" />
+					<FIELD Id="RDK:970465" Name="vatID" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:970467" Name="OfferItemsType" SubType="list" ItemListTypeName="OfferItemType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970496" Name="OfferType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970468" Name="id" Type="integer" />
+					<FIELD Id="RDK:970469" Name="code" Type="string" />
+					<FIELD Id="RDK:970470" Name="description" Type="string" />
+					<FIELD Id="RDK:970471" Name="version" Type="string" />
+					<FIELD Id="RDK:970472" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970473" Name="projectID" Type="string" />
+					<FIELD Id="RDK:970474" Name="statusID" Type="string" />
+					<FIELD Id="RDK:970475" Name="opportunityID" Type="string" />
+					<FIELD Id="RDK:970476" Name="paymentType" Type="integer" />
+					<FIELD Id="RDK:970477" Name="currency" Type="string" />
+					<FIELD Id="RDK:970478" Name="type" Type="integer" />
+					<FIELD Id="RDK:970479" Name="validity" Type="date" />
+					<FIELD Id="RDK:970480" Name="discount" Type="double" />
+					<FIELD Id="RDK:970481" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:970482" Name="urgent" Type="boolean" />
+					<FIELD Id="RDK:970483" Name="deliveryDestinationID" Type="integer" />
+					<FIELD Id="RDK:970484" Name="deliveryDate" Type="date" />
+					<FIELD Id="RDK:970485" Name="addressee" Type="string" />
+					<FIELD Id="RDK:970486" Name="courrierID" Type="string" />
+					<FIELD Id="RDK:970487" Name="courrierDetails" Type="string" />
+					<FIELD Id="RDK:970488" Name="shippingCost" Type="double" />
+					<FIELD Id="RDK:970489" Name="shippingInfo" Type="string" />
+					<FIELD Id="RDK:970490" Name="initPrice" Type="double" />
+					<FIELD Id="RDK:970491" Name="basePrice" Type="double" />
+					<FIELD Id="RDK:970492" Name="vatLiable" Type="boolean" />
+					<FIELD Id="RDK:970493" Name="vatExemptionID" Type="integer" />
+					<FIELD Id="RDK:970494" Name="items" Type="OfferItemsType" />
+					<FIELD Id="RDK:970495" Name="vatDetails" Type="VatDetailsType" />
+				</TYPE>
+				<TYPE Id="RDK:970515" Name="OrderItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970497" Name="id" Type="integer" />
+					<FIELD Id="RDK:970498" Name="sequence" Type="integer" />
+					<FIELD Id="RDK:970499" Name="productId" Type="string" />
+					<FIELD Id="RDK:970500" Name="productCode" Type="string" />
+					<FIELD Id="RDK:970501" Name="productVersion" Type="string" />
+					<FIELD Id="RDK:970502" Name="productVersionId" Type="integer" />
+					<FIELD Id="RDK:970503" Name="productDescription" Type="string" />
+					<FIELD Id="RDK:970504" Name="productFullDescription" Type="string" />
+					<FIELD Id="RDK:970505" Name="serialNumberId" Type="string" />
+					<FIELD Id="RDK:970506" Name="serialNumberCode" Type="string" />
+					<FIELD Id="RDK:970507" Name="type" Type="string" DesignTimeRemark="REQUIRED" DesignTimeNotes="P = product&#xD;&#xA;E = external product&#xD;&#xA;S = service&#xD;&#xA;C = free comment&#xD;&#xA;X = standard comment" />
+					<FIELD Id="RDK:970508" Name="typeOfSale" Type="string" />
+					<FIELD Id="RDK:970509" Name="qtyUM" Type="string" />
+					<FIELD Id="RDK:970510" Name="qty" Type="double" />
+					<FIELD Id="RDK:970511" Name="unitPrice" Type="double" />
+					<FIELD Id="RDK:970512" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:970513" Name="discount" Type="double" />
+					<FIELD Id="RDK:970514" Name="vatID" Type="integer" />
+				</TYPE>
+				<TYPE Id="RDK:970516" Name="OrderItemsType" SubType="list" ItemListTypeName="OrderItemType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970545" Name="OrderType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970517" Name="id" Type="integer" />
+					<FIELD Id="RDK:970518" Name="code" Type="string" />
+					<FIELD Id="RDK:970519" Name="description" Type="string" />
+					<FIELD Id="RDK:970520" Name="version" Type="string" />
+					<FIELD Id="RDK:970521" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970522" Name="projectID" Type="string" />
+					<FIELD Id="RDK:970523" Name="statusID" Type="string" />
+					<FIELD Id="RDK:970524" Name="parentOfferID" Type="integer" />
+					<FIELD Id="RDK:970525" Name="paymentType" Type="integer" />
+					<FIELD Id="RDK:970526" Name="currency" Type="string" />
+					<FIELD Id="RDK:970527" Name="type" Type="integer" />
+					<FIELD Id="RDK:970528" Name="validity" Type="date" />
+					<FIELD Id="RDK:970529" Name="discount" Type="double" />
+					<FIELD Id="RDK:970530" Name="totalPrice" Type="double" />
+					<FIELD Id="RDK:970531" Name="urgent" Type="boolean" />
+					<FIELD Id="RDK:970532" Name="deliveryDestinationID" Type="integer" />
+					<FIELD Id="RDK:970533" Name="deliveryDate" Type="date" />
+					<FIELD Id="RDK:970534" Name="addressee" Type="string" />
+					<FIELD Id="RDK:970535" Name="courrierID" Type="string" />
+					<FIELD Id="RDK:970536" Name="courrierDetails" Type="string" />
+					<FIELD Id="RDK:970537" Name="shippingCost" Type="double" />
+					<FIELD Id="RDK:970538" Name="shippingInfo" Type="string" />
+					<FIELD Id="RDK:970539" Name="initPrice" Type="double" />
+					<FIELD Id="RDK:970540" Name="basePrice" Type="double" />
+					<FIELD Id="RDK:970541" Name="vatLiable" Type="boolean" />
+					<FIELD Id="RDK:970542" Name="vatExemptionID" Type="integer" />
+					<FIELD Id="RDK:970543" Name="items" Type="OrderItemsType" />
+					<FIELD Id="RDK:970544" Name="vatDetails" Type="VatDetailsType" />
+				</TYPE>
+				<TYPE Id="RDK:970563" Name="PersonType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970546" Name="id" Type="string" />
+					<FIELD Id="RDK:970547" Name="fullName" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970548" Name="phone" Type="string" />
+					<FIELD Id="RDK:970549" Name="email" Type="string" />
+					<FIELD Id="RDK:970550" Name="titleID" Type="string" />
+					<FIELD Id="RDK:970551" Name="info" Type="string" />
+					<FIELD Id="RDK:970552" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970553" Name="chiefID" Type="string" />
+					<FIELD Id="RDK:970554" Name="mobilePhone" Type="string" />
+					<FIELD Id="RDK:970555" Name="isObsolete" Type="boolean" />
+					<FIELD Id="RDK:970556" Name="homePhone" Type="string" />
+					<FIELD Id="RDK:970557" Name="homeMail" Type="string" />
+					<FIELD Id="RDK:970558" Name="gender" Type="string" DesignTimeRemark="M|F" />
+					<FIELD Id="RDK:970559" Name="photo" Type="string" />
+					<FIELD Id="RDK:970560" Name="languageID" Type="string" />
+					<FIELD Id="RDK:970561" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:970562" Name="businesses" Type="CompanyBusinessesType" />
+				</TYPE>
+				<TYPE Id="RDK:970584" Name="ProductType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970564" Name="id" Type="string" />
+					<FIELD Id="RDK:970565" Name="parentID" Type="string" />
+					<FIELD Id="RDK:970566" Name="versionID" Type="integer" />
+					<FIELD Id="RDK:970567" Name="parentVersionID" Type="integer" />
+					<FIELD Id="RDK:970568" Name="code" Type="string" />
+					<FIELD Id="RDK:970569" Name="version" Type="string" />
+					<FIELD Id="RDK:970570" Name="shortDescription" Type="string" />
+					<FIELD Id="RDK:970571" Name="longDescription" Type="string" />
+					<FIELD Id="RDK:970572" Name="type" Type="string" />
+					<FIELD Id="RDK:970573" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:970574" Name="familyID" Type="string" />
+					<FIELD Id="RDK:970575" Name="subFamilyID" Type="string" />
+					<FIELD Id="RDK:970576" Name="categoryID" Type="string" />
+					<FIELD Id="RDK:970577" Name="price" Type="double" />
+					<FIELD Id="RDK:970578" Name="cost" Type="double" />
+					<FIELD Id="RDK:970579" Name="lastVersion" Type="boolean" />
+					<FIELD Id="RDK:970580" Name="packNumber" Type="integer" />
+					<FIELD Id="RDK:970581" Name="weight" Type="double" />
+					<FIELD Id="RDK:970582" Name="weightUM" Type="string" />
+					<FIELD Id="RDK:970583" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:970589" Name="ProductLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970585" Name="productID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970586" Name="versionID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970587" Name="qty" Type="double" />
+					<FIELD Id="RDK:970588" Name="type" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970590" Name="ProductLinksType" SubType="list" ItemListTypeName="ProductLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970597" Name="PartNumberType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970591" Name="code" Type="string" />
+					<FIELD Id="RDK:970592" Name="version" Type="integer" />
+					<FIELD Id="RDK:970593" Name="qty" Type="double" />
+					<FIELD Id="RDK:970594" Name="folder" Type="integer" />
+					<FIELD Id="RDK:970595" Name="linkType" Type="string" />
+					<FIELD Id="RDK:970596" Name="projectPhaseID" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970598" Name="PartNumbersType" SubType="list" ItemListTypeName="PartNumberType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970602" Name="ProjectLinkType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970599" Name="projectID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970600" Name="linkType" Type="string" DesignTimeRemark="REQUIRED - Use PRNTC for default Parent-Child relations" />
+					<FIELD Id="RDK:970601" Name="isMaster" Type="boolean" />
+				</TYPE>
+				<TYPE Id="RDK:970603" Name="ProjectLinksType" SubType="list" ItemListTypeName="ProjectLinkType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970609" Name="ProjectPhaseType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970604" Name="id" Type="string" />
+					<FIELD Id="RDK:970605" Name="description" Type="string" />
+					<FIELD Id="RDK:970606" Name="workflowID" Type="string" />
+					<FIELD Id="RDK:970607" Name="isNew" Type="boolean" DesignTimeRemark="READONLY" />
+					<FIELD Id="RDK:970608" Name="isClosed" Type="boolean" DesignTimeRemark="READONLY" />
+				</TYPE>
+				<TYPE Id="RDK:970610" Name="ProjectPhasesType" SubType="list" ItemListTypeName="ProjectPhaseType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970624" Name="ProjectType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970611" Name="id" Type="string" />
+					<FIELD Id="RDK:970612" Name="code" Type="string" />
+					<FIELD Id="RDK:970613" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970614" Name="description" Type="string" />
+					<FIELD Id="RDK:970615" Name="template" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970616" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:970617" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970618" Name="statusID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970619" Name="estimatedStartDate" Type="date" />
+					<FIELD Id="RDK:970620" Name="estimatedEndDate" Type="date" />
+					<FIELD Id="RDK:970621" Name="links" Type="ProjectLinksType" />
+					<FIELD Id="RDK:970622" Name="phases" Type="ProjectPhasesType" />
+					<FIELD Id="RDK:970623" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:970630" Name="PhaseCheckType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970625" Name="rowIndex" Type="integer" />
+					<FIELD Id="RDK:970626" Name="description" Type="string" />
+					<FIELD Id="RDK:970627" Name="status" Type="string" />
+					<FIELD Id="RDK:970628" Name="executedBy" Type="integer" />
+					<FIELD Id="RDK:970629" Name="executedOn" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:970631" Name="PhaseChecksType" SubType="list" ItemListTypeName="PhaseCheckType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970639" Name="ProjectPhaseItemType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970632" Name="projectID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970633" Name="itemID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970634" Name="managerID" Type="integer" />
+					<FIELD Id="RDK:970635" Name="groupID" Type="integer" />
+					<FIELD Id="RDK:970636" Name="statusID" Type="string" />
+					<FIELD Id="RDK:970637" Name="properties" Type="PropertiesType" />
+					<FIELD Id="RDK:970638" Name="checkList" Type="PhaseChecksType" />
+				</TYPE>
+				<TYPE Id="RDK:970647" Name="PermissionType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970640" Name="groupId" Type="integer" />
+					<FIELD Id="RDK:970641" Name="userId" Type="integer" />
+					<FIELD Id="RDK:970642" Name="allowView" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:970643" Name="allowInsert" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:970644" Name="allowEdit" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:970645" Name="allowDelete" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+					<FIELD Id="RDK:970646" Name="allowCustomSec" Type="integer" DesignTimeRemark="0: False, 1: True, -1: Not Defined" />
+				</TYPE>
+				<TYPE Id="RDK:970648" Name="PermissionsType" SubType="list" ItemListTypeName="PermissionType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970651" Name="SecurityType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970649" Name="key" Type="string" />
+					<FIELD Id="RDK:970650" Name="permissions" Type="PermissionsType" />
+				</TYPE>
+				<TYPE Id="RDK:970655" Name="TaskParticipantType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970652" Name="userID" Type="integer" />
+					<FIELD Id="RDK:970653" Name="role" Type="string" DesignTimeRemark="P = Mandatory Partecipant, C = Partecipant must confirm, N = Notification Only" />
+					<FIELD Id="RDK:970654" Name="accepted" Type="boolean" />
+				</TYPE>
+				<TYPE Id="RDK:970656" Name="TaskParticipantsType" SubType="list" ItemListTypeName="TaskParticipantType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970666" Name="TaskResourceType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970657" Name="id" Type="string" />
+					<FIELD Id="RDK:970658" Name="type" Type="string" />
+					<FIELD Id="RDK:970659" Name="period" Type="string" />
+					<FIELD Id="RDK:970660" Name="beginDate" Type="date" />
+					<FIELD Id="RDK:970661" Name="endDate" Type="date" />
+					<FIELD Id="RDK:970662" Name="beginHour" Type="string" />
+					<FIELD Id="RDK:970663" Name="beginMinute" Type="string" />
+					<FIELD Id="RDK:970664" Name="endHour" Type="string" />
+					<FIELD Id="RDK:970665" Name="endMinute" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970667" Name="TaskResourcesType" SubType="list" ItemListTypeName="TaskResourceType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970671" Name="TaskWorktimeType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970668" Name="userID" Type="integer" />
+					<FIELD Id="RDK:970669" Name="date" Type="date" />
+					<FIELD Id="RDK:970670" Name="hours" Type="double" />
+				</TYPE>
+				<TYPE Id="RDK:970672" Name="TaskWorktimesType" SubType="list" ItemListTypeName="TaskWorktimeType">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970705" Name="TaskType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970673" Name="id" Type="integer" />
+					<FIELD Id="RDK:970674" Name="creatorID" Type="integer" />
+					<FIELD Id="RDK:970675" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970676" Name="title" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970677" Name="text" Type="string" />
+					<FIELD Id="RDK:970678" Name="validity" Type="string" />
+					<FIELD Id="RDK:970679" Name="location" Type="string" />
+					<FIELD Id="RDK:970680" Name="priority" Type="integer" />
+					<FIELD Id="RDK:970681" Name="alert" Type="boolean" />
+					<FIELD Id="RDK:970682" Name="notify" Type="string" DesignTimeRemark="&quot;&quot;|&quot;Y&quot;|&quot;N&quot;" />
+					<FIELD Id="RDK:970683" Name="period" Type="string" />
+					<FIELD Id="RDK:970684" Name="totalTime" Type="double" />
+					<FIELD Id="RDK:970685" Name="estimatedTime" Type="double" />
+					<FIELD Id="RDK:970686" Name="beginDate" Type="date" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970687" Name="endDate" Type="date" />
+					<FIELD Id="RDK:970688" Name="beginHour" Type="string" />
+					<FIELD Id="RDK:970689" Name="beginMinute" Type="string" />
+					<FIELD Id="RDK:970690" Name="endHour" Type="string" />
+					<FIELD Id="RDK:970691" Name="endMinute" Type="string" />
+					<FIELD Id="RDK:970692" Name="assignedUserID" Type="integer" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970693" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970694" Name="opportunityID" Type="string" />
+					<FIELD Id="RDK:970695" Name="contactID" Type="string" />
+					<FIELD Id="RDK:970696" Name="projectID" Type="string" />
+					<FIELD Id="RDK:970697" Name="phaseID" Type="string" />
+					<FIELD Id="RDK:970698" Name="phaseStatusID" Type="string" />
+					<FIELD Id="RDK:970699" Name="participants" Type="TaskParticipantsType" />
+					<FIELD Id="RDK:970700" Name="resources" Type="TaskResourcesType" />
+					<FIELD Id="RDK:970701" Name="worktimes" Type="TaskWorktimesType" />
+					<FIELD Id="RDK:970702" Name="products" Type="ProductLinksType" />
+					<FIELD Id="RDK:970703" Name="attachmentIDs" Type="integer[]" />
+					<FIELD Id="RDK:970704" Name="properties" Type="PropertiesType" />
+				</TYPE>
+				<TYPE Id="RDK:970727" Name="UserType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970706" Name="id" Type="integer" />
+					<FIELD Id="RDK:970707" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970708" Name="password" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970709" Name="fullname" Type="string" />
+					<FIELD Id="RDK:970710" Name="initials" Type="string" />
+					<FIELD Id="RDK:970711" Name="groupID" Type="integer" DesignTimeRemark="0 is NOT a valid ID" />
+					<FIELD Id="RDK:970712" Name="groupName" Type="string" />
+					<FIELD Id="RDK:970713" Name="groups" Type="integer[]" DesignTimeRemark="0 is NOT a valid ID" />
+					<FIELD Id="RDK:970714" Name="secondaryGroups" Type="integer[]" DesignTimeRemark="READONLY - 0 is NOT a valid ID" />
+					<FIELD Id="RDK:970715" Name="eMail" Type="string" />
+					<FIELD Id="RDK:970716" Name="isInternal" Type="boolean" />
+					<FIELD Id="RDK:970717" Name="personID" Type="string" />
+					<FIELD Id="RDK:970718" Name="statusID" Type="string" />
+					<FIELD Id="RDK:970719" Name="menuID" Type="string" />
+					<FIELD Id="RDK:970720" Name="companyID" Type="string" />
+					<FIELD Id="RDK:970721" Name="companyName" Type="string" />
+					<FIELD Id="RDK:970722" Name="systemCompanyID" Type="string" />
+					<FIELD Id="RDK:970723" Name="systemCompanyName" Type="string" />
+					<FIELD Id="RDK:970724" Name="systemCompanies" Type="string[]" DesignTimeRemark="Leave empty for all companies" />
+					<FIELD Id="RDK:970725" Name="languageID" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970726" Name="languageName" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970745" Name="AFDocumentType" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970728" Name="id" Type="string" />
+					<FIELD Id="RDK:970729" Name="version" Type="string" />
+					<FIELD Id="RDK:970730" Name="type" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970731" Name="protocol" Type="string" />
+					<FIELD Id="RDK:970732" Name="description" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970733" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970734" Name="modificationNotes" Type="string" />
+					<FIELD Id="RDK:970735" Name="languageID" Type="string" />
+					<FIELD Id="RDK:970736" Name="keywords" Type="string" />
+					<FIELD Id="RDK:970737" Name="files" Type="DocumentFilesType" DesignTimeRemark="REQUIRED" />
+					<FIELD Id="RDK:970738" Name="linkedDocuments" Type="DocumentLinksType" />
+					<FIELD Id="RDK:970739" Name="linkedCompanyIDs" Type="string[]" />
+					<FIELD Id="RDK:970740" Name="linkedPDMPartNumbers" Type="string[]" />
+					<FIELD Id="RDK:970741" Name="linkedProductIDs" Type="string[]" />
+					<FIELD Id="RDK:970742" Name="linkedProjectIDs" Type="string[]" />
+					<FIELD Id="RDK:970743" Name="linkedOfferIDs" Type="string[]" />
+					<FIELD Id="RDK:970744" Name="properties" Type="structure" />
+				</TYPE>
+				<TYPE Id="RDK:970752" Name="AFSimpleDocPropertyType" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970746" Name="cm:from" Type="date" />
+					<FIELD Id="RDK:970747" Name="cm:to" Type="date" />
+					<FIELD Id="RDK:970748" Name="cmis:createdBy" Type="string" />
+					<FIELD Id="RDK:970749" Name="cmis:creationDate" Type="date" />
+					<FIELD Id="RDK:970750" Name="cmis:lastModifiedBy" Type="string" />
+					<FIELD Id="RDK:970751" Name="cmis:lastModificationDate" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:970758" Name="BOMFilter" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970753" Name="id" Type="string" />
+					<FIELD Id="RDK:970754" Name="name" Type="string" />
+					<FIELD Id="RDK:970755" Name="attribute" Type="string" />
+					<FIELD Id="RDK:970756" Name="filter" Type="string" />
+					<FIELD Id="RDK:970757" Name="options" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970759" Name="BOMFilterList" SubType="list" ItemListTypeName="BOMFilter">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970764" Name="BOMProperty" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970760" Name="name" Type="string" />
+					<FIELD Id="RDK:970761" Name="description" Type="string" />
+					<FIELD Id="RDK:970762" Name="value" Type="string" />
+					<FIELD Id="RDK:970763" Name="flag" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970765" Name="BOMPropertyList" SubType="list" ItemListTypeName="BOMProperty">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+				<TYPE Id="RDK:970780" Name="Attributes_on_Material" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970766" Name="Code" Type="string" />
+					<FIELD Id="RDK:970767" Name="Description" Type="string" />
+					<FIELD Id="RDK:970768" Name="Cost" Type="double" />
+					<FIELD Id="RDK:970769" Name="Version" Type="string" />
+					<FIELD Id="RDK:970770" Name="Price" Type="double" />
+					<FIELD Id="RDK:970771" Name="Family" Type="string" />
+					<FIELD Id="RDK:970772" Name="Category" Type="string" />
+					<FIELD Id="RDK:970773" Name="FileName" Type="string" />
+					<FIELD Id="RDK:970774" Name="PdmID" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970775" Name="CadReferences" Type="string[]" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970776" Name="UM" Type="string" />
+					<FIELD Id="RDK:970777" Name="LastVersion" Type="boolean" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970778" Name="Filters" Type="BOMFilterList" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970779" Name="Properties" Type="BOMPropertyList" DesignTimeRemark="SPAREPARTS ONLY" />
+				</TYPE>
+				<TYPE Id="RDK:970804" Name="Attributes_on_BOM" SubType="structure" HasArrayType="True">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970781" Name="Level" Type="integer" Hidden="True" />
+					<FIELD Id="RDK:970782" Name="ParentCode" Type="string" Hidden="True" />
+					<FIELD Id="RDK:970783" Name="ChildCode" Type="string" Hidden="True" />
+					<FIELD Id="RDK:970784" Name="Description" Type="string" Hidden="True" />
+					<FIELD Id="RDK:970785" Name="Qty" Type="double" />
+					<FIELD Id="RDK:970786" Name="QtyUM" Type="string" />
+					<FIELD Id="RDK:970787" Name="Cost" Type="double" />
+					<FIELD Id="RDK:970788" Name="Folder" Type="string" />
+					<FIELD Id="RDK:970789" Name="ParentVersion" Type="string" />
+					<FIELD Id="RDK:970790" Name="ChildVersion" Type="string" />
+					<FIELD Id="RDK:970791" Name="LastVersion" Type="boolean" />
+					<FIELD Id="RDK:970792" Name="ParentFileName" Type="string" />
+					<FIELD Id="RDK:970793" Name="ChildFileName" Type="string" />
+					<FIELD Id="RDK:970794" Name="Price" Type="double" />
+					<FIELD Id="RDK:970795" Name="Family" Type="string" />
+					<FIELD Id="RDK:970796" Name="Category" Type="string" />
+					<FIELD Id="RDK:970797" Name="SheetName" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970798" Name="BalloonNumber" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970799" Name="FileName" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970800" Name="IsOrderable" Type="boolean" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970801" Name="PdmID" Type="string" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970802" Name="CadReferences" Type="string[]" DesignTimeRemark="SPAREPARTS ONLY" />
+					<FIELD Id="RDK:970803" Name="Properties" Type="BOMPropertyList" DesignTimeRemark="SPAREPARTS ONLY" />
+				</TYPE>
+				<TYPE Id="RDK:970812" Name="Attributes_on_Header" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970805" Name="BOMType" Type="string" />
+					<FIELD Id="RDK:970806" Name="Author" Type="string" />
+					<FIELD Id="RDK:970807" Name="Comments" Type="string" />
+					<FIELD Id="RDK:970808" Name="Version" Type="string" />
+					<FIELD Id="RDK:970809" Name="CrDate" Type="date" />
+					<FIELD Id="RDK:970810" Name="ValidityStart" Type="date" />
+					<FIELD Id="RDK:970811" Name="ValidityEnd" Type="date" />
+				</TYPE>
+				<TYPE Id="RDK:970816" Name="BOM" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970813" Name="header" Type="Attributes_on_Header" />
+					<FIELD Id="RDK:970814" Name="material" Type="Attributes_on_Material" />
+					<FIELD Id="RDK:970815" Name="links" Type="Attributes_on_BOM[]" />
+				</TYPE>
+				<TYPE Id="RDK:970848" Name="PDMCodeItem" SubType="structure">
+					<TYPE_VALUES />
+					<FIELD Id="RDK:970817" Name="CodeId" Type="integer" />
+					<FIELD Id="RDK:970818" Name="Code" Type="string" />
+					<FIELD Id="RDK:970819" Name="RevisionId" Type="integer" />
+					<FIELD Id="RDK:970820" Name="Revision" Type="string" />
+					<FIELD Id="RDK:970821" Name="LastRevision" Type="boolean" />
+					<FIELD Id="RDK:970822" Name="IsVersion" Type="boolean" />
+					<FIELD Id="RDK:970823" Name="VersionId" Type="integer" />
+					<FIELD Id="RDK:970824" Name="Version" Type="string" />
+					<FIELD Id="RDK:970825" Name="Title" Type="string" />
+					<FIELD Id="RDK:970826" Name="FullDescription" Type="string" />
+					<FIELD Id="RDK:970827" Name="Notes" Type="string" />
+					<FIELD Id="RDK:970828" Name="CategoryId" Type="integer" />
+					<FIELD Id="RDK:970829" Name="Category" Type="string" />
+					<FIELD Id="RDK:970830" Name="CategoryLayout" Type="string" />
+					<FIELD Id="RDK:970831" Name="StatusId" Type="integer" />
+					<FIELD Id="RDK:970832" Name="Status" Type="string" />
+					<FIELD Id="RDK:970833" Name="StUser" Type="string" />
+					<FIELD Id="RDK:970834" Name="StDate" Type="date" />
+					<FIELD Id="RDK:970835" Name="ModUser" Type="string" />
+					<FIELD Id="RDK:970836" Name="ModDate" Type="date" />
+					<FIELD Id="RDK:970837" Name="CrUser" Type="string" />
+					<FIELD Id="RDK:970838" Name="CrDate" Type="date" />
+					<FIELD Id="RDK:970839" Name="Vaulted" Type="boolean" />
+					<FIELD Id="RDK:970840" Name="Extract" Type="boolean" />
+					<FIELD Id="RDK:970841" Name="ExtractHost" Type="string" />
+					<FIELD Id="RDK:970842" Name="ExtractUser" Type="string" />
+					<FIELD Id="RDK:970843" Name="ExtractByUserInMachine" Type="boolean" />
+					<FIELD Id="RDK:970844" Name="Archived" Type="boolean" />
+					<FIELD Id="RDK:970845" Name="ArchivedNotes" Type="string" />
+					<FIELD Id="RDK:970846" Name="ServerPath" Type="string" />
+					<FIELD Id="RDK:970847" Name="UpdateStatus" Type="string" />
+				</TYPE>
+				<TYPE Id="RDK:970849" Name="PDMCodeItemList" SubType="list" ItemListTypeName="PDMCodeItem">
+					<UI_INPUT_TYPE TypeForm="Text" />
+					<UI_INPUT_VALIDATION ValidationType="none" />
+					<UI_INPUT_SUPPORT />
+					<TYPE_VALUES />
+				</TYPE>
+			</GROUP>
+			<TYPE Id="RDK:882114" Name="UserType" Suppressed="True" SubType="structure" HasArrayType="True">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:882093" Name="id" Type="integer" />
+				<FIELD Id="RDK:882094" Name="name" Type="string" DesignTimeRemark="REQUIRED" />
+				<FIELD Id="RDK:882095" Name="password" Type="string" DesignTimeRemark="REQUIRED" />
+				<FIELD Id="RDK:882096" Name="fullname" Type="string" />
+				<FIELD Id="RDK:882097" Name="initials" Type="string" />
+				<FIELD Id="RDK:882098" Name="groupID" Type="integer" DesignTimeRemark="0 is NOT a valid ID" />
+				<FIELD Id="RDK:882099" Name="groupName" Type="string" />
+				<FIELD Id="RDK:882100" Name="groups" Type="integer[]" DesignTimeRemark="0 is NOT a valid ID" />
+				<FIELD Id="RDK:882101" Name="secondaryGroups" Type="integer[]" DesignTimeRemark="READONLY - 0 is NOT a valid ID" />
+				<FIELD Id="RDK:882102" Name="eMail" Type="string" />
+				<FIELD Id="RDK:882103" Name="isInternal" Type="boolean" />
+				<FIELD Id="RDK:882104" Name="personID" Type="string" />
+				<FIELD Id="RDK:882105" Name="statusID" Type="string" />
+				<FIELD Id="RDK:882106" Name="menuID" Type="string" />
+				<FIELD Id="RDK:882107" Name="companyID" Type="string" />
+				<FIELD Id="RDK:882108" Name="companyName" Type="string" />
+				<FIELD Id="RDK:882109" Name="systemCompanyID" Type="string" />
+				<FIELD Id="RDK:882110" Name="systemCompanyName" Type="string" />
+				<FIELD Id="RDK:882111" Name="systemCompanies" Type="string[]" DesignTimeRemark="Leave empty for all companies" />
+				<FIELD Id="RDK:882112" Name="languageID" Type="string" DesignTimeRemark="REQUIRED" />
+				<FIELD Id="RDK:882113" Name="languageName" Type="string" />
+			</TYPE>
+			<TYPE Id="RDK:911971" Name="SortType" SubType="structure">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:911978" Name="Field" Type="string" />
+				<FIELD Id="RDK:911985" Name="Desc" Type="boolean" />
+			</TYPE>
+			<TYPE Id="RDK:915161" Name="FilterTradType" SubType="structure">
+				<TYPE_VALUES />
+				<FIELD Id="RDK:915150" Name="ORIGIN" Type="string" />
+				<FIELD Id="RDK:915151" Name="TAGS" Type="string" />
+				<FIELD Id="RDK:915152" Name="IDX" Type="integer" Suppressed="True" />
+				<FIELD Id="RDK:915153" Name="ITA" Type="string" />
+				<FIELD Id="RDK:915154" Name="ENG" Type="string" />
+				<FIELD Id="RDK:915155" Name="ESP" Type="string" />
+				<FIELD Id="RDK:915156" Name="FRA" Type="string" />
+				<FIELD Id="RDK:915157" Name="DEU" Type="string" />
+				<FIELD Id="RDK:915158" Name="UPDATED" Type="string" />
+				<FIELD Id="RDK:915159" Name="IS_NEW" Type="string" />
+				<FIELD Id="RDK:915160" Name="LAST_UPDATE" Type="string" />
+			</TYPE>
+		</GROUP>
+		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True">
+			<PAR_DEF Id="RDK:920047" Name="Mode" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+			<PAR_DEF Id="RDK:920062" Name="myUser" TypeRD="UserType" Direction="IN" Panel="Parameters" UseDataFile="False">
+				<LABEL />
+				<DESCRIPTION />
+			</PAR_DEF>
+		</GROUP>
+		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
+			<VAR Id="RDK:863196" Name="IniFilePath" Type="string" Expanded="True">
+				<SET Id="RDK:863195" VarRef="Me">
+					<EXP><![CDATA[$=$ProcPath()+"Settings.ini"]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:40" Name="ConnStr_LOCAL" Type="string" Expanded="True">
+				<SET Id="RDK:39" VarRef="Me" Suppressed="True">
+					<EXP><![CDATA[$C$Provider=sqloledb;Initial Catalog=MBKOffline;Data Source=LAPT-IT07\RULEDESIGNER;User Id=sa;Password=MBOffline$;]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:929375" Name="dateformat" Type="string" />
+			<VAR Id="RDK:48" Name="Trad" Type="TradType" Expanded="True" />
+			<VAR Id="RDK:50" Name="TradTable" Type="TradType_list" />
+			<VAR Id="RDK:82" Name="idx" Type="integer" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:1067" Name="MetaTrad" Type="MetaTradType" />
+			<VAR Id="RDK:1989" Name="ValidTag" Type="boolean" Expanded="True">
+				<SET Id="RDK:2015" VarRef="Me">
+					<EXP><![CDATA[$C$False]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:680086" Name="Matching_IDX" Type="integer" Expanded="True" />
+			<VAR Id="RDK:868774" Name="Button" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:869364" Name="order_by_str" Type="string" Expanded="True" />
+			<VAR Id="RDK:871674" Name="filter_query" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:882120" Name="myUser" Type="UserType" Expanded="True" Suppressed="True" />
+			<VAR Id="RDK:885999" Name="Offline" Type="boolean" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:886043" Name="URL" Type="string" Expanded="True">
+				<SET Id="RDK:886049" VarRef="Me">
+					<EXP><![CDATA[$C$http://testsint.modulblok.com/FUSIONTEST/]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:886061" Name="LoginSuccess" Type="boolean" />
+			<VAR Id="RDK:889847" Name="filters" Type="string" />
+			<VAR Id="RDK:894595" Name="filter_arr" Type="string[]" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:894647" Name="_filter" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:896244" Name="sort" Type="string" Expanded="True" />
+			<VAR Id="RDK:896783" Name="MAX_IDX" Type="integer" Expanded="True" DesignTimeRemark="Generated by RD" />
+			<VAR Id="RDK:898890" Name="sorted" Type="SortType" Expanded="True" />
+			<VAR Id="RDK:911053" Name="FilterTrad" Type="FilterTradType" Expanded="True" />
+			<VAR Id="RDK:911060" Name="TradTable_ORIG" Type="TradType_list" Expanded="True" />
+			<VAR Id="RDK:952846" Name="field_changed" Type="string" Expanded="True" />
+		</GROUP>
+		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True">
+			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" Options="(USEDVARS=trad)" Expanded="True" />
+			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" Expanded="True" />
+		</GROUP>
+		<GROUP Id="RDK:0007" Name="Functions" SubType="FunctionSet" IncludeDate="0" Expanded="True" />
+	</GROUP>
+	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True">
+		<GROUP Id="RDK:862962" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
+			<SET Id="RDK:862957" VarRef="ConnStr_LOCAL">
+				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+			<SET Id="RDK:929545" VarRef="dateformat">
+				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "SetDateFormat")]]></EXP>
+				<PAR Name="AdvancedOptions" />
+			</SET>
+		</GROUP>
+		<ACTION_CALL Id="RDK:44" Name="RDEngineering_DBOpen">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionString">
+				<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="Transaction">
+				<EXP><![CDATA[$C$0]]></EXP>
+			</PAR>
+			<PAR Name="Options" />
+		</ACTION_CALL>
+		<ACTION_CALL Id="RDK:47" Name="RDEngineering_DBSelectStructured">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="SelectQueryMode">
+				<EXP><![CDATA[$C$1]]></EXP>
+			</PAR>
+			<PAR Name="SelectTable" />
+			<PAR Name="SelectFieldName" />
+			<PAR Name="SelectFieldValue" />
+			<PAR Name="SelectQuery">
+				<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA]]></EXP>
+			</PAR>
+			<PAR Name="SelectQueryType">
+				<EXP><![CDATA[$C$2]]></EXP>
+			</PAR>
+			<PAR Name="FirstRow">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="AllRows">
+				<EXP><![CDATA[$V$TradTable_ORIG]]></EXP>
+			</PAR>
+			<PAR Name="Options" />
+		</ACTION_CALL>
+		<SET Id="RDK:911085" VarRef="TradTable">
+			<EXP><![CDATA[$=$TradTable_ORIG]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
+		<ACTION_CALL Id="RDK:896758" Name="RDEngineering_DBSelect">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="SelectQuery">
+				<EXP><![CDATA[$C$SELECT MAX(IDX) +1 FROM TRADS]]></EXP>
+			</PAR>
+			<PAR Name="SelectQueryType">
+				<EXP><![CDATA[$C$0]]></EXP>
+			</PAR>
+			<PAR Name="FirstValue">
+				<EXP><![CDATA[$V$MAX_IDX]]></EXP>
+			</PAR>
+			<PAR Name="FirstRow">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="AllRows">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="FirstColumn">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="NumRows">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="ColumnHeader">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="ColumnHeaders">
+				<EXP><![CDATA[$V$]]></EXP>
+			</PAR>
+			<PAR Name="Options" />
+		</ACTION_CALL>
+		<WHILELOOP Id="RDK:51" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$Button="END"]]></EXP>
+			</VALUECONDITION>
+			<ACTION_CALL Id="RDK:55" Name="RDEngineering_RemoteSummaryGrid" Suppressed="True">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="VarList">
+					<EXP><![CDATA[$=$TradTable]]></EXP>
+				</PAR>
+				<PAR Name="Editable">
+					<EXP><![CDATA[$C$False]]></EXP>
+				</PAR>
+				<PAR Name="ProfileName" />
+				<PAR Name="Idx">
+					<EXP><![CDATA[$V$idx]]></EXP>
+				</PAR>
+				<PAR Name="RunTimeRemark" />
+				<PAR Name="WebResourcePath" />
+				<PAR Name="ImgTop" />
+				<PAR Name="ImgBottom" />
+				<PAR Name="ImgLeft" />
+				<PAR Name="ImgRight" />
+				<PAR Name="CSSStyle">
+					<EXP><![CDATA[$C$CSS/Grid_FixHeader.css]]></EXP>
+				</PAR>
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="CaptionsList">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="HideColumns">
+					<EXP><![CDATA[$=$"IDX"+IIF(CountByExp(myUser.groups,"Me=1")<1,",ORIGIN,TAGS","")]]></EXP>
+				</PAR>
+				<PAR Name="Header">
+					<EXP><![CDATA[$=$"YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+				</PAR>
+				<PAR Name="Footer" />
+				<PAR Name="ButtonsMode">
+					<EXP><![CDATA[$C$3]]></EXP>
+				</PAR>
+				<PAR Name="ButtonList">
+					<EXP><![CDATA[$=$IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+" END"]]></EXP>
+				</PAR>
+				<PAR Name="ButtonImgs" />
+				<PAR Name="ButtonAction" />
+				<PAR Name="ButtonOptions" />
+				<PAR Name="ButtonDefs" />
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$Button]]></EXP>
+				</PAR>
+				<PAR Name="HeaderData">
+					<EXP><![CDATA[$C$
+]]></EXP>
+				</PAR>
+				<PAR Name="InputTree">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="FilterData">
+					<EXP><![CDATA[$=$FilterTrad]]></EXP>
+				</PAR>
+				<PAR Name="Options">
+					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(ODDBACKCOLOR=#dcdcdc)"+IIF(Mode="read", "(NODELETE)(NOEDIT)", "")+IIF(CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")+"(EDITICONTOOLTIP=SAVE)"]]></EXP>
+				</PAR>
+			</ACTION_CALL>
+			<ACTION_CALL Id="RDK:958886" Name="RDEngineering_RemoteSummaryInput">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+				</PAR>
+				<PAR Name="GridVar">
+					<EXP><![CDATA[$=$TradTable]]></EXP>
+				</PAR>
+				<PAR Name="GridEditable">
+					<EXP><![CDATA[$C$false]]></EXP>
+				</PAR>
+				<PAR Name="GridProfile" />
+				<PAR Name="GridHeader" />
+				<PAR Name="GridRemark" />
+				<PAR Name="InputVar">
+					<EXP><![CDATA[$=$Trad]]></EXP>
+				</PAR>
+				<PAR Name="InputProfile">
+					<EXP><![CDATA[$C$TradProfile]]></EXP>
+				</PAR>
+				<PAR Name="InputHeader" />
+				<PAR Name="InputRemark" />
+				<PAR Name="LayoutMode">
+					<EXP><![CDATA[$C$0]]></EXP>
+				</PAR>
+				<PAR Name="GridIdx">
+					<EXP><![CDATA[$V$idx]]></EXP>
+				</PAR>
+				<PAR Name="WebResourcePath" />
+				<PAR Name="ImgTop" />
+				<PAR Name="ImgBottom" />
+				<PAR Name="ImgLeft" />
+				<PAR Name="ImgRight" />
+				<PAR Name="CSSStyle">
+					<EXP><![CDATA[$C$CSS/StyleFixed_Summary_Input.css]]></EXP>
+				</PAR>
+				<PAR Name="RDActionTimeOut" />
+				<PAR Name="CaptionsList" />
+				<PAR Name="HideColumns">
+					<EXP><![CDATA[$=$"IDX"+IIF(CountByExp(myUser.groups,"Me=1")<1,",ORIGIN,TAGS","")]]></EXP>
+				</PAR>
+				<PAR Name="Header">
+					<EXP><![CDATA[$=$"YOU ARE IN "+IIF(Mode="read", "READING", "MODIFICATION")+" MODE"]]></EXP>
+				</PAR>
+				<PAR Name="Footer" />
+				<PAR Name="ButtonsMode">
+					<EXP><![CDATA[$C$3]]></EXP>
+				</PAR>
+				<PAR Name="ButtonList">
+					<EXP><![CDATA[$=$IIF(Mode="read", "", "ADD, ")+IIF(IsEmpty(FilterTrad), "", "DELETE ALL FILTERS,")+" END"+IIF(IsEmpty(Trad), "", ",SAVE")
+]]></EXP>
+				</PAR>
+				<PAR Name="ButtonImgs" />
+				<PAR Name="ButtonAction" />
+				<PAR Name="ButtonOptions" />
+				<PAR Name="ButtonDefs" />
+				<PAR Name="ButtonPressed">
+					<EXP><![CDATA[$V$Button]]></EXP>
+				</PAR>
+				<PAR Name="InputTree">
+					<EXP><![CDATA[$=$]]></EXP>
+				</PAR>
+				<PAR Name="FilterData">
+					<EXP><![CDATA[$=$FilterTrad]]></EXP>
+				</PAR>
+				<PAR Name="Options">
+					<EXP><![CDATA[$=$"(TOPBUTTONS)(SORTCAPTION)(FILTERCAPTION)(FIXEDTOOLBAR)(NOEDIT)"+IIF(Mode="read", "(NODELETE)", "")+IIF(CountByExp(myUser.groups,"Me=1")<1, "(NODELETE)", "")+"(ROWCLICKACTION=SelectRow)"]]></EXP>
+				</PAR>
+			</ACTION_CALL>
+			<NODE Id="RDK:59" Name="Button Pressed" Expanded="True">
+				<VAR_COND Id="RDK:971152" Name="ADD_TRAD">
+					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971153" Name="EDIT_TRAD">
+					<EXP><![CDATA[$=$Button="SAVE" ]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971154" Name="DELETE_TRAD">
+					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971155" Name="SORT">
+					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971156" Name="FILTER">
+					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971157" Name="DELETE_FILTER">
+					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971158" Name="SAVE_CHANGES">
+					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
+				</VAR_COND>
+				<VAR_COND Id="RDK:971159" Name="SELECTED_ROW">
+					<EXP><![CDATA[$=$Button="SelectRow"]]></EXP>
+				</VAR_COND>
+				<CHOICE Id="RDK:61" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$ADD_TRAD]]></EXP>
+					</VALUECONDITION>
+					<SET Id="RDK:64" VarRef="Trad">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET_STRUCT Id="RDK:1055" VarRef="MetaTrad" ClearAll="True">
+						<PAR Name="IDX">
+							<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_DB">
+							<EXP><![CDATA[$C$FUSION]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_TABLE">
+							<EXP><![CDATA[$C$LANGUAGE]]></EXP>
+						</PAR>
+						<PAR Name="ORIGIN_ID_0" />
+						<PAR Name="ORIGIN_ID_1" />
+						<PAR Name="LAST_UPDATE" />
+					</SET_STRUCT>
+					<WHILELOOP Id="RDK:1925" Expanded="True">
+						<VALUECONDITION Value="false">
+							<EXP><![CDATA[$=$ValidTag]]></EXP>
+						</VALUECONDITION>
+						<VALUECONDITION Value="true">
+							<EXP><![CDATA[$=$Button<>"CANCEL"]]></EXP>
+						</VALUECONDITION>
+						<ACTION_CALL Id="RDK:1156" Name="RDEngineering_RemoteGetInput" DesignTimeRemark="{VarName}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="InputVar">
+								<EXP><![CDATA[$=$MetaTrad]]></EXP>
+							</PAR>
+							<PAR Name="ProfileName">
+								<EXP><![CDATA[$C$MetaTradProfile]]></EXP>
+							</PAR>
+							<PAR Name="RunTimeRemark" />
+							<PAR Name="WebResourcePath" />
+							<PAR Name="ImgTop" />
+							<PAR Name="ImgBottom" />
+							<PAR Name="ImgLeft" />
+							<PAR Name="ImgRight" />
+							<PAR Name="CSSStyle">
+								<EXP><![CDATA[$C$Input_form.css]]></EXP>
+							</PAR>
+							<PAR Name="RDActionTimeOut" />
+							<PAR Name="LayoutMode">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="ButtonsMode">
+								<EXP><![CDATA[$C$3]]></EXP>
+							</PAR>
+							<PAR Name="ButtonList">
+								<EXP><![CDATA[$C$NEXT, CANCEL]]></EXP>
+							</PAR>
+							<PAR Name="ButtonImgs" />
+							<PAR Name="ButtonAction" />
+							<PAR Name="ButtonOptions" />
+							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonPressed">
+								<EXP><![CDATA[$V$Button]]></EXP>
+							</PAR>
+							<PAR Name="HeaderData" />
+							<PAR Name="InputTree">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<IFTHENELSE Id="RDK:966855" Expanded="True">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Button="NEXT"]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:966856" SubType="Then" Expanded="True">
+								<ACTION_CALL Id="RDK:1959" Name="RDEngineering_DBSelect">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SelectQuery">
+										<EXP><![CDATA[$=$"SELECT IDX FROM METATRADS WHERE ORIGIN_DB='FUSION' AND ORIGIN_TABLE='LANGUAGE' AND ORIGIN_ID_0='"+MetaTrad.ORIGIN_ID_0+"'"]]></EXP>
+									</PAR>
+									<PAR Name="SelectQueryType">
+										<EXP><![CDATA[$C$2]]></EXP>
+									</PAR>
+									<PAR Name="FirstValue">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="FirstRow">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="AllRows">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="FirstColumn">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="NumRows">
+										<EXP><![CDATA[$V$Matching_IDX]]></EXP>
+									</PAR>
+									<PAR Name="ColumnHeader">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="ColumnHeaders">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<SET Id="RDK:926739" VarRef="Matching_IDX">
+									<EXP><![CDATA[$=$Count(FilterByFieldValue(FilterByFieldValue(TradTable_ORIG, "ORIGIN", "*LANGUAGE*"), "TAGS", MetaTrad.ORIGIN_ID_0))]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+								<IFTHENELSE Id="RDK:2076" Expanded="True">
+									<VALUECONDITION Value="true">
+										<EXP><![CDATA[$=$Matching_IDX=0]]></EXP>
+									</VALUECONDITION>
+									<GROUP Id="RDK:2077" SubType="Then" Expanded="True">
+										<SET Id="RDK:2118" VarRef="ValidTag">
+											<EXP><![CDATA[$C$True]]></EXP>
+											<PAR Name="AdvancedOptions" />
+										</SET>
+										<SET_STRUCT Id="RDK:956684" VarRef="Trad" ClearAll="True">
+											<PAR Name="ORIGIN" />
+											<PAR Name="TAGS">
+												<EXP><![CDATA[$=$MetaTrad.ORIGIN_ID_0]]></EXP>
+											</PAR>
+											<PAR Name="IDX">
+												<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+											</PAR>
+											<PAR Name="ITA" />
+											<PAR Name="ENG" />
+											<PAR Name="ESP" />
+											<PAR Name="FRA" />
+											<PAR Name="DEU" />
+											<PAR Name="UPDATED" />
+											<PAR Name="IS_NEW" />
+											<PAR Name="LAST_UPDATE" />
+										</SET_STRUCT>
+										<ACTION_CALL Id="RDK:65" Name="RDEngineering_RemoteGetInput" DesignTimeRemark="{VarName}">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+											</PAR>
+											<PAR Name="InputVar">
+												<EXP><![CDATA[$=$Trad]]></EXP>
+											</PAR>
+											<PAR Name="ProfileName">
+												<EXP><![CDATA[$C$TradProfile]]></EXP>
+											</PAR>
+											<PAR Name="RunTimeRemark" />
+											<PAR Name="WebResourcePath" />
+											<PAR Name="ImgTop" />
+											<PAR Name="ImgBottom" />
+											<PAR Name="ImgLeft" />
+											<PAR Name="ImgRight" />
+											<PAR Name="CSSStyle" />
+											<PAR Name="RDActionTimeOut" />
+											<PAR Name="LayoutMode">
+												<EXP><![CDATA[$C$0]]></EXP>
+											</PAR>
+											<PAR Name="ButtonsMode">
+												<EXP><![CDATA[$C$5]]></EXP>
+											</PAR>
+											<PAR Name="ButtonList" />
+											<PAR Name="ButtonImgs" />
+											<PAR Name="ButtonAction" />
+											<PAR Name="ButtonOptions" />
+											<PAR Name="ButtonDefs" />
+											<PAR Name="ButtonPressed">
+												<EXP><![CDATA[$V$Button]]></EXP>
+											</PAR>
+											<PAR Name="HeaderData" />
+											<PAR Name="InputTree">
+												<EXP><![CDATA[$=$]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+										<GROUP Id="RDK:67" Name="AddTrad" SubType="Generic" Expanded="True">
+											<VALUECONDITION Value="true">
+												<EXP><![CDATA[$=$Button="OK"]]></EXP>
+											</VALUECONDITION>
+											<GROUP Id="RDK:941233" Name="sql" SubType="Generic">
+												<ACTION_CALL Id="RDK:1279" Name="RDEngineering_DBInsert">
+													<PAR Name="RDLibraryName">
+														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+													</PAR>
+													<PAR Name="ConnectionName">
+														<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+													</PAR>
+													<PAR Name="InsertTable">
+														<EXP><![CDATA[$C$METATRADS]]></EXP>
+													</PAR>
+													<PAR Name="InsertQueryType">
+														<EXP><![CDATA[$C$0]]></EXP>
+													</PAR>
+													<PAR Name="SingleRow">
+														<EXP><![CDATA[$=$MetaTrad]]></EXP>
+													</PAR>
+													<PAR Name="ListOfRows" />
+													<PAR Name="Options" />
+												</ACTION_CALL>
+												<ACTION_CALL Id="RDK:817543" Name="RDEngineering_DBExecuteStatement">
+													<PAR Name="RDLibraryName">
+														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+													</PAR>
+													<PAR Name="ConnectionName">
+														<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+													</PAR>
+													<PAR Name="SqlStatement">
+														<EXP><![CDATA[$=$"INSERT INTO TRADS (IDX, ITA, ENG, ESP, FRA, DEU, UPDATED, NEW, DELETED) VALUES("+StrSql(MAX_IDX)+", '"+StrSql(Trad.ITA)+"', '"+StrSql(Trad.ENG)+"', '"+StrSql(Trad.ESP)+"', '"+StrSql(Trad.FRA)+"', '"+StrSql(Trad.DEU)+"', Null , 1, Null)"]]></EXP>
+													</PAR>
+													<PAR Name="StatementResult">
+														<EXP><![CDATA[$V$]]></EXP>
+													</PAR>
+													<PAR Name="Options" />
+												</ACTION_CALL>
+												<ACTION_CALL Id="RDK:823143" Name="RDEngineering_DBSelectStructured">
+													<PAR Name="RDLibraryName">
+														<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+													</PAR>
+													<PAR Name="ConnectionName">
+														<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+													</PAR>
+													<PAR Name="SelectQueryMode">
+														<EXP><![CDATA[$C$1]]></EXP>
+													</PAR>
+													<PAR Name="SelectTable" />
+													<PAR Name="SelectFieldName" />
+													<PAR Name="SelectFieldValue" />
+													<PAR Name="SelectQuery">
+														<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW , M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+													</PAR>
+													<PAR Name="SelectQueryType">
+														<EXP><![CDATA[$C$2]]></EXP>
+													</PAR>
+													<PAR Name="FirstRow">
+														<EXP><![CDATA[$V$]]></EXP>
+													</PAR>
+													<PAR Name="AllRows">
+														<EXP><![CDATA[$V$TradTable]]></EXP>
+													</PAR>
+													<PAR Name="Options" />
+												</ACTION_CALL>
+												<SET Id="RDK:912687" VarRef="TradTable_ORIG">
+													<EXP><![CDATA[$=$TradTable]]></EXP>
+													<PAR Name="AdvancedOptions" />
+												</SET>
+											</GROUP>
+											<SET Id="RDK:896810" VarRef="MAX_IDX">
+												<EXP><![CDATA[$=$MAX_IDX +1]]></EXP>
+												<PAR Name="AdvancedOptions" />
+											</SET>
+										</GROUP>
+										<SET Id="RDK:956510" VarRef="Trad">
+											<EXP><![CDATA[$C$NOTHING]]></EXP>
+											<PAR Name="AdvancedOptions" />
+										</SET>
+									</GROUP>
+									<GROUP Id="RDK:668878" SubType="Else" Expanded="True">
+										<ACTION_CALL Id="RDK:668888" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+											</PAR>
+											<PAR Name="MsgText">
+												<EXP><![CDATA[$=$"WARNING! TAG: "+MetaTrad.ORIGIN_ID_0+" already stored in table LANGUAGE of Database FUSION
+Please, choose a different TAG"]]></EXP>
+											</PAR>
+											<PAR Name="MsgFormat">
+												<EXP><![CDATA[$C$0]]></EXP>
+											</PAR>
+											<PAR Name="MsgStyle">
+												<EXP><![CDATA[$C$0]]></EXP>
+											</PAR>
+											<PAR Name="WaitForInput">
+												<EXP><![CDATA[$C$True]]></EXP>
+											</PAR>
+											<PAR Name="RunTimeRemark" />
+											<PAR Name="WebResourcePath" />
+											<PAR Name="ImgTop" />
+											<PAR Name="ImgBottom" />
+											<PAR Name="ImgLeft" />
+											<PAR Name="ImgRight" />
+											<PAR Name="CSSStyle" />
+											<PAR Name="RDActionTimeOut" />
+											<PAR Name="ButtonsMode">
+												<EXP><![CDATA[$C$0]]></EXP>
+											</PAR>
+											<PAR Name="ButtonList" />
+											<PAR Name="ButtonImgs" />
+											<PAR Name="ButtonAction" />
+											<PAR Name="ButtonOptions" />
+											<PAR Name="ButtonDefs" />
+											<PAR Name="ButtonPressed">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="HeaderData" />
+											<PAR Name="InputTree">
+												<EXP><![CDATA[$=$]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+									</GROUP>
+								</IFTHENELSE>
+							</GROUP>
+							<GROUP Id="RDK:966857" SubType="Else" Expanded="True" Suppressed="True">
+								<SET Id="RDK:967031" VarRef="ValidTag">
+									<EXP><![CDATA[$C$False]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+							</GROUP>
+						</IFTHENELSE>
+					</WHILELOOP>
+					<SET Id="RDK:968225" VarRef="MetaTrad" Suppressed="True">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:2153" VarRef="ValidTag">
+						<EXP><![CDATA[$C$False]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</CHOICE>
+				<CHOICE Id="RDK:75" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$EDIT_TRAD]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:929703" Name="input interface" SubType="Generic" Suppressed="True">
+						<ACTION_CALL Id="RDK:81" Name="RDEngineering_RemoteGetInput" Suppressed="True" DesignTimeRemark="{VarName}">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+							</PAR>
+							<PAR Name="InputVar">
+								<EXP><![CDATA[$=$TradTable[idx]]]></EXP>
+							</PAR>
+							<PAR Name="ProfileName">
+								<EXP><![CDATA[$C$TradProfile]]></EXP>
+							</PAR>
+							<PAR Name="RunTimeRemark" />
+							<PAR Name="WebResourcePath" />
+							<PAR Name="ImgTop" />
+							<PAR Name="ImgBottom" />
+							<PAR Name="ImgLeft" />
+							<PAR Name="ImgRight" />
+							<PAR Name="CSSStyle">
+								<EXP><![CDATA[$C$Input_form.css]]></EXP>
+							</PAR>
+							<PAR Name="RDActionTimeOut" />
+							<PAR Name="LayoutMode">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="ButtonsMode">
+								<EXP><![CDATA[$C$5]]></EXP>
+							</PAR>
+							<PAR Name="ButtonList" />
+							<PAR Name="ButtonImgs" />
+							<PAR Name="ButtonAction" />
+							<PAR Name="ButtonOptions" />
+							<PAR Name="ButtonDefs" />
+							<PAR Name="ButtonPressed">
+								<EXP><![CDATA[$V$Button]]></EXP>
+							</PAR>
+							<PAR Name="HeaderData" />
+							<PAR Name="InputTree">
+								<EXP><![CDATA[$=$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<GROUP Id="RDK:834457" Name="EditTrad" SubType="Generic">
+							<VALUECONDITION Value="true">
+								<EXP><![CDATA[$=$Button="OK"]]></EXP>
+							</VALUECONDITION>
+							<GROUP Id="RDK:929645" Name="sql mode" SubType="Generic">
+								<ACTION_CALL Id="RDK:907" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(TradTable[idx].ITA)+"',ENG='"+StrSql(TradTable[idx].ENG)+"', ESP='"+StrSql(TradTable[idx].ESP)+"', FRA='"+StrSql(TradTable[idx].FRA)+"', DEU='"+StrSql(TradTable[idx].DEU)+"'"+IIF(TradTable[idx].IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+TradTable[idx].IDX]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:846304" Name="RDEngineering_DBExecuteStatement">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SqlStatement">
+										<EXP><![CDATA[$=$"UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX="+TradTable[idx].IDX]]></EXP>
+									</PAR>
+									<PAR Name="StatementResult">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<ACTION_CALL Id="RDK:834456" Name="RDEngineering_DBSelectStructured">
+									<PAR Name="RDLibraryName">
+										<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+									</PAR>
+									<PAR Name="ConnectionName">
+										<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+									</PAR>
+									<PAR Name="SelectQueryMode">
+										<EXP><![CDATA[$C$1]]></EXP>
+									</PAR>
+									<PAR Name="SelectTable" />
+									<PAR Name="SelectFieldName" />
+									<PAR Name="SelectFieldValue" />
+									<PAR Name="SelectQuery">
+										<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA]]></EXP>
+									</PAR>
+									<PAR Name="SelectQueryType">
+										<EXP><![CDATA[$C$2]]></EXP>
+									</PAR>
+									<PAR Name="FirstRow">
+										<EXP><![CDATA[$V$]]></EXP>
+									</PAR>
+									<PAR Name="AllRows">
+										<EXP><![CDATA[$V$TradTable]]></EXP>
+									</PAR>
+									<PAR Name="Options" />
+								</ACTION_CALL>
+								<SET Id="RDK:912719" VarRef="TradTable_ORIG">
+									<EXP><![CDATA[$=$TradTable]]></EXP>
+									<PAR Name="AdvancedOptions" />
+								</SET>
+							</GROUP>
+						</GROUP>
+					</GROUP>
+					<GROUP Id="RDK:964173" Name="SALVATAGGIO TRAD NEL DB" SubType="Generic" Expanded="True">
+						<ACTION_CALL Id="RDK:961478" Name="RDEngineering_DBExecuteStatement">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SqlStatement">
+								<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
+							</PAR>
+							<PAR Name="StatementResult">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:961512" Name="RDEngineering_DBExecuteStatement">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SqlStatement">
+								<EXP><![CDATA[$=$"UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX="+Trad.IDX]]></EXP>
+							</PAR>
+							<PAR Name="StatementResult">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:961546" Name="RDEngineering_DBSelectStructured">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryMode">
+								<EXP><![CDATA[$C$1]]></EXP>
+							</PAR>
+							<PAR Name="SelectTable" />
+							<PAR Name="SelectFieldName" />
+							<PAR Name="SelectFieldValue" />
+							<PAR Name="SelectQuery">
+								<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA]]></EXP>
+							</PAR>
+							<PAR Name="SelectQueryType">
+								<EXP><![CDATA[$C$2]]></EXP>
+							</PAR>
+							<PAR Name="FirstRow">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="AllRows">
+								<EXP><![CDATA[$V$TradTable]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<SET Id="RDK:961580" VarRef="TradTable_ORIG">
+							<EXP><![CDATA[$=$TradTable]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+						<SET Id="RDK:964148" VarRef="Trad">
+							<EXP><![CDATA[$C$NOTHING]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+				</CHOICE>
+				<CHOICE Id="RDK:96" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$DELETE_TRAD]]></EXP>
+					</VALUECONDITION>
+					<IFTHENELSE Id="RDK:890535" Expanded="True">
+						<VALUECONDITION Value="false">
+							<EXP><![CDATA[$=$CountByExp(myUser.groups,"Me=1")<1
+]]></EXP>
+						</VALUECONDITION>
+						<GROUP Id="RDK:890536" SubType="Then" Expanded="True">
+							<SET Id="RDK:920808" VarRef="Button">
+								<EXP><![CDATA[$=$""]]></EXP>
+								<PAR Name="AdvancedOptions" />
+							</SET>
+							<ACTION_CALL Id="RDK:890576" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$=$"Are you sure you want to delete TAGS "+TradTable[idx].TAGS+" from "+TradTable[idx].ORIGIN+" ?" ]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$True]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$3]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList">
+									<EXP><![CDATA[$C$DELETE,CANCEL]]></EXP>
+								</PAR>
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$Button]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+							<IFTHENELSE Id="RDK:890621" Expanded="True">
+								<VALUECONDITION Value="true">
+									<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
+								</VALUECONDITION>
+								<GROUP Id="RDK:890619" SubType="Then" Expanded="True">
+									<GROUP Id="RDK:941387" Name="sql" SubType="Generic" Expanded="True">
+										<ACTION_CALL Id="RDK:890707" Name="RDEngineering_DBExecuteStatement">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+											</PAR>
+											<PAR Name="ConnectionName">
+												<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+											</PAR>
+											<PAR Name="SqlStatement">
+												<EXP><![CDATA[$=$"UPDATE TRADS SET DELETED=1 WHERE IDX="+TradTable[idx].IDX]]></EXP>
+											</PAR>
+											<PAR Name="StatementResult">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+										<ACTION_CALL Id="RDK:890769" Name="RDEngineering_DBSelectStructured">
+											<PAR Name="RDLibraryName">
+												<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+											</PAR>
+											<PAR Name="ConnectionName">
+												<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+											</PAR>
+											<PAR Name="SelectQueryMode">
+												<EXP><![CDATA[$C$1]]></EXP>
+											</PAR>
+											<PAR Name="SelectTable" />
+											<PAR Name="SelectFieldName" />
+											<PAR Name="SelectFieldValue" />
+											<PAR Name="SelectQuery">
+												<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+	CASE
+		WHEN M.ORIGIN_ID_1<>'' THEN
+			STUFF(( 
+			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		ELSE
+		STUFF((
+			SELECT '/' + M1.ORIGIN_ID_0
+			FROM METATRADS as M1 with (NOLOCK)
+			WHERE T.IDX=M1.IDX
+			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
+		END
+	AS TAGS, T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW AS IS_NEW, MAX(M.LAST_UPDATE) as LAST_UPDATE
+FROM TRADS as T with (NOLOCK)
+LEFT JOIN METATRADS AS M with (NOLOCK) on T.IDX=M.IDX 
+WHERE DELETED IS NULL OR DELETED=0
+GROUP BY T.IDX, T.ITA, T.ENG, T.ESP, T.FRA, T.DEU,T.UPDATED, T.NEW, M.ORIGIN_DB,  M.ORIGIN_TABLE, M.ORIGIN_ID_1
+ORDER BY T.ITA
+]]></EXP>
+											</PAR>
+											<PAR Name="SelectQueryType">
+												<EXP><![CDATA[$C$2]]></EXP>
+											</PAR>
+											<PAR Name="FirstRow">
+												<EXP><![CDATA[$V$]]></EXP>
+											</PAR>
+											<PAR Name="AllRows">
+												<EXP><![CDATA[$V$TradTable]]></EXP>
+											</PAR>
+											<PAR Name="Options" />
+										</ACTION_CALL>
+										<SET Id="RDK:912739" VarRef="TradTable_ORIG">
+											<EXP><![CDATA[$=$TradTable]]></EXP>
+											<PAR Name="AdvancedOptions" />
+										</SET>
+									</GROUP>
+								</GROUP>
+							</IFTHENELSE>
+						</GROUP>
+						<GROUP Id="RDK:890537" SubType="Else" Expanded="True">
+							<ACTION_CALL Id="RDK:100" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+								<PAR Name="RDLibraryName">
+									<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+								</PAR>
+								<PAR Name="MsgText">
+									<EXP><![CDATA[$C$ACTION NOT ALLOWED]]></EXP>
+								</PAR>
+								<PAR Name="MsgFormat">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="MsgStyle">
+									<EXP><![CDATA[$C$0]]></EXP>
+								</PAR>
+								<PAR Name="WaitForInput">
+									<EXP><![CDATA[$C$true]]></EXP>
+								</PAR>
+								<PAR Name="RunTimeRemark" />
+								<PAR Name="WebResourcePath" />
+								<PAR Name="ImgTop" />
+								<PAR Name="ImgBottom" />
+								<PAR Name="ImgLeft" />
+								<PAR Name="ImgRight" />
+								<PAR Name="CSSStyle" />
+								<PAR Name="RDActionTimeOut" />
+								<PAR Name="ButtonsMode">
+									<EXP><![CDATA[$C$5]]></EXP>
+								</PAR>
+								<PAR Name="ButtonList" />
+								<PAR Name="ButtonImgs" />
+								<PAR Name="ButtonAction" />
+								<PAR Name="ButtonOptions" />
+								<PAR Name="ButtonDefs" />
+								<PAR Name="ButtonPressed">
+									<EXP><![CDATA[$V$Button]]></EXP>
+								</PAR>
+								<PAR Name="HeaderData" />
+								<PAR Name="InputTree">
+									<EXP><![CDATA[$=$]]></EXP>
+								</PAR>
+								<PAR Name="Options" />
+							</ACTION_CALL>
+						</GROUP>
+					</IFTHENELSE>
+				</CHOICE>
+				<CHOICE Id="RDK:869140" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$SORT]]></EXP>
+					</VALUECONDITION>
+					<SET_STRUCT Id="RDK:912038" VarRef="sorted" ClearAll="True">
+						<PAR Name="field">
+							<EXP><![CDATA[$=$StrAfter(Button, ",")]]></EXP>
+						</PAR>
+						<PAR Name="Desc">
+							<EXP><![CDATA[$=$StrStartWith(StrAfter(StrBefore(Button, ","), "SORTCLICK_"), "D")]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+				</CHOICE>
+				<CHOICE Id="RDK:871569" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$FILTER]]></EXP>
+					</VALUECONDITION>
+					<SET_STRUCT Id="RDK:906700" VarRef="FilterTrad" ClearAll="True">
+						<PAR Name="ORIGIN">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ORIGIN", SplitStr(Button, ",", "")[2], FilterTrad.ORIGIN)]]></EXP>
+						</PAR>
+						<PAR Name="TAGS">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="TAGS", SplitStr(Button, ",", "")[2], FilterTrad.TAGS)]]></EXP>
+						</PAR>
+						<PAR Name="IDX" />
+						<PAR Name="ITA">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ITA", SplitStr(Button, ",", "")[2], FilterTrad.ITA)]]></EXP>
+						</PAR>
+						<PAR Name="ENG">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ENG", SplitStr(Button, ",", "")[2], FilterTrad.ENG)]]></EXP>
+						</PAR>
+						<PAR Name="ESP">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="ESP", SplitStr(Button, ",", "")[2], FilterTrad.ESP)]]></EXP>
+						</PAR>
+						<PAR Name="FRA">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="FRA", SplitStr(Button, ",", "")[2], FilterTrad.FRA)]]></EXP>
+						</PAR>
+						<PAR Name="DEU">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="DEU", SplitStr(Button, ",", "")[2], FilterTrad.DEU)]]></EXP>
+						</PAR>
+						<PAR Name="UPDATED">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="UPDATED", SplitStr(Button, ",", "")[2], FilterTrad.UPDATED)]]></EXP>
+						</PAR>
+						<PAR Name="IS_NEW">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="IS_NEW", SplitStr(Button, ",", "")[2], FilterTrad.IS_NEW)]]></EXP>
+						</PAR>
+						<PAR Name="LAST_UPDATE">
+							<EXP><![CDATA[$=$IIF(SplitStr(Button, ",", "")[1]="LAST_UPDATE", SplitStr(Button, ",", "")[2], FilterTrad.LAST_UPDATE)]]></EXP>
+						</PAR>
+					</SET_STRUCT>
+				</CHOICE>
+				<CHOICE Id="RDK:892321" Name="Choice" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$DELETE_FILTER]]></EXP>
+					</VALUECONDITION>
+					<SET Id="RDK:892850" VarRef="TradTable">
+						<EXP><![CDATA[$=$TradTable_ORIG]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+					<SET Id="RDK:911392" VarRef="FilterTrad">
+						<EXP><![CDATA[$C$NOTHING]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</CHOICE>
+				<CHOICE Id="RDK:959497" Name="Choice" Expanded="True" DesignTimeRemark="SELECTED_ROW">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$SELECTED_ROW]]></EXP>
+					</VALUECONDITION>
+					<SET Id="RDK:959635" VarRef="Trad">
+						<EXP><![CDATA[$=$TradTable[idx]]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</CHOICE>
+			</NODE>
+			<GROUP Id="RDK:911461" Name="Group" SubType="Generic" Expanded="True" DesignTimeRemark="REIMPOSTA FILTRI">
+				<VALUECONDITION Value="false">
+					<EXP><![CDATA[$=$IsEmpty(FilterTrad)]]></EXP>
+				</VALUECONDITION>
+				<SET Id="RDK:947223" VarRef="TradTable">
+					<EXP><![CDATA[$=$TradTable_ORIG]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911448" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ORIGIN", "*"+FilterTrad.ORIGIN+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911490" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "TAGS", "*"+FilterTrad.TAGS+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911498" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ITA", "*"+FilterTrad.ITA+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911506" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ENG", "*"+FilterTrad.ENG+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911508" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "ESP", "*"+FilterTrad.ESP+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911510" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "FRA", "*"+FilterTrad.FRA+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911560" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "DEU", "*"+FilterTrad.DEU+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911568" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "UPDATED", "*"+FilterTrad.UPDATED+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911576" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "IS_NEW", "*"+FilterTrad.IS_NEW+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<SET Id="RDK:911602" VarRef="TradTable">
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "LAST_UPDATE", "*"+ToString(FilterTrad.LAST_UPDATE)+"*")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</GROUP>
+			<IFTHENELSE Id="RDK:911712" Expanded="True" DesignTimeRemark="REIMPOSTA ORDINAMENTO">
+				<VALUECONDITION Value="false">
+					<EXP><![CDATA[$=$IsEmpty(sorted)]]></EXP>
+				</VALUECONDITION>
+				<GROUP Id="RDK:911711" SubType="Then">
+					<SET Id="RDK:911710" VarRef="TradTable">
+						<EXP><![CDATA[$=$SortListOfStructs(
+    TradTable, 
+    sorted.Field, 
+    sorted.Desc
+)
+]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</GROUP>
+				<GROUP Id="RDK:924540" SubType="Else" Expanded="True">
+					<SET Id="RDK:924584" VarRef="TradTable">
+						<EXP><![CDATA[$=$SortListOfStructs(
+    TradTable, 
+    "ITA", 
+    False
+)
+]]></EXP>
+						<PAR Name="AdvancedOptions" />
+					</SET>
+				</GROUP>
+			</IFTHENELSE>
+		</WHILELOOP>
+		<SET Id="RDK:863057" VarRef="Button">
+			<EXP><![CDATA[$=$""]]></EXP>
+			<PAR Name="AdvancedOptions" />
+		</SET>
+		<GROUP Id="RDK:966721" Name="SALVATAGGIO TRAD NEL DB" SubType="Generic" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$IsEmpty(Trad)]]></EXP>
+			</VALUECONDITION>
+			<ACTION_CALL Id="RDK:966716" Name="RDEngineering_DBExecuteStatement">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+				</PAR>
+				<PAR Name="ConnectionName">
+					<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+				</PAR>
+				<PAR Name="SqlStatement">
+					<EXP><![CDATA[$=$"UPDATE TRADS SET ITA='"+StrSql(Trad.ITA)+"',ENG='"+StrSql(Trad.ENG)+"', ESP='"+StrSql(Trad.ESP)+"', FRA='"+StrSql(Trad.FRA)+"', DEU='"+StrSql(Trad.DEU)+"'"+IIF(Trad.IS_NEW<>True,", UPDATED=1", "")+" WHERE IDX="+Trad.IDX]]></EXP>
+				</PAR>
+				<PAR Name="StatementResult">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</ACTION_CALL>
+			<ACTION_CALL Id="RDK:966717" Name="RDEngineering_DBExecuteStatement">
+				<PAR Name="RDLibraryName">
+					<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+				</PAR>
+				<PAR Name="ConnectionName">
+					<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+				</PAR>
+				<PAR Name="SqlStatement">
+					<EXP><![CDATA[$=$"UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX="+Trad.IDX]]></EXP>
+				</PAR>
+				<PAR Name="StatementResult">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="Options" />
+			</ACTION_CALL>
+		</GROUP>
+		<ACTION_CALL Id="RDK:920587" Name="RDEngineering_DBClose">
+			<PAR Name="RDLibraryName">
+				<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+			</PAR>
+			<PAR Name="ConnectionName">
+				<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+			</PAR>
+			<PAR Name="Transaction">
+				<EXP><![CDATA[$C$0]]></EXP>
+			</PAR>
+		</ACTION_CALL>
+		<IFTHENELSE Id="RDK:920176" Expanded="True">
+			<VALUECONDITION Value="false">
+				<EXP><![CDATA[$=$Mode="read"]]></EXP>
+			</VALUECONDITION>
+			<GROUP Id="RDK:920177" SubType="Then" Expanded="True">
+				<ACTION_CALL Id="RDK:863047" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
+					<PAR Name="RDLibraryName">
+						<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
+					</PAR>
+					<PAR Name="MsgText">
+						<EXP><![CDATA[$C$Save and export changes?]]></EXP>
+					</PAR>
+					<PAR Name="MsgFormat">
+						<EXP><![CDATA[$C$0]]></EXP>
+					</PAR>
+					<PAR Name="MsgStyle">
+						<EXP><![CDATA[$C$3]]></EXP>
+					</PAR>
+					<PAR Name="WaitForInput">
+						<EXP><![CDATA[$C$True]]></EXP>
+					</PAR>
+					<PAR Name="RunTimeRemark" />
+					<PAR Name="WebResourcePath" />
+					<PAR Name="ImgTop" />
+					<PAR Name="ImgBottom" />
+					<PAR Name="ImgLeft" />
+					<PAR Name="ImgRight" />
+					<PAR Name="CSSStyle" />
+					<PAR Name="RDActionTimeOut" />
+					<PAR Name="ButtonsMode">
+						<EXP><![CDATA[$C$3]]></EXP>
+					</PAR>
+					<PAR Name="ButtonList">
+						<EXP><![CDATA[$C$SAVE,CANCEL]]></EXP>
+					</PAR>
+					<PAR Name="ButtonImgs" />
+					<PAR Name="ButtonAction" />
+					<PAR Name="ButtonOptions" />
+					<PAR Name="ButtonDefs" />
+					<PAR Name="ButtonPressed">
+						<EXP><![CDATA[$V$Button]]></EXP>
+					</PAR>
+					<PAR Name="HeaderData" />
+					<PAR Name="InputTree">
+						<EXP><![CDATA[$=$]]></EXP>
+					</PAR>
+					<PAR Name="Options" />
+				</ACTION_CALL>
+				<IFTHENELSE Id="RDK:863107" Expanded="True">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$Button="SAVE"]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:863164" SubType="Then" Expanded="True">
+						<PROCESS_CALL Id="RDK:862915" Expanded="True">
+							<EXP><![CDATA[$C$Export_From_DB.rdx]]></EXP>
+						</PROCESS_CALL>
+					</GROUP>
+					<GROUP Id="RDK:920457" SubType="Else" Expanded="True">
+						<ACTION_CALL Id="RDK:920613" Name="RDEngineering_DBOpen">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionString">
+								<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="Transaction">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:920483" Name="RDEngineering_DBExecuteStatement">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="SqlStatement">
+								<EXP><![CDATA[$C$TRUNCATE TABLE IS_MODIFY_LOCKED]]></EXP>
+							</PAR>
+							<PAR Name="StatementResult">
+								<EXP><![CDATA[$V$]]></EXP>
+							</PAR>
+							<PAR Name="Options" />
+						</ACTION_CALL>
+						<ACTION_CALL Id="RDK:46" Name="RDEngineering_DBClose">
+							<PAR Name="RDLibraryName">
+								<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
+							</PAR>
+							<PAR Name="ConnectionName">
+								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
+							</PAR>
+							<PAR Name="Transaction">
+								<EXP><![CDATA[$C$0]]></EXP>
+							</PAR>
+						</ACTION_CALL>
+					</GROUP>
+				</IFTHENELSE>
+			</GROUP>
+		</IFTHENELSE>
+	</GROUP>
+	<EXTERNAL_DATA>
+		<PROFILES_DATA>
+			<RELPROFILE Id="RDK:1175" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="IDX" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE>
+					<EXP><![CDATA[$=$MAX_IDX]]></EXP>
+				</RP_SETFIELD_VALUE>
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1182" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_DB" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1640" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_TABLE" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1189" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_0" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="$=$Button=&quot;NEXT&quot;" TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT>
+					<PAR Name="InputPromptExp">
+						<EXP><![CDATA[$C$TAG]]></EXP>
+					</PAR>
+					<PAR Name="InputImageExp" />
+					<PAR Name="InputTooltipExp" />
+					<PAR Name="InputStyleExp" />
+				</UI_INPUT_SUPPORT>
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:1199" TypeName="MetaTradType" Expanded="True">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN_ID_1" VariantName="Variant" ProfileName="MetaTradProfile" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:840565" TypeName="MetaTradType">
+				<PNODE NodeType="profile" ProfileName="MetaTradProfile" />
+				<PNODE NodeType="field_variant" FieldName="LAST_UPDATE" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE>
+					<EXP><![CDATA[$=$Now()]]></EXP>
+				</RP_SETFIELD_VALUE>
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Date" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950681" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ORIGIN" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$False]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950689" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="TAGS" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950697" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="IDX" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$True]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Request="True" Visible="False" TypeForm="Text" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950705" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ITA" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$False]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950713" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ENG" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950721" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="ESP" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" Locked="$=$not( IsTagInString(Me.ORIGIN, &quot;PDM&quot;) and not (IsTagInString(Me.TAGS, &quot;328&quot;) or IsTagInString(Me.TAGS, &quot;329&quot;)))" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950729" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="FRA" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950737" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="DEU" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE TypeForm="Text" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950745" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="UPDATED" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED />
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Yes_No" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+			<RELPROFILE Id="RDK:950753" TypeName="TradType">
+				<PNODE NodeType="profile" ProfileName="TradProfile" />
+				<PNODE NodeType="field_variant" FieldName="IS_NEW" VariantName="Variant" />
+				<RP_INITIAL_VALUE />
+				<RP_SETFIELD_VALUE />
+				<RP_SETFIELD_FORCED>
+					<EXP><![CDATA[$C$False]]></EXP>
+				</RP_SETFIELD_FORCED>
+				<RP_SETOPTIONS />
+				<UI_INPUT_TYPE Visible="False" TypeForm="Yes_No" Locked="True" />
+				<UI_INPUT_VALIDATION ValidationType="none" />
+				<UI_INPUT_SUPPORT />
+			</RELPROFILE>
+		</PROFILES_DATA>
+		<BOM_DATA />
+	</EXTERNAL_DATA>
+</PROCESS>

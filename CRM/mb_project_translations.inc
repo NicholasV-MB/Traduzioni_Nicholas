@@ -78,10 +78,11 @@
 	<DEU>Developed Task</DEU>
 	<FRA>Developed Task</FRA>
 <Orig_str>Attività completata</Orig_str>
-	<ENG>Developed Task</ENG>
-	<ESP>Developed Task</ESP>
-	<DEU>Developed Task</DEU>
-	<FRA>Developed Task</FRA>
+    <ITA>Attività completata</ITA>
+    <ENG>Developed Task</ENG>
+    <ESP>Developed Task</ESP>
+    <FRA>Developed Task</FRA>
+    <DEU>Developed Task</DEU>
 <Orig_str>Completata</Orig_str>
 	<ITA>Sviluppata</ITA>
 	<ENG>Developed</ENG>
@@ -406,17 +407,17 @@
 	<DEU>Customer</DEU>
 	<FRA>Customer</FRA>
 <Orig_str>AGENTE</Orig_str>
-	<ITA>AGENTE</ITA>
-	<ENG>AGENT</ENG>
-	<ESP>AGENT</ESP>
-	<DEU>AGENT</DEU>
-	<FRA>AGENT</FRA>
+    <ITA>AGENTE</ITA>
+    <ENG>SALES RAPRESENTATIVE</ENG>
+    <ESP>AGENT</ESP>
+    <FRA>AGENT</FRA>
+    <DEU>AGENT DEU</DEU>
 <Orig_str>Agente</Orig_str>
-	<ITA>Agente</ITA>
-	<ENG>Agent</ENG>
-	<ESP>Agent</ESP>
-	<DEU>Agent</DEU>
-	<FRA>Agent</FRA>
+    <ITA>Agente</ITA>
+    <ENG>Sales rapresentative</ENG>
+    <ESP>Agent</ESP>
+    <FRA>Agent</FRA>
+    <DEU>Agent DEU</DEU>
 <Orig_str>Ricerca in corso ...</Orig_str>
 	<ITA>Ricerca in corso ...</ITA>
 	<ENG>Searching ...</ENG>

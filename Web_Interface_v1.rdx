@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface" Expanded="True">
-	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-15T13:58:08" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="nicholas.vittor [LAPT-IT07]" CrDate="2020-11-09T15:44:59" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-22T16:19:49" LanguageVersion="2011.1.1.0" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
 			<TYPE Id="RDK:32" Name="TradType" Expanded="True" SubType="structure" HasArrayType="True">
@@ -14,7 +14,7 @@
 				<FIELD Id="RDK:1301" Name="UPDATED" Type="boolean" />
 				<FIELD Id="RDK:2232" Name="NEW" Type="boolean" />
 			</TYPE>
-			<TYPE Id="RDK:1048" Name="MetaTradType" Expanded="True" SubType="structure" HasArrayType="True">
+			<TYPE Id="RDK:1048" Name="MetaTradType" SubType="structure" HasArrayType="True">
 				<TYPE_VALUES />
 				<FIELD Id="RDK:1043" Name="IDX" Options="(DB_PRIMARYKEY)" Type="integer" />
 				<FIELD Id="RDK:1044" Name="ORIGIN_DB" Type="string" />
@@ -79,13 +79,13 @@
 				<UI_INPUT_SUPPORT />
 				<TYPE_VALUES />
 			</TYPE>
-			<GROUP Id="RDK:982821" Name="ToolbarTypes" SubType="TypeSet" Include="Type_ToolbarTypes.rdx" IncludeDate="132514547724883516">
-				<TYPE Id="RDK:982820" Name="ButtonDefType" SubType="structure" HasArrayType="True">
+			<GROUP Id="RDK:982821" Name="ToolbarTypes" SubType="TypeSet" Include="Type_ToolbarTypes.rdx" IncludeDate="132531128174879814">
+				<TYPE Id="RDK:992244" Name="ButtonDefType" SubType="structure" HasArrayType="True">
 					<TYPE_VALUES />
-					<FIELD Id="RDK:982806" Name="ButtonText" Type="string" DesignTimeRemark="Label or Html content for this button" />
-					<FIELD Id="RDK:982807" Name="ButtonValue" Type="string" DesignTimeRemark="String returned as ButtonPressed" />
-					<FIELD Id="RDK:982809" Name="ButtonType" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)">
-						<TYPE Id="RDK:982809" IsInternal="True" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)" Expanded="True" SubType="base" BaseType="string">
+					<FIELD Id="RDK:992230" Name="ButtonText" Type="string" DesignTimeRemark="Label or Html content for this button" />
+					<FIELD Id="RDK:992231" Name="ButtonValue" Type="string" DesignTimeRemark="String returned as ButtonPressed" />
+					<FIELD Id="RDK:992233" Name="ButtonType" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)">
+						<TYPE Id="RDK:992233" IsInternal="True" DesignTimeRemark="SIMPLE, IMAGE, SMART, HTML (empty=simple)" Expanded="True" SubType="base" BaseType="string">
 							<UI_INPUT_TYPE TypeForm="Text" />
 							<UI_INPUT_VALIDATION ValidationType="none" />
 							<UI_INPUT_SUPPORT />
@@ -98,8 +98,8 @@
 							</TYPE_VALUES>
 						</TYPE>
 					</FIELD>
-					<FIELD Id="RDK:982811" Name="ButtonAction" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)">
-						<TYPE Id="RDK:982811" IsInternal="True" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)" Expanded="True" SubType="base" BaseType="string">
+					<FIELD Id="RDK:992235" Name="ButtonAction" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)">
+						<TYPE Id="RDK:992235" IsInternal="True" DesignTimeRemark="NONE, SUBMIT, VALIDATE, CANCEL (empty=validate)" Expanded="True" SubType="base" BaseType="string">
 							<UI_INPUT_TYPE TypeForm="Text" />
 							<UI_INPUT_VALIDATION ValidationType="none" />
 							<UI_INPUT_SUPPORT />
@@ -112,8 +112,8 @@
 							</TYPE_VALUES>
 						</TYPE>
 					</FIELD>
-					<FIELD Id="RDK:982813" Name="ButtonLocation" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)">
-						<TYPE Id="RDK:982813" IsInternal="True" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)" Expanded="True" SubType="base" BaseType="string">
+					<FIELD Id="RDK:992237" Name="ButtonLocation" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)">
+						<TYPE Id="RDK:992237" IsInternal="True" DesignTimeRemark="TOP, RIGHT, BOTTOM, LEFT, FAB (empty=bottom)" Expanded="True" SubType="base" BaseType="string">
 							<UI_INPUT_TYPE TypeForm="Text" />
 							<UI_INPUT_VALIDATION ValidationType="none" />
 							<UI_INPUT_SUPPORT />
@@ -126,8 +126,8 @@
 							</TYPE_VALUES>
 						</TYPE>
 					</FIELD>
-					<FIELD Id="RDK:982815" Name="ButtonStyle" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)">
-						<TYPE Id="RDK:982815" IsInternal="True" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)" Expanded="True" SubType="base" BaseType="string">
+					<FIELD Id="RDK:992239" Name="ButtonStyle" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)">
+						<TYPE Id="RDK:992239" IsInternal="True" DesignTimeRemark="DISABLED, LOCKED, PRESSED, FOCUSED (empty=enabled)" Expanded="True" SubType="base" BaseType="string">
 							<UI_INPUT_TYPE TypeForm="Text" />
 							<UI_INPUT_VALIDATION ValidationType="none" />
 							<UI_INPUT_SUPPORT />
@@ -139,14 +139,14 @@
 							</TYPE_VALUES>
 						</TYPE>
 					</FIELD>
-					<FIELD Id="RDK:982816" Name="ButtonClass" Type="string" DesignTimeRemark="Extra CSS class for button rendering" />
-					<FIELD Id="RDK:982817" Name="ButtonImage" Type="string" DesignTimeRemark="Image resource associated to button face" />
-					<FIELD Id="RDK:982818" Name="ButtonTooltip" Type="string" DesignTimeRemark="Tooltip associated to button area" />
-					<FIELD Id="RDK:982819" Name="ButtonOptions" Type="string" DesignTimeRemark="(BREAK) Split to new row, (GROUP=&lt;name&gt;) Start a new named group (GROUP=END) Close group" />
+					<FIELD Id="RDK:992240" Name="ButtonClass" Type="string" DesignTimeRemark="Extra CSS class for button rendering" />
+					<FIELD Id="RDK:992241" Name="ButtonImage" Type="string" DesignTimeRemark="Image resource associated to button face" />
+					<FIELD Id="RDK:992242" Name="ButtonTooltip" Type="string" DesignTimeRemark="Tooltip associated to button area" />
+					<FIELD Id="RDK:992243" Name="ButtonOptions" Type="string" DesignTimeRemark="(BREAK) Split to new row, (GROUP=&lt;name&gt;) Start a new named group (GROUP=END) Close group" />
 				</TYPE>
 			</GROUP>
 		</GROUP>
-		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs" Expanded="True">
+		<GROUP Id="RDK:0004" Name="Parameters" SubType="ParameterDefs">
 			<PAR_DEF Id="RDK:920047" Name="Mode" TypeRD="string" Direction="IN" Panel="Parameters" UseDataFile="False">
 				<LABEL />
 				<DESCRIPTION />
@@ -157,7 +157,7 @@
 			</PAR_DEF>
 		</GROUP>
 		<GROUP Id="RDK:0005" Name="Global Variables" SubType="VarSet" IncludeDate="0" Expanded="True">
-			<VAR Id="RDK:863196" Name="IniFilePath" Type="string" Expanded="True">
+			<VAR Id="RDK:863196" Name="IniFilePath" Type="string">
 				<SET Id="RDK:863195" VarRef="Me">
 					<EXP><![CDATA[$=$ProcPath()+"Settings.ini"]]></EXP>
 					<PAR Name="AdvancedOptions" />
@@ -172,7 +172,7 @@
 			<VAR Id="RDK:82" Name="idx" Type="integer" Expanded="True" DesignTimeRemark="Generated by RD" />
 			<VAR Id="RDK:1067" Name="MetaTrad" Type="MetaTradType" />
 			<VAR Id="RDK:956851" Name="MetaTrads" Type="MetaTradType[]" />
-			<VAR Id="RDK:1989" Name="ValidTag" Type="boolean" Expanded="True">
+			<VAR Id="RDK:1989" Name="ValidTag" Type="boolean">
 				<SET Id="RDK:2015" VarRef="Me">
 					<EXP><![CDATA[$C$False]]></EXP>
 					<PAR Name="AdvancedOptions" />
@@ -182,12 +182,7 @@
 			<VAR Id="RDK:868774" Name="Button" Type="string" Expanded="True" DesignTimeRemark="Generated by RD" />
 			<VAR Id="RDK:882120" Name="myUser" Type="UserType" Expanded="True" Suppressed="True" />
 			<VAR Id="RDK:885999" Name="Offline" Type="boolean" Expanded="True" DesignTimeRemark="Generated by RD" />
-			<VAR Id="RDK:886043" Name="URL" Type="string" Expanded="True">
-				<SET Id="RDK:886049" VarRef="Me">
-					<EXP><![CDATA[$C$http://testsint.modulblok.com/FUSIONTEST/]]></EXP>
-					<PAR Name="AdvancedOptions" />
-				</SET>
-			</VAR>
+			<VAR Id="RDK:886043" Name="URL" Type="string" Expanded="True" />
 			<VAR Id="RDK:886061" Name="LoginSuccess" Type="boolean" />
 			<VAR Id="RDK:896783" Name="MAX_IDX" Type="integer" Expanded="True" DesignTimeRemark="Generated by RD" />
 			<VAR Id="RDK:898890" Name="sorted" Type="SortType" Expanded="True" />
@@ -218,9 +213,16 @@
 				<VAR Id="RDK:982835" Name="BtnList" Type="ButtonDefType[]" />
 				<VAR Id="RDK:982836" Name="BtnTempList" Type="ButtonDefType[]" />
 			</GROUP>
+			<VAR Id="RDK:992187" Name="Lista_filtri" Type="string[]" Expanded="True">
+				<SET Id="RDK:992186" VarRef="Me">
+					<EXP><![CDATA[$C$LIST { "Y","y","Si","SI","YES","Yes" }]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+			</VAR>
+			<VAR Id="RDK:41470351" Name="IsFusionTest" Type="boolean" Expanded="True" DesignTimeRemark="Generated by RD" />
 		</GROUP>
 		<GROUP Id="RDK:0006" Name="Profiles" SubType="ProfileSet" Expanded="True">
-			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" Expanded="True" />
+			<PROFILE Id="RDK:291" Name="TradProfile" TypeName="TradType" />
 			<PROFILE Id="RDK:1139" Name="MetaTradProfile" TypeName="MetaTradType" />
 			<PROFILE Id="RDK:925531" Name="GridTradProfile" TypeName="TradType" Expanded="True" />
 		</GROUP>
@@ -234,11 +236,11 @@
 					<EXP><![CDATA[$=$Ceiling(tot_rows/page_rows)]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
-				<IFTHENELSE Id="RDK:979900" Expanded="True">
+				<IFTHENELSE Id="RDK:979900">
 					<VALUECONDITION Value="true">
 						<EXP><![CDATA[$=$page_idx>MaxNumPages]]></EXP>
 					</VALUECONDITION>
-					<GROUP Id="RDK:979899" SubType="Then" Expanded="True">
+					<GROUP Id="RDK:979899" SubType="Then">
 						<SET Id="RDK:979898" VarRef="page_idx">
 							<EXP><![CDATA[$C$1]]></EXP>
 							<PAR Name="AdvancedOptions" />
@@ -311,8 +313,7 @@
 								<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
 							</PAR>
 							<PAR Name="SqlStatement">
-								<EXP><![CDATA[$=$dateformat+"
-UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_changed+")"]]></EXP>
+								<EXP><![CDATA[$=$"UPDATE METATRADS SET LAST_UPDATE=GETDATE()  WHERE IDX in("+ids_changed+")"]]></EXP>
 							</PAR>
 							<PAR Name="StatementResult">
 								<EXP><![CDATA[$V$]]></EXP>
@@ -336,13 +337,13 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 						<EXP><![CDATA[$C$IMAGE]]></EXP>
 					</PAR>
 					<PAR Name="ButtonAction">
-						<EXP><![CDATA[$=$IIF(Mode="read", "NONE", "SUBMIT")]]></EXP>
+						<EXP><![CDATA[$=$IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "NONE", "SUBMIT")]]></EXP>
 					</PAR>
 					<PAR Name="ButtonLocation">
 						<EXP><![CDATA[$C$TOP]]></EXP>
 					</PAR>
 					<PAR Name="ButtonStyle">
-						<EXP><![CDATA[$=$IIF(Mode="read", "DISABLED", "")]]></EXP>
+						<EXP><![CDATA[$=$IIF(Mode="read" or CountByExp(myUser.groups,"Me=1")<1, "DISABLED", "")]]></EXP>
 					</PAR>
 					<PAR Name="ButtonClass" />
 					<PAR Name="ButtonImage">
@@ -519,8 +520,8 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 					</PAR>
 					<PAR Name="ButtonOptions" />
 				</SET_STRUCT>
-				<GROUP Id="RDK:982886" Name="STEP BUTTON" SubType="Generic" Expanded="True">
-					<GROUP Id="RDK:982883" Name="PREVIOUS PAGE" SubType="Generic" Expanded="True">
+				<GROUP Id="RDK:982886" Name="STEP BUTTON" SubType="Generic">
+					<GROUP Id="RDK:982883" Name="PREVIOUS PAGE" SubType="Generic">
 						<VALUECONDITION Value="true">
 							<EXP><![CDATA[$=$page_idx>1]]></EXP>
 						</VALUECONDITION>
@@ -588,7 +589,7 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 					</GROUP>
 				</GROUP>
 			</FUNCTION>
-			<FUNCTION Id="RDK:982906" Name="SetTempButtons" Expanded="True">
+			<FUNCTION Id="RDK:982906" Name="SetTempButtons">
 				<SET Id="RDK:982903" VarRef="BtnTempList">
 					<EXP><![CDATA[$C$NOTHING]]></EXP>
 					<PAR Name="AdvancedOptions" />
@@ -645,15 +646,66 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 		</GROUP>
 	</GROUP>
 	<GROUP Id="RDK:0008" Name="Main Group" SubType="Generic" Expanded="True" LogDisable="$=$IsSubProcess()">
-		<GROUP Id="RDK:862962" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
-			<SET Id="RDK:862957" VarRef="ConnStr_LOCAL">
-				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
-				<PAR Name="AdvancedOptions" />
-			</SET>
-			<SET Id="RDK:929545" VarRef="dateformat">
-				<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "SetDateFormat")]]></EXP>
-				<PAR Name="AdvancedOptions" />
-			</SET>
+		<GROUP Id="RDK:992288" Name="INIT" SubType="Generic" Expanded="True" DesignTimeRemark="Set Connection Strings">
+			<PROCESS_CALL Id="RDK:992280" Expanded="True">
+				<EXP><![CDATA[$C$..\..\SYSTEM\Process.rdx]]></EXP>
+				<PAR Name="PDMConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="MBKConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="SAGEConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="FUSIONConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="URLFusion">
+					<EXP><![CDATA[$V$URL]]></EXP>
+				</PAR>
+				<PAR Name="SAGETestConnString">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="PDMDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="MBKDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="FUSIONDBName">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+				<PAR Name="URLPDM">
+					<EXP><![CDATA[$V$]]></EXP>
+				</PAR>
+			</PROCESS_CALL>
+			<GROUP Id="RDK:992287" Name="DETERMINAZIONE DB SAGE SU CUI OPERARE TEST O PROD" SubType="Generic" Expanded="True">
+				<VALUECONDITION Value="false">
+					<EXP><![CDATA[$=$Offline]]></EXP>
+				</VALUECONDITION>
+				<SET Id="RDK:992281" VarRef="IsFusionTest" DesignTimeRemark="DETERMINA SE SIAMO IN AMBIENTE DI TEST">
+					<EXP><![CDATA[$=$IsTagInString(URL, "FUSIONTEST")]]></EXP>
+					<PAR Name="AdvancedOptions" />
+				</SET>
+				<IFTHENELSE Id="RDK:992286" DesignTimeRemark="In ambiente di produzione le scritture vangono appunto fatte in produzione">
+					<VALUECONDITION Value="true">
+						<EXP><![CDATA[$=$IsFusionTest=False]]></EXP>
+					</VALUECONDITION>
+					<GROUP Id="RDK:992283" SubType="Then">
+						<SET Id="RDK:992282" VarRef="ConnStr_LOCAL">
+							<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCAL", "ConnectionString")]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+					<GROUP Id="RDK:992285" SubType="Else">
+						<SET Id="RDK:992284" VarRef="ConnStr_LOCAL">
+							<EXP><![CDATA[$=$ReadIni(IniFilePath, "LOCALTEST", "ConnectionString")]]></EXP>
+							<PAR Name="AdvancedOptions" />
+						</SET>
+					</GROUP>
+				</IFTHENELSE>
+			</GROUP>
 		</GROUP>
 		<ACTION_CALL Id="RDK:44" Name="RDEngineering_DBOpen">
 			<PAR Name="RDLibraryName">
@@ -684,11 +736,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 			<PAR Name="SelectFieldName" />
 			<PAR Name="SelectFieldValue" />
 			<PAR Name="SelectQuery">
-				<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+				<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -1383,11 +1435,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 													<PAR Name="SelectFieldName" />
 													<PAR Name="SelectFieldValue" />
 													<PAR Name="SelectQuery">
-														<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+														<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -1786,11 +1838,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 											<PAR Name="SelectFieldName" />
 											<PAR Name="SelectFieldValue" />
 											<PAR Name="SelectQuery">
-												<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+												<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+ M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2108,11 +2160,11 @@ ORDER BY T.ITA
 						<PAR Name="SelectFieldName" />
 						<PAR Name="SelectFieldValue" />
 						<PAR Name="SelectQuery">
-							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+							<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2260,11 +2312,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 						<PAR Name="SelectFieldName" />
 						<PAR Name="SelectFieldValue" />
 						<PAR Name="SelectQuery">
-							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+							<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2321,11 +2373,11 @@ ORDER BY T.ITA
 						<PAR Name="SelectFieldName" />
 						<PAR Name="SelectFieldValue" />
 						<PAR Name="SelectQuery">
-							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+							<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2390,11 +2442,11 @@ ORDER BY T.ITA
 						<PAR Name="SelectFieldName" />
 						<PAR Name="SelectFieldValue" />
 						<PAR Name="SelectQuery">
-							<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+							<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2599,11 +2651,11 @@ ORDER BY T.ITA
 					<PAR Name="SelectFieldName" />
 					<PAR Name="SelectFieldValue" />
 					<PAR Name="SelectQuery">
-						<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+						<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2671,11 +2723,11 @@ ORDER BY T.ITA
 					<PAR Name="SelectFieldName" />
 					<PAR Name="SelectFieldValue" />
 					<PAR Name="SelectQuery">
-						<EXP><![CDATA[$C$SELECT CONCAT(M.ORIGIN_DB, ' - ',  M.ORIGIN_TABLE) AS ORIGIN, 
+						<EXP><![CDATA[$C$SELECT (M.ORIGIN_DB+ ' - '+  M.ORIGIN_TABLE) AS ORIGIN, 
 	CASE
 		WHEN M.ORIGIN_ID_1<>'' THEN
 			STUFF(( 
-			SELECT '/' + CONCAT(M1.ORIGIN_ID_0, ' & ', M1.ORIGIN_ID_1) 
+			SELECT '/' + (M1.ORIGIN_ID_0+ ' & '+ M1.ORIGIN_ID_1) 
 			FROM METATRADS as M1 with (NOLOCK)
 			WHERE T.IDX=M1.IDX
 			FOR XML PATH(''), TYPE).value('(./text())[1]', 'NVARCHAR(MAX)'), 1, 1, '') 
@@ -2740,22 +2792,22 @@ ORDER BY T.ITA
 				</SET_STRUCT>
 			</GROUP>
 			<NODE Id="RDK:59" Name="Button Pressed" Suppressed="True">
-				<VAR_COND Id="RDK:991984" Name="ADD_TRAD">
+				<VAR_COND Id="RDK:41470445" Name="ADD_TRAD">
 					<EXP><![CDATA[$=$Button="ADD"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:991985" Name="DELETE_TRAD">
+				<VAR_COND Id="RDK:41470446" Name="DELETE_TRAD">
 					<EXP><![CDATA[$=$Button="DELETE"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:991986" Name="SORT">
+				<VAR_COND Id="RDK:41470447" Name="SORT">
 					<EXP><![CDATA[$=$StrStartWith(Button, "SORTCLICK")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:991987" Name="FILTER">
+				<VAR_COND Id="RDK:41470448" Name="FILTER">
 					<EXP><![CDATA[$=$StrStartWith(Button, "EDITFILTER")]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:991988" Name="DELETE_FILTER">
+				<VAR_COND Id="RDK:41470449" Name="DELETE_FILTER">
 					<EXP><![CDATA[$=$Button="DELETE ALL FILTERS"]]></EXP>
 				</VAR_COND>
-				<VAR_COND Id="RDK:991989" Name="SAVE_CHANGES">
+				<VAR_COND Id="RDK:41470450" Name="SAVE_CHANGES">
 					<EXP><![CDATA[$=$Button="SAVE CURRENT CHANGES"]]></EXP>
 				</VAR_COND>
 				<CHOICE Id="RDK:61" Name="Choice">
@@ -4076,11 +4128,11 @@ ORDER BY T.ITA
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911568" VarRef="TradTable">
-					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "UPDATED", "*"+FilterTrad.UPDATED+"*")]]></EXP>
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "UPDATED", "*"+IIF(Contains(Lista_filtri,FilterTrad.UPDATED),"t","") +"*")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911576" VarRef="TradTable">
-					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "NEW", "*"+FilterTrad.NEW+"*")]]></EXP>
+					<EXP><![CDATA[$=$FilterByFieldValue(TradTable, "NEW", "*"+IIF(Contains(Lista_filtri,FilterTrad.NEW),"t","") +"*")]]></EXP>
 					<PAR Name="AdvancedOptions" />
 				</SET>
 				<SET Id="RDK:911602" VarRef="TradTable">
@@ -4405,13 +4457,11 @@ UPDATE METATRADS SET LAST_UPDATE='"+ToString(Now())+"' WHERE IDX in("+ids_change
 				<UI_INPUT_VALIDATION ValidationType="none" />
 				<UI_INPUT_SUPPORT />
 			</RELPROFILE>
-			<RELPROFILE Id="RDK:958097" TypeName="TradType" Expanded="True">
+			<RELPROFILE Id="RDK:958097" TypeName="TradType" Expanded="True" Suppressed="True">
 				<PNODE NodeType="profile" ProfileName="GridTradProfile" />
 				<PNODE NodeType="field_variant" FieldName="LAST_UPDATE" VariantName="Variant" />
 				<RP_INITIAL_VALUE />
-				<RP_SETFIELD_VALUE>
-					<EXP><![CDATA[$=$Now()]]></EXP>
-				</RP_SETFIELD_VALUE>
+				<RP_SETFIELD_VALUE />
 				<RP_SETFIELD_FORCED>
 					<EXP><![CDATA[$C$True]]></EXP>
 				</RP_SETFIELD_FORCED>

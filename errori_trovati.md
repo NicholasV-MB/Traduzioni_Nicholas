@@ -8,9 +8,10 @@
 
 # Web_Interface:
 - SortListOfStructs() non funziona se il campo scelto è "NEW" - Evaluation Error: SortListOfStructs(): '(' expected --> ho dovuto rinominare il campo con "IS_NEW"
-- Nella grid editabile non è possibile settare un campo di una riga non editabile a partire da una condizione e non è possibile sapere quale campo è stato appena modificato o selezionato senza forzare l'autocommit
+- Nella grid editabile non è possibile settare un campo di una riga non editabile a partire da una condizione e non è possibile sapere quale campo è stato appena modificato o selezionato
 
 # Export_from_DB:
 - funzione ReplaceFromTo() il tag "TO" non è necessariamente successivo a quello "FROM"
 - errore nello scrivere la fine "]]>" di una stringa che inizia per "<[CDATA[", l'ho separato in variabili
 - dll da errori come  "Cast non valido dalla stringa "SELECT * FROM METATRADS WHERE ID" al tipo 'Double'. Formato della stringa di input non corretto" in un nodo "Select DB Structured" dove la query è "SELECT * FROM METATRADS WHERE IDX="+Trad.IDX con Trad.IDX tipo "integer", anche provando ad usare un "Execute SQL Statement" al suo posto viene fornito un errore generico "DBG: RUNDLL" sul nodo
+- Le funzioni "replace" di stringhe non sono case sensitive

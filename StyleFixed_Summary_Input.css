@@ -39,6 +39,12 @@
 	/*border-style:window-inset;*/
 }
 
+.RDBUTTON[value="SAVE"]
+{
+	float:right;
+	margin-right: 20px;
+}
+
 .RDBUTTON_IMAGE
 {
 	padding-left: 5px;	
@@ -85,19 +91,16 @@
 {
    background-color: #e1001a;
    padding-bottom: 3px;
-   z-index: 9999;
 }
 
 .RDBUTTON_AREA_TOP_LEFT
 {
    background-color: #e1001a;
-   z-index: 9999;
 }
 
 .RDBUTTON_AREA_TOP_RIGHT
 {
    background-color: #e1001a;
-   z-index: 9999;
 }
 
 /*
@@ -129,6 +132,18 @@
    width:18px;
 }
 */
+.RDCONTROL_CHECKBOX_IMG {
+	padding: 0px !important;
+	margin: 0px;
+}
+
+.RDCONTROL_CHECKBOX_IMG_CELL{
+	padding: 0px !important;
+}
+
+.RDCONTROL_CHECKBOX_BUFFER_CELL {
+    padding: 0px !important;
+}
 
 .RDCONTROL_CHECKBOX_2 {
     background-color: #FFBF00;
@@ -221,16 +236,6 @@
 	border-right:0px solid #000000;
 	padding-bottom: 4px;
     padding-top: 3px;
-}
-
-.RDCONTROL_PASSWORD 
-{
-    border-bottom:1px solid #000000;
-	border-top:0px solid #000000;
-	border-left:0px solid #000000;
-	border-right:0px solid #000000;
-	padding-bottom: 4px;
-    padding-top: 4px;
 }
 
 .RDCONTROL_TEXTAREA
@@ -445,7 +450,7 @@
 
 .RDWI_FIELDSET fieldset
 { 
-    /*width: 780px;			*/
+    width: 650px;
     font-family:Verdana;
 	font-size:8pt;
 	color:#000000;
@@ -504,38 +509,72 @@
 	border-bottom: none !important;
 }
 
-.dd {
-    font-size: 8pt;
-    font-family: Verdana;
-}
-
-.dd .ddChild li .ddlabel {
-    font-size: 8pt;
-}
-
-.dd .ddChild li {
-    height: 20px;
-}
-
 #rdFilterFlyout {
     font-family: Verdana;
 	font-size: 10pt;
 }
 
-.tree_input_body .RDBUTTON_AREA_BOTTOM input {
-    position: relative;
-    left: 1180px;
+
+/*
+.RDWI_SUMMARYGRID_TABLE table{
+    width: 750px;
+    display: inline-block;
 }
 
-.tree_input_body .RDBUTTON_AREA_BOTTOM {
-    text-align: left;
+.RDWI_WEBINPUT_TABLE table {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+    padding-top: 60px;
+}
+*/
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE {
+    width: 70%;
+    display: inline-block;
+    position: fixed;
 }
 
-.mytree .RD_TREE_ROOT {
-     width: 1000px;
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table thead {
+    display: block;
 }
 
-.imgpaddingleft img {
-    padding-left: 30px;
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tbody {
+    display: block;
+    overflow-y: auto;
+    height: 500px;
 }
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE table tr {
+    table-layout: fixed;
+    display: table;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_SUMMARYGRID_TABLE td{
+    word-wrap: break-word;
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE {
+    width: 30%;
+    position: fixed;
+    display: inline-block;
+    /* vertical-align: top; */
+    /* overflow: hidden; */
+    /* float: right; */
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 70%;
+   overflow-x: auto;
+    
+}
+
+.WEBSUMMARYINPUT_CONTAINER .RDWI_WEBINPUT_TABLE fieldset {
+    width: auto;
+}
+
+
+
+
+
 

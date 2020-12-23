@@ -701,8 +701,8 @@ exec_group:
 	'Main Group *LOG_CONTROLLED
 	Private Sub Main_Group_K_0008()
 		_CurrentNode = "RDK:0008"
-		'INIT (Set Connection Strings)
-		Call INIT_K_28()
+		'INIZIALIZZAIZONE
+		Call INIZIALIZZAIZONE_K_699433()
 		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
 
 		'CHECK LOG DIR
@@ -744,8 +744,78 @@ exec_group:
 		
 	End Sub
 
-	'INIT (Set Connection Strings)
-	Private Sub INIT_K_28()
+	'INIZIALIZZAIZONE
+	Private Sub INIZIALIZZAIZONE_K_699433()
+		_CurrentNode = "RDK:699433"
+		'Call ..\..\SYSTEM\Process.rdx
+		_CurrentNode = "RDK:699414"		'PROCESSCALL ..\..\SYSTEM\Process.rdx
+		Dim ProcCallFile_K_699414 as string = "..\..\SYSTEM\Process.rdx"
+		Dim ProcCallOptions_K_699414 as string = ""
+		Dim ProcArgs_K_699414 as New Generic.List(of RDParamValue)
+		ProcArgs_K_699414.Add(new RDParamValue("PDMConnString",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("MBKConnString",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("SAGEConnString",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("FUSIONConnString",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("URLFusion",URL,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("URLPDM",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("SAGETestConnString",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("PDMDBName",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("MBKDBName",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("FUSIONDBName",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		ProcArgs_K_699414.Add(new RDParamValue("OfflineBaseFolder",Nothing,RDParamValue.E_RDPAR_DIR.OUT)) 'ProcessCall Parameter
+		_ActionResult = CompilerUtil.ExecuteSubProcess(ProcCallFile_K_699414,ProcCallOptions_K_699414,ProcArgs_K_699414)
+		_ActionResult.ThrowExceptionIfFail(_CurrentNode)
+		URL = ProcArgs_K_699414(4).GetDotNetValue(URL.GetType)		'OUT
+		'DETERMINAZIONE DB SAGE SU CUI OPERARE TEST O PROD
+		Call DETERMINAZIONE_DB_SAGE_SU_CUI_OPERARE_TEST_O_PROD_K_41470357()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'DETERMINAZIONE DB SAGE SU CUI OPERARE TEST O PROD
+	Private Sub DETERMINAZIONE_DB_SAGE_SU_CUI_OPERARE_TEST_O_PROD_K_41470357()
+		_CurrentNode = "RDK:41470357"
+		'Set IsFusionTest = IsTagInString(URL, "FUSIONTEST") (DETERMINA SE SIAMO IN AMBIENTE DI TEST)
+		_CurrentNode = "RDK:41470351"
+		'DETERMINA SE SIAMO IN AMBIENTE DI TEST
+		IsFusionTest = EvalExpression("Set_IsFusionTest_K_41470351")
+		
+		'If IsFusionTest=False is True (In ambiente di produzione le scritture vangono appunto fatte in produzione)
+		Call IFTHENELSE_K_41470356()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'If IsFusionTest=False is True (In ambiente di produzione le scritture vangono appunto fatte in produzione)
+	Private Sub IFTHENELSE_K_41470356()
+		_CurrentNode = "RDK:41470356"
+		'Group Conditions
+		Dim _GroupExecute As Boolean = EvalExpression("CondExp1_K_41470356")
+exec_group:
+'----------------------------------------------------
+		if _GroupExecute then
+		    'Call THEN group
+			'If IsFusionTest=False is True (In ambiente di produzione le scritture vangono appunto fatte in produzione)
+			Call THENGROUP_K_41470353()
+
+		else
+			'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+			Call ELSEGROUP_K_41470355()
+
+		End if
+	End Sub
+
+	'If IsFusionTest=False is True (In ambiente di produzione le scritture vangono appunto fatte in produzione)
+	Private Sub THENGROUP_K_41470353()
+		_CurrentNode = "RDK:41470353"
+		'INIT PROD (Set Connection Strings)
+		Call INIT_PROD_K_28()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'INIT PROD (Set Connection Strings)
+	Private Sub INIT_PROD_K_28()
 		_CurrentNode = "RDK:28"
 		'Set ConnStr_FUSION = ReadIni(IniFilePath, "FUSION", "ConnectionString")
 		_CurrentNode = "RDK:686229"
@@ -763,17 +833,59 @@ exec_group:
 		_CurrentNode = "RDK:686251"
 		ConnStr_PDM = EvalExpression("Set_ConnStr_PDM_K_686251")
 		
-		'Set GS_TradPath = ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+		'Set GS_TradPath = ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
 		_CurrentNode = "RDK:686259"
 		GS_TradPath = EvalExpression("Set_GS_TradPath_K_686259")
 		
-		'Set CRM_TradPath = ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+		'Set CRM_TradPath = ReadIni(IniFilePath, "CRM", "MBPath")
 		_CurrentNode = "RDK:686267"
 		CRM_TradPath = EvalExpression("Set_CRM_TradPath_K_686267")
 		
 		'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
 		_CurrentNode = "RDK:686311"
 		Languages = EvalExpression("Set_Languages_K_686311")
+		
+	End Sub
+
+	'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+	Private Sub ELSEGROUP_K_41470355()
+		_CurrentNode = "RDK:41470355"
+		'INIT TEST (Set Connection Strings)
+		Call INIT_TEST_K_41470406()
+		If CompilerUtil.MustReturnToCaller(_ExitTarget,false) Then Return
+
+	End Sub
+
+	'INIT TEST (Set Connection Strings)
+	Private Sub INIT_TEST_K_41470406()
+		_CurrentNode = "RDK:41470406"
+		'Set ConnStr_FUSION = ReadIni(IniFilePath, "FUSIONTEST", "ConnectionString")
+		_CurrentNode = "RDK:41470399"
+		ConnStr_FUSION = EvalExpression("Set_ConnStr_FUSION_K_41470399")
+		
+		'Set ConnStr_LOCAL = ReadIni(IniFilePath, "LOCALTEST", "ConnectionString")
+		_CurrentNode = "RDK:41470400"
+		ConnStr_LOCAL = EvalExpression("Set_ConnStr_LOCAL_K_41470400")
+		
+		'Set dateformat = ReadIni(IniFilePath, "LOCALTEST", "SetDateFormat")
+		_CurrentNode = "RDK:41470401"
+		dateformat = EvalExpression("Set_dateformat_K_41470401")
+		
+		'Set ConnStr_PDM = ReadIni(IniFilePath, "PDMTEST", "ConnectionString")
+		_CurrentNode = "RDK:41470402"
+		ConnStr_PDM = EvalExpression("Set_ConnStr_PDM_K_41470402")
+		
+		'Set GS_TradPath = ReadIni(IniFilePath, "GRAPHICAL STUDIOTEST", "TranslationPath")
+		_CurrentNode = "RDK:41470403"
+		GS_TradPath = EvalExpression("Set_GS_TradPath_K_41470403")
+		
+		'Set CRM_TradPath = ReadIni(IniFilePath, "CRMTEST", "MBPath")
+		_CurrentNode = "RDK:41470404"
+		CRM_TradPath = EvalExpression("Set_CRM_TradPath_K_41470404")
+		
+		'Set Languages = SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+		_CurrentNode = "RDK:41470405"
+		Languages = EvalExpression("Set_Languages_K_41470405")
 		
 	End Sub
 

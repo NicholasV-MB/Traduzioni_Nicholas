@@ -297,16 +297,29 @@ Module StaticExpressions
 		return SupportTableTags
 	End Function
 
-	'OriginalExpression: 'dateformat+" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
+	'OriginalExpression: '" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', "+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",DateSQL(Now(), "(DATETIME)"), DateSQL(SupportRowTags.LAST_UPDATE, "(DATETIME)"))+")"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_700(ByVal Main As RDCompiledProcess) As Object
-		return dateformat+" INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', '"+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",RDToString(Now()),RDToString(SupportRowTags.LAST_UPDATE))+"')"
+		return " INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(Trad.IDX)+"', '"+_Param.Input.DB+"', '"+_Param.Input.TableName+"', '"+SupportRowTags.ORIGIN_ID_0+"', '"+IIF(_Param.Input.TableName="wo_state", _Param.Input.ID2, SupportRowTags.ORIGIN_ID_1)+"', "+IIF(RDToString(SupportRowTags.LAST_UPDATE)="",DateSQL(Now(), "(DATETIME)"), DateSQL(SupportRowTags.LAST_UPDATE, "(DATETIME)"))+")"
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
 	<Extension()>
 	Public Function Eval_Static_Set_baseIDX_K_698653(ByVal Main As RDCompiledProcess) As Object
 		return i+baseIDX
+	End Function
+
+	'OriginalExpression: 'IsTagInString(URL, "FUSIONTEST")
+	<Extension()>
+	Public Function Eval_Static_Set_IsFusionTest_K_41470351(ByVal Main As RDCompiledProcess) As Object
+		return IsTagInString(URL, "FUSIONTEST")
+	End Function
+
+	'Condition for group IFTHENELSE
+	'OriginalExpression: 'IsFusionTest=False
+	<Extension()>
+	Public Function Eval_Static_CondExp1_K_41470356(ByVal Main As RDCompiledProcess) As Object
+		return IsFusionTest=False
 	End Function
 
 	'OriginalExpression: 'ReadIni(IniFilePath, "FUSION", "ConnectionString")
@@ -333,21 +346,63 @@ Module StaticExpressions
 		return ReadIni(IniFilePath, "PDM", "ConnectionString")
 	End Function
 
-	'OriginalExpression: 'ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+	'OriginalExpression: 'ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
 	<Extension()>
 	Public Function Eval_Static_Set_GS_TradPath_K_686259(ByVal Main As RDCompiledProcess) As Object
-		return ProcPath()+ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
+		return ReadIni(IniFilePath, "GRAPHICAL STUDIO", "TranslationPath")
 	End Function
 
-	'OriginalExpression: 'ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+	'OriginalExpression: 'ReadIni(IniFilePath, "CRM", "MBPath")
 	<Extension()>
 	Public Function Eval_Static_Set_CRM_TradPath_K_686267(ByVal Main As RDCompiledProcess) As Object
-		return ProcPath()+ReadIni(IniFilePath, "CRM", "MBPath")
+		return ReadIni(IniFilePath, "CRM", "MBPath")
 	End Function
 
 	'OriginalExpression: 'SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
 	<Extension()>
 	Public Function Eval_Static_Set_Languages_K_686311(ByVal Main As RDCompiledProcess) As Object
+		return SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "FUSIONTEST", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_FUSION_K_41470399(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "FUSIONTEST", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "LOCALTEST", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_LOCAL_K_41470400(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "LOCALTEST", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "LOCALTEST", "SetDateFormat")
+	<Extension()>
+	Public Function Eval_Static_Set_dateformat_K_41470401(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "LOCALTEST", "SetDateFormat")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "PDMTEST", "ConnectionString")
+	<Extension()>
+	Public Function Eval_Static_Set_ConnStr_PDM_K_41470402(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "PDMTEST", "ConnectionString")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "GRAPHICAL STUDIOTEST", "TranslationPath")
+	<Extension()>
+	Public Function Eval_Static_Set_GS_TradPath_K_41470403(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "GRAPHICAL STUDIOTEST", "TranslationPath")
+	End Function
+
+	'OriginalExpression: 'ReadIni(IniFilePath, "CRMTEST", "MBPath")
+	<Extension()>
+	Public Function Eval_Static_Set_CRM_TradPath_K_41470404(ByVal Main As RDCompiledProcess) As Object
+		return ReadIni(IniFilePath, "CRMTEST", "MBPath")
+	End Function
+
+	'OriginalExpression: 'SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
+	<Extension()>
+	Public Function Eval_Static_Set_Languages_K_41470405(ByVal Main As RDCompiledProcess) As Object
 		return SplitStr(ReadIni(IniFilePath, "LANGUAGES", "Languages"), ",", "")
 	End Function
 
@@ -406,10 +461,10 @@ Module StaticExpressions
 		return dmfolder_row.LAST_UPDATE
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DateSQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"  
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664072(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DateSQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"  
 	End Function
 
 	'OriginalExpression: 'baseIDX+i
@@ -570,10 +625,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', "+DateSQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"  
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664166(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', "+DateSQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"  
 	End Function
 
 	'OriginalExpression: 'i+baseIDX
@@ -661,10 +716,10 @@ Module StaticExpressions
 		return Now()
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', "+DATESQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664200(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql(MetaTrad.ORIGIN_ID_1)+"', "+DATESQL(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	End Function
 
 	'OriginalExpression: 'NewDateTime(1800, 1, 1, 10, 0, 0)
@@ -832,10 +887,10 @@ Module StaticExpressions
 		return MetaTrad
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DateSql(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_664254(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DateSql(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	End Function
 
 	'OriginalExpression: 'baseIDX+i
@@ -947,10 +1002,10 @@ Module StaticExpressions
 		return "INSERT INTO TRADS VALUES('"+StrSql(Trad.IDX)+"', '', '', '', '', '', Null, Null, Null)"
 	End Function
 
-	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+	'OriginalExpression: '"INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DATEsql(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	<Extension()>
 	Public Function Eval_Static_SqlStatement_K_669712(ByVal Main As RDCompiledProcess) As Object
-		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', '"+RDToString(MetaTrad.LAST_UPDATE)+"')"
+		return "INSERT INTO METATRADS (IDX, ORIGIN_DB, ORIGIN_TABLE, ORIGIN_ID_0, ORIGIN_ID_1, LAST_UPDATE) VALUES ('"+StrSql(MetaTrad.IDX)+"', '"+StrSql(MetaTrad.ORIGIN_DB)+"', '"+StrSql(MetaTrad.ORIGIN_TABLE)+"', '"+StrSql(MetaTrad.ORIGIN_ID_0)+"', '"+StrSql("")+"', "+DATEsql(MetaTrad.LAST_UPDATE, "(DATETIME)")+")"
 	End Function
 
 	'Condition for group CHOICE

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PROCESS Id="RDK:0001" Name="Web_Interface_MUI" Options="(MODERNUI)" Expanded="True" Bookmarked="True">
-	<PROCESSPROPERTY CrUser="lbianchini [ENG-BIANCHINI]" CrDate="2020-12-02T14:20:13" ModUser="nicholas.vittor [LAPT-IT07]" ModDate="2020-12-10T13:49:20" LanguageVersion="2011.1.1.0" />
+	<PROCESSPROPERTY CrUser="lbianchini [ENG-BIANCHINI]" CrDate="2020-12-02T14:20:13" ModUser="ruled [SRV-PLMTEST]" ModDate="2020-12-09T12:42:11" LanguageVersion="2014.1.2.235" />
 	<GROUP Id="RDK:0002" Name="Declarations" SubType="Declarations" Expanded="True">
 		<GROUP Id="RDK:0003" Name="Types" SubType="TypeSet" IncludeDate="0" Expanded="True">
-			<GROUP Id="RDK:12" Name="ModernUITypes" SubType="TypeSet" Include="Type_ModernUITypes.rdx" IncludeDate="132515425792837564" Expanded="True">
+			<GROUP Id="RDK:12" Name="ModernUITypes" SubType="TypeSet" Include="Type_ModernUITypes.rdx" IncludeDate="132515425792837564">
 				<TYPE Id="RDK:14533" Name="MUIControlType" DesignTimeRemark="Control Definition" SubType="structure" HasArrayType="True">
 					<TYPE_VALUES />
 					<FIELD Id="RDK:14509" Name="Id" Type="string" DesignTimeRemark="Control Id" />
@@ -77,7 +77,7 @@
 					<FIELD Id="RDK:14567" Name="Options" Type="string" />
 				</TYPE>
 			</GROUP>
-			<TYPE Id="RDK:73" Name="GridTranslation" Expanded="True" SubType="structure" HasArrayType="True">
+			<TYPE Id="RDK:73" Name="GridTranslation" SubType="structure" HasArrayType="True">
 				<TYPE_VALUES />
 				<FIELD Id="RDK:74" Name="IDX" Options="(DB_PRIMARYKEY)" Type="integer" />
 				<FIELD Id="RDK:2280" Name="ORIGIN" Options="(DB_IGNORE)" Type="string" />
@@ -92,7 +92,7 @@
 				<FIELD Id="RDK:8409" Name="LAST_UPDATE" Options="(DB_IGNORE)" Type="date" />
 				<FIELD Id="RDK:35339" Name="OPT" Options="(DB_IGNORE)" Type="string" />
 			</TYPE>
-			<TYPE Id="RDK:81" Name="Binded" Expanded="True" SubType="structure">
+			<TYPE Id="RDK:81" Name="Binded" SubType="structure">
 				<TYPE_VALUES />
 				<FIELD Id="RDK:82" Name="GridTranslation" Options="(DB_IGNORE)" Type="GridTranslation[]" />
 				<FIELD Id="RDK:84" Name="IDX" Options="(DB_PRIMARYKEY)" Type="integer" />
@@ -2421,7 +2421,6 @@ ITA]]></EXP>
 						</PAR>
 						<PAR Name="IS_NEW" />
 						<PAR Name="LAST_UPDATE" />
-						<PAR Name="OPT" />
 					</SET_STRUCT>
 					<ACTION_CALL Id="RDK:14507" Name="RDEngineering_DBExecuteStatement">
 						<PAR Name="RDLibraryName">
@@ -2823,114 +2822,14 @@ ITA]]></EXP>
 					</ACTION_CALL>
 				</GROUP>
 			</GROUP>
-			<GROUP Id="RDK:676" Name="EXIT" SubType="Generic" Expanded="True">
+			<GROUP Id="RDK:676" Name="EXIT" SubType="Generic">
 				<VALUECONDITION Value="true">
 					<EXP><![CDATA[$=$ButtonPressed="EXIT"]]></EXP>
 				</VALUECONDITION>
 				<EXIT_PROCESS Id="RDK:4674" BreakType="3" ExitStatus="0" />
 			</GROUP>
 		</WHILELOOP>
-		<GROUP Id="RDK:680" Name="Group" SubType="Generic" Expanded="True">
-			<VALUECONDITION Value="false">
-				<EXP><![CDATA[$=$Mode="read"]]></EXP>
-			</VALUECONDITION>
-			<ACTION_CALL Id="RDK:40786" Name="RDEngineering_RemoteMsgBox" DesignTimeRemark="{Text}">
-				<PAR Name="RDLibraryName">
-					<EXP><![CDATA[$C$RDEngineering_UI]]></EXP>
-				</PAR>
-				<PAR Name="MsgText">
-					<EXP><![CDATA[$C$Save and export changes?]]></EXP>
-				</PAR>
-				<PAR Name="MsgFormat">
-					<EXP><![CDATA[$C$0]]></EXP>
-				</PAR>
-				<PAR Name="MsgStyle">
-					<EXP><![CDATA[$C$3]]></EXP>
-				</PAR>
-				<PAR Name="WaitForInput">
-					<EXP><![CDATA[$C$True]]></EXP>
-				</PAR>
-				<PAR Name="RunTimeRemark" />
-				<PAR Name="WebResourcePath" />
-				<PAR Name="ImgTop" />
-				<PAR Name="ImgBottom" />
-				<PAR Name="ImgLeft" />
-				<PAR Name="ImgRight" />
-				<PAR Name="CSSStyle" />
-				<PAR Name="RDActionTimeOut" />
-				<PAR Name="ButtonsMode">
-					<EXP><![CDATA[$C$3]]></EXP>
-				</PAR>
-				<PAR Name="ButtonList">
-					<EXP><![CDATA[$C$SAVE,CANCEL]]></EXP>
-				</PAR>
-				<PAR Name="ButtonImgs" />
-				<PAR Name="ButtonAction" />
-				<PAR Name="ButtonOptions" />
-				<PAR Name="ButtonDefs" />
-				<PAR Name="ButtonPressed">
-					<EXP><![CDATA[$V$ButtonPressed]]></EXP>
-				</PAR>
-				<PAR Name="HeaderData" />
-				<PAR Name="InputTree">
-					<EXP><![CDATA[$=$]]></EXP>
-				</PAR>
-				<PAR Name="Options" />
-			</ACTION_CALL>
-			<IFTHENELSE Id="RDK:40793" Expanded="True">
-				<VALUECONDITION Value="true">
-					<EXP><![CDATA[$=$ButtonPressed="SAVE"]]></EXP>
-				</VALUECONDITION>
-				<GROUP Id="RDK:40788" SubType="Then" Expanded="True">
-					<PROCESS_CALL Id="RDK:40787" Expanded="True">
-						<EXP><![CDATA[$C$Export_From_DB.rdx]]></EXP>
-					</PROCESS_CALL>
-				</GROUP>
-				<GROUP Id="RDK:40792" SubType="Else" Expanded="True">
-					<ACTION_CALL Id="RDK:40789" Name="RDEngineering_DBOpen">
-						<PAR Name="RDLibraryName">
-							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-						</PAR>
-						<PAR Name="ConnectionName">
-							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-						</PAR>
-						<PAR Name="ConnectionString">
-							<EXP><![CDATA[$=$ConnStr_LOCAL]]></EXP>
-						</PAR>
-						<PAR Name="Transaction">
-							<EXP><![CDATA[$C$0]]></EXP>
-						</PAR>
-						<PAR Name="Options" />
-					</ACTION_CALL>
-					<ACTION_CALL Id="RDK:40790" Name="RDEngineering_DBExecuteStatement">
-						<PAR Name="RDLibraryName">
-							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-						</PAR>
-						<PAR Name="ConnectionName">
-							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-						</PAR>
-						<PAR Name="SqlStatement">
-							<EXP><![CDATA[$C$TRUNCATE TABLE IS_MODIFY_LOCKED]]></EXP>
-						</PAR>
-						<PAR Name="StatementResult">
-							<EXP><![CDATA[$V$]]></EXP>
-						</PAR>
-						<PAR Name="Options" />
-					</ACTION_CALL>
-					<ACTION_CALL Id="RDK:40791" Name="RDEngineering_DBClose">
-						<PAR Name="RDLibraryName">
-							<EXP><![CDATA[$C$RDEngineering_DB_OLEDB]]></EXP>
-						</PAR>
-						<PAR Name="ConnectionName">
-							<EXP><![CDATA[$C$DB_LOCAL]]></EXP>
-						</PAR>
-						<PAR Name="Transaction">
-							<EXP><![CDATA[$C$0]]></EXP>
-						</PAR>
-					</ACTION_CALL>
-				</GROUP>
-			</IFTHENELSE>
-		</GROUP>
+		<GROUP Id="RDK:680" SubType="Generic" Expanded="True" />
 		<GROUP Id="RDK:682" SubType="Generic" Expanded="True" />
 		<GROUP Id="RDK:684" SubType="Generic" Expanded="True" />
 		<GROUP Id="RDK:686" SubType="Generic" Expanded="True" />
